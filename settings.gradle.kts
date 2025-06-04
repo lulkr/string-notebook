@@ -75,3 +75,4 @@ include(
     ":ui",
     ":viewmodel"
 )
+include(":shared")
