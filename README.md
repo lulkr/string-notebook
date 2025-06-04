@@ -56,7 +56,22 @@
 - [PowerPoint][8] : 크기 제한이 있고, `diff`가 불가능하다.
 - [FigJam][9] : 버전 관리가 되지만 `diff`는 불가능하다. 그리고 [GitHub][10]의 `README.md`에 넣을 수 없다.
 
-## 모듈
+## 설계
+
+MVVM 아키텍처를 기본 구조로 한다.
+
+- [`app`](app) : 애플리케이션 실행 모듈.
+- [`data`](data) : 데이터 IO 모듈. 데이터베이스, 네트워크, 저장소 등.
+- [`domain`](domain) : 도메인 오브젝트 모듈.
+- [`model`](model) : 도메인 오브젝트를 사용해 고도로 추상화한 비즈니스 로직을 구현한다. 구체적인 내용은 [`data`](data) 등으로 분리한다.
+- [`navigation`](navigation) : 화면 전환과 [`ui`](ui) 모듈 - [`viewmodel`](viewmodel) 모듈을 연결한다.
+- [`state`](state) : UI 상태 홀더와 사용자 조작 이벤트 처리 인터페이스 모듈.
+- [`ui`](ui) : 사용자 인터페이스 모듈. 화면을 구성하는 UI 컴포넌트와 레이아웃을 포함한다.
+- [`viewmodel`](viewmodel) : UI 상태를 관리하고, 사용자 조작 이벤트를 처리한다.
+
+### UI 관련
+
+[`ui`](ui), [`viewmodel`](viewmodel), [`state`](state) 모듈은 [Atomic Design][11]을 따른다.
 
 ### Module Graph
 
@@ -78,12 +93,12 @@ graph TB
   :viewmodel["viewmodel"]
 
   :app --> :navigation
-  :model --> :domain
   :model --> :data
+  :model --> :domain
   :navigation --> :ui
   :navigation --> :viewmodel
-  :viewmodel --> :state
   :viewmodel --> :model
+  :viewmodel --> :state
   :ui --> :state
 
 classDef android-application fill:#2C4162,stroke:#fff,stroke-width:2px,color:#fff;
