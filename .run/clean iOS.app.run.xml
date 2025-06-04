@@ -1,0 +1,8 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="clean iOS.app" type="KmmRunConfiguration" factoryName="iOS Application" CONFIG_VERSION="1" EXEC_TARGET_ID="A97DDB7C-1696-4748-8C54-48F308F81177" XCODE_PROJECT="$PROJECT_DIR$/String Notebook.xcworkspace" XCODE_CONFIGURATION="Debug" XCODE_SCHEME="App">
+    <method v="2">
+      <option name="Gradle.BeforeRunTask" enabled="true" tasks="clean" externalProjectPath="$PROJECT_DIR$" vmOptions="" scriptParameters="" />
+      <option name="com.jetbrains.kmm.ios.BuildIOSAppTask" enabled="true" />
+    </method>
+  </configuration>
+</component>
