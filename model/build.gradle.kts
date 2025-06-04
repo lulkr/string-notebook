@@ -33,6 +33,7 @@ kotlin {
             implementation(project.dependencies.platform(libs.koin.bom))
             implementation(project.dependencies.platform(libs.kotlinx.coroutines.bom))
             implementation(libs.koin.core)
+            implementation(libs.util.logger)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)

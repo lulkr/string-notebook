@@ -34,6 +34,7 @@ kotlin {
             implementation(libs.koin.core)
             implementation(libs.koin.viewmodel)
             implementation(libs.lifecycle.viewmodel) // https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-viewmodel.html
+            implementation(libs.util.logger)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
