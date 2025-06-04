@@ -60,6 +60,45 @@
 
 ### Module Graph
 
+```mermaid
+%%{
+  init: {
+    'theme': 'neutral'
+  }
+}%%
+
+graph TB
+  :app["app"]
+  :data["data"]
+  :domain["domain"]
+  :model["model"]
+  :navigation["navigation"]
+  :state["state"]
+  :ui["ui"]
+  :viewmodel["viewmodel"]
+
+  :app --> :navigation
+  :model --> :domain
+  :model --> :data
+  :navigation --> :ui
+  :navigation --> :viewmodel
+  :viewmodel --> :state
+  :viewmodel --> :model
+  :ui --> :state
+
+classDef android-application fill:#2C4162,stroke:#fff,stroke-width:2px,color:#fff;
+classDef kotlin-multiplatform fill:#C792EA,stroke:#fff,stroke-width:2px,color:#fff;
+        
+class :app android-application
+class :data kotlin-multiplatform
+class :domain kotlin-multiplatform
+class :model kotlin-multiplatform
+class :navigation kotlin-multiplatform
+class :state kotlin-multiplatform
+class :ui kotlin-multiplatform
+class :viewmodel kotlin-multiplatform
+```
+
 ## 참고
 
 1. [Photo by cottonbro studio from Pexels][1]
@@ -72,23 +111,16 @@
 8. [PowerPoint][8]
 9. [FigJam][9]
 10. [GitHub][10]
+11. [Atomic Design by Brad Frost][11]
 
 [1]: https://www.pexels.com/photo/close-up-of-a-bulletin-board-8369515
-
 [2]: https://www.yworks.com/products/yed
-
 [3]: http://graphml.graphdrawing.org
-
 [4]: https://freemind.sourceforge.io/wiki/index.php/Main_Page
-
 [5]: https://mermaid.js.org
-
 [6]: https://github.com/iurysza/module-graph
-
 [7]: https://www.onenote.com
-
 [8]: http://office.microsoft.com/PowerPoint
-
 [9]: https://www.figma.com/figjam
-
 [10]: https://github.com
+[11]: https://atomicdesign.bradfrost.com
