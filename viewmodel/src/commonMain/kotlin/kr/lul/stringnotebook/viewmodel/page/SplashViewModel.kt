@@ -22,8 +22,7 @@ class SplashViewModel : ViewModel() {
         viewModelScope.launch {
             _state.emit(InProgress)
 
-            delay(1000L)
-
+            delay(2000L)
             _state.emit(Success)
 //            _state.emit(SplashPageState.Fail(RuntimeException("Test Exception")))
         }

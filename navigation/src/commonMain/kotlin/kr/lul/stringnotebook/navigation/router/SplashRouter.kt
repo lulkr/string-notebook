@@ -5,6 +5,9 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import kr.lul.stringnotebook.navigation.navigator.SplashNavigator
 import kr.lul.stringnotebook.state.page.SplashPageHandler
 import kr.lul.stringnotebook.state.page.SplashPageState.Success
@@ -25,10 +28,13 @@ fun SplashRouter(
         }
     }
 
+    val scope = rememberCoroutineScope()
     LaunchedEffect(navigator, viewModel, state) {
         when (state) {
-            is Success ->
+            is Success -> scope.launch {
+                delay(753L)
                 navigator.main()
+            }
 
             else -> {}
         }

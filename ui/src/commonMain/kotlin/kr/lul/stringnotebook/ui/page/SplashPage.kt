@@ -15,26 +15,30 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import kr.lul.stringnotebook.state.page.SplashPageHandler
 import kr.lul.stringnotebook.state.page.SplashPageState
+import kr.lul.stringnotebook.state.page.SplashPageState.Fail
+import kr.lul.stringnotebook.state.page.SplashPageState.InProgress
+import kr.lul.stringnotebook.state.page.SplashPageState.Init
+import kr.lul.stringnotebook.state.page.SplashPageState.Success
 
 @Composable
 fun SplashPage(state: SplashPageState, handler: SplashPageHandler) {
     when (state) {
-        is SplashPageState.Init ->
+        is Init ->
             SplashInitPage(state, handler)
 
-        is SplashPageState.InProgress ->
+        is InProgress ->
             SplashInProgressPage(state, handler)
 
-        is SplashPageState.Success ->
+        is Success ->
             SplashSuccessPage(state, handler)
 
-        is SplashPageState.Fail ->
+        is Fail ->
             SplashErrorPage(state, handler)
     }
 }
 
 @Composable
-fun SplashInitPage(state: SplashPageState.Init, handler: SplashPageHandler) {
+fun SplashInitPage(state: Init, handler: SplashPageHandler) {
     Column(
         Modifier
             .fillMaxSize()
@@ -47,7 +51,7 @@ fun SplashInitPage(state: SplashPageState.Init, handler: SplashPageHandler) {
 }
 
 @Composable
-fun SplashInProgressPage(state: SplashPageState.InProgress, handler: SplashPageHandler) {
+fun SplashInProgressPage(state: InProgress, handler: SplashPageHandler) {
     Column(
         Modifier
             .fillMaxSize()
@@ -65,7 +69,7 @@ fun SplashInProgressPage(state: SplashPageState.InProgress, handler: SplashPageH
 }
 
 @Composable
-fun SplashSuccessPage(state: SplashPageState.Success, handler: SplashPageHandler) {
+fun SplashSuccessPage(state: Success, handler: SplashPageHandler) {
     Column(
         Modifier
             .fillMaxSize()
@@ -79,11 +83,13 @@ fun SplashSuccessPage(state: SplashPageState.Success, handler: SplashPageHandler
             fontWeight = FontWeight.Bold,
             style = MaterialTheme.typography.headlineLarge
         )
+        Spacer(Modifier.height(32.dp))
+        Text("OK", color = MaterialTheme.colorScheme.onPrimaryContainer)
     }
 }
 
 @Composable
-fun SplashErrorPage(state: SplashPageState.Fail, handler: SplashPageHandler) {
+fun SplashErrorPage(state: Fail, handler: SplashPageHandler) {
     Column(
         Modifier
             .fillMaxSize()
@@ -93,7 +99,7 @@ fun SplashErrorPage(state: SplashPageState.Fail, handler: SplashPageHandler) {
     ) {
         Text(
             text = "String Notebook",
-            color = MaterialTheme.colorScheme.error,
+            color = MaterialTheme.colorScheme.onErrorContainer,
             fontWeight = FontWeight.Bold,
             style = MaterialTheme.typography.headlineLarge
         )
@@ -102,7 +108,7 @@ fun SplashErrorPage(state: SplashPageState.Fail, handler: SplashPageHandler) {
 
         Text(
             text = state.cause.message ?: "Unknown Error",
-            color = MaterialTheme.colorScheme.error,
+            color = MaterialTheme.colorScheme.onErrorContainer,
         )
     }
 }

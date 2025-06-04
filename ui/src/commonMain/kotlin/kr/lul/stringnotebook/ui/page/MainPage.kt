@@ -27,6 +27,11 @@ fun MainPage(
         Arrangement.Center,
         Alignment.CenterHorizontally
     ) {
-        Text(text = "Main Page", fontWeight = FontWeight.Bold, style = MaterialTheme.typography.headlineLarge)
+        Text(
+            text = "Main Page",
+            color = MaterialTheme.colorScheme.onBackground,
+            fontWeight = FontWeight.Bold,
+            style = MaterialTheme.typography.headlineLarge
+        )
     }
 }
