@@ -15,5 +15,3 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "StringNotebook"
-include(":androidApp")
-include(":shared")
