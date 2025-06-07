@@ -50,6 +50,6 @@ kotlin {
 
 compose.resources {
     publicResClass = true
-    packageOfResClass = "${parent!!.group}.state.resources"
+    packageOfResClass = "${parent!!.group}.state.atom"
     generateResClass = auto
 }

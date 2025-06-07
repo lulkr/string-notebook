@@ -7,12 +7,12 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kr.lul.logger.Logger
+import kr.lul.stringnotebook.state.atom.Res
+import kr.lul.stringnotebook.state.atom.name
 import kr.lul.stringnotebook.state.page.SplashPageState
 import kr.lul.stringnotebook.state.page.SplashPageState.InProgress
 import kr.lul.stringnotebook.state.page.SplashPageState.Init
 import kr.lul.stringnotebook.state.page.SplashPageState.Success
-import kr.lul.stringnotebook.state.resources.Res
-import kr.lul.stringnotebook.state.resources.name
 import org.jetbrains.compose.resources.getString
 
 class SplashViewModel : ViewModel() {
