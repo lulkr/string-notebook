@@ -43,6 +43,25 @@ object Configuration {
     const val ID_PREFIX_APP_PROCESS = "$ID_PREFIX_APP-0003"
 
     /**
+     * 노트북 컨텐츠 종류의 ID 접두사.
+     */
+    const val ID_PREFIX_TYPE = "$ID_PREFIX-0002"
+
+    /**
+     * 노트북 컨텐츠가 가질 수 있는 속성 종류의 ID 접두사.
+     *
+     * @see ID_PREFIX_PROPERTY
+     */
+    const val ID_PREFIX_TYPE_PROPERTY = "$ID_PREFIX_TYPE-0001"
+
+    /**
+     * 노트북에 컨텐츠가 가질 수 있는 속성의 ID 접두사.
+     *
+     * @see ID_PREFIX_TYPE_PROPERTY
+     */
+    const val ID_PREFIX_PROPERTY = "$ID_PREFIX-0003-0001"
+
+    /**
      * ID 생성에 사용할 수 있는 접두사 목록.
      *
      * @see generateId
@@ -50,7 +69,9 @@ object Configuration {
     private val ID_GENERATION_PREFIXES = setOf(
         ID_PREFIX_APP_BUILD,
         ID_PREFIX_APP_INSTALL,
-        ID_PREFIX_APP_PROCESS
+        ID_PREFIX_APP_PROCESS,
+        ID_PREFIX_TYPE_PROPERTY,
+        ID_PREFIX_PROPERTY
     )
 
     /**
@@ -87,6 +108,8 @@ object Configuration {
         "VERSION=$VERSION",
         "ID_PREFIX_APP_BUILD='$ID_PREFIX_APP_BUILD'",
         "ID_PREFIX_APP_INSTALL='$ID_PREFIX_APP_INSTALL'",
-        "ID_PREFIX_APP_PROCESS='$ID_PREFIX_APP_PROCESS'"
+        "ID_PREFIX_APP_PROCESS='$ID_PREFIX_APP_PROCESS'",
+        "ID_PREFIX_TYPE_PROPERTY='$ID_PREFIX_TYPE_PROPERTY'",
+        "ID_PREFIX_PROPERTY='$ID_PREFIX_PROPERTY'"
     ).joinToString(", ", "Configuration(", ")")
 }
