@@ -26,6 +26,8 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
+            api(libs.kotlinx.datetime)
+            api(libs.util.semver)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)

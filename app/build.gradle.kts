@@ -23,6 +23,7 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
+            implementation(projects.model)
             implementation(projects.navigation)
 
             implementation(project.dependencies.platform(libs.koin.bom))
