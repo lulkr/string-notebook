@@ -19,6 +19,9 @@ import kr.lul.stringnotebook.state.page.SplashPageState.Fail
 import kr.lul.stringnotebook.state.page.SplashPageState.InProgress
 import kr.lul.stringnotebook.state.page.SplashPageState.Init
 import kr.lul.stringnotebook.state.page.SplashPageState.Success
+import kr.lul.stringnotebook.state.resources.Res
+import kr.lul.stringnotebook.state.resources.name
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun SplashPage(state: SplashPageState, handler: SplashPageHandler) {
@@ -46,7 +49,11 @@ fun SplashInitPage(state: Init, handler: SplashPageHandler) {
         Arrangement.Center,
         Alignment.CenterHorizontally
     ) {
-        Text(text = "String Notebook", fontWeight = FontWeight.Bold, style = MaterialTheme.typography.headlineLarge)
+        Text(
+            text = stringResource(Res.string.name),
+            fontWeight = FontWeight.Bold,
+            style = MaterialTheme.typography.headlineLarge
+        )
     }
 }
 
@@ -60,7 +67,7 @@ fun SplashInProgressPage(state: InProgress, handler: SplashPageHandler) {
         Alignment.CenterHorizontally
     ) {
         Text(
-            text = "String Notebook",
+            text = stringResource(Res.string.name),
             color = MaterialTheme.colorScheme.onSurface,
             fontWeight = FontWeight.Bold,
             style = MaterialTheme.typography.headlineLarge
@@ -78,7 +85,7 @@ fun SplashSuccessPage(state: Success, handler: SplashPageHandler) {
         Alignment.CenterHorizontally
     ) {
         Text(
-            text = "String Notebook",
+            text = stringResource(Res.string.name),
             color = MaterialTheme.colorScheme.onPrimaryContainer,
             fontWeight = FontWeight.Bold,
             style = MaterialTheme.typography.headlineLarge
@@ -98,7 +105,7 @@ fun SplashErrorPage(state: Fail, handler: SplashPageHandler) {
         Alignment.CenterHorizontally
     ) {
         Text(
-            text = "String Notebook",
+            text = stringResource(Res.string.name),
             color = MaterialTheme.colorScheme.onErrorContainer,
             fontWeight = FontWeight.Bold,
             style = MaterialTheme.typography.headlineLarge

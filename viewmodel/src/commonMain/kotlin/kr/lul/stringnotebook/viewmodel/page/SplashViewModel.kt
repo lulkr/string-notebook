@@ -11,6 +11,9 @@ import kr.lul.stringnotebook.state.page.SplashPageState
 import kr.lul.stringnotebook.state.page.SplashPageState.InProgress
 import kr.lul.stringnotebook.state.page.SplashPageState.Init
 import kr.lul.stringnotebook.state.page.SplashPageState.Success
+import kr.lul.stringnotebook.state.resources.Res
+import kr.lul.stringnotebook.state.resources.name
+import org.jetbrains.compose.resources.getString
 
 class SplashViewModel : ViewModel() {
     private val logger = Logger("SplashViewModel")
@@ -19,6 +22,11 @@ class SplashViewModel : ViewModel() {
     val state: StateFlow<SplashPageState> = _state
 
     init {
+        viewModelScope.launch { // TODO 삭제.
+            val name = getString(Res.string.name)
+            logger.d("#init resource test : $name")
+        }
+
         viewModelScope.launch {
             _state.emit(InProgress)
 

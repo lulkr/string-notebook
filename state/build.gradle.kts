@@ -13,6 +13,8 @@ kotlin {
         compileSdk = libs.versions.android.compile.get().toInt()
         minSdk = libs.versions.android.min.get().toInt()
 
+        experimentalProperties["android.experimental.kmp.enableAndroidResources"] = true
+
         compilations.configureEach {
             compilerOptions.configure {
                 jvmTarget.set(JvmTarget.JVM_17)
@@ -28,6 +30,7 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
+            api(compose.components.resources)
             api(compose.foundation)
         }
         commonTest.dependencies {
@@ -43,4 +46,10 @@ kotlin {
         jvmMain.dependencies {
         }
     }
+}
+
+compose.resources {
+    publicResClass = true
+    packageOfResClass = "${parent!!.group}.state.resources"
+    generateResClass = auto
 }

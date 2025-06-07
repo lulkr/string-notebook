@@ -1,3 +1,6 @@
+<!--
+    `state/src/commonMain/composeResources/values/strings.xml`과 값 동기화.
+-->
 <resources>
     <string name="app_name">String Notebook</string>
 </resources>
