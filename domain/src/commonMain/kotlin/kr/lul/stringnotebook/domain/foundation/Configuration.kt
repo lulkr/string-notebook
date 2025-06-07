@@ -67,6 +67,11 @@ object Configuration {
     const val ID_PREFIX_TYPE_ANCHOR = "${ID_PREFIX_TYPE_OBJECT}1"
 
     /**
+     * 사용자 조작을 포함한 이벤트 종류의 ID 접두사.
+     */
+    const val ID_PREFIX_TYPE_EVENT = "$ID_PREFIX_TYPE-0030"
+
+    /**
      * 노트북에 컨텐츠가 가질 수 있는 속성의 ID 접두사.
      *
      * @see ID_PREFIX_TYPE_PROPERTY
@@ -83,7 +88,12 @@ object Configuration {
      *
      * @see ID_PREFIX_TYPE_ANCHOR
      */
-    private const val ID_PREFIX_ANCHOR = "$ID_PREFIX_OBJECT-0001"
+    const val ID_PREFIX_ANCHOR = "$ID_PREFIX_OBJECT-0001"
+
+    /**
+     * 사용자 조작을 포함해 앱에서 발생하는 이벤트의 ID 접두사.
+     */
+    const val ID_PREFIX_EVENT = "$ID_PREFIX-0004-0001"
 
     /**
      * ID 생성에 사용할 수 있는 접두사 목록.
@@ -96,8 +106,10 @@ object Configuration {
         ID_PREFIX_APP_PROCESS,
         ID_PREFIX_TYPE_PROPERTY,
         ID_PREFIX_TYPE_ANCHOR,
+        ID_PREFIX_TYPE_EVENT,
         ID_PREFIX_PROPERTY,
-        ID_PREFIX_ANCHOR
+        ID_PREFIX_ANCHOR,
+        ID_PREFIX_EVENT
     )
 
     /**
@@ -137,7 +149,9 @@ object Configuration {
         "ID_PREFIX_APP_PROCESS='$ID_PREFIX_APP_PROCESS'",
         "ID_PREFIX_TYPE_PROPERTY='$ID_PREFIX_TYPE_PROPERTY'",
         "ID_PREFIX_TYPE_ANCHOR='$ID_PREFIX_TYPE_ANCHOR'",
+        "ID_PREFIX_TYPE_EVENT='$ID_PREFIX_TYPE_EVENT'",
         "ID_PREFIX_PROPERTY='$ID_PREFIX_PROPERTY'",
         "ID_PREFIX_ANCHOR='$ID_PREFIX_ANCHOR'",
+        "ID_PREFIX_EVENT='$ID_PREFIX_EVENT'"
     ).joinToString(", ", "Configuration(", ")")
 }
