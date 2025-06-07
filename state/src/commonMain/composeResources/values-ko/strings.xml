@@ -1,0 +1,6 @@
+<!--
+    `app/src/androidMain/res/values/strings.xml`과 값 동기화.
+-->
+<resources>
+    <string name="template_welcome_default">%1$s에 어서오세요.</string>
+</resources>

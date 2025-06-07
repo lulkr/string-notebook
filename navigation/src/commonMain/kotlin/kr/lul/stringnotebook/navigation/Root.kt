@@ -9,8 +9,10 @@ import androidx.navigation.compose.NavHost
 import kr.lul.stringnotebook.navigation.compose.composable
 import kr.lul.stringnotebook.navigation.navigator.BaseNavigator
 import kr.lul.stringnotebook.navigation.navigator.MainNavigator
+import kr.lul.stringnotebook.navigation.navigator.NotebookNavigator
 import kr.lul.stringnotebook.navigation.navigator.SplashNavigator
 import kr.lul.stringnotebook.navigation.router.MainRouter
+import kr.lul.stringnotebook.navigation.router.NotebookRouter
 import kr.lul.stringnotebook.navigation.router.SplashRouter
 import kr.lul.stringnotebook.ui.atom.StringNotebookTheme
 
@@ -35,6 +37,9 @@ fun Root(
 
             composable(MainNavigator(baseNavigator)) { navigator, _ ->
                 MainRouter(navigator)
+            }
+            composable(NotebookNavigator(baseNavigator)) { navigator, _ ->
+                NotebookRouter(navigator)
             }
         }
     }

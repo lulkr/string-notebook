@@ -3,15 +3,18 @@ package kr.lul.stringnotebook.ui.page
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
 import kr.lul.stringnotebook.state.page.MainPageHandler
 import kr.lul.stringnotebook.state.page.MainPageState
+import kr.lul.stringnotebook.ui.template.MainNotebookMenu
+import kr.lul.stringnotebook.ui.template.Welcome
 
 @Composable
 fun MainPage(
@@ -27,11 +30,8 @@ fun MainPage(
         Arrangement.Center,
         Alignment.CenterHorizontally
     ) {
-        Text(
-            text = "Main Page",
-            color = MaterialTheme.colorScheme.onBackground,
-            fontWeight = FontWeight.Bold,
-            style = MaterialTheme.typography.headlineLarge
-        )
+        Welcome(state.welcome, handler.welcome)
+        Spacer(Modifier.height(32.dp))
+        MainNotebookMenu(state.notebook, handler.notebook)
     }
 }
