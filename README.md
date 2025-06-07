@@ -88,27 +88,31 @@ graph TB
   :domain["domain"]
   :model["model"]
   :navigation["navigation"]
+  :shared["shared"]
   :state["state"]
   :ui["ui"]
   :viewmodel["viewmodel"]
 
+  :app --> :model
   :app --> :navigation
   :model --> :data
   :model --> :domain
   :navigation --> :ui
   :navigation --> :viewmodel
+  :shared --> :navigation
+  :state --> :domain
+  :ui --> :state
   :viewmodel --> :model
   :viewmodel --> :state
-  :ui --> :state
 
 classDef android-application fill:#2C4162,stroke:#fff,stroke-width:2px,color:#fff;
 classDef kotlin-multiplatform fill:#C792EA,stroke:#fff,stroke-width:2px,color:#fff;
-        
 class :app android-application
 class :data kotlin-multiplatform
 class :domain kotlin-multiplatform
 class :model kotlin-multiplatform
 class :navigation kotlin-multiplatform
+class :shared kotlin-multiplatform
 class :state kotlin-multiplatform
 class :ui kotlin-multiplatform
 class :viewmodel kotlin-multiplatform

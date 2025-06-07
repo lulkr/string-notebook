@@ -32,6 +32,8 @@ kotlin {
         commonMain.dependencies {
             api(compose.components.resources)
             api(compose.foundation)
+
+            compileOnly(projects.domain)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
