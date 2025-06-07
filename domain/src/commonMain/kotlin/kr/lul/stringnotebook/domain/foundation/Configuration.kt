@@ -52,7 +52,19 @@ object Configuration {
      *
      * @see ID_PREFIX_PROPERTY
      */
-    const val ID_PREFIX_TYPE_PROPERTY = "$ID_PREFIX_TYPE-0001"
+    const val ID_PREFIX_TYPE_PROPERTY = "$ID_PREFIX_TYPE-0010"
+
+    /**
+     * @see ID_PREFIX_OBJECT
+     */
+    private const val ID_PREFIX_TYPE_OBJECT = "$ID_PREFIX_TYPE-002"
+
+    /**
+     * String Notebook에 배치할 수 있는 위치정보인 앵커(anchor) 종류의 ID 접두사.
+     *
+     * @see ID_PREFIX_ANCHOR
+     */
+    const val ID_PREFIX_TYPE_ANCHOR = "${ID_PREFIX_TYPE_OBJECT}1"
 
     /**
      * 노트북에 컨텐츠가 가질 수 있는 속성의 ID 접두사.
@@ -60,6 +72,18 @@ object Configuration {
      * @see ID_PREFIX_TYPE_PROPERTY
      */
     const val ID_PREFIX_PROPERTY = "$ID_PREFIX-0003-0001"
+
+    /**
+     * @see ID_PREFIX_TYPE_OBJECT
+     */
+    private const val ID_PREFIX_OBJECT = "$ID_PREFIX-0004"
+
+    /**
+     * 앵커(anchor) ID 접두사.
+     *
+     * @see ID_PREFIX_TYPE_ANCHOR
+     */
+    private const val ID_PREFIX_ANCHOR = "$ID_PREFIX_OBJECT-0001"
 
     /**
      * ID 생성에 사용할 수 있는 접두사 목록.
@@ -71,7 +95,9 @@ object Configuration {
         ID_PREFIX_APP_INSTALL,
         ID_PREFIX_APP_PROCESS,
         ID_PREFIX_TYPE_PROPERTY,
-        ID_PREFIX_PROPERTY
+        ID_PREFIX_TYPE_ANCHOR,
+        ID_PREFIX_PROPERTY,
+        ID_PREFIX_ANCHOR
     )
 
     /**
@@ -110,6 +136,8 @@ object Configuration {
         "ID_PREFIX_APP_INSTALL='$ID_PREFIX_APP_INSTALL'",
         "ID_PREFIX_APP_PROCESS='$ID_PREFIX_APP_PROCESS'",
         "ID_PREFIX_TYPE_PROPERTY='$ID_PREFIX_TYPE_PROPERTY'",
-        "ID_PREFIX_PROPERTY='$ID_PREFIX_PROPERTY'"
+        "ID_PREFIX_TYPE_ANCHOR='$ID_PREFIX_TYPE_ANCHOR'",
+        "ID_PREFIX_PROPERTY='$ID_PREFIX_PROPERTY'",
+        "ID_PREFIX_ANCHOR='$ID_PREFIX_ANCHOR'",
     ).joinToString(", ", "Configuration(", ")")
 }

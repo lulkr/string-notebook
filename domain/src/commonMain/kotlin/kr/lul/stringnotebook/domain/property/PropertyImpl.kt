@@ -1,5 +1,7 @@
-package kr.lul.stringnotebook.domain.foundation
+package kr.lul.stringnotebook.domain.property
 
+import kr.lul.stringnotebook.domain.foundation.Property
+import kr.lul.stringnotebook.domain.foundation.PropertyType
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
