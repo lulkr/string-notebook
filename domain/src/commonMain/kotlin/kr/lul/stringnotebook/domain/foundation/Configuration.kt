@@ -90,7 +90,7 @@ object Configuration {
      *
      * @see generateId
      */
-    private val ID_GENERATION_PREFIXES = setOf(
+    internal val ID_GENERATION_PREFIXES = setOf(
         ID_PREFIX_APP_BUILD,
         ID_PREFIX_APP_INSTALL,
         ID_PREFIX_APP_PROCESS,
