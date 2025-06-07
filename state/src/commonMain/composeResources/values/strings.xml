@@ -1,0 +1,7 @@
+<!--
+    `app/src/androidMain/res/values/strings.xml`과 값 동기화.
+-->
+<resources>
+    <!--  TODO 모듈 표시 삭제 -->
+    <string name="name">String Notebook (:state)</string>
+</resources>
