@@ -1,9 +1,11 @@
 package kr.lul.stringnotebook.navigation.router
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import kr.lul.stringnotebook.navigation.navigator.NotebookNavigator
+import kr.lul.stringnotebook.ui.atom.LocalEventProcessor
 import kr.lul.stringnotebook.ui.page.NotebookPage
 import kr.lul.stringnotebook.viewmodel.page.NotebookViewModel
 import org.koin.compose.viewmodel.koinViewModel
@@ -17,5 +19,7 @@ fun NotebookRouter(
 
     val state by viewModel.state.collectAsState()
 
-    NotebookPage(state)
+    CompositionLocalProvider(LocalEventProcessor provides viewModel.notebook) {
+        NotebookPage(state)
+    }
 }

@@ -14,11 +14,10 @@ import kr.lul.stringnotebook.viewmodel.template.NotebookViewModelet
 class NotebookViewModel(
     private val handle: SavedStateHandle
 ) : ViewModel() {
-    private val notebook = NotebookViewModelet(viewModelScope)
+    val notebook = NotebookViewModelet(viewModelScope)
 
     private val dummy = MutableStateFlow("")
 
-    private val _state = MutableStateFlow(NotebookPageState.Initial)
     val state: StateFlow<NotebookPageState> = combine(notebook.state, dummy) { notebook, _ ->
         if (null == notebook) {
             NotebookPageState.Loading

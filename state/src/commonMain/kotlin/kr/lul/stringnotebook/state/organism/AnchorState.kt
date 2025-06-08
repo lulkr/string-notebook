@@ -13,13 +13,13 @@ data class AnchorState(
     /**
      * @see kr.lul.stringnotebook.domain.foundation.Anchor.id
      */
-    val id: Uuid,
+    val id: Uuid = Uuid.random(),
     /**
      * @see kr.lul.stringnotebook.domain.foundation.Anchor.x
      */
-    val x: Int,
+    val x: Int = 0,
     /**
      * @see kr.lul.stringnotebook.domain.foundation.Anchor.y
      */
-    val y: Int
+    val y: Int = 0
 )
