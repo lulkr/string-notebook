@@ -8,12 +8,14 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
+import kr.lul.logger.Logger
 import kr.lul.stringnotebook.state.page.NotebookPageState
 import kr.lul.stringnotebook.viewmodel.template.NotebookViewModelet
 
-class NotebookViewModel(
+class NotebookPageViewModel(
     private val handle: SavedStateHandle
 ) : ViewModel() {
+    private val logger = Logger("NotebookPageViewModel")
     val notebook = NotebookViewModelet(viewModelScope)
 
     private val dummy = MutableStateFlow("")
@@ -31,5 +33,5 @@ class NotebookViewModel(
         "handle=${handle}",
         "notebook=${notebook}",
         "state=${state.value}"
-    ).joinToString(", ", "NotebookViewModel(", ")")
+    ).joinToString(", ", "${logger.name}(", ")")
 }

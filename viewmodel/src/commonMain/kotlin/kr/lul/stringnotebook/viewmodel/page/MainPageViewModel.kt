@@ -12,8 +12,8 @@ import kr.lul.stringnotebook.state.atom.template_welcome_default
 import kr.lul.stringnotebook.state.page.MainPageState
 import org.jetbrains.compose.resources.getString
 
-class MainViewModel : ViewModel() {
-    private val logger = Logger("MainViewModel")
+class MainPageViewModel : ViewModel() {
+    private val logger = Logger("MainPageViewModel")
 
     private val _state = MutableStateFlow(MainPageState()) // TODO 초기 상태 설정
     val state: StateFlow<MainPageState> = _state
@@ -31,5 +31,5 @@ class MainViewModel : ViewModel() {
 
     override fun toString() = listOf(
         "state=${_state.value}"
-    ).joinToString(", ", "MainViewModel(", ")")
+    ).joinToString(", ", "${logger.name}(", ")")
 }

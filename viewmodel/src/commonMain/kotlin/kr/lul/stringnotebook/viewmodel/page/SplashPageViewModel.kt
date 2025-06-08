@@ -15,8 +15,8 @@ import kr.lul.stringnotebook.state.page.SplashPageState.Init
 import kr.lul.stringnotebook.state.page.SplashPageState.Success
 import org.jetbrains.compose.resources.getString
 
-class SplashViewModel : ViewModel() {
-    private val logger = Logger("SplashViewModel")
+class SplashPageViewModel : ViewModel() {
+    private val logger = Logger("SplashPageViewModel")
 
     private val _state = MutableStateFlow<SplashPageState>(Init)
     val state: StateFlow<SplashPageState> = _state
@@ -38,5 +38,5 @@ class SplashViewModel : ViewModel() {
 
     override fun toString() = listOf(
         "state=${_state.value}"
-    ).joinToString(", ", "SplashViewModel(", ")")
+    ).joinToString(", ", "${logger.name}(", ")")
 }

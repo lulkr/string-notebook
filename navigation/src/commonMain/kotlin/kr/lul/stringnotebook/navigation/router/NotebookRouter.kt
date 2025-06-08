@@ -7,13 +7,13 @@ import androidx.compose.runtime.getValue
 import kr.lul.stringnotebook.navigation.navigator.NotebookNavigator
 import kr.lul.stringnotebook.ui.atom.LocalEventProcessor
 import kr.lul.stringnotebook.ui.page.NotebookPage
-import kr.lul.stringnotebook.viewmodel.page.NotebookViewModel
+import kr.lul.stringnotebook.viewmodel.page.NotebookPageViewModel
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun NotebookRouter(
     navigator: NotebookNavigator,
-    viewModel: NotebookViewModel = koinViewModel()
+    viewModel: NotebookPageViewModel = koinViewModel()
 ) {
     logger.v("#NotebookRouter args : navigator=$navigator, viewModel=$viewModel")
 
