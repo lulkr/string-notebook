@@ -4,5 +4,7 @@
 <resources>
     <string name="name">String Notebook</string>
 
+    <string name="domain_notebook_id_default">no name</string>
+
     <string name="template_welcome_default">Welcome to %1$s.</string>
 </resources>

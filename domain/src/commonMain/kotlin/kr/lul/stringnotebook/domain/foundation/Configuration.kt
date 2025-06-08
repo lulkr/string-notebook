@@ -91,9 +91,14 @@ object Configuration {
     const val ID_PREFIX_ANCHOR = "$ID_PREFIX_OBJECT-0001"
 
     /**
+     * 노트북의 ID 접두사.
+     */
+    const val ID_PREFIX_NOTEBOOK = "$ID_PREFIX-0004-0001"
+
+    /**
      * 사용자 조작을 포함해 앱에서 발생하는 이벤트의 ID 접두사.
      */
-    const val ID_PREFIX_EVENT = "$ID_PREFIX-0004-0001"
+    const val ID_PREFIX_EVENT = "$ID_PREFIX-0005-0001"
 
     /**
      * ID 생성에 사용할 수 있는 접두사 목록.
@@ -109,6 +114,7 @@ object Configuration {
         ID_PREFIX_TYPE_EVENT,
         ID_PREFIX_PROPERTY,
         ID_PREFIX_ANCHOR,
+        ID_PREFIX_NOTEBOOK,
         ID_PREFIX_EVENT
     )
 

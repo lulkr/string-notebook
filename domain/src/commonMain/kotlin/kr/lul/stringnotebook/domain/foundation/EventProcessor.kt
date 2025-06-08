@@ -7,6 +7,10 @@ import kotlinx.datetime.Instant
  * 이벤트 처리기.
  */
 interface EventProcessor {
+    object NoOp : EventProcessor {
+        override fun invoke(event: Event, timestamp: Instant) = Unit
+    }
+
     /**
      * 이벤트를 처리한다.
      *

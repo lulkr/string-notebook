@@ -1,4 +1,4 @@
-package kr.lul.stringnotebook.state.molecule
+package kr.lul.stringnotebook.state.organism
 
 /**
  * @see RecentNotebookState

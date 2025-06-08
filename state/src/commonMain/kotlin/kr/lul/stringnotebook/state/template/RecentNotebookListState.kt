@@ -1,7 +1,7 @@
 package kr.lul.stringnotebook.state.template
 
 import androidx.compose.runtime.Immutable
-import kr.lul.stringnotebook.state.molecule.RecentNotebookState
+import kr.lul.stringnotebook.state.organism.RecentNotebookState
 
 /**
  * 최근 노트북 목록.

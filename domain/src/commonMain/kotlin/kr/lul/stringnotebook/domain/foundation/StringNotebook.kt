@@ -1,5 +1,8 @@
 package kr.lul.stringnotebook.domain.foundation
 
+import kr.lul.stringnotebook.domain.foundation.Configuration.ID_PREFIX_NOTEBOOK
+import kr.lul.stringnotebook.domain.foundation.Configuration.generateId
+import kotlin.random.Random
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
@@ -8,6 +11,20 @@ import kotlin.uuid.Uuid
  */
 @OptIn(ExperimentalUuidApi::class)
 interface StringNotebook {
+    @OptIn(ExperimentalStdlibApi::class)
+    companion object {
+        private fun suffix(): Long {
+            val bytes = Random.nextBytes(6)
+            var result = 0L
+            for (i in bytes.indices) {
+                result = result or ((bytes[i].toLong() and 0xFF) shl (8 * (5 - i)))
+            }
+            return result
+        }
+
+        fun id(suffix: Long = suffix()) = ID_PREFIX_NOTEBOOK.generateId(suffix)
+    }
+
     /**
      * 노트북 ID.
      */
@@ -30,12 +47,15 @@ interface StringNotebook {
      */
     val anchors: List<Anchor>
 
+    val summary: String
+        get() = "($id, $name)"
+
     /**
      * 노트북의 오브젝트를 반환한다.
      *
      * @param id [Object.id]
      */
-    operator fun get(id: Uuid): Object<*>
+    operator fun get(id: Uuid): Object<*>?
 
     /**
      * 노트북에서 오브젝트를 제거합니다.
@@ -44,7 +64,7 @@ interface StringNotebook {
      *
      * @return 제거된 오브젝트
      */
-    fun remove(id: Uuid): Object<*>
+    fun remove(id: Uuid): Object<*>?
 
     /**
      * 노트북에 앵커를 추가합니다.
