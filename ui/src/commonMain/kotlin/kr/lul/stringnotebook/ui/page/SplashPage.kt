@@ -13,14 +13,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import kr.lul.stringnotebook.state.atom.Res
-import kr.lul.stringnotebook.state.atom.name
 import kr.lul.stringnotebook.state.page.SplashPageHandler
 import kr.lul.stringnotebook.state.page.SplashPageState
 import kr.lul.stringnotebook.state.page.SplashPageState.Fail
 import kr.lul.stringnotebook.state.page.SplashPageState.InProgress
 import kr.lul.stringnotebook.state.page.SplashPageState.Init
 import kr.lul.stringnotebook.state.page.SplashPageState.Success
+import kr.lul.stringnotebook.state.resources.Res
+import kr.lul.stringnotebook.state.resources.name
 import org.jetbrains.compose.resources.stringResource
 
 @Composable

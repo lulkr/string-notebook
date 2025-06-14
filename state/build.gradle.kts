@@ -30,7 +30,6 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            api(projects.domain)
             api(compose.components.resources)
             api(compose.foundation)
         }
@@ -51,6 +50,6 @@ kotlin {
 
 compose.resources {
     publicResClass = true
-    packageOfResClass = "${parent!!.group}.state.atom"
+    packageOfResClass = "${parent!!.group}.state.resources"
     generateResClass = auto
 }

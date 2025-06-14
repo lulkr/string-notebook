@@ -22,5 +22,4 @@ moduleGraphConfig {
     setStyleByModuleType = true
     nestingEnabled = true
     showFullPath = true
-    excludedConfigurationsRegex = ".*Only"
 }

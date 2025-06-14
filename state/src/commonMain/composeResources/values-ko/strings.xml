@@ -1,8 +1,0 @@
-<!--
-    `app/src/androidMain/res/values/strings.xml`과 값 동기화.
--->
-<resources>
-    <string name="domain_notebook_id_default">이름 없음</string>
-
-    <string name="template_welcome_default">%1$s에 어서오세요.</string>
-</resources>

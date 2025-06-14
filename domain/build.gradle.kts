@@ -31,7 +31,6 @@ kotlin {
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
-            implementation(libs.util.logger)
         }
 
         androidMain.dependencies {

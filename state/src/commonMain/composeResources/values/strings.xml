@@ -2,9 +2,6 @@
     `app/src/androidMain/res/values/strings.xml`과 값 동기화.
 -->
 <resources>
-    <string name="name">String Notebook</string>
-
-    <string name="domain_notebook_id_default">no name</string>
-
-    <string name="template_welcome_default">Welcome to %1$s.</string>
+    <!--  TODO 모듈 표시 삭제 -->
+    <string name="name">String Notebook (:state)</string>
 </resources>
