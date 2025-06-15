@@ -30,7 +30,9 @@ kotlin {
         commonMain.dependencies {
             api(projects.state)
             api(compose.material3)
+            api(compose.runtime)
             api(compose.ui)
+            api(libs.lifecycle.runtime.compose)
 
             implementation(libs.util.logger)
         }
@@ -39,6 +41,8 @@ kotlin {
         }
 
         androidMain.dependencies {
+            implementation(compose.preview)
+            implementation(libs.androidx.core)
         }
 
         iosMain.dependencies {

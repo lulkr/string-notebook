@@ -28,6 +28,8 @@ kotlin {
         commonMain.dependencies {
             api(libs.kotlinx.datetime)
             api(libs.util.semver)
+
+            implementation(libs.util.logger)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)

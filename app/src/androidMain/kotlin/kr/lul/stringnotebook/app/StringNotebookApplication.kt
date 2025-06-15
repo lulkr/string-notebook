@@ -17,7 +17,7 @@ import org.koin.dsl.module
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
-@OptIn(ExperimentalStdlibApi::class)
+@ExperimentalStdlibApi
 @ExperimentalUuidApi
 class StringNotebookApplication : Application() {
     private val logger = Logger("StringNotebookApplication")

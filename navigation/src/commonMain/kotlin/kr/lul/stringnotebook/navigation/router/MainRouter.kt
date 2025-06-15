@@ -8,8 +8,10 @@ import kr.lul.stringnotebook.state.page.MainPageHandler
 import kr.lul.stringnotebook.ui.page.MainPage
 import kr.lul.stringnotebook.viewmodel.page.MainViewModel
 import org.koin.compose.viewmodel.koinViewModel
+import kotlin.uuid.ExperimentalUuidApi
 
 @Composable
+@ExperimentalUuidApi
 fun MainRouter(
     navigator: MainNavigator,
     viewModel: MainViewModel = koinViewModel()

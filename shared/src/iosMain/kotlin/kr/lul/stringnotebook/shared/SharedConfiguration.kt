@@ -13,8 +13,8 @@ import org.koin.dsl.module
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
+@ExperimentalStdlibApi
 @ExperimentalUuidApi
-@OptIn(ExperimentalStdlibApi::class)
 object SharedConfiguration {
     private val logger = Logger("SharedConfiguration")
 

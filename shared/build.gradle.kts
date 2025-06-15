@@ -15,7 +15,6 @@ kotlin {
 
             dependencies {
                 export(projects.navigation)
-                export(libs.util.logger)
             }
         }
     }

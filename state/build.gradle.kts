@@ -30,6 +30,7 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
+            api(projects.domain)
             api(compose.components.resources)
             api(compose.foundation)
         }

@@ -13,8 +13,10 @@ import kr.lul.stringnotebook.navigation.navigator.SplashNavigator
 import kr.lul.stringnotebook.navigation.router.MainRouter
 import kr.lul.stringnotebook.navigation.router.SplashRouter
 import kr.lul.stringnotebook.ui.atom.StringNotebookTheme
+import kotlin.uuid.ExperimentalUuidApi
 
 @Composable
+@ExperimentalUuidApi
 fun Root(
     baseNavigator: BaseNavigator
 ) {

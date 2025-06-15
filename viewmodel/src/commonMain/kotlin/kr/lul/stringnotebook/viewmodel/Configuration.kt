@@ -5,7 +5,9 @@ import kr.lul.stringnotebook.viewmodel.page.MainViewModel
 import kr.lul.stringnotebook.viewmodel.page.SplashViewModel
 import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
+import kotlin.uuid.ExperimentalUuidApi
 
+@ExperimentalUuidApi
 val viewmodelModule = module {
     includes(modelModule)
 
