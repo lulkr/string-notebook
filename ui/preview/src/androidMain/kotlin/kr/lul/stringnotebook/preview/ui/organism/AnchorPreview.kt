@@ -21,9 +21,7 @@ internal fun AnchorPreview() {
     ComponentPreviewContainer {
         Column {
             Anchor(anchor, PreviewNotebookContext.Default)
-
             Spacer(Modifier.height(16.dp))
-
             Anchor(anchor, PreviewNotebookContext.Default.copy(active = anchor))
         }
     }

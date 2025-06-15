@@ -7,6 +7,7 @@ import kr.lul.stringnotebook.state.organism.ObjectState
 @Immutable
 data class PreviewNotebookContext(
     override val preferences: PreviewNotebookPreferences = PreviewNotebookPreferences(),
+    override val lock: Boolean = false,
     override var active: ObjectState? = null
 ) : NotebookContext {
     companion object {
