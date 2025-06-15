@@ -7,6 +7,11 @@ import androidx.activity.enableEdgeToEdge
 import kr.lul.logger.Logger
 import kr.lul.logger.i
 
+/**
+ * 네비게이션 프리뷰를 위한 메인 액티비티
+ *
+ * @see ComponentActivity
+ */
 class MainActivity : ComponentActivity() {
     private val logger = Logger("MainActivity")
 

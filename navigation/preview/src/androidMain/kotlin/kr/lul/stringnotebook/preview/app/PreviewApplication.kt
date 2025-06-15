@@ -5,6 +5,11 @@ import kr.lul.logger.Logger
 import kr.lul.logger.d
 import kotlin.uuid.ExperimentalUuidApi
 
+/**
+ * 네비게이션 프리뷰를 위한 애플리케이션 클래스
+ *
+ * @see Application
+ */
 @ExperimentalUuidApi
 class PreviewApplication : Application() {
     private val logger = Logger("PreviewApplication")
