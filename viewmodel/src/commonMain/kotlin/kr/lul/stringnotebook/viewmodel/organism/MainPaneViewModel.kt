@@ -1,20 +1,23 @@
 package kr.lul.stringnotebook.viewmodel.organism
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import kr.lul.logger.Logger
+import kr.lul.stringnotebook.domain.event.AddAnchorEvent
 import kr.lul.stringnotebook.domain.event.HideContextMenuEvent
 import kr.lul.stringnotebook.domain.event.ShowContextMenuEvent
 import kr.lul.stringnotebook.domain.foundation.Event
 import kr.lul.stringnotebook.domain.foundation.EventProcessor
+import kr.lul.stringnotebook.state.organism.AnchorState
 import kr.lul.stringnotebook.state.organism.NotebookContext
 import kr.lul.stringnotebook.state.organism.NotebookContextImpl
 import kr.lul.stringnotebook.state.organism.NotebookState
 import kr.lul.stringnotebook.state.template.MenuState
 import kotlin.uuid.ExperimentalUuidApi
-import kotlin.uuid.Uuid
 
 @ExperimentalUuidApi
 class MainPaneViewModel(
@@ -32,6 +35,24 @@ class MainPaneViewModel(
         logger.d("#invoke args : event=$event")
 
         when (event) {
+            is AddAnchorEvent -> viewModelScope.launch {
+                val notebook = _notebook.value
+                val context = _context.value
+
+                val anchor = AnchorState(x = event.x, y = event.y)
+                _notebook.emit(
+                    notebook.copy(
+                        objects = notebook.objects + anchor
+                    )
+                )
+                _context.emit(
+                    context.copy(
+                        active = anchor,
+                        menu = null
+                    )
+                )
+            }
+
             is HideContextMenuEvent -> _context.update {
                 it.copy(
                     active = null,

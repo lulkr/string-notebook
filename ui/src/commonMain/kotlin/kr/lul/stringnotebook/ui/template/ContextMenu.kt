@@ -8,6 +8,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import kr.lul.stringnotebook.domain.event.AddAnchorEvent
 import kr.lul.stringnotebook.domain.foundation.EventProcessor
 import kr.lul.stringnotebook.state.organism.NotebookContext
 import kr.lul.stringnotebook.state.template.MenuState
@@ -33,6 +34,7 @@ fun ContextMenu(
                 DropdownMenuItem(
                     text = { Text("Add Anchor") },
                     onClick = {
+                        processor(AddAnchorEvent(state.x, state.y))
                     }
                 )
             }
