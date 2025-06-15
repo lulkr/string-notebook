@@ -1,13 +1,14 @@
-package kr.lul.stringnotebook.preview.ui.organism
+package kr.lul.stringnotebook.preview.ui.template
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import kr.lul.stringnotebook.domain.foundation.EventProcessor
 import kr.lul.stringnotebook.preview.ui.atom.ComponentPreviewContainer
+import kr.lul.stringnotebook.preview.ui.organism.PreviewNotebookContext
 import kr.lul.stringnotebook.state.organism.AnchorState
 import kr.lul.stringnotebook.state.organism.NotebookState
-import kr.lul.stringnotebook.ui.organism.MainPane
+import kr.lul.stringnotebook.ui.template.MainPane
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import kotlin.random.Random
 import kotlin.uuid.ExperimentalUuidApi

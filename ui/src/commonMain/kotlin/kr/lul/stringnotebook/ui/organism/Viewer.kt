@@ -1,29 +1,23 @@
 package kr.lul.stringnotebook.ui.organism
 
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.Layout
 import kr.lul.stringnotebook.domain.foundation.EventProcessor
 import kr.lul.stringnotebook.state.organism.AnchorState
 import kr.lul.stringnotebook.state.organism.NotebookContext
-import kr.lul.stringnotebook.state.organism.NotebookState
+import kr.lul.stringnotebook.state.organism.ObjectState
 import kr.lul.stringnotebook.ui.page.logger
 import kotlin.uuid.ExperimentalUuidApi
 
-/**
- * WYSWYG 노트북 에디터.
- *
- * @see kr.lul.stringnotebook.preview.ui.organism.MainPanePreview
- */
 @Composable
-@ExperimentalUuidApi
-fun MainPane(state: NotebookState, context: NotebookContext, processor: EventProcessor, modifier: Modifier = Modifier) {
-    logger.v("#MainPane args : state=$state, context=$context, processor=$processor, modifier=$modifier")
-
-    val targets = state.objects // TODO 뷰포트로 걸러내기.
+@OptIn(ExperimentalUuidApi::class)
+fun Viewer(targets: List<ObjectState>, context: NotebookContext, processor: EventProcessor) {
+    logger.v("#Viewer args : targets=$targets, context=$context, processor=$processor")
 
     Layout(
-        modifier = modifier,
+        modifier = Modifier.fillMaxSize(),
         content = {
             for (obj in targets) {
                 when (obj) {
