@@ -2,6 +2,7 @@ package kr.lul.stringnotebook.ui.organism
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.layout.Layout
+import androidx.compose.ui.unit.Dp
 import kr.lul.stringnotebook.domain.foundation.EventProcessor
 import kr.lul.stringnotebook.state.organism.AnchorState
 import kr.lul.stringnotebook.state.organism.NotebookContext
@@ -30,7 +31,7 @@ fun Viewer(targets: List<ObjectState>, context: NotebookContext, processor: Even
         layout(constraints.maxWidth, constraints.maxHeight) {
             placeables.forEachIndexed { index, placeable ->
                 when (val target = targets[index]) {
-                    is AnchorState -> placeable.place(target.x.toInt(), target.y.toInt(), target.z)
+                    is AnchorState -> placeable.place(Dp(target.x).roundToPx(), Dp(target.y).roundToPx(), target.z)
                 }
             }
         }
