@@ -24,8 +24,6 @@ import kotlin.uuid.ExperimentalUuidApi
 fun MainPane(state: NotebookState, context: NotebookContext, processor: EventProcessor, modifier: Modifier = Modifier) {
     logger.v("#MainPane args : state=$state, context=$context, processor=$processor, modifier=$modifier")
 
-    val targets = state.objects // TODO 뷰포트로 걸러내기.
-
     Box(
         modifier = modifier.pointerInput(state.id, context.version) {
             awaitPointerEventScope {
@@ -40,6 +38,8 @@ fun MainPane(state: NotebookState, context: NotebookContext, processor: EventPro
             }
         }
     ) {
+        val targets = state.objects // TODO 뷰포트로 걸러내기.
+
         Viewer(targets, context, processor)
 
         context.menu?.let {
