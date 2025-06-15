@@ -2,12 +2,7 @@ package kr.lul.stringnotebook.ui.template
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.input.pointer.PointerEvent
 import androidx.compose.ui.input.pointer.pointerInput
 import kr.lul.stringnotebook.domain.event.HideContextMenuEvent
 import kr.lul.stringnotebook.domain.event.ShowContextMenuEvent
@@ -31,22 +26,16 @@ fun MainPane(state: NotebookState, context: NotebookContext, processor: EventPro
 
     val targets = state.objects // TODO 뷰포트로 걸러내기.
 
-    var inProgressPointerEvent by remember { mutableStateOf<PointerEvent?>(null) }
-
     Box(
         modifier = modifier.pointerInput(state.id, context.version) {
             awaitPointerEventScope {
                 awaitPointerEvent().let { event ->
                     logger.d("#MainPane.awaitPointerEvent : event=$event(${event.changes.map { it.summary }})")
 
-                    if (null != inProgressPointerEvent) return@let
-
                     if (null == context.menu) {
                         val offset = event.changes.firstOrNull()!!.position
                         processor(ShowContextMenuEvent(x = offset.x.toDp().value, y = offset.y.toDp().value))
                     }
-
-                    inProgressPointerEvent = event
                 }
             }
         }
@@ -60,7 +49,6 @@ fun MainPane(state: NotebookState, context: NotebookContext, processor: EventPro
                 processor = processor,
                 onDismissRequest = {
                     processor(HideContextMenuEvent())
-                    inProgressPointerEvent = null
                 }
             )
         }
