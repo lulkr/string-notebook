@@ -1,4 +1,4 @@
-package kr.lul.stringnotebook.navigation
+package kr.lul.stringnotebook.preview.router
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
@@ -9,36 +9,34 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import kr.lul.stringnotebook.navigation.compose.composable
-import kr.lul.stringnotebook.navigation.navigator.BaseNavigator
+import kr.lul.stringnotebook.navigation.compose.rememberBaseNavigator
+import kr.lul.stringnotebook.navigation.navigationModule
 import kr.lul.stringnotebook.navigation.navigator.MainNavigator
-import kr.lul.stringnotebook.navigation.navigator.SplashNavigator
 import kr.lul.stringnotebook.navigation.router.MainRouter
-import kr.lul.stringnotebook.navigation.router.SplashRouter
 import kr.lul.stringnotebook.ui.atom.StringNotebookTheme
+import org.jetbrains.compose.ui.tooling.preview.Preview
+import org.koin.core.context.startKoin
 import kotlin.uuid.ExperimentalUuidApi
 
 @Composable
-@ExperimentalUuidApi
-fun Root(
-    baseNavigator: BaseNavigator
-) {
-    logger.v("#Root args : baseNavigator=$baseNavigator")
+@OptIn(ExperimentalUuidApi::class)
+@Preview
+fun MainRouterInteractivePreview() {
+    val baseNavigator = rememberBaseNavigator(MainNavigator)
+    startKoin {
+        modules(navigationModule)
+    }
 
     StringNotebookTheme {
         Scaffold { padding ->
             NavHost(
                 navController = baseNavigator.navController,
                 startDestination = baseNavigator.destination.routePattern,
-                modifier = Modifier.fillMaxSize()
+                modifier = Modifier
+                    .fillMaxSize()
                     .padding(padding)
                     .background(MaterialTheme.colorScheme.background)
             ) {
-                composable(SplashNavigator(baseNavigator)) { navigator, _ ->
-                    SplashRouter(navigator)
-                }
-
-                // ------------------------------------------------------------------------------------------------------------
-
                 composable(MainNavigator(baseNavigator)) { navigator, _ ->
                     MainRouter(navigator)
                 }
