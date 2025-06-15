@@ -1,5 +1,6 @@
 package kr.lul.stringnotebook.ui.template
 
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -9,7 +10,6 @@ import kr.lul.stringnotebook.domain.event.ShowContextMenuEvent
 import kr.lul.stringnotebook.domain.foundation.EventProcessor
 import kr.lul.stringnotebook.state.organism.NotebookContext
 import kr.lul.stringnotebook.state.organism.NotebookState
-import kr.lul.stringnotebook.ui.atom.summary
 import kr.lul.stringnotebook.ui.organism.Viewer
 import kr.lul.stringnotebook.ui.page.logger
 import kotlin.uuid.ExperimentalUuidApi
@@ -25,16 +25,9 @@ fun MainPane(state: NotebookState, context: NotebookContext, processor: EventPro
     logger.v("#MainPane args : state=$state, context=$context, processor=$processor, modifier=$modifier")
 
     Box(
-        modifier = modifier.pointerInput(state.id, context.version) {
-            awaitPointerEventScope {
-                awaitPointerEvent().let { event ->
-                    logger.d("#MainPane.awaitPointerEvent : event=$event(${event.changes.map { it.summary }})")
-
-                    if (null == context.menu) {
-                        val offset = event.changes.firstOrNull()!!.position
-                        processor(ShowContextMenuEvent(x = offset.x.toDp().value, y = offset.y.toDp().value))
-                    }
-                }
+        modifier.pointerInput(state.id, context.version) {
+            detectTapGestures { offset ->
+                processor(ShowContextMenuEvent(x = offset.x.toDp().value, y = offset.y.toDp().value))
             }
         }
     ) {
