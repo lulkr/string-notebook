@@ -73,6 +73,7 @@ include(
     ":navigation",
     ":state",
     ":ui",
+    ":ui:preview",
     ":viewmodel"
 )
 include(":shared")
