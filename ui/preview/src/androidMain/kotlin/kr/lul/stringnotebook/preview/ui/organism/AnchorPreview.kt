@@ -13,7 +13,7 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 import kotlin.uuid.ExperimentalUuidApi
 
 @Composable
-@OptIn(ExperimentalUuidApi::class)
+@ExperimentalUuidApi
 @Preview
 internal fun AnchorPreview() {
     val anchor = AnchorState(x = 0, y = 0, z = 0)

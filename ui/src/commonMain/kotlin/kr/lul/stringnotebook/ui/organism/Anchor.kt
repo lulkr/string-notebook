@@ -24,7 +24,7 @@ import kotlin.uuid.ExperimentalUuidApi
  * @see kr.lul.stringnotebook.ui.organism.AnchorPreview
  */
 @Composable
-@OptIn(ExperimentalUuidApi::class)
+@ExperimentalUuidApi
 fun Anchor(
     state: AnchorState,
     context: NotebookContext = NotebookContext.NoOp,
