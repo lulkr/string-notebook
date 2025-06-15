@@ -1,8 +1,6 @@
 package kr.lul.stringnotebook.ui.organism
 
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.Layout
 import kr.lul.stringnotebook.domain.foundation.EventProcessor
 import kr.lul.stringnotebook.state.organism.AnchorState
@@ -17,7 +15,6 @@ fun Viewer(targets: List<ObjectState>, context: NotebookContext, processor: Even
     logger.v("#Viewer args : targets=$targets, context=$context, processor=$processor")
 
     Layout(
-        modifier = Modifier.fillMaxSize(),
         content = {
             for (obj in targets) {
                 when (obj) {

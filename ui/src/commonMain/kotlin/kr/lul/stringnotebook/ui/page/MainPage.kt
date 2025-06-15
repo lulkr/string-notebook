@@ -5,15 +5,16 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.FontWeight
 import kr.lul.stringnotebook.state.page.MainPageHandler
 import kr.lul.stringnotebook.state.page.MainPageState
+import kr.lul.stringnotebook.ui.template.MainPane
+import kotlin.uuid.ExperimentalUuidApi
 
 @Composable
+@ExperimentalUuidApi
 fun MainPage(
     state: MainPageState,
     handler: MainPageHandler
@@ -27,11 +28,6 @@ fun MainPage(
         Arrangement.Center,
         Alignment.CenterHorizontally
     ) {
-        Text(
-            text = "Main Page",
-            color = MaterialTheme.colorScheme.onBackground,
-            fontWeight = FontWeight.Bold,
-            style = MaterialTheme.typography.headlineLarge
-        )
+        MainPane(state.notebook, state.context, state.processor)
     }
 }

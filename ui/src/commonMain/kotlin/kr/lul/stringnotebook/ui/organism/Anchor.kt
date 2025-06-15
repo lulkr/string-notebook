@@ -21,7 +21,7 @@ import kr.lul.stringnotebook.ui.page.logger
 import kotlin.uuid.ExperimentalUuidApi
 
 /**
- * @see kr.lul.stringnotebook.ui.organism.AnchorPreview
+ * @see kr.lul.stringnotebook.preview.ui.organism.AnchorPreview
  */
 @Composable
 @ExperimentalUuidApi

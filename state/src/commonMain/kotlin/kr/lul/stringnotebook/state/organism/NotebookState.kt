@@ -15,7 +15,9 @@ class NotebookState(
 ) {
     val anchors: List<AnchorState> = objects.filterIsInstance<AnchorState>()
 
-    fun copy(objects: List<ObjectState> = this.objects) = NotebookState(id, objects)
+    fun copy(
+        objects: List<ObjectState> = this.objects
+    ) = NotebookState(id, objects)
 
     override fun equals(other: Any?) = this === other || (
             other is NotebookState &&

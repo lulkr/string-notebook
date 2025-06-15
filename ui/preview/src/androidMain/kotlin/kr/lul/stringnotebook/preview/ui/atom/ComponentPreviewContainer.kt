@@ -9,10 +9,11 @@ import kr.lul.stringnotebook.ui.atom.StringNotebookTheme
 @Composable
 fun ComponentPreviewContainer(
     modifier: Modifier = Modifier,
+    contentAlignment: Alignment = Alignment.Center,
     content: @Composable () -> Unit
 ) {
     StringNotebookTheme {
-        Box(modifier, Alignment.Center) {
+        Box(modifier, contentAlignment) {
             content()
         }
     }
