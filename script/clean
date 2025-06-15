@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+pushd "$(git rev-parse --show-toplevel)" || exit 1
+
+./gradlew clean
+tuist clean
+rm -rfv *.xcworkspace app/{Derived,*.xcodeproj}
+
+popd || exit 1
