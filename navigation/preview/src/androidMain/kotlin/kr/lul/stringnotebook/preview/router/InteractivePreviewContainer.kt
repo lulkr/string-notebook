@@ -5,7 +5,6 @@ import kr.lul.stringnotebook.navigation.RootLayout
 import kr.lul.stringnotebook.navigation.compose.composable
 import kr.lul.stringnotebook.navigation.compose.rememberBaseNavigator
 import kr.lul.stringnotebook.navigation.navigationModule
-import kr.lul.stringnotebook.navigation.navigator.BaseNavigator
 import kr.lul.stringnotebook.navigation.navigator.Destination
 import kr.lul.stringnotebook.navigation.navigator.Navigator
 import org.koin.core.context.startKoin
@@ -21,8 +20,7 @@ import kotlin.uuid.ExperimentalUuidApi
 @Composable
 @OptIn(ExperimentalUuidApi::class)
 fun <N : Navigator> InteractivePreviewContainer(
-    destination: Destination,
-    navigator: (BaseNavigator) -> N,
+    destination: Destination<N>,
     router: @Composable (N) -> Unit
 ) {
     startKoin {
@@ -31,7 +29,7 @@ fun <N : Navigator> InteractivePreviewContainer(
 
     val baseNavigator = rememberBaseNavigator(destination)
     RootLayout(baseNavigator) {
-        composable(navigator(baseNavigator)) { navigator, _ ->
+        composable(destination.navigator(baseNavigator)) { navigator, _ ->
             router(navigator)
         }
     }

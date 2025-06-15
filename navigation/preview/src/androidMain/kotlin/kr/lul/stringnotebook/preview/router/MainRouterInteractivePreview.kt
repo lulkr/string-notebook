@@ -16,7 +16,7 @@ import kotlin.uuid.ExperimentalUuidApi
 @OptIn(ExperimentalUuidApi::class)
 @Preview
 fun MainRouterInteractivePreview() {
-    InteractivePreviewContainer(destination = MainNavigator, navigator = ::MainNavigator) {
+    InteractivePreviewContainer(destination = MainNavigator) {
         MainRouter(it)
     }
 }

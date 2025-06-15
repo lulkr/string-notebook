@@ -9,7 +9,7 @@ interface Navigator {
     /**
      * 현재 화면.
      */
-    val destination: Destination
+    val destination: Destination<out Navigator>
 
     /**
      * 이전 화면으로 돌아가기.

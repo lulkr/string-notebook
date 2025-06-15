@@ -9,10 +9,13 @@ import kr.lul.logger.Logger
 class MainNavigator(
     private val base: BaseNavigator
 ) : Navigator by base {
-    companion object : Destination {
+    companion object : Destination<MainNavigator> {
         override val routePattern = "Main"
         override val arguments: List<NamedNavArgument> = emptyList()
         override val deepLinks: List<NavDeepLink> = emptyList()
+
+        override fun navigator(baseNavigator: BaseNavigator) = MainNavigator(baseNavigator)
+
         override fun route(vararg args: Any?) = if (args.isEmpty()) {
             routePattern
         } else {
