@@ -94,6 +94,10 @@ compose.desktop {
 
             packageName = "StringNotebook"
             packageVersion = "${parent!!.version}"
+
+            macOS {
+                iconFile.set(rootProject.file("doc/file/icon.svg"))
+            }
         }
 
         buildTypes.release.proguard {

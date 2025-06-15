@@ -34,8 +34,6 @@ kotlin {
             api(compose.ui)
             api(libs.lifecycle.runtime.compose)
 
-            implementation(compose.uiTooling)
-            implementation(compose.components.uiToolingPreview)
             implementation(libs.util.logger)
         }
         commonTest.dependencies {
