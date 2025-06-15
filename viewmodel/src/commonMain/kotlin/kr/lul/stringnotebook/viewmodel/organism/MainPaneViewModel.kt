@@ -34,7 +34,6 @@ class MainPaneViewModel(
         when (event) {
             is HideContextMenuEvent -> _context.update {
                 it.copy(
-                    version = Uuid.random(),
                     active = null,
                     menu = null
                 )
@@ -45,7 +44,6 @@ class MainPaneViewModel(
                 val target = notebook.objects.firstOrNull { event.target == it.id }
 
                 current.copy(
-                    version = Uuid.random(),
                     active = target,
                     menu = MenuState(event.x, event.y, target)
                 )
