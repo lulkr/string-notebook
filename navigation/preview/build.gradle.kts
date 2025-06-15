@@ -16,8 +16,10 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            implementation(projects.ui)
+            implementation(projects.navigation)
+            implementation(projects.viewmodel)
 
+            implementation(project.dependencies.platform(libs.koin.bom))
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.material3)

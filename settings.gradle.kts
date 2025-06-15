@@ -71,6 +71,7 @@ include(
     ":domain",
     ":model",
     ":navigation",
+    ":navigation:preview",
     ":state",
     ":ui",
     ":ui:preview",

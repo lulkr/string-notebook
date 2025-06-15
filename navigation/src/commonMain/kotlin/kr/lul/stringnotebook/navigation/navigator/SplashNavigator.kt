@@ -9,10 +9,13 @@ import kr.lul.logger.Logger
 class SplashNavigator(
     private val base: BaseNavigator
 ) : Navigator by base {
-    companion object : Destination {
+    companion object : Destination<SplashNavigator> {
         override val routePattern = "Splash"
         override val arguments: List<NamedNavArgument> = emptyList()
         override val deepLinks: List<NavDeepLink> = emptyList()
+
+        override fun navigator(baseNavigator: BaseNavigator) = SplashNavigator(baseNavigator)
+
         override fun route(vararg args: Any?) = if (args.isEmpty()) {
             routePattern
         } else {
