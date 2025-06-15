@@ -1,13 +1,13 @@
 # String Notebook
 
+시각화한 문서는 큰 도움이 된다. 이런 도구는 많이 있지만 만족스럽지 않다. 없으면 만들어야지 별 수 있나. 그래서 시작한다.
+
 <figure>
 
 ![Photo by cottonbro studio from Pexels: https://www.pexels.com/photo/close-up-of-a-bulletin-board-8369515](doc/file/pexels-cottonbro-8369515.jpg)
 
 <figcaption><a href="https://www.pexels.com/photo/close-up-of-a-bulletin-board-8369515">Photo by cottonbro studio from Pexels</a></figcaption>
 </figure>
-
-시각화한 문서는 큰 도움이 된다. 이런 도구는 많이 있지만 만족스럽지 않다. 없으면 만들어야지 별 수 있나. 그래서 시작한다.
 
 ## 목표
 
@@ -88,18 +88,32 @@ graph TB
   :domain["domain"]
   :model["model"]
   :navigation["navigation"]
+  :shared["shared"]
   :state["state"]
   :ui["ui"]
   :viewmodel["viewmodel"]
+        
+  subgraph :navigation
+    :navigation:preview["preview"]
+  end
+  subgraph :ui
+    :ui:preview["preview"]
+  end
 
+  :app --> :model
   :app --> :navigation
   :model --> :data
   :model --> :domain
   :navigation --> :ui
   :navigation --> :viewmodel
+  :navigation:preview --> :navigation
+  :navigation:preview --> :viewmodel
+  :shared --> :navigation
+  :state --> :domain
   :viewmodel --> :model
   :viewmodel --> :state
   :ui --> :state
+  :ui:preview --> :ui
 
 classDef android-application fill:#2C4162,stroke:#fff,stroke-width:2px,color:#fff;
 classDef kotlin-multiplatform fill:#C792EA,stroke:#fff,stroke-width:2px,color:#fff;
@@ -109,8 +123,11 @@ class :data kotlin-multiplatform
 class :domain kotlin-multiplatform
 class :model kotlin-multiplatform
 class :navigation kotlin-multiplatform
+class :navigation:preview android-application
+class :shared kotlin-multiplatform
 class :state kotlin-multiplatform
 class :ui kotlin-multiplatform
+class :ui:preview android-application
 class :viewmodel kotlin-multiplatform
 ```
 
