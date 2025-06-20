@@ -6,6 +6,11 @@ import kotlin.uuid.Uuid
 
 /**
  * 다른 객체의 위치 지정에 사용할 수 있는 앵커.
+ *
+ * @property id 앵커의 고유 식별자.
+ * @property x 앵커의 x 좌표.
+ * @property y 앵커의 y 좌표.
+ * @property z 앵커의 z 좌표.
  */
 @Immutable
 @ExperimentalUuidApi

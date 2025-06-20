@@ -4,6 +4,15 @@ import androidx.compose.runtime.Immutable
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
+/**
+ * 노드 상태 홀더.
+ *
+ * @property id 노드의 고유 식별자.
+ * @property x 노드의 x 좌표.
+ * @property y 노드의 y 좌표.
+ * @property z 노드의 z 좌표.
+ * @property text 노드의 텍스트 내용.
+ */
 @ExperimentalUuidApi
 @Immutable
 class NodeState(

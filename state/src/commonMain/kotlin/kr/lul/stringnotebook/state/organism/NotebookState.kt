@@ -12,8 +12,8 @@ import kotlin.uuid.Uuid
  * @property anchors 노트북에 포함된 앵커 객체들의 리스트.
  * @property nodes 노트북에 포함된 노드 객체들의 리스트.
  */
-@Immutable
 @ExperimentalUuidApi
+@Immutable
 class NotebookState(
     val id: Uuid = Uuid.random(),
     val objects: List<ObjectState> = emptyList()
