@@ -6,6 +6,11 @@ import kotlin.uuid.Uuid
 
 /**
  * 노트북
+ *
+ * @property id 노트북의 고유 식별자.
+ * @property objects 노트북에 포함된 객체들의 리스트.
+ * @property anchors 노트북에 포함된 앵커 객체들의 리스트.
+ * @property nodes 노트북에 포함된 노드 객체들의 리스트.
  */
 @Immutable
 @ExperimentalUuidApi
@@ -15,6 +20,8 @@ class NotebookState(
 ) {
     val anchors: List<AnchorState> = objects.filterIsInstance<AnchorState>()
 
+    val nodes: List<NodeState> = objects.filterIsInstance<NodeState>()
+
     fun copy(
         objects: List<ObjectState> = this.objects
     ) = NotebookState(id, objects)
@@ -22,17 +29,18 @@ class NotebookState(
     override fun equals(other: Any?) = this === other || (
             other is NotebookState &&
                     id == other.id &&
-                    anchors == other.anchors
+                    objects == other.objects
             )
 
     override fun hashCode(): Int {
         var result = id.hashCode()
-        result = 31 * result + anchors.hashCode()
+        result = 31 * result + objects.hashCode()
         return result
     }
 
     override fun toString() = listOf(
         "id=$id",
-        "anchors=$anchors"
+        "anchors=$anchors",
+        "nodes=$nodes"
     ).joinToString(", ", "NotebookState(", ")")
 }

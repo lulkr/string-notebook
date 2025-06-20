@@ -9,12 +9,14 @@ import kotlinx.coroutines.launch
 import kr.lul.logger.Logger
 import kr.lul.stringnotebook.domain.event.ActivateEvent
 import kr.lul.stringnotebook.domain.event.AddAnchorEvent
+import kr.lul.stringnotebook.domain.event.AddNodeEvent
 import kr.lul.stringnotebook.domain.event.HideContextMenuEvent
 import kr.lul.stringnotebook.domain.event.MoveEvent
 import kr.lul.stringnotebook.domain.event.ShowContextMenuEvent
 import kr.lul.stringnotebook.domain.foundation.Event
 import kr.lul.stringnotebook.domain.foundation.EventProcessor
 import kr.lul.stringnotebook.state.organism.AnchorState
+import kr.lul.stringnotebook.state.organism.NodeState
 import kr.lul.stringnotebook.state.organism.NotebookContext
 import kr.lul.stringnotebook.state.organism.NotebookContextImpl
 import kr.lul.stringnotebook.state.organism.NotebookState
@@ -47,14 +49,29 @@ class MainPaneViewModel(
                 val context = _context.value
 
                 val anchor = AnchorState(x = event.x, y = event.y)
-                _notebook.emit(
-                    notebook.copy(
-                        objects = notebook.objects + anchor
-                    )
-                )
+                logger.d("#invoke : anchor=$anchor")
+
+                _notebook.emit(notebook.copy(objects = notebook.objects + anchor))
                 _context.emit(
                     context.copy(
                         active = anchor,
+                        menu = null
+                    )
+                )
+            }
+
+            is AddNodeEvent -> viewModelScope.launch {
+                val notebook = _notebook.value
+                val context = _context.value
+
+                val node = NodeState(x = event.x, y = event.y)
+                val objects = notebook.objects + node
+                logger.d("#invoke : node=$node, objects=$objects")
+
+                _notebook.emit(notebook.copy(objects = objects))
+                _context.emit(
+                    context.copy(
+                        active = node,
                         menu = null
                     )
                 )
