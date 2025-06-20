@@ -7,6 +7,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kr.lul.logger.Logger
+import kr.lul.stringnotebook.domain.event.ActivateEvent
 import kr.lul.stringnotebook.domain.event.AddAnchorEvent
 import kr.lul.stringnotebook.domain.event.HideContextMenuEvent
 import kr.lul.stringnotebook.domain.event.ShowContextMenuEvent
@@ -35,6 +36,11 @@ class MainPaneViewModel(
         logger.d("#invoke args : event=$event")
 
         when (event) {
+            is ActivateEvent -> _context.update { current ->
+                val target = _notebook.value.objects.firstOrNull { event.target == it.id }
+                current.copy(active = target)
+            }
+
             is AddAnchorEvent -> viewModelScope.launch {
                 val notebook = _notebook.value
                 val context = _context.value
