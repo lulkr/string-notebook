@@ -12,12 +12,12 @@ import kotlin.uuid.ExperimentalUuidApi
 
 @Composable
 @OptIn(ExperimentalUuidApi::class)
-fun Viewer(targets: List<ObjectState>, context: NotebookContext, processor: EventProcessor) {
-    logger.v("#Viewer args : targets=$targets, context=$context, processor=$processor")
+fun Viewer(objects: List<ObjectState>, context: NotebookContext, processor: EventProcessor) {
+    logger.v("#Viewer args : targets=$objects, context=$context, processor=$processor")
 
     Layout(
         content = {
-            for (obj in targets) {
+            for (obj in objects) {
                 when (obj) {
                     is AnchorState -> Anchor(obj, context, processor)
                 }
@@ -30,8 +30,12 @@ fun Viewer(targets: List<ObjectState>, context: NotebookContext, processor: Even
 
         layout(constraints.maxWidth, constraints.maxHeight) {
             placeables.forEachIndexed { index, placeable ->
-                when (val target = targets[index]) {
-                    is AnchorState -> placeable.place(Dp(target.x).roundToPx(), Dp(target.y).roundToPx(), target.z)
+                when (val target = objects[index]) {
+                    is AnchorState -> placeable.place(
+                        x = Dp(target.x).roundToPx(),
+                        y = Dp(target.y).roundToPx(),
+                        zIndex = target.z
+                    )
                 }
             }
         }
