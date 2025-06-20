@@ -74,43 +74,35 @@ fun Anchor(
      * 드래그가 끝나면 최종 위치를 계산하여 MoveEvent를 발생시킴.
      */
     var moveAmount by remember(state.id) {
-        mutableStateOf<Offset?>(null)
+        mutableStateOf(Offset.Zero)
     }
 
     Box(
         modifier = Modifier
-//            .offset(x = state.x.dp, y= state.y.dp)
             .size(preferences.size.dp)
             .clickable(!context.lock && context.active != state) {
                 processor(ActivateEvent(target = state.id))
             }
             .pointerInput(state.id, context.version) {
                 detectDragGestures(
-                    onDragStart = { offset ->
-                        logger.d("#Anchor.onDragStart : offset=$offset")
-
-                        if (!context.lock && context.active == state) {
-                            moveAmount = offset
-                        }
-                    },
                     onDragEnd = {
                         logger.d("#Anchor.onDragEnd called : moveAmount=$moveAmount")
 
-                        if (!context.lock && context.active == state && null != moveAmount) {
+                        if (!context.lock && context.active == state) {
                             processor(
                                 MoveEvent(
                                     target = context.active!!.id,
-                                    x = state.x + moveAmount!!.x.toDp().value,
-                                    y = state.y + moveAmount!!.y.toDp().value
+                                    x = state.x + moveAmount.x.toDp().value,
+                                    y = state.y + moveAmount.y.toDp().value
                                 )
                             )
-                            moveAmount = null
+                            moveAmount = Offset.Zero
                         }
                     },
                     onDrag = fun(change: PointerInputChange, dragAmount: Offset) {
                         logger.v("#Anchor.onDrag args : change=$change, dragAmount=$dragAmount")
 
-                        if (!context.lock && context.active == state && null != moveAmount) {
+                        if (!context.lock && context.active == state) {
                             change.consume()
                             moveAmount = change.position
                         }
