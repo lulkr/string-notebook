@@ -10,6 +10,7 @@ import kr.lul.logger.Logger
 import kr.lul.stringnotebook.domain.event.ActivateEvent
 import kr.lul.stringnotebook.domain.event.AddAnchorEvent
 import kr.lul.stringnotebook.domain.event.HideContextMenuEvent
+import kr.lul.stringnotebook.domain.event.MoveEvent
 import kr.lul.stringnotebook.domain.event.ShowContextMenuEvent
 import kr.lul.stringnotebook.domain.foundation.Event
 import kr.lul.stringnotebook.domain.foundation.EventProcessor
@@ -64,6 +65,28 @@ class MainPaneViewModel(
                     active = null,
                     menu = null
                 )
+            }
+
+            is MoveEvent -> viewModelScope.launch {
+                logger.e("event=$event")
+                val notebook = _notebook.value
+                val context = _context.value
+
+                val objects = notebook.objects.toMutableList()
+                logger.e("before : $objects")
+                val target = objects.firstOrNull { event.target == it.id } as? AnchorState
+                    ?: return@launch
+                val index = objects.indexOf(target)
+
+                val next: AnchorState = target.copy(
+                    x = event.x,
+                    y = event.y
+                )
+                objects[index] = next
+                logger.e("after : $objects")
+
+                _notebook.emit(notebook.copy(objects = objects))
+                _context.emit(context.copy(active = next))
             }
 
             is ShowContextMenuEvent -> _context.update { current ->
