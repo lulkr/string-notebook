@@ -13,6 +13,7 @@ import kr.lul.stringnotebook.domain.event.AddNodeEvent
 import kr.lul.stringnotebook.domain.event.HideContextMenuEvent
 import kr.lul.stringnotebook.domain.event.MoveEvent
 import kr.lul.stringnotebook.domain.event.ShowContextMenuEvent
+import kr.lul.stringnotebook.domain.event.UpdateNodeTextEvent
 import kr.lul.stringnotebook.domain.foundation.Event
 import kr.lul.stringnotebook.domain.foundation.EventProcessor
 import kr.lul.stringnotebook.state.organism.AnchorState
@@ -125,6 +126,21 @@ class MainPaneViewModel(
                     active = target,
                     menu = MenuState(event.x, event.y, target)
                 )
+            }
+
+            is UpdateNodeTextEvent -> viewModelScope.launch {
+                val notebook = _notebook.value
+                val context = _context.value
+
+                val objects = notebook.objects.toMutableList()
+                val target = objects.firstOrNull { event.target == it.id } as? NodeState
+                    ?: return@launch
+
+                val next = target.copy(text = event.text)
+                objects[objects.indexOf(target)] = next
+
+                _notebook.emit(notebook.copy(objects))
+                _context.emit(context.copy(active = next))
             }
 
             else ->

@@ -19,6 +19,7 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
 import kr.lul.stringnotebook.domain.event.ActivateEvent
 import kr.lul.stringnotebook.domain.event.MoveEvent
+import kr.lul.stringnotebook.domain.event.UpdateNodeTextEvent
 import kr.lul.stringnotebook.domain.foundation.EventProcessor
 import kr.lul.stringnotebook.state.organism.NodeState
 import kr.lul.stringnotebook.state.organism.NotebookContext
@@ -51,7 +52,12 @@ fun Node(
 
     OutlinedTextField(
         value = state.text,
-        onValueChange = { },
+        onValueChange = {
+            if (!context.lock && context.active == state) {
+                logger.d("#Node.onValueChange called : text=$it")
+                processor(UpdateNodeTextEvent(state.id, it))
+            }
+        },
         modifier = Modifier
             .clickable(!context.lock && state != context.active) {
                 logger.d("#Node.onClick args : state=$state, context=$context")
