@@ -1,6 +1,5 @@
 package kr.lul.stringnotebook.state.organism
 
-import androidx.compose.runtime.Immutable
 import kr.lul.stringnotebook.state.template.MenuState
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
@@ -14,27 +13,31 @@ import kotlin.uuid.Uuid
  * @property active 현재 선택한 객체.
  * @property menu 현재 컨텍스트 메뉴 상태.
  */
-@Immutable
-@OptIn(ExperimentalUuidApi::class)
+@ExperimentalUuidApi
 class NotebookContextImpl(
     override val preferences: NotebookPreferences = NotebookPreferences.NoOp,
-    override val version: Uuid = Uuid.random(),
-    override val lock: Boolean = false,
-    override val active: ObjectState? = null,
-    override val menu: MenuState? = null
+    version: Uuid = Uuid.random(),
+    lock: Boolean = false,
+    active: ObjectState? = null,
+    menu: MenuState? = null
 ) : NotebookContext {
-    fun copy(
-        preferences: NotebookPreferences = this.preferences,
-        lock: Boolean = this.lock,
-        active: ObjectState? = this.active,
-        menu: MenuState? = this.menu,
-    ) = NotebookContextImpl(
-        preferences = preferences,
-        version = Uuid.random(),
-        lock = lock,
-        active = active,
-        menu = menu
-    )
+    override var version: Uuid = version
+        private set
+    override var lock: Boolean = lock
+        set(value) {
+            version = Uuid.random()
+            field = value
+        }
+    override var active: ObjectState? = active
+        set(value) {
+            version = Uuid.random()
+            field = value
+        }
+    override var menu: MenuState? = menu
+        set(value) {
+            version = Uuid.random()
+            field = value
+        }
 
     override fun equals(other: Any?) = this === other || (
             other is NotebookContextImpl &&
@@ -46,9 +49,9 @@ class NotebookContextImpl(
             )
 
     override fun hashCode(): Int {
-        var result = lock.hashCode()
-        result = 31 * result + preferences.hashCode()
+        var result = preferences.hashCode()
         result = 31 * result + version.hashCode()
+        result = 31 * result + lock.hashCode()
         result = 31 * result + (active?.hashCode() ?: 0)
         result = 31 * result + (menu?.hashCode() ?: 0)
         return result

@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kr.lul.logger.Logger
 import kr.lul.stringnotebook.domain.event.ActivateEvent
@@ -40,9 +39,12 @@ class MainPaneViewModel(
         logger.d("#invoke args : event=$event")
 
         when (event) {
-            is ActivateEvent -> _context.update { current ->
-                val target = _notebook.value.objects.firstOrNull { event.target == it.id }
-                current.copy(active = target)
+            is ActivateEvent -> viewModelScope.launch {
+                val notebook = _notebook.value
+                val context = _context.value
+                val target = notebook.objects.firstOrNull { event.target == it.id }
+
+                context.active = target
             }
 
             is AddAnchorEvent -> viewModelScope.launch {
@@ -53,12 +55,8 @@ class MainPaneViewModel(
                 logger.d("#invoke : anchor=$anchor")
 
                 _notebook.emit(notebook.copy(objects = notebook.objects + anchor))
-                _context.emit(
-                    context.copy(
-                        active = anchor,
-                        menu = null
-                    )
-                )
+                context.active = anchor
+                context.menu = null
             }
 
             is AddNodeEvent -> viewModelScope.launch {
@@ -66,23 +64,16 @@ class MainPaneViewModel(
                 val context = _context.value
 
                 val node = NodeState(x = event.x, y = event.y)
-                val objects = notebook.objects + node
-                logger.d("#invoke : node=$node, objects=$objects")
 
-                _notebook.emit(notebook.copy(objects = objects))
-                _context.emit(
-                    context.copy(
-                        active = node,
-                        menu = null
-                    )
-                )
+                _notebook.emit(notebook.copy(objects = notebook.objects + node))
+                context.active = node
+                context.menu = null
             }
 
-            is HideContextMenuEvent -> _context.update {
-                it.copy(
-                    active = null,
-                    menu = null
-                )
+            is HideContextMenuEvent -> viewModelScope.launch {
+                val context = _context.value
+                context.active = null
+                context.menu = null
             }
 
             is MoveEvent -> viewModelScope.launch {
@@ -90,57 +81,40 @@ class MainPaneViewModel(
                 val notebook = _notebook.value
                 val context = _context.value
 
-                val objects = notebook.objects.toMutableList()
-                logger.d("before : $objects")
-
-                val target = objects.firstOrNull { event.target == it.id }
+                val target = notebook.objects.firstOrNull { event.target == it.id }
                     ?: return@launch
-                val index = objects.indexOf(target)
-                val next = when (target) {
-                    is AnchorState -> target.copy(
-                        x = event.x,
-                        y = event.y
-                    )
 
-                    is NodeState -> target.copy(
-                        x = event.x,
-                        y = event.y
-                    )
+                when (target) {
+                    is AnchorState -> {
+                        target.x = event.x
+                        target.y = event.y
+                    }
 
-                    else ->
-                        return@launch
+                    is NodeState -> {
+                        target.x = event.x
+                        target.y = event.y
+                    }
+
+                    else -> logger.w("#invoke unsupported target type : $target")
                 }
-
-                objects[index] = next
-                logger.d("after : $objects")
-
-                _notebook.emit(notebook.copy(objects = objects))
-                _context.emit(context.copy(active = next))
             }
 
-            is ShowContextMenuEvent -> _context.update { current ->
+            is ShowContextMenuEvent -> viewModelScope.launch {
                 val notebook = _notebook.value
+                val context = _context.value
                 val target = notebook.objects.firstOrNull { event.target == it.id }
 
-                current.copy(
-                    active = target,
-                    menu = MenuState(event.x, event.y, target)
-                )
+                context.active = target
+                context.menu = MenuState(event.x, event.y, target)
             }
 
             is UpdateNodeTextEvent -> viewModelScope.launch {
                 val notebook = _notebook.value
                 val context = _context.value
-
-                val objects = notebook.objects.toMutableList()
-                val target = objects.firstOrNull { event.target == it.id } as? NodeState
+                val target = notebook.objects.firstOrNull { event.target == it.id } as? NodeState
                     ?: return@launch
 
-                val next = target.copy(text = event.text)
-                objects[objects.indexOf(target)] = next
-
-                _notebook.emit(notebook.copy(objects))
-                _context.emit(context.copy(active = next))
+                target.text = event.text
             }
 
             else ->

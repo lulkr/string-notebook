@@ -1,10 +1,12 @@
 package kr.lul.stringnotebook.state.organism
 
+import androidx.compose.runtime.Stable
 import kr.lul.stringnotebook.state.molecule.AnchorColors
 
 /**
  * 앵커 설정
  */
+@Stable
 interface AnchorPreferences {
     object NoOp : AnchorPreferences {
         override val size: Float = 20F
