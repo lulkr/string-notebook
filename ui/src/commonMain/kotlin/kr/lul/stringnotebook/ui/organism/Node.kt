@@ -63,7 +63,7 @@ fun Node(
                 logger.d("#Node.onClick args : state=$state, context=$context")
                 processor(ActivateEvent(state.id))
             }
-            .pointerInput(state.id, context.version) {
+            .pointerInput(state, context) {
                 detectDragGestures(
                     onDragEnd = {
                         logger.d("#Node.onDragEnd called : moveAmount=$moveAmount")

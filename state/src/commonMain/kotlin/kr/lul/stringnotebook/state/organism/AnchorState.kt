@@ -1,6 +1,9 @@
 package kr.lul.stringnotebook.state.organism
 
 import androidx.compose.runtime.Stable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
@@ -16,10 +19,14 @@ import kotlin.uuid.Uuid
 @Stable
 class AnchorState(
     override val id: Uuid = Uuid.random(),
-    var x: Float = 0.0F,
-    var y: Float = 0.0F,
-    var z: Float = 0.0F
+    x: Float = 0.0F,
+    y: Float = 0.0F,
+    z: Float = 0.0F
 ) : ObjectState {
+    var x: Float by mutableStateOf(x)
+    var y: Float by mutableStateOf(y)
+    var z: Float by mutableStateOf(z)
+
     constructor(id: Uuid = Uuid.random(), x: Int = 0, y: Int = 0, z: Int = 0)
             : this(id, x.toFloat(), y.toFloat(), z.toFloat())
 

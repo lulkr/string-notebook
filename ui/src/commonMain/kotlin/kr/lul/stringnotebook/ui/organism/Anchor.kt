@@ -55,7 +55,7 @@ fun Anchor(
             .clickable(!context.lock && context.active != state) {
                 processor(ActivateEvent(target = state.id))
             }
-            .pointerInput(state.id, context.version) {
+            .pointerInput(state, context) {
                 detectDragGestures(
                     onDragEnd = {
                         logger.d("#Anchor.onDragEnd called : moveAmount=$moveAmount")
