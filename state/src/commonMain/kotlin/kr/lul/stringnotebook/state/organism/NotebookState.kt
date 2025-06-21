@@ -20,7 +20,7 @@ class NotebookState(
     val id: Uuid = Uuid.random(),
     objects: List<ObjectState> = emptyList()
 ) {
-    val objects: List<ObjectState> by mutableStateOf(emptyList())
+    val objects: List<ObjectState> by mutableStateOf(objects)
 
     val anchors: List<AnchorState> = objects.filterIsInstance<AnchorState>()
 
