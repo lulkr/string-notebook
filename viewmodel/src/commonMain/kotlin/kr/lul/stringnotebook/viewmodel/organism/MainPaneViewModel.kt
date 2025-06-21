@@ -85,22 +85,33 @@ class MainPaneViewModel(
             }
 
             is MoveEvent -> viewModelScope.launch {
-                logger.e("event=$event")
+                logger.d("event=$event")
                 val notebook = _notebook.value
                 val context = _context.value
 
                 val objects = notebook.objects.toMutableList()
-                logger.e("before : $objects")
-                val target = objects.firstOrNull { event.target == it.id } as? AnchorState
+                logger.d("before : $objects")
+
+                val target = objects.firstOrNull { event.target == it.id }
                     ?: return@launch
                 val index = objects.indexOf(target)
+                val next = when (target) {
+                    is AnchorState -> target.copy(
+                        x = event.x,
+                        y = event.y
+                    )
 
-                val next: AnchorState = target.copy(
-                    x = event.x,
-                    y = event.y
-                )
+                    is NodeState -> target.copy(
+                        x = event.x,
+                        y = event.y
+                    )
+
+                    else ->
+                        return@launch
+                }
+
                 objects[index] = next
-                logger.e("after : $objects")
+                logger.d("after : $objects")
 
                 _notebook.emit(notebook.copy(objects = objects))
                 _context.emit(context.copy(active = next))
