@@ -14,14 +14,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.PointerInputChange
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.dp
 import kr.lul.stringnotebook.domain.event.ActivateEvent
 import kr.lul.stringnotebook.domain.event.MoveEvent
 import kr.lul.stringnotebook.domain.foundation.EventProcessor
-import kr.lul.stringnotebook.state.molecule.AnchorColors
 import kr.lul.stringnotebook.state.organism.AnchorState
 import kr.lul.stringnotebook.state.organism.NotebookContext
 import kr.lul.stringnotebook.ui.molecule.AnchorDefaults
@@ -41,33 +39,7 @@ fun Anchor(
     logger.v("#Anchor args : state=$state, context=$context, processor=$processor")
 
     val preferences = context.preferences.anchor
-    val default = AnchorDefaults.colors()
-    val colors = remember(context) {
-        preferences.colors.run {
-            AnchorColors(
-                inactive = if (Color.Unspecified == inactive) {
-                    default.inactive
-                } else {
-                    inactive
-                },
-                active = if (Color.Unspecified == active) {
-                    default.active
-                } else {
-                    active
-                },
-                inactiveBorder = if (Color.Unspecified == inactiveBorder) {
-                    default.inactiveBorder
-                } else {
-                    inactiveBorder
-                },
-                activeBorder = if (Color.Unspecified == activeBorder) {
-                    default.activeBorder
-                } else {
-                    activeBorder
-                }
-            )
-        }
-    }
+    val colors = AnchorDefaults.colors()
 
     /*
      * 드래그 중에 사용되는 오프셋. 드래그 시작 시점의 오프셋을 저장하고, 드래그 중에는 그 오프셋에 드래그된 양을 더해줌.

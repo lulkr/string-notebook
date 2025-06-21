@@ -13,6 +13,7 @@ import kr.lul.stringnotebook.domain.event.AddNodeEvent
 import kr.lul.stringnotebook.domain.event.HideContextMenuEvent
 import kr.lul.stringnotebook.domain.event.MoveEvent
 import kr.lul.stringnotebook.domain.event.ShowContextMenuEvent
+import kr.lul.stringnotebook.domain.event.UpdateNodeTextEvent
 import kr.lul.stringnotebook.domain.foundation.Event
 import kr.lul.stringnotebook.domain.foundation.EventProcessor
 import kr.lul.stringnotebook.state.organism.AnchorState
@@ -85,22 +86,33 @@ class MainPaneViewModel(
             }
 
             is MoveEvent -> viewModelScope.launch {
-                logger.e("event=$event")
+                logger.d("event=$event")
                 val notebook = _notebook.value
                 val context = _context.value
 
                 val objects = notebook.objects.toMutableList()
-                logger.e("before : $objects")
-                val target = objects.firstOrNull { event.target == it.id } as? AnchorState
+                logger.d("before : $objects")
+
+                val target = objects.firstOrNull { event.target == it.id }
                     ?: return@launch
                 val index = objects.indexOf(target)
+                val next = when (target) {
+                    is AnchorState -> target.copy(
+                        x = event.x,
+                        y = event.y
+                    )
 
-                val next: AnchorState = target.copy(
-                    x = event.x,
-                    y = event.y
-                )
+                    is NodeState -> target.copy(
+                        x = event.x,
+                        y = event.y
+                    )
+
+                    else ->
+                        return@launch
+                }
+
                 objects[index] = next
-                logger.e("after : $objects")
+                logger.d("after : $objects")
 
                 _notebook.emit(notebook.copy(objects = objects))
                 _context.emit(context.copy(active = next))
@@ -114,6 +126,21 @@ class MainPaneViewModel(
                     active = target,
                     menu = MenuState(event.x, event.y, target)
                 )
+            }
+
+            is UpdateNodeTextEvent -> viewModelScope.launch {
+                val notebook = _notebook.value
+                val context = _context.value
+
+                val objects = notebook.objects.toMutableList()
+                val target = objects.firstOrNull { event.target == it.id } as? NodeState
+                    ?: return@launch
+
+                val next = target.copy(text = event.text)
+                objects[objects.indexOf(target)] = next
+
+                _notebook.emit(notebook.copy(objects))
+                _context.emit(context.copy(active = next))
             }
 
             else ->
