@@ -5,6 +5,7 @@ import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.unit.Dp
 import kr.lul.stringnotebook.domain.foundation.EventProcessor
 import kr.lul.stringnotebook.state.organism.AnchorState
+import kr.lul.stringnotebook.state.organism.NodeState
 import kr.lul.stringnotebook.state.organism.NotebookContext
 import kr.lul.stringnotebook.state.organism.ObjectState
 import kr.lul.stringnotebook.ui.page.logger
@@ -13,18 +14,19 @@ import kotlin.uuid.ExperimentalUuidApi
 @Composable
 @OptIn(ExperimentalUuidApi::class)
 fun Viewer(objects: List<ObjectState>, context: NotebookContext, processor: EventProcessor) {
-    logger.v("#Viewer args : targets=$objects, context=$context, processor=$processor")
+    logger.v("#Viewer args : objects=$objects, context=$context, processor=$processor")
 
     Layout(
         content = {
             for (obj in objects) {
                 when (obj) {
                     is AnchorState -> Anchor(obj, context, processor)
+                    is NodeState -> Node(obj, context, processor)
                 }
             }
         }
     ) { measurables, constraints ->
-        val placeables = measurables.mapIndexed { index, measurable ->
+        val placeables = measurables.map { measurable ->
             measurable.measure(constraints)
         }
 
@@ -32,6 +34,12 @@ fun Viewer(objects: List<ObjectState>, context: NotebookContext, processor: Even
             placeables.forEachIndexed { index, placeable ->
                 when (val target = objects[index]) {
                     is AnchorState -> placeable.place(
+                        x = Dp(target.x).roundToPx(),
+                        y = Dp(target.y).roundToPx(),
+                        zIndex = target.z
+                    )
+
+                    is NodeState -> placeable.place(
                         x = Dp(target.x).roundToPx(),
                         y = Dp(target.y).roundToPx(),
                         zIndex = target.z

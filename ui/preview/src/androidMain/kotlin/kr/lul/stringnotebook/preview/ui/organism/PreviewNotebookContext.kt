@@ -14,7 +14,7 @@ data class PreviewNotebookContext(
     override var version: Uuid = Uuid.random(),
     override val lock: Boolean = false,
     override var active: ObjectState? = null,
-    override val menu: MenuState? = null
+    override val menu: MenuState? = null,
 ) : NotebookContext {
     companion object {
         val Default = PreviewNotebookContext()

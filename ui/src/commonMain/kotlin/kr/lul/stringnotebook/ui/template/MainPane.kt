@@ -31,9 +31,9 @@ fun MainPane(state: NotebookState, context: NotebookContext, processor: EventPro
             }
         }
     ) {
-        val targets = state.objects // TODO 뷰포트로 걸러내기.
+        val objects = state.objects // TODO 뷰포트로 걸러내기.
 
-        Viewer(targets, context, processor)
+        Viewer(objects, context, processor)
 
         context.menu?.let {
             ContextMenu(
