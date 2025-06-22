@@ -1,6 +1,9 @@
 package kr.lul.stringnotebook.state.organism
 
-import androidx.compose.runtime.Immutable
+import androidx.compose.runtime.Stable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
@@ -12,25 +15,23 @@ import kotlin.uuid.Uuid
  * @property y 앵커의 y 좌표.
  * @property z 앵커의 z 좌표.
  */
-@Immutable
 @ExperimentalUuidApi
+@Stable
 class AnchorState(
     override val id: Uuid = Uuid.random(),
-    val x: Float = 0.0F,
-    val y: Float = 0.0F,
-    val z: Float = 0.0F
+    x: Float = 0.0F,
+    y: Float = 0.0F,
+    z: Float = 0.0F
 ) : ObjectState {
+    var x: Float by mutableStateOf(x)
+    var y: Float by mutableStateOf(y)
+    var z: Float by mutableStateOf(z)
+
     constructor(id: Uuid = Uuid.random(), x: Int = 0, y: Int = 0, z: Int = 0)
             : this(id, x.toFloat(), y.toFloat(), z.toFloat())
 
     constructor(id: Uuid = Uuid.random(), x: Long = 0L, y: Long = 0L, z: Long = 0L)
             : this(id, x.toFloat(), y.toFloat(), z.toFloat())
-
-    fun copy(
-        x: Float = this.x,
-        y: Float = this.y,
-        z: Float = this.z
-    ) = AnchorState(id, x, y, z)
 
     override fun equals(other: Any?) = this === other || (
             other is AnchorState &&

@@ -1,6 +1,6 @@
 package kr.lul.stringnotebook.preview.ui.organism
 
-import androidx.compose.runtime.Immutable
+import androidx.compose.runtime.Stable
 import kr.lul.stringnotebook.state.organism.NotebookContext
 import kr.lul.stringnotebook.state.organism.ObjectState
 import kr.lul.stringnotebook.state.template.MenuState
@@ -8,15 +8,16 @@ import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
 @ExperimentalUuidApi
-@Immutable
+@Stable
 data class PreviewNotebookContext(
     override val preferences: PreviewNotebookPreferences = PreviewNotebookPreferences(),
     override var version: Uuid = Uuid.random(),
-    override val lock: Boolean = false,
+    override var lock: Boolean = false,
     override var active: ObjectState? = null,
-    override val menu: MenuState? = null,
+    override var menu: MenuState? = null,
 ) : NotebookContext {
     companion object {
-        val Default = PreviewNotebookContext()
+        val Default: PreviewNotebookContext
+            get() = PreviewNotebookContext()
     }
 }

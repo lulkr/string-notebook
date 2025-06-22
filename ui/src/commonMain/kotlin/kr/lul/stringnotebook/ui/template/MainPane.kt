@@ -25,7 +25,7 @@ fun MainPane(state: NotebookState, context: NotebookContext, processor: EventPro
     logger.v("#MainPane args : state=$state, context=$context, processor=$processor, modifier=$modifier")
 
     Box(
-        modifier.pointerInput(state.id, context.version) {
+        modifier.pointerInput(state, context) {
             detectTapGestures { offset ->
                 processor(ShowContextMenuEvent(x = offset.x.toDp().value, y = offset.y.toDp().value))
             }

@@ -7,13 +7,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
-import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
@@ -46,10 +41,6 @@ fun Node(
             .clearFocus()
     }
 
-    var moveAmount by remember(state.id) {
-        mutableStateOf(Offset.Zero)
-    }
-
     OutlinedTextField(
         value = state.text,
         onValueChange = {
@@ -63,31 +54,21 @@ fun Node(
                 logger.d("#Node.onClick args : state=$state, context=$context")
                 processor(ActivateEvent(state.id))
             }
-            .pointerInput(state.id, context.version) {
-                detectDragGestures(
-                    onDragEnd = {
-                        logger.d("#Node.onDragEnd called : moveAmount=$moveAmount")
+            .pointerInput(state, context) {
+                detectDragGestures { change, dragAmount ->
+                    logger.d("#Node.onDrag called : change=$change, dragAmount=$dragAmount")
 
-                        if (!context.lock && context.active == state) {
-                            processor(
-                                MoveEvent(
-                                    target = context.active!!.id,
-                                    x = state.x + moveAmount.x.toDp().value,
-                                    y = state.y + moveAmount.y.toDp().value
-                                )
+                    if (!context.lock && context.active == state) {
+                        change.consume()
+                        processor(
+                            MoveEvent(
+                                target = context.active!!.id,
+                                x = state.x + dragAmount.x.toDp().value,
+                                y = state.y + dragAmount.y.toDp().value
                             )
-                            moveAmount = Offset.Zero
-                        }
-                    },
-                    onDrag = { change, dragAmount ->
-                        logger.d("#Node.onDrag called : change=$change, dragAmount=$dragAmount")
-
-                        if (!context.lock && context.active == state) {
-                            change.consume()
-                            moveAmount += dragAmount
-                        }
+                        )
                     }
-                )
+                }
             }
             .onFocusChanged { focus ->
                 if (!context.lock) {
