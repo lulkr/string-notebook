@@ -133,6 +133,10 @@ class :viewmodel kotlin-multiplatform
 
 ## 참고
 
+- [`doc`](doc) : 상세 문서와 문서용 파일을 관리합니다.
+
+### 외부 문서
+
 1. [Photo by cottonbro studio from Pexels][1]
 2. [yEd][2]
 3. [GraphML][3]
