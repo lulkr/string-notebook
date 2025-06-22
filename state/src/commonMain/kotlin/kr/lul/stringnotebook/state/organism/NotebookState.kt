@@ -1,6 +1,6 @@
 package kr.lul.stringnotebook.state.organism
 
-import androidx.compose.runtime.Immutable
+import androidx.compose.runtime.Stable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import kotlin.uuid.ExperimentalUuidApi
@@ -15,7 +15,7 @@ import kotlin.uuid.Uuid
  * @property nodes 노트북에 포함된 노드 객체들의 리스트. [objects]에 포함됨.
  */
 @ExperimentalUuidApi
-@Immutable
+@Stable
 class NotebookState(
     val id: Uuid = Uuid.random(),
     objects: List<ObjectState> = emptyList()

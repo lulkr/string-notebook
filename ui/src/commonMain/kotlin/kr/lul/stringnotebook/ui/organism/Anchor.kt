@@ -50,8 +50,8 @@ fun Anchor(
                         processor(
                             MoveEvent(
                                 target = state.id,
-                                x = state.x + change.position.x.toDp().value,
-                                y = state.y + change.position.y.toDp().value
+                                x = state.x + dragAmount.x.toDp().value,
+                                y = state.y + dragAmount.y.toDp().value
                             )
                         )
                     }
