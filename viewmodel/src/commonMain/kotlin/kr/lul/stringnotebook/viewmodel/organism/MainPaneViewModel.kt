@@ -45,6 +45,7 @@ class MainPaneViewModel(
                 val target = notebook.objects.firstOrNull { event.target == it.id }
 
                 context.active = target
+                _context.emit(context)
             }
 
             is AddAnchorEvent -> viewModelScope.launch {
@@ -52,11 +53,11 @@ class MainPaneViewModel(
                 val context = _context.value
 
                 val anchor = AnchorState(x = event.x, y = event.y)
-                logger.d("#invoke : anchor=$anchor")
-
-                _notebook.emit(notebook.copy(objects = notebook.objects + anchor))
                 context.active = anchor
                 context.menu = null
+
+                _notebook.emit(notebook.copy(objects = notebook.objects + anchor))
+                _context.emit(context)
             }
 
             is AddNodeEvent -> viewModelScope.launch {
@@ -64,22 +65,24 @@ class MainPaneViewModel(
                 val context = _context.value
 
                 val node = NodeState(x = event.x, y = event.y)
-
-                _notebook.emit(notebook.copy(objects = notebook.objects + node))
                 context.active = node
                 context.menu = null
+
+                _notebook.emit(notebook.copy(objects = notebook.objects + node))
+                _context.emit(context)
             }
 
             is HideContextMenuEvent -> viewModelScope.launch {
                 val context = _context.value
                 context.active = null
                 context.menu = null
+
+                _context.emit(context)
             }
 
             is MoveEvent -> viewModelScope.launch {
                 logger.d("event=$event")
                 val notebook = _notebook.value
-                val context = _context.value
 
                 val target = notebook.objects.firstOrNull { event.target == it.id }
                     ?: return@launch
@@ -106,6 +109,7 @@ class MainPaneViewModel(
 
                 context.active = target
                 context.menu = MenuState(event.x, event.y, target)
+                _context.emit(context)
             }
 
             is UpdateNodeTextEvent -> viewModelScope.launch {
