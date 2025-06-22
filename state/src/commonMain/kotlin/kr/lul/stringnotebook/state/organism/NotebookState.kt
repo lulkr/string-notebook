@@ -11,8 +11,8 @@ import kotlin.uuid.Uuid
  *
  * @property id 노트북의 고유 식별자.
  * @property objects 노트북에 포함된 객체들의 리스트.
- * @property anchors 노트북에 포함된 앵커 객체들의 리스트.
- * @property nodes 노트북에 포함된 노드 객체들의 리스트.
+ * @property anchors 노트북에 포함된 앵커 객체들의 리스트. [objects]에 포함됨.
+ * @property nodes 노트북에 포함된 노드 객체들의 리스트. [objects]에 포함됨.
  */
 @ExperimentalUuidApi
 @Immutable
