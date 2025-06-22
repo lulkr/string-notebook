@@ -1,8 +1,6 @@
 package kr.lul.stringnotebook.state.organism
 
 import androidx.compose.runtime.Stable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
@@ -18,10 +16,8 @@ import kotlin.uuid.Uuid
 @Stable
 class NotebookState(
     val id: Uuid = Uuid.random(),
-    objects: List<ObjectState> = emptyList()
+    val objects: List<ObjectState> = emptyList()
 ) {
-    val objects: List<ObjectState> by mutableStateOf(objects)
-
     val anchors: List<AnchorState> = objects.filterIsInstance<AnchorState>()
 
     val nodes: List<NodeState> = objects.filterIsInstance<NodeState>()
