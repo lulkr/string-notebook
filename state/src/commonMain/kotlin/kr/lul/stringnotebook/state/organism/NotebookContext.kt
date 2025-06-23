@@ -2,12 +2,10 @@ package kr.lul.stringnotebook.state.organism
 
 import androidx.compose.runtime.Stable
 import kr.lul.stringnotebook.state.template.MenuState
-import kotlin.uuid.ExperimentalUuidApi
 
 /**
  * 노트북의 편집 컨텍스트.
  */
-@OptIn(ExperimentalUuidApi::class)
 @Stable
 interface NotebookContext {
     object NoOp : NotebookContext {
