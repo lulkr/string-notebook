@@ -1,11 +1,7 @@
 package kr.lul.stringnotebook.viewmodel.organism
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.launch
-import kr.lul.logger.Logger
 import kr.lul.stringnotebook.domain.event.ActivateEvent
 import kr.lul.stringnotebook.domain.event.AddAnchorEvent
 import kr.lul.stringnotebook.domain.event.AddNodeEvent
@@ -21,14 +17,15 @@ import kr.lul.stringnotebook.state.organism.NotebookContext
 import kr.lul.stringnotebook.state.organism.NotebookContextImpl
 import kr.lul.stringnotebook.state.organism.NotebookState
 import kr.lul.stringnotebook.state.template.MenuState
+import kr.lul.stringnotebook.viewmodel.atom.BaseViewModelet
+import kr.lul.stringnotebook.viewmodel.atom.ViewModeletOwner
 import kotlin.uuid.ExperimentalUuidApi
 
 @ExperimentalUuidApi
-class MainPaneViewModel(
+class MainPaneViewModelet(
+    page: ViewModeletOwner,
     initState: NotebookState
-) : ViewModel(), EventProcessor {
-    private val logger = Logger("MainPaneViewModel")
-
+) : BaseViewModelet(page, "MainPaneViewModelet"), EventProcessor {
     private val _notebook = MutableStateFlow(initState)
     val notebook: StateFlow<NotebookState> = _notebook
 
@@ -39,7 +36,7 @@ class MainPaneViewModel(
         logger.d("#invoke args : event=$event")
 
         when (event) {
-            is ActivateEvent -> viewModelScope.launch {
+            is ActivateEvent -> launch {
                 val notebook = _notebook.value
                 val context = _context.value
                 val target = notebook.objects.firstOrNull { event.target == it.id }
@@ -48,7 +45,7 @@ class MainPaneViewModel(
                 _context.emit(context)
             }
 
-            is AddAnchorEvent -> viewModelScope.launch {
+            is AddAnchorEvent -> launch {
                 val notebook = _notebook.value
                 val context = _context.value
 
@@ -60,7 +57,7 @@ class MainPaneViewModel(
                 _context.emit(context)
             }
 
-            is AddNodeEvent -> viewModelScope.launch {
+            is AddNodeEvent -> launch {
                 val notebook = _notebook.value
                 val context = _context.value
 
@@ -72,7 +69,7 @@ class MainPaneViewModel(
                 _context.emit(context)
             }
 
-            is HideContextMenuEvent -> viewModelScope.launch {
+            is HideContextMenuEvent -> launch {
                 val context = _context.value
                 context.active = null
                 context.menu = null
@@ -80,7 +77,7 @@ class MainPaneViewModel(
                 _context.emit(context)
             }
 
-            is MoveEvent -> viewModelScope.launch {
+            is MoveEvent -> launch {
                 logger.d("event=$event")
                 val notebook = _notebook.value
 
@@ -102,7 +99,7 @@ class MainPaneViewModel(
                 }
             }
 
-            is ShowContextMenuEvent -> viewModelScope.launch {
+            is ShowContextMenuEvent -> launch {
                 val notebook = _notebook.value
                 val context = _context.value
                 val target = notebook.objects.firstOrNull { event.target == it.id }
@@ -112,7 +109,7 @@ class MainPaneViewModel(
                 _context.emit(context)
             }
 
-            is UpdateNodeTextEvent -> viewModelScope.launch {
+            is UpdateNodeTextEvent -> launch {
                 val notebook = _notebook.value
                 val context = _context.value
                 val target = notebook.objects.firstOrNull { event.target == it.id } as? NodeState
@@ -125,4 +122,9 @@ class MainPaneViewModel(
                 logger.w("#invoke unsupported event : $event")
         }
     }
+
+    override fun toString() = listOf(
+        "notebook=${_notebook.value}",
+        "context=${_context.value}"
+    ).joinToString(", ", "$tag(", ")")
 }

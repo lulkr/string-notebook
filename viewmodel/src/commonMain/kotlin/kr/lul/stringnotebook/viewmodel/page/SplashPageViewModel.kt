@@ -1,23 +1,22 @@
 package kr.lul.stringnotebook.viewmodel.page
 
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import kr.lul.logger.Logger
 import kr.lul.stringnotebook.state.page.SplashPageState
 import kr.lul.stringnotebook.state.page.SplashPageState.InProgress
 import kr.lul.stringnotebook.state.page.SplashPageState.Init
 import kr.lul.stringnotebook.state.page.SplashPageState.Success
 import kr.lul.stringnotebook.state.resources.Res
 import kr.lul.stringnotebook.state.resources.name
+import kr.lul.stringnotebook.viewmodel.atom.BaseViewModel
 import org.jetbrains.compose.resources.getString
+import kotlin.uuid.ExperimentalUuidApi
 
-class SplashViewModel : ViewModel() {
-    private val logger = Logger("SplashViewModel")
-
+@ExperimentalUuidApi
+class SplashPageViewModel : BaseViewModel("SplashPageViewModel") {
     private val _state = MutableStateFlow<SplashPageState>(Init)
     val state: StateFlow<SplashPageState> = _state
 
