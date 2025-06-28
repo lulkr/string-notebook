@@ -15,7 +15,7 @@ import kr.lul.stringnotebook.state.resources.Res
 import kr.lul.stringnotebook.state.resources.name
 import org.jetbrains.compose.resources.getString
 
-class SplashViewModel : ViewModel() {
+class SplashPageViewModel : ViewModel() {
     private val logger = Logger("SplashViewModel")
 
     private val _state = MutableStateFlow<SplashPageState>(Init)

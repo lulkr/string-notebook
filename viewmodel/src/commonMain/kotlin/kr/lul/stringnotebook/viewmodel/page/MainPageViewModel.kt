@@ -12,7 +12,7 @@ import kr.lul.stringnotebook.viewmodel.organism.MainPaneViewModel
 import kotlin.uuid.ExperimentalUuidApi
 
 @ExperimentalUuidApi
-class MainViewModel(
+class MainPageViewModel(
     initState: MainPageState = MainPageState()
 ) : ViewModel() {
     private val logger = Logger("MainViewModel")

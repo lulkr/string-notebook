@@ -12,13 +12,13 @@ import kr.lul.stringnotebook.navigation.navigator.SplashNavigator
 import kr.lul.stringnotebook.state.page.SplashPageHandler
 import kr.lul.stringnotebook.state.page.SplashPageState.Success
 import kr.lul.stringnotebook.ui.page.SplashPage
-import kr.lul.stringnotebook.viewmodel.page.SplashViewModel
+import kr.lul.stringnotebook.viewmodel.page.SplashPageViewModel
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun SplashRouter(
     navigator: SplashNavigator,
-    viewModel: SplashViewModel = koinViewModel()
+    viewModel: SplashPageViewModel = koinViewModel()
 ) {
     logger.v("#SplashRouter args : navigator=$navigator")
 

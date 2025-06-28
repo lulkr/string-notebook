@@ -6,7 +6,7 @@ import androidx.compose.runtime.getValue
 import kr.lul.stringnotebook.navigation.navigator.MainNavigator
 import kr.lul.stringnotebook.state.page.MainPageHandler
 import kr.lul.stringnotebook.ui.page.MainPage
-import kr.lul.stringnotebook.viewmodel.page.MainViewModel
+import kr.lul.stringnotebook.viewmodel.page.MainPageViewModel
 import org.koin.compose.viewmodel.koinViewModel
 import kotlin.uuid.ExperimentalUuidApi
 
@@ -14,7 +14,7 @@ import kotlin.uuid.ExperimentalUuidApi
 @ExperimentalUuidApi
 fun MainRouter(
     navigator: MainNavigator,
-    viewModel: MainViewModel = koinViewModel()
+    viewModel: MainPageViewModel = koinViewModel()
 ) {
     logger.v("#MainRouter args : navigator=$navigator, viewModel=$viewModel")
 
