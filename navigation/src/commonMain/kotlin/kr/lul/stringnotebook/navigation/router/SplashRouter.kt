@@ -8,17 +8,19 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kr.lul.stringnotebook.navigation.compose.baseViewModel
 import kr.lul.stringnotebook.navigation.navigator.SplashNavigator
 import kr.lul.stringnotebook.state.page.SplashPageHandler
 import kr.lul.stringnotebook.state.page.SplashPageState.Success
 import kr.lul.stringnotebook.ui.page.SplashPage
 import kr.lul.stringnotebook.viewmodel.page.SplashPageViewModel
-import org.koin.compose.viewmodel.koinViewModel
+import kotlin.uuid.ExperimentalUuidApi
 
 @Composable
+@ExperimentalUuidApi
 fun SplashRouter(
     navigator: SplashNavigator,
-    viewModel: SplashPageViewModel = koinViewModel()
+    viewModel: SplashPageViewModel = baseViewModel()
 ) {
     logger.v("#SplashRouter args : navigator=$navigator")
 
