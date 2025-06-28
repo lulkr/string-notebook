@@ -3,28 +3,19 @@ package kr.lul.stringnotebook.viewmodel.atom
 import androidx.annotation.CallSuper
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.CoroutineStart
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
 import kr.lul.logger.Logger
-import kotlin.coroutines.CoroutineContext
-import kotlin.coroutines.EmptyCoroutineContext
-import kotlin.coroutines.cancellation.CancellationException
 import kotlin.uuid.ExperimentalUuidApi
-import kotlin.uuid.Uuid
 
 /**
- * 페이지 레이어의 상태를 관리하는 [ViewModel]의 기본 클래스.
+ * UI 컴포넌트를 관리하는 [DefaultLifecycleObserver]의 기본 클래스.
  *
- * @property tag 로깅에 사용되는 태그.
+ * 페이지 단위의 [androidx.lifecycle.ViewModel]의 일부 기능을 위임받는다.
  */
 @ExperimentalUuidApi
-open class BaseViewModel(
+open class BaseViewModelet(
+    private val owner: ViewModeletOwner,
     protected val tag: String
-) : ViewModel(), ViewModeletOwner, DefaultLifecycleObserver {
+) : ViewModeletOwner, DefaultLifecycleObserver {
     protected val logger = Logger(tag)
 
     private val _children = mutableSetOf<BaseViewModelet>()
@@ -34,35 +25,8 @@ open class BaseViewModel(
         if (tag.isBlank()) {
             throw IllegalArgumentException("tag must not be blank.")
         }
-    }
 
-    /**
-     * [viewModelScope]의 코루틴을 실행한다.
-     *
-     * @param key 코루틴 실행을 구분하기 위한 식별자. 호출할 때마다 다른 값을 사용해야 한다.
-     * @param context 코루틴 실행 컨텍스트.
-     * @param start 코루틴 시작 옵션.
-     * @param block 실행할 코루틴 블록.
-     *
-     * @return 실행 결과를 담은 [Job].
-     */
-    fun launch(
-        key: Any = Uuid.random(),
-        context: CoroutineContext = EmptyCoroutineContext,
-        start: CoroutineStart = CoroutineStart.DEFAULT,
-        block: suspend CoroutineScope.() -> Unit
-    ): Job {
-        logger.v("#launch args : key=$key, context=$context, start=$start, block=$block")
-
-        val job = viewModelScope.launch(context, start, block)
-        job.invokeOnCompletion { e ->
-            if (null != e && e !is CancellationException) {
-                logger.w("#launch error : key=$key", e)
-            }
-        }
-
-        logger.v("#launch return : $job")
-        return job
+        owner.register(this)
     }
 
     override fun register(viewModelet: BaseViewModelet) {
@@ -129,7 +93,7 @@ open class BaseViewModel(
     }
 
     @CallSuper
-    override fun onCleared() {
+    open fun onCleared() {
         logger.d("#onCleared called.")
 
         for (child in _children) {
