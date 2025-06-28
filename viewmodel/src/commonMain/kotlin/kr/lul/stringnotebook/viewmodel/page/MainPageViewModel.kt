@@ -7,14 +7,14 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kr.lul.stringnotebook.state.page.MainPageState
 import kr.lul.stringnotebook.viewmodel.atom.BaseViewModel
-import kr.lul.stringnotebook.viewmodel.organism.MainPaneViewModel
+import kr.lul.stringnotebook.viewmodel.organism.MainPaneViewModelet
 import kotlin.uuid.ExperimentalUuidApi
 
 @ExperimentalUuidApi
 class MainPageViewModel(
     initState: MainPageState = MainPageState()
 ) : BaseViewModel("MainPageViewModel") {
-    private val _notebook = MainPaneViewModel(initState.notebook)
+    private val _notebook = MainPaneViewModelet(this, initState.notebook)
 
     val state: StateFlow<MainPageState> = combine(_notebook.notebook, _notebook.context) { notebook, context ->
         val next = MainPageState(notebook, context, _notebook)
@@ -24,5 +24,5 @@ class MainPageViewModel(
 
     override fun toString() = listOf(
         "state=${state.value}"
-    ).joinToString(", ", "MainViewModel(", ")")
+    ).joinToString(", ", "$tag(", ")")
 }

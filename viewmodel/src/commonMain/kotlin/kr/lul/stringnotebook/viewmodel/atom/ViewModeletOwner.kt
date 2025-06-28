@@ -34,6 +34,10 @@ interface ViewModeletOwner {
     /**
      * [BaseViewModelet]을 등록합니다.
      *
+     * **주의** : [BaseViewModelet]이 `init` 블럭에서 자신을 등록하기 위해 호출해야 하기 때문에,
+     * 호출 당시에는 `viewModelet`인자가 초기화가 끝나지 않은 상태이다.
+     * 따라서 `viewModelet`의 속성에 접근하는 것은 위험할 수 있다.
+     *
      * @param viewModelet 등록할 [BaseViewModelet].
      */
     fun register(viewModelet: BaseViewModelet)

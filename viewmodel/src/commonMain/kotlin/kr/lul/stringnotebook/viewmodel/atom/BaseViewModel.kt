@@ -68,7 +68,6 @@ open class BaseViewModel(
     }
 
     override fun register(viewModelet: BaseViewModelet) {
-        logger.v("#register args : viewModelet=$viewModelet")
         require(!_children.contains(viewModelet)) {
             "viewModelet must not be already registered : owner=$this, viewModelet=$viewModelet"
         }
