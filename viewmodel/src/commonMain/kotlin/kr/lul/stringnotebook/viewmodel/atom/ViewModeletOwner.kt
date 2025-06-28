@@ -8,6 +8,25 @@ import kotlin.uuid.ExperimentalUuidApi
 @ExperimentalUuidApi
 interface ViewModeletOwner {
     /**
+     * 페이지를 관리하는 [BaseViewModel]을 반환합니다.
+     */
+    val root: BaseViewModel
+        get() = if (this is BaseViewModel && null == parent) {
+            this
+        } else {
+            parent!!.root
+        }
+
+    /**
+     * 현재 [ViewModeletOwner]의 부모 [ViewModeletOwner]을 반환합니다.
+     *
+     * `this === root`인 경우 `null`을 반환합니다.
+     *
+     * @see root
+     */
+    val parent: ViewModeletOwner?
+
+    /**
      * 등록된 [BaseViewModelet]의 목록.
      */
     val children: Set<BaseViewModelet>

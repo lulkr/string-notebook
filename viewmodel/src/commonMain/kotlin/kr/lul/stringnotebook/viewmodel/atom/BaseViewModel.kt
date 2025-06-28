@@ -30,6 +30,8 @@ open class BaseViewModel(
     private val _children = mutableSetOf<BaseViewModelet>()
     override val children: Set<BaseViewModelet> = _children
 
+    override val parent: ViewModeletOwner? = null
+
     init {
         if (tag.isBlank()) {
             throw IllegalArgumentException("tag must not be blank.")

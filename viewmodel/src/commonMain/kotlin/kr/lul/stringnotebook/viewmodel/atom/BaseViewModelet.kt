@@ -13,7 +13,7 @@ import kotlin.uuid.ExperimentalUuidApi
  */
 @ExperimentalUuidApi
 open class BaseViewModelet(
-    private val owner: ViewModeletOwner,
+    override val parent: ViewModeletOwner,
     protected val tag: String
 ) : ViewModeletOwner, DefaultLifecycleObserver {
     protected val logger = Logger(tag)
@@ -26,7 +26,8 @@ open class BaseViewModelet(
             throw IllegalArgumentException("tag must not be blank.")
         }
 
-        owner.register(this)
+        @Suppress("LeakingThis")
+        parent.register(this)
     }
 
     override fun register(viewModelet: BaseViewModelet) {
