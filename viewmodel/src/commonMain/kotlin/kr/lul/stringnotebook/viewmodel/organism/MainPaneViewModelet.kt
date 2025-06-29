@@ -12,11 +12,12 @@ import kr.lul.stringnotebook.domain.event.UpdateNodeTextEvent
 import kr.lul.stringnotebook.domain.foundation.Event
 import kr.lul.stringnotebook.domain.foundation.EventProcessor
 import kr.lul.stringnotebook.state.organism.AnchorState
+import kr.lul.stringnotebook.state.organism.Context
+import kr.lul.stringnotebook.state.organism.NeutralContext
 import kr.lul.stringnotebook.state.organism.NodeState
-import kr.lul.stringnotebook.state.organism.NotebookContext
-import kr.lul.stringnotebook.state.organism.NotebookContextImpl
+import kr.lul.stringnotebook.state.organism.NotebookMenuContext
 import kr.lul.stringnotebook.state.organism.NotebookState
-import kr.lul.stringnotebook.state.template.MenuState
+import kr.lul.stringnotebook.state.organism.ObjectEditContext
 import kr.lul.stringnotebook.viewmodel.atom.BaseViewModelet
 import kr.lul.stringnotebook.viewmodel.atom.ViewModeletOwner
 import kotlin.uuid.ExperimentalUuidApi
@@ -26,65 +27,53 @@ class MainPaneViewModelet(
     page: ViewModeletOwner,
     initState: NotebookState
 ) : BaseViewModelet(page, "MainPaneViewModelet"), EventProcessor {
-    private val _notebook = MutableStateFlow(initState)
+    internal val _notebook = MutableStateFlow(initState)
     val notebook: StateFlow<NotebookState> = _notebook
 
-    private val _context = MutableStateFlow(NotebookContextImpl())
-    val context: StateFlow<NotebookContext> = _context
+    internal val _context = MutableStateFlow<Context>(NeutralContext())
+    val context: StateFlow<Context> = _context
 
     override fun invoke(event: Event) {
         logger.d("#invoke args : event=$event")
 
-        when (event) {
-            is ActivateEvent -> launch {
-                val notebook = _notebook.value
-                val context = _context.value
+        val notebook = _notebook.value
+        val context = _context.value
+        logger.d("#invoke : notebook=$notebook, context=$context")
+        when {
+            event is ActivateEvent && context is NeutralContext -> launch {
                 val target = notebook.objects.firstOrNull { event.target == it.id }
+                if (null == target) {
+                    logger.w("#invoke target not found : targetId=${event.target}")
+                    return@launch
+                }
 
-                context.active = target
-                _context.emit(context)
+                _context.emit(context.activate(target))
             }
 
-            is AddAnchorEvent -> launch {
-                val notebook = _notebook.value
-                val context = _context.value
-
+            event is AddAnchorEvent && context is NotebookMenuContext -> launch {
                 val anchor = AnchorState(x = event.x, y = event.y)
-                context.active = anchor
-                context.menu = null
-
                 _notebook.emit(notebook.copy(objects = notebook.objects + anchor))
-                _context.emit(context)
+                _context.emit(context.activate(anchor))
             }
 
-            is AddNodeEvent -> launch {
-                val notebook = _notebook.value
-                val context = _context.value
-
+            event is AddNodeEvent && context is NotebookMenuContext -> launch {
                 val node = NodeState(x = event.x, y = event.y)
-                context.active = node
-                context.menu = null
-
                 _notebook.emit(notebook.copy(objects = notebook.objects + node))
-                _context.emit(context)
+                _context.emit(context.activate(node))
             }
 
-            is HideContextMenuEvent -> launch {
-                val context = _context.value
-                context.active = null
-                context.menu = null
-
-                _context.emit(context)
+            event is HideContextMenuEvent && context is NotebookMenuContext -> launch {
+                _context.emit(context.neutral())
             }
 
-            is MoveEvent -> launch {
-                logger.d("event=$event")
-                val notebook = _notebook.value
-
+            event is MoveEvent && context is NeutralContext -> launch {
                 val target = notebook.objects.firstOrNull { event.target == it.id }
-                    ?: return@launch
-
                 when (target) {
+                    null -> {
+                        logger.w("#invoke target not found : targetId=${event.target}")
+                        return@launch
+                    }
+
                     is AnchorState -> {
                         target.x = event.x
                         target.y = event.y
@@ -99,23 +88,16 @@ class MainPaneViewModelet(
                 }
             }
 
-            is ShowContextMenuEvent -> launch {
-                val notebook = _notebook.value
-                val context = _context.value
-                val target = notebook.objects.firstOrNull { event.target == it.id }
-
-                context.active = target
-                context.menu = MenuState(event.x, event.y, target)
-                _context.emit(context)
+            event is ShowContextMenuEvent && context is NeutralContext -> launch {
+                _context.emit(context.menu(event.x, event.y))
             }
 
-            is UpdateNodeTextEvent -> launch {
-                val notebook = _notebook.value
-                val context = _context.value
+            event is UpdateNodeTextEvent && context is ObjectEditContext -> launch {
                 val target = notebook.objects.firstOrNull { event.target == it.id } as? NodeState
-                    ?: return@launch
-
-                target.text = event.text
+                if (null == target || target != context.active) {
+                    logger.w("#invoke target not found or not active : targetId=${event.target}, active=${context.active}")
+                    return@launch
+                }
             }
 
             else ->
