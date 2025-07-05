@@ -31,17 +31,42 @@ fun Notebook(state: NotebookState, context: Context, processor: EventProcessor, 
 
     Box(
         modifier.pointerInput(state, context) {
-            detectTapGestures { offset ->
-                when (context) {
-                    is NeutralContext ->
-                        processor(ShowNotebookContextMenuEvent(x = offset.x.toDp().value, y = offset.y.toDp().value))
+            detectTapGestures(
+                onDoubleTap = { offset ->
+                    when (context) {
+                        is NeutralContext ->
+                            processor(
+                                ShowNotebookContextMenuEvent(
+                                    x = offset.x.toDp().value,
+                                    y = offset.y.toDp().value
+                                )
+                            )
 
-                    is ObjectActivatedContext ->
-                        processor(DeactivateEvent())
+                        else -> {}
+                    }
+                },
+                onLongPress = { offset ->
+                    when (context) {
+                        is NeutralContext ->
+                            processor(
+                                ShowNotebookContextMenuEvent(
+                                    x = offset.x.toDp().value,
+                                    y = offset.y.toDp().value
+                                )
+                            )
 
-                    else -> {}
+                        else -> {}
+                    }
+                },
+                onTap = { offset ->
+                    when (context) {
+                        is ObjectActivatedContext ->
+                            processor(DeactivateEvent())
+
+                        else -> {}
+                    }
                 }
-            }
+            )
         }
     ) {
         val objects = state.objects // TODO 뷰포트로 걸러내기.

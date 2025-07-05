@@ -8,7 +8,6 @@ import kr.lul.stringnotebook.domain.event.AddNodeEvent
 import kr.lul.stringnotebook.domain.event.DeactivateEvent
 import kr.lul.stringnotebook.domain.event.HideContextMenuEvent
 import kr.lul.stringnotebook.domain.event.MoveEvent
-import kr.lul.stringnotebook.domain.event.ShowNotebookContextMenuEvent
 import kr.lul.stringnotebook.domain.event.UpdateNodeTextEvent
 import kr.lul.stringnotebook.domain.foundation.Event
 import kr.lul.stringnotebook.domain.foundation.EventProcessor
@@ -22,6 +21,7 @@ import kr.lul.stringnotebook.state.organism.ObjectActivatedContext
 import kr.lul.stringnotebook.state.organism.ObjectEditContext
 import kr.lul.stringnotebook.viewmodel.atom.BaseViewModelet
 import kr.lul.stringnotebook.viewmodel.atom.ViewModeletOwner
+import kr.lul.stringnotebook.viewmodel.organism.NeutralContextEventProcessor
 import kotlin.uuid.ExperimentalUuidApi
 
 @ExperimentalUuidApi
@@ -36,23 +36,29 @@ class NotebookViewModelet(
     internal val _context = MutableStateFlow<Context>(NeutralContext())
     val context: StateFlow<Context> = _context
 
+    private val neutral = NeutralContextEventProcessor("${tag}.neutral")
+
     override fun invoke(event: Event) {
         logger.d("#invoke args : event=$event")
 
         val notebook = _notebook.value
         val context = _context.value
         logger.d("#invoke : notebook=$notebook, context=$context")
-        when {
-            event is ActivateEvent && context is NeutralContext -> launch {
-                val target = notebook.objects.firstOrNull { event.target == it.id }
-                if (null == target) {
-                    logger.w("#invoke target not found : targetId=${event.target}")
-                    return@launch
-                }
 
-                _context.emit(context.activate(target))
+        when (context) {
+            is NeutralContext -> neutral(notebook, context, event) { note, ctx ->
+                launch {
+                    _notebook.emit(note)
+                    _context.emit(ctx)
+                }
             }
 
+            else -> {}
+            // TODO rollback
+            // throw IllegalStateException("Unsupported context for NotebookViewModelet: context::class=${context::class.qualifiedName}, context=$context")
+        }
+
+        when {
             event is ActivateEvent && context is ObjectActivatedContext -> launch {
                 val target = notebook.objects.firstOrNull { event.target == it.id }
                 if (null == target || target == context.active) {
@@ -104,10 +110,6 @@ class NotebookViewModelet(
 
                     else -> logger.w("#invoke unsupported target type : $target")
                 }
-            }
-
-            event is ShowNotebookContextMenuEvent && context is NeutralContext -> launch {
-                _context.emit(context.menu(event.x, event.y))
             }
 
             event is UpdateNodeTextEvent && context is ObjectEditContext -> launch {
