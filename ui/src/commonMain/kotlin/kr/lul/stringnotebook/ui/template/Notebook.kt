@@ -22,11 +22,11 @@ import kotlin.uuid.ExperimentalUuidApi
 /**
  * WYSWYG 노트북 에디터.
  *
- * @see kr.lul.stringnotebook.preview.ui.template.MainPanePreview
+ * @see kr.lul.stringnotebook.preview.ui.template.NotebookPreview
  */
 @Composable
 @ExperimentalUuidApi
-fun MainPane(state: NotebookState, context: Context, processor: EventProcessor, modifier: Modifier = Modifier) {
+fun Notebook(state: NotebookState, context: Context, processor: EventProcessor, modifier: Modifier = Modifier) {
     logger.v("#MainPane args : state=$state, context=$context, processor=$processor, modifier=$modifier")
 
     Box(

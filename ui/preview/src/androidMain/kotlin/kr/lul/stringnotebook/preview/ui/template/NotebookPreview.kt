@@ -8,7 +8,7 @@ import kr.lul.stringnotebook.preview.ui.atom.ComponentPreviewContainer
 import kr.lul.stringnotebook.state.organism.AnchorState
 import kr.lul.stringnotebook.state.organism.NeutralContext
 import kr.lul.stringnotebook.state.organism.NotebookState
-import kr.lul.stringnotebook.ui.template.MainPane
+import kr.lul.stringnotebook.ui.template.Notebook
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import kotlin.random.Random
 import kotlin.uuid.ExperimentalUuidApi
@@ -16,13 +16,13 @@ import kotlin.uuid.ExperimentalUuidApi
 @Composable
 @Preview
 @ExperimentalUuidApi
-fun MainPanePreview() {
+fun NotebookPreview() {
     val notebook = NotebookState(
         objects = (0..10).map { AnchorState(x = 100 * it, y = 100 * it) } +
                 (0..10).map { AnchorState(x = 100 * Random.nextInt(10), y = 100 * Random.nextInt(10)) }
     )
 
     ComponentPreviewContainer(Modifier.fillMaxSize()) {
-        MainPane(notebook, NeutralContext(), EventProcessor.NoOp)
+        Notebook(notebook, NeutralContext(), EventProcessor.NoOp)
     }
 }

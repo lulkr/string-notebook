@@ -10,7 +10,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import kr.lul.stringnotebook.state.page.MainPageHandler
 import kr.lul.stringnotebook.state.page.MainPageState
-import kr.lul.stringnotebook.ui.template.MainPane
+import kr.lul.stringnotebook.ui.template.Notebook
 import kotlin.uuid.ExperimentalUuidApi
 
 @Composable
@@ -28,6 +28,6 @@ fun MainPage(
         Arrangement.Center,
         Alignment.CenterHorizontally
     ) {
-        MainPane(state.notebook, state.context, state.processor)
+        Notebook(state.notebook, state.context, state.processor)
     }
 }

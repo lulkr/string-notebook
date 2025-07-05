@@ -1,4 +1,4 @@
-package kr.lul.stringnotebook.viewmodel.organism
+package kr.lul.stringnotebook.viewmodel.template
 
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -25,10 +25,11 @@ import kr.lul.stringnotebook.viewmodel.atom.ViewModeletOwner
 import kotlin.uuid.ExperimentalUuidApi
 
 @ExperimentalUuidApi
-class MainPaneViewModelet(
+class NotebookViewModelet(
+    tag: String,
     page: ViewModeletOwner,
     initState: NotebookState
-) : BaseViewModelet(page, "MainPaneViewModelet"), EventProcessor {
+) : BaseViewModelet(page, tag), EventProcessor {
     internal val _notebook = MutableStateFlow(initState)
     val notebook: StateFlow<NotebookState> = _notebook
 
