@@ -11,38 +11,55 @@ import androidx.compose.ui.unit.dp
 import kr.lul.stringnotebook.domain.event.AddAnchorEvent
 import kr.lul.stringnotebook.domain.event.AddNodeEvent
 import kr.lul.stringnotebook.domain.foundation.EventProcessor
-import kr.lul.stringnotebook.state.organism.NotebookContext
-import kr.lul.stringnotebook.state.template.MenuState
+import kr.lul.stringnotebook.state.organism.Context
+import kr.lul.stringnotebook.state.organism.NotebookMenuContext
+import kr.lul.stringnotebook.state.organism.ObjectMenuContext
 import kr.lul.stringnotebook.ui.page.logger
 import kotlin.uuid.ExperimentalUuidApi
 
 @Composable
 @ExperimentalUuidApi
 fun ContextMenu(
-    state: MenuState,
-    context: NotebookContext,
+    context: Context,
     processor: EventProcessor,
-    onDismissRequest: () -> Unit = {}
+    onDismissRequest: () -> Unit
 ) {
-    logger.v("#ContextMenu args : state=$state, context=$context, processor=$processor")
+    logger.v("#ContextMenu args : context=$context, processor=$processor")
 
-    Box(Modifier.offset(x = state.x.dp, y = state.y.dp)) {
+    val (x, y) = when (context) {
+        is NotebookMenuContext ->
+            context.x to context.y
+
+        is ObjectMenuContext ->
+            context.x to context.y
+
+        else -> {
+            logger.w("#ContextMenu : Unsupported context type: ${context::class.simpleName}")
+            return
+        }
+    }
+
+    Box(Modifier.offset(x = x.dp, y = y.dp)) {
         DropdownMenu(
             expanded = true,
-            onDismissRequest = onDismissRequest
+            onDismissRequest = onDismissRequest,
         ) {
-            if (null == state.target) {
+            if (context is ObjectMenuContext) {
+                // TODO
+            }
+
+            if (context is NotebookMenuContext) {
                 DropdownMenuItem(
                     text = { Text("Add Anchor") },
                     onClick = {
-                        processor(AddAnchorEvent(state.x, state.y))
+                        processor(AddAnchorEvent(x, y))
                     }
                 )
 
                 DropdownMenuItem(
                     text = { Text("Add Node") },
                     onClick = {
-                        processor(AddNodeEvent(state.x, state.y))
+                        processor(AddNodeEvent(x, y))
                     }
                 )
             }

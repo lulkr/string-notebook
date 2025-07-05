@@ -8,6 +8,8 @@ import kotlin.uuid.Uuid
  * 객체를 활성화하는 이벤트. 활성화한 객체만 수정할 수 있다.
  *
  * @property target 활성화할 객체의 ID.
+ *
+ * @see DeactivateEvent
  */
 @ExperimentalUuidApi
 data class ActivateEvent(

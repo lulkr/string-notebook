@@ -12,7 +12,7 @@ import kotlin.uuid.Uuid
  * @param target 메뉴가 적용될 대상 객체의 ID (선택적). `null`이면 노트북 자체의 컨텍스트 메뉴를 표시합니다.
  */
 @ExperimentalUuidApi
-data class ShowContextMenuEvent(
+data class ShowNotebookContextMenuEvent(
     val x: Float,
     val y: Float,
     val target: Uuid? = null

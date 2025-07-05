@@ -6,6 +6,6 @@ import kr.lul.stringnotebook.state.organism.AnchorPreferences
 
 @Immutable
 data class PreviewAnchorPreferences(
-    override val size: Float = AnchorPreferences.NoOp.size,
+    override val size: Float = AnchorPreferences.Default.size,
     override val colors: AnchorColors = AnchorColors()
 ) : AnchorPreferences

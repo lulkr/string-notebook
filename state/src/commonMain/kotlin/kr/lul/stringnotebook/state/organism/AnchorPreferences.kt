@@ -8,8 +8,8 @@ import kr.lul.stringnotebook.state.molecule.AnchorColors
  */
 @Stable
 interface AnchorPreferences {
-    object NoOp : AnchorPreferences {
-        override val size: Float = 20F
+    object Default : AnchorPreferences {
+        override val size: Float = 8F
         override val colors: AnchorColors = AnchorColors()
     }
 

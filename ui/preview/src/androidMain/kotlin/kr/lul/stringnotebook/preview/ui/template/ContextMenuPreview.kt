@@ -7,8 +7,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import kr.lul.stringnotebook.domain.foundation.EventProcessor
 import kr.lul.stringnotebook.preview.ui.atom.ComponentPreviewContainer
-import kr.lul.stringnotebook.state.organism.NotebookContext
-import kr.lul.stringnotebook.state.template.MenuState
+import kr.lul.stringnotebook.state.organism.NotebookMenuContext
 import kr.lul.stringnotebook.ui.template.ContextMenu
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import kotlin.uuid.ExperimentalUuidApi
@@ -17,10 +16,12 @@ import kotlin.uuid.ExperimentalUuidApi
 @ExperimentalUuidApi
 @Preview
 fun ContextMenuPreview() {
-    ComponentPreviewContainer(Modifier.size(400.dp), Alignment.TopStart) {
+    ComponentPreviewContainer(
+        modifier = Modifier.size(400.dp),
+        contentAlignment = Alignment.TopStart
+    ) {
         ContextMenu(
-            state = MenuState(100F, 200F),
-            context = NotebookContext.NoOp,
+            context = NotebookMenuContext(x = 200F, y = 100F),
             processor = EventProcessor.NoOp,
             onDismissRequest = {}
         )

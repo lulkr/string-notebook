@@ -5,11 +5,16 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
+import kr.lul.stringnotebook.domain.event.DeactivateEvent
 import kr.lul.stringnotebook.domain.event.HideContextMenuEvent
-import kr.lul.stringnotebook.domain.event.ShowContextMenuEvent
+import kr.lul.stringnotebook.domain.event.ShowNotebookContextMenuEvent
 import kr.lul.stringnotebook.domain.foundation.EventProcessor
-import kr.lul.stringnotebook.state.organism.NotebookContext
+import kr.lul.stringnotebook.state.organism.Context
+import kr.lul.stringnotebook.state.organism.NeutralContext
+import kr.lul.stringnotebook.state.organism.NotebookMenuContext
 import kr.lul.stringnotebook.state.organism.NotebookState
+import kr.lul.stringnotebook.state.organism.ObjectActivatedContext
+import kr.lul.stringnotebook.state.organism.ObjectMenuContext
 import kr.lul.stringnotebook.ui.organism.Viewer
 import kr.lul.stringnotebook.ui.page.logger
 import kotlin.uuid.ExperimentalUuidApi
@@ -21,13 +26,21 @@ import kotlin.uuid.ExperimentalUuidApi
  */
 @Composable
 @ExperimentalUuidApi
-fun MainPane(state: NotebookState, context: NotebookContext, processor: EventProcessor, modifier: Modifier = Modifier) {
+fun MainPane(state: NotebookState, context: Context, processor: EventProcessor, modifier: Modifier = Modifier) {
     logger.v("#MainPane args : state=$state, context=$context, processor=$processor, modifier=$modifier")
 
     Box(
         modifier.pointerInput(state, context) {
             detectTapGestures { offset ->
-                processor(ShowContextMenuEvent(x = offset.x.toDp().value, y = offset.y.toDp().value))
+                when (context) {
+                    is NeutralContext ->
+                        processor(ShowNotebookContextMenuEvent(x = offset.x.toDp().value, y = offset.y.toDp().value))
+
+                    is ObjectActivatedContext ->
+                        processor(DeactivateEvent())
+
+                    else -> {}
+                }
             }
         }
     ) {
@@ -35,14 +48,11 @@ fun MainPane(state: NotebookState, context: NotebookContext, processor: EventPro
 
         Viewer(objects, context, processor)
 
-        context.menu?.let {
+        if (context is NotebookMenuContext || context is ObjectMenuContext) {
             ContextMenu(
-                state = it,
                 context = context,
                 processor = processor,
-                onDismissRequest = {
-                    processor(HideContextMenuEvent())
-                }
+                onDismissRequest = { processor(HideContextMenuEvent()) }
             )
         }
     }

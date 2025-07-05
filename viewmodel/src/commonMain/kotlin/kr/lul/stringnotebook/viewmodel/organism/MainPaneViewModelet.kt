@@ -5,9 +5,10 @@ import kotlinx.coroutines.flow.StateFlow
 import kr.lul.stringnotebook.domain.event.ActivateEvent
 import kr.lul.stringnotebook.domain.event.AddAnchorEvent
 import kr.lul.stringnotebook.domain.event.AddNodeEvent
+import kr.lul.stringnotebook.domain.event.DeactivateEvent
 import kr.lul.stringnotebook.domain.event.HideContextMenuEvent
 import kr.lul.stringnotebook.domain.event.MoveEvent
-import kr.lul.stringnotebook.domain.event.ShowContextMenuEvent
+import kr.lul.stringnotebook.domain.event.ShowNotebookContextMenuEvent
 import kr.lul.stringnotebook.domain.event.UpdateNodeTextEvent
 import kr.lul.stringnotebook.domain.foundation.Event
 import kr.lul.stringnotebook.domain.foundation.EventProcessor
@@ -17,6 +18,7 @@ import kr.lul.stringnotebook.state.organism.NeutralContext
 import kr.lul.stringnotebook.state.organism.NodeState
 import kr.lul.stringnotebook.state.organism.NotebookMenuContext
 import kr.lul.stringnotebook.state.organism.NotebookState
+import kr.lul.stringnotebook.state.organism.ObjectActivatedContext
 import kr.lul.stringnotebook.state.organism.ObjectEditContext
 import kr.lul.stringnotebook.viewmodel.atom.BaseViewModelet
 import kr.lul.stringnotebook.viewmodel.atom.ViewModeletOwner
@@ -50,8 +52,19 @@ class MainPaneViewModelet(
                 _context.emit(context.activate(target))
             }
 
+            event is ActivateEvent && context is ObjectActivatedContext -> launch {
+                val target = notebook.objects.firstOrNull { event.target == it.id }
+                if (null == target || target == context.active) {
+                    logger.w("#invoke target not found or not active : targetId=${event.target}, active=${context.active}")
+                    return@launch
+                }
+
+                _context.emit(context.switch(target))
+            }
+
             event is AddAnchorEvent && context is NotebookMenuContext -> launch {
                 val anchor = AnchorState(x = event.x, y = event.y)
+
                 _notebook.emit(notebook.copy(objects = notebook.objects + anchor))
                 _context.emit(context.activate(anchor))
             }
@@ -60,6 +73,10 @@ class MainPaneViewModelet(
                 val node = NodeState(x = event.x, y = event.y)
                 _notebook.emit(notebook.copy(objects = notebook.objects + node))
                 _context.emit(context.activate(node))
+            }
+
+            event is DeactivateEvent && context is ObjectActivatedContext -> launch {
+                _context.emit(context.neutral())
             }
 
             event is HideContextMenuEvent && context is NotebookMenuContext -> launch {
@@ -88,7 +105,7 @@ class MainPaneViewModelet(
                 }
             }
 
-            event is ShowContextMenuEvent && context is NeutralContext -> launch {
+            event is ShowNotebookContextMenuEvent && context is NeutralContext -> launch {
                 _context.emit(context.menu(event.x, event.y))
             }
 
@@ -103,6 +120,8 @@ class MainPaneViewModelet(
             else ->
                 logger.w("#invoke unsupported event : $event")
         }
+
+        logger.d("#invoke completed : this=$this")
     }
 
     override fun toString() = listOf(

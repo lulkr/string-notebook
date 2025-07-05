@@ -33,7 +33,7 @@ sealed interface Context {
  */
 @ExperimentalUuidApi
 data class NeutralContext(
-    override val preferences: NotebookPreferences = NotebookPreferences.NoOp,
+    override val preferences: NotebookPreferences = NotebookPreferences.Default,
     override val version: Uuid = Uuid.random()
 ) : Context {
     /**
@@ -54,7 +54,7 @@ data class NeutralContext(
      *
      * @param obj 선택한 오브젝트.
      */
-    fun activate(obj: ObjectState) = ObjectActivated(
+    fun activate(obj: ObjectState) = ObjectActivatedContext(
         preferences = preferences,
         version = Uuid.random(),
         active = obj
@@ -74,7 +74,7 @@ data class NeutralContext(
  */
 @ExperimentalUuidApi
 data class NotebookMenuContext(
-    override val preferences: NotebookPreferences,
+    override val preferences: NotebookPreferences = NotebookPreferences.Default,
     override val version: Uuid = Uuid.random(),
     val x: Float,
     val y: Float
@@ -92,7 +92,7 @@ data class NotebookMenuContext(
      *
      * @param obj 선택한 오브젝트.
      */
-    fun activate(obj: ObjectState) = ObjectActivated(
+    fun activate(obj: ObjectState) = ObjectActivatedContext(
         preferences = preferences,
         version = Uuid.random(),
         active = obj
@@ -111,9 +111,9 @@ data class NotebookMenuContext(
  * @property active 선택된 오브젝트.
  */
 @ExperimentalUuidApi
-data class ObjectActivated(
-    override val preferences: NotebookPreferences,
-    override val version: Uuid,
+data class ObjectActivatedContext(
+    override val preferences: NotebookPreferences = NotebookPreferences.Default,
+    override val version: Uuid = Uuid.random(),
     val active: ObjectState
 ) : Context {
     /**
@@ -162,6 +162,15 @@ data class ObjectActivated(
         version = Uuid.random(),
         preview = preview
     )
+
+    /**
+     * 다른 오브젝트를 선택한다.
+     */
+    fun switch(target: ObjectState) = ObjectActivatedContext(
+        preferences = preferences,
+        version = Uuid.random(),
+        active = target
+    )
 }
 
 /**
@@ -173,14 +182,14 @@ data class ObjectActivated(
  */
 @ExperimentalUuidApi
 class PreviewContext(
-    override val preferences: NotebookPreferences,
+    override val preferences: NotebookPreferences = NotebookPreferences.Default,
     override val version: Uuid = Uuid.random(),
     val preview: PreviewState
 ) : Context {
     /**
      * 오브젝트를 빈 공간에 드랍하디 등으로 오브젝트 선택 상태로 돌아간다.
      */
-    fun activate() = ObjectActivated(
+    fun activate() = ObjectActivatedContext(
         preferences = preferences,
         version = Uuid.random(),
         active = preview.obj
@@ -213,7 +222,7 @@ class PreviewContext(
  */
 @ExperimentalUuidApi
 class ObjectMenuContext(
-    override val preferences: NotebookPreferences,
+    override val preferences: NotebookPreferences = NotebookPreferences.Default,
     override val version: Uuid = Uuid.random(),
     val active: ObjectState,
     val x: Float,
@@ -222,7 +231,7 @@ class ObjectMenuContext(
     /**
      * 오브젝트 선택 상태로 돌아간다.
      */
-    fun activate() = ObjectActivated(
+    fun activate() = ObjectActivatedContext(
         preferences = preferences,
         version = Uuid.random(),
         active = active
@@ -247,7 +256,7 @@ class ObjectMenuContext(
  */
 @OptIn(ExperimentalUuidApi::class)
 class ObjectEditContext(
-    override val preferences: NotebookPreferences,
+    override val preferences: NotebookPreferences = NotebookPreferences.Default,
     override val version: Uuid = Uuid.random(),
     val active: ObjectState
 ) : Context
