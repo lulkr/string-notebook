@@ -32,7 +32,7 @@ class NeutralContextEventProcessor(tag: String) {
                 handle(notebook, context, event, callback)
 
             else ->
-                throw IllegalArgumentException("Unsupported event for NeutralContextNotebookViewModelet: event::class=${event::class.qualifiedName}, event=$event")
+                throw IllegalArgumentException("Unsupported event : event::class=${event::class.qualifiedName}, event=$event")
         }
     }
 

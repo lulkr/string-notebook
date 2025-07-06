@@ -11,7 +11,7 @@ import kotlin.uuid.Uuid
  * @property x 이동할 위치의 x 좌표
  * @property y 이동할 위치의 y 좌표
  */
-@OptIn(ExperimentalUuidApi::class)
+@ExperimentalUuidApi
 class MoveEvent(
     val target: Uuid,
     val x: Float,

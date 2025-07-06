@@ -2,8 +2,6 @@ package kr.lul.stringnotebook.viewmodel.template
 
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kr.lul.stringnotebook.domain.event.ActivateEvent
-import kr.lul.stringnotebook.domain.event.DeactivateEvent
 import kr.lul.stringnotebook.domain.event.MoveEvent
 import kr.lul.stringnotebook.domain.event.UpdateNodeTextEvent
 import kr.lul.stringnotebook.domain.foundation.Event
@@ -20,6 +18,7 @@ import kr.lul.stringnotebook.viewmodel.atom.BaseViewModelet
 import kr.lul.stringnotebook.viewmodel.atom.ViewModeletOwner
 import kr.lul.stringnotebook.viewmodel.organism.NeutralContextEventProcessor
 import kr.lul.stringnotebook.viewmodel.organism.NotebookMenuContextEventProcessor
+import kr.lul.stringnotebook.viewmodel.organism.ObjectActivatedContextEventProcessor
 import kotlin.uuid.ExperimentalUuidApi
 
 @ExperimentalUuidApi
@@ -36,6 +35,7 @@ class NotebookViewModelet(
 
     private val neutral = NeutralContextEventProcessor("${tag}.neutral")
     private val notebookMenu = NotebookMenuContextEventProcessor("${tag}.notebookMenu")
+    private val objectActivated = ObjectActivatedContextEventProcessor("${tag}.objectActivated")
 
     override fun invoke(event: Event) {
         logger.d("#invoke args : event=$event")
@@ -59,26 +59,19 @@ class NotebookViewModelet(
                 }
             }
 
+            is ObjectActivatedContext -> objectActivated(notebook, context, event) { note, ctx ->
+                launch {
+                    _notebook.emit(note)
+                    _context.emit(ctx)
+                }
+            }
+
             else -> {}
             // TODO rollback
             // throw IllegalStateException("Unsupported context for NotebookViewModelet: context::class=${context::class.qualifiedName}, context=$context")
         }
 
         when {
-            event is ActivateEvent && context is ObjectActivatedContext -> launch {
-                val target = notebook.objects.firstOrNull { event.target == it.id }
-                if (null == target || target == context.active) {
-                    logger.w("#invoke target not found or not active : targetId=${event.target}, active=${context.active}")
-                    return@launch
-                }
-
-                _context.emit(context.switch(target))
-            }
-
-            event is DeactivateEvent && context is ObjectActivatedContext -> launch {
-                _context.emit(context.neutral())
-            }
-
             event is MoveEvent && context is NeutralContext -> launch {
                 val target = notebook.objects.firstOrNull { event.target == it.id }
                 when (target) {
