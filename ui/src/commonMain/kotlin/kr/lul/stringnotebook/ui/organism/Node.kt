@@ -8,8 +8,11 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
@@ -67,6 +70,13 @@ fun NodeEditor(
 ) {
     logger.v("#NodeEditor args : state=$state, context=$context, processor=$processor, colors=$colors")
 
+    val focusRequester = remember(state.id) {
+        FocusRequester()
+    }
+    LaunchedEffect(state.id) {
+        focusRequester.requestFocus()
+    }
+
     OutlinedTextField(
         value = state.text,
         onValueChange = {
@@ -74,6 +84,7 @@ fun NodeEditor(
             processor(UpdateNodeTextEvent(state.id, it))
         },
         modifier = Modifier
+            .focusRequester(focusRequester)
             .pointerInput(state, context) {
                 detectTapGestures {
                     processor(ActivateEvent(state.id))
