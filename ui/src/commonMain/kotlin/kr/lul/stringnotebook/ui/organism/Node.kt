@@ -14,7 +14,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.input.pointer.pointerInput
-import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
 import kr.lul.stringnotebook.domain.event.ActivateEvent
 import kr.lul.stringnotebook.domain.event.MoveEvent
@@ -45,15 +44,10 @@ fun Node(
 
     val activated = remember(state, context) {
         (context is ObjectActivatedContext && context.active == state) ||
-                (context is ObjectEditContext && context.active == state.id)
+                (context is ObjectEditContext && context.active == state)
     }
 
-    if (!activated) {
-        LocalFocusManager.current
-            .clearFocus()
-    }
-
-    if (context is ObjectEditContext) {
+    if (activated && context is ObjectEditContext) {
         NodeEditor(state, context, processor)
     } else {
         NodeViewer(state, context, processor, activated)
