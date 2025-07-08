@@ -272,6 +272,14 @@ class ObjectEditContext(
     )
 
     /**
+     * 중립 상태로 전환한다.
+     */
+    fun neutral() = NeutralContext(
+        preferences = preferences,
+        version = Uuid.random()
+    )
+
+    /**
      * 다른 오브젝트 수정으로 전환한다.
      *
      * @param target 선택할 오브젝트.

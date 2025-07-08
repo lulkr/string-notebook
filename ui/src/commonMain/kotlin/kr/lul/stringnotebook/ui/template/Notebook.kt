@@ -14,6 +14,7 @@ import kr.lul.stringnotebook.state.organism.NeutralContext
 import kr.lul.stringnotebook.state.organism.NotebookMenuContext
 import kr.lul.stringnotebook.state.organism.NotebookState
 import kr.lul.stringnotebook.state.organism.ObjectActivatedContext
+import kr.lul.stringnotebook.state.organism.ObjectEditContext
 import kr.lul.stringnotebook.state.organism.ObjectMenuContext
 import kr.lul.stringnotebook.ui.organism.Viewer
 import kr.lul.stringnotebook.ui.page.logger
@@ -60,7 +61,8 @@ fun Notebook(state: NotebookState, context: Context, processor: EventProcessor, 
                 },
                 onTap = { offset ->
                     when (context) {
-                        is ObjectActivatedContext ->
+                        is ObjectActivatedContext,
+                        is ObjectEditContext ->
                             processor(DeactivateEvent())
 
                         else -> {}

@@ -2,6 +2,7 @@ package kr.lul.stringnotebook.viewmodel.organism
 
 import kr.lul.logger.Logger
 import kr.lul.stringnotebook.domain.event.ActivateEvent
+import kr.lul.stringnotebook.domain.event.DeactivateEvent
 import kr.lul.stringnotebook.domain.event.OpenEditorEvent
 import kr.lul.stringnotebook.domain.event.UpdateNodeTextEvent
 import kr.lul.stringnotebook.domain.foundation.Event
@@ -25,6 +26,9 @@ class ObjectEditContextEventProcessor(tag: String) {
 
         when (event) {
             is ActivateEvent -> handle(notebook, context, event, callback)
+
+            is DeactivateEvent -> callback(notebook, context.neutral())
+
             is OpenEditorEvent -> handle(notebook, context, event, callback)
 
             is UpdateNodeTextEvent -> handle(notebook, context, event, callback)
