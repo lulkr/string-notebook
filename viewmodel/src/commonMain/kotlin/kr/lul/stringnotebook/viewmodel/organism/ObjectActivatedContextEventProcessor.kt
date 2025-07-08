@@ -6,6 +6,7 @@ import kr.lul.stringnotebook.domain.event.DeactivateEvent
 import kr.lul.stringnotebook.domain.event.OpenEditorEvent
 import kr.lul.stringnotebook.domain.foundation.Event
 import kr.lul.stringnotebook.state.organism.Context
+import kr.lul.stringnotebook.state.organism.NodeState
 import kr.lul.stringnotebook.state.organism.NotebookState
 import kr.lul.stringnotebook.state.organism.ObjectActivatedContext
 import kotlin.uuid.ExperimentalUuidApi
@@ -45,7 +46,7 @@ class ObjectActivatedContextEventProcessor(tag: String) {
     ) {
         val target = notebook.objects.firstOrNull { event.target == it.id }
         if (null == target || target == context.active) {
-            logger.w("#invoke target not found or not active : targetId=${event.target}, active=${context.active}")
+            logger.w("#handle target not found or not active : targetId=${event.target}, active=${context.active}")
             return
         }
 
@@ -59,9 +60,16 @@ class ObjectActivatedContextEventProcessor(tag: String) {
         callback: (NotebookState, Context) -> Unit
     ) {
         val target = notebook.objects.firstOrNull { event.target == it.id }
-        if (null == target || target != context.active) {
-            logger.w("#invoke target not found or not active : target.id=${event.target}, active=${context.active}")
-            return
+        when (target) {
+            null -> {
+                logger.e("#handle target not found : targetId=${event.target}")
+                return
+            }
+
+            !is NodeState -> {
+                logger.e("#handle target is not NodeState : target=$target")
+                return
+            }
         }
 
         callback(notebook, context.edit())

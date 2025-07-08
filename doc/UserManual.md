@@ -40,6 +40,7 @@ stateDiagram-v2
     object_editing --> object_activate: 수정 완료
     object_editing --> object_activate: 다른 오브젝트 클릭
     object_editing --> neutral: 빈공간 클릭
+    object_editing --> object_editing: 다른 오브젝트 더블클릭
     object_activate --> object_preview: 드래그
     object_preview --> object_activate: 빈 공간에 드랍
     object_preview --> object_menu: 다른 오브젝트에 드랍

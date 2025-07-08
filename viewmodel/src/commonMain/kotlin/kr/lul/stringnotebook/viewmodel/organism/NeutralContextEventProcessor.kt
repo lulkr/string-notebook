@@ -28,11 +28,10 @@ class NeutralContextEventProcessor(tag: String) {
             is ActivateEvent ->
                 handle(notebook, context, event, callback)
 
-            is ShowNotebookContextMenuEvent ->
-                handle(notebook, context, event, callback)
+            is ShowNotebookContextMenuEvent -> callback(notebook, context.menu(event.x, event.y))
 
-            else ->
-                throw IllegalArgumentException("Unsupported event : event::class=${event::class.qualifiedName}, event=$event")
+            else -> {}
+            //throw IllegalArgumentException("Unsupported event : event::class=${event::class.qualifiedName}, event=$event")
         }
     }
 
@@ -49,14 +48,5 @@ class NeutralContextEventProcessor(tag: String) {
         }
 
         callback(notebook, context.activate(target))
-    }
-
-    private fun handle(
-        notebook: NotebookState,
-        context: NeutralContext,
-        event: ShowNotebookContextMenuEvent,
-        callback: (NotebookState, Context) -> Unit
-    ) {
-        callback(notebook, context.menu(event.x, event.y))
     }
 }

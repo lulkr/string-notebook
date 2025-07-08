@@ -80,9 +80,11 @@ fun NodeEditor(
         modifier = Modifier
             .focusRequester(focusRequester)
             .pointerInput(state, context) {
-                detectTapGestures {
-                    processor(ActivateEvent(state.id))
-                }
+                detectTapGestures(
+                    onTap = { offset ->
+                        processor(ActivateEvent(state.id))
+                    }
+                )
 
                 detectDragGestures { change, dragAmount ->
                     logger.d("#Node.onDrag called : change=$change, dragAmount=$dragAmount")
@@ -127,9 +129,7 @@ fun NodeViewer(
             .pointerInput(state, context) {
                 detectTapGestures(
                     onDoubleTap = { offset ->
-                        if (!activated || context !is ObjectEditContext) {
-                            processor(OpenEditorEvent(state.id))
-                        }
+                        processor(OpenEditorEvent(state.id))
                     },
                     onTap = { offset ->
                         if (!activated) {

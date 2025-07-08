@@ -130,10 +130,10 @@ data class ObjectActivatedContext(
      * 오브젝트를 수정하는 상태이다. 오브젝트의 내용 등을 변경할 수 있다.
      * 수정이 완료되면 오브젝트 선택 상태로 돌아간다. 빈 공간을 클릭하면 선택이 해제된다.
      */
-    fun edit() = ObjectEditContext(
+    fun edit(target: ObjectState = active) = ObjectEditContext(
         preferences = preferences,
         version = Uuid.random(),
-        active = active
+        active = target
     )
 
     /**
