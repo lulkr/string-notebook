@@ -127,7 +127,7 @@ fun NodeViewer(
             .pointerInput(state, context) {
                 detectTapGestures(
                     onDoubleTap = { offset ->
-                        if (context !is ObjectEditContext) {
+                        if (!activated || context !is ObjectEditContext) {
                             processor(OpenEditorEvent(state.id))
                         }
                     },

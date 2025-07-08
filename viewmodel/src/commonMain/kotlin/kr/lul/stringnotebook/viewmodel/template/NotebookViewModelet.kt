@@ -3,7 +3,6 @@ package kr.lul.stringnotebook.viewmodel.template
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kr.lul.stringnotebook.domain.event.MoveEvent
-import kr.lul.stringnotebook.domain.event.UpdateNodeTextEvent
 import kr.lul.stringnotebook.domain.foundation.Event
 import kr.lul.stringnotebook.domain.foundation.EventProcessor
 import kr.lul.stringnotebook.state.organism.AnchorState
@@ -19,6 +18,7 @@ import kr.lul.stringnotebook.viewmodel.atom.ViewModeletOwner
 import kr.lul.stringnotebook.viewmodel.organism.NeutralContextEventProcessor
 import kr.lul.stringnotebook.viewmodel.organism.NotebookMenuContextEventProcessor
 import kr.lul.stringnotebook.viewmodel.organism.ObjectActivatedContextEventProcessor
+import kr.lul.stringnotebook.viewmodel.organism.ObjectEditContextEventProcessor
 import kotlin.uuid.ExperimentalUuidApi
 
 @ExperimentalUuidApi
@@ -36,6 +36,7 @@ class NotebookViewModelet(
     private val neutral = NeutralContextEventProcessor("${tag}.neutral")
     private val notebookMenu = NotebookMenuContextEventProcessor("${tag}.notebookMenu")
     private val objectActivated = ObjectActivatedContextEventProcessor("${tag}.objectActivated")
+    private val objectEdit = ObjectEditContextEventProcessor("${tag}.objectEdit")
 
     override fun invoke(event: Event) {
         logger.d("#invoke args : event=$event")
@@ -60,6 +61,13 @@ class NotebookViewModelet(
             }
 
             is ObjectActivatedContext -> objectActivated(notebook, context, event) { note, ctx ->
+                launch {
+                    _notebook.emit(note)
+                    _context.emit(ctx)
+                }
+            }
+
+            is ObjectEditContext -> objectEdit(notebook, context, event) { note, ctx ->
                 launch {
                     _notebook.emit(note)
                     _context.emit(ctx)
@@ -91,14 +99,6 @@ class NotebookViewModelet(
                     }
 
                     else -> logger.w("#invoke unsupported target type : $target")
-                }
-            }
-
-            event is UpdateNodeTextEvent && context is ObjectEditContext -> launch {
-                val target = notebook.objects.firstOrNull { event.target == it.id } as? NodeState
-                if (null == target || target != context.active) {
-                    logger.w("#invoke target not found or not active : targetId=${event.target}, active=${context.active}")
-                    return@launch
                 }
             }
 

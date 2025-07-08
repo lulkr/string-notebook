@@ -259,4 +259,13 @@ class ObjectEditContext(
     override val preferences: NotebookPreferences = NotebookPreferences.Default,
     override val version: Uuid = Uuid.random(),
     val active: ObjectState
-) : Context
+) : Context {
+    /**
+     * 다른 오브젝트 수정으로 전환한다.
+     */
+    fun switch(target: ObjectState) = ObjectEditContext(
+        preferences = preferences,
+        version = Uuid.random(),
+        active = target
+    )
+}
