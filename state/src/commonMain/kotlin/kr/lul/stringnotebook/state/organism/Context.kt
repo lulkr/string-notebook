@@ -261,7 +261,20 @@ class ObjectEditContext(
     val active: ObjectState
 ) : Context {
     /**
+     * 다른 오븍젝트 선택 상태로 전환한다.
+     *
+     * @param target 선택할 오브젝트.
+     */
+    fun activate(target: ObjectState) = ObjectActivatedContext(
+        preferences = preferences,
+        version = Uuid.random(),
+        active = target
+    )
+
+    /**
      * 다른 오브젝트 수정으로 전환한다.
+     *
+     * @param target 선택할 오브젝트.
      */
     fun switch(target: ObjectState) = ObjectEditContext(
         preferences = preferences,

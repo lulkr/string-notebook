@@ -1,6 +1,7 @@
 package kr.lul.stringnotebook.viewmodel.organism
 
 import kr.lul.logger.Logger
+import kr.lul.stringnotebook.domain.event.ActivateEvent
 import kr.lul.stringnotebook.domain.event.OpenEditorEvent
 import kr.lul.stringnotebook.domain.event.UpdateNodeTextEvent
 import kr.lul.stringnotebook.domain.foundation.Event
@@ -23,6 +24,7 @@ class ObjectEditContextEventProcessor(tag: String) {
         logger.d("#invoke args : notebook=$notebook, context=$context, event=$event, callback=$callback")
 
         when (event) {
+            is ActivateEvent -> handle(notebook, context, event, callback)
             is OpenEditorEvent -> handle(notebook, context, event, callback)
 
             is UpdateNodeTextEvent -> handle(notebook, context, event, callback)
@@ -36,6 +38,23 @@ class ObjectEditContextEventProcessor(tag: String) {
     private fun handle(
         notebook: NotebookState,
         context: ObjectEditContext,
+        event: ActivateEvent,
+        callback: (NotebookState, Context) -> Unit
+    ) {
+        val target = notebook.objects.firstOrNull { event.target == it.id }
+        when {
+            null == target -> {
+                logger.e("#handle target not found : event=$event")
+                return
+            }
+        }
+
+        callback(notebook, context.activate(target))
+    }
+
+    private fun handle(
+        notebook: NotebookState,
+        context: ObjectEditContext,
         event: OpenEditorEvent,
         callback: (NotebookState, Context) -> Unit
     ) {
@@ -43,6 +62,11 @@ class ObjectEditContextEventProcessor(tag: String) {
         when {
             null == target -> {
                 logger.e("#handle target not found : event=$event")
+                return
+            }
+
+            target !is NodeState -> {
+                logger.e("#handle target is not NodeState : event=$event, target=$target")
                 return
             }
         }
