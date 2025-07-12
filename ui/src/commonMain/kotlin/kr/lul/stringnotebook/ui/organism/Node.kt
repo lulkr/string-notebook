@@ -74,7 +74,7 @@ fun NodeEditor(
     OutlinedTextField(
         value = state.text,
         onValueChange = {
-            logger.d("#Node.onValueChange called : text=$it")
+            logger.d("#NodeEditor.onValueChange args : text=$it")
             processor(UpdateNodeTextEvent(state.id, it))
         },
         modifier = Modifier
@@ -82,22 +82,28 @@ fun NodeEditor(
             .pointerInput(state, context) {
                 detectTapGestures(
                     onTap = { offset ->
+                        logger.d("#NodeEditor.onTap args : offset=$offset")
                         processor(ActivateEvent(state.id))
                     }
                 )
 
-                detectDragGestures { change, dragAmount ->
-                    logger.d("#Node.onDrag called : change=$change, dragAmount=$dragAmount")
+                detectDragGestures(
+                    onDragStart = { offset ->
+                        logger.d("#NodeEditor.onDragStart args : offset=$offset")
+                    },
+                    onDrag = { change, dragAmount ->
+                        logger.d("#NodeEditor.onDrag args : change=$change, dragAmount=$dragAmount")
 
-                    change.consume()
-                    processor(
-                        MoveEvent(
-                            target = state.id,
-                            x = state.x + dragAmount.x.toDp().value,
-                            y = state.y + dragAmount.y.toDp().value
+                        change.consume()
+                        processor(
+                            MoveEvent(
+                                target = state.id,
+                                x = state.x + dragAmount.x.toDp().value,
+                                y = state.y + dragAmount.y.toDp().value
+                            )
                         )
-                    )
-                }
+                    }
+                )
             }
             .background(colors.background)
             .padding(16.dp),
@@ -121,7 +127,15 @@ fun NodeViewer(
     activated: Boolean = false,
     colors: NodeColors = NodeDefaults.colors()
 ) {
-    logger.v("#NodeViewer args : state=$state, context=$context, processor=$processor, activated=$activated, colors=$colors")
+    logger.v(
+        listOf(
+            "state=$state",
+            "context=$context",
+            "processor=$processor",
+            "activated=$activated",
+            "colors=$colors"
+        ).joinToString(", ", "#NodeViewer args : ")
+    )
 
     Text(
         text = state.text,
@@ -129,27 +143,35 @@ fun NodeViewer(
             .pointerInput(state, context) {
                 detectTapGestures(
                     onDoubleTap = { offset ->
+                        logger.d("#NodeViewer.onDoubleTap args : offset=$offset")
                         processor(OpenEditorEvent(state.id))
                     },
                     onTap = { offset ->
+                        logger.d("#NodeViewer.onTap args : offset=$offset")
                         if (!activated) {
                             processor(ActivateEvent(state.id))
                         }
                     }
                 )
 
-                detectDragGestures { change, dragAmount ->
-                    if (activated) {
-                        change.consume()
-                        processor(
-                            MoveEvent(
-                                target = state.id,
-                                x = state.x + dragAmount.x.toDp().value,
-                                y = state.y + dragAmount.y.toDp().value
+                detectDragGestures(
+                    onDragStart = { offset ->
+                        logger.d("#NodeViewer.onDragStart args : offset=$offset")
+                    },
+                    onDrag = { change, dragAmount ->
+                        logger.d("#NodeViewer.onDrag args : change=$change, dragAmount=$dragAmount")
+                        if (activated) {
+                            change.consume()
+                            processor(
+                                MoveEvent(
+                                    target = state.id,
+                                    x = state.x + dragAmount.x.toDp().value,
+                                    y = state.y + dragAmount.y.toDp().value
+                                )
                             )
-                        )
+                        }
                     }
-                }
+                )
             }
             .background(if (activated) colors.background else colors.inactiveBackground)
             .padding(16.dp)
