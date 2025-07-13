@@ -6,7 +6,7 @@ import androidx.compose.ui.Modifier
 import kr.lul.stringnotebook.domain.foundation.EventProcessor
 import kr.lul.stringnotebook.preview.ui.atom.ComponentPreviewContainer
 import kr.lul.stringnotebook.state.organism.AnchorState
-import kr.lul.stringnotebook.state.organism.NeutralContext
+import kr.lul.stringnotebook.state.organism.NotebookFocusedContext
 import kr.lul.stringnotebook.state.organism.NotebookState
 import kr.lul.stringnotebook.ui.template.Notebook
 import org.jetbrains.compose.ui.tooling.preview.Preview
@@ -23,6 +23,6 @@ fun NotebookPreview() {
     )
 
     ComponentPreviewContainer(Modifier.fillMaxSize()) {
-        Notebook(notebook, NeutralContext(), EventProcessor.NoOp)
+        Notebook(notebook, NotebookFocusedContext(), EventProcessor.NoOp)
     }
 }

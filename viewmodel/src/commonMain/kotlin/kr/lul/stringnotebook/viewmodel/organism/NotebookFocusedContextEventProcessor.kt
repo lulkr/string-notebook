@@ -5,20 +5,20 @@ import kr.lul.stringnotebook.domain.event.ActivateEvent
 import kr.lul.stringnotebook.domain.event.ShowNotebookContextMenuEvent
 import kr.lul.stringnotebook.domain.foundation.Event
 import kr.lul.stringnotebook.state.organism.Context
-import kr.lul.stringnotebook.state.organism.NeutralContext
+import kr.lul.stringnotebook.state.organism.NotebookFocusedContext
 import kr.lul.stringnotebook.state.organism.NotebookState
 import kotlin.uuid.ExperimentalUuidApi
 
 /**
- * [NeutralContext] 상태의 이벤트 처리기.
+ * [NotebookFocusedContext] 상태의 이벤트 처리기.
  */
 @ExperimentalUuidApi
-class NeutralContextEventProcessor(tag: String) {
+class NotebookFocusedContextEventProcessor(tag: String) {
     private val logger = Logger(tag)
 
     operator fun invoke(
         notebook: NotebookState,
-        context: NeutralContext,
+        context: NotebookFocusedContext,
         event: Event,
         callback: (NotebookState, Context) -> Unit
     ) {
@@ -37,7 +37,7 @@ class NeutralContextEventProcessor(tag: String) {
 
     private fun handle(
         notebook: NotebookState,
-        context: NeutralContext,
+        context: NotebookFocusedContext,
         event: ActivateEvent,
         callback: (NotebookState, Context) -> Unit
     ) {
@@ -47,6 +47,6 @@ class NeutralContextEventProcessor(tag: String) {
             return
         }
 
-        callback(notebook, context.activate(target))
+        callback(notebook, context.focus(target))
     }
 }

@@ -32,7 +32,7 @@ class NotebookMenuContextEventProcessor(tag: String) {
 
             is AddNodeEvent -> handle(notebook, context, event, callback)
 
-            is HideContextMenuEvent -> callback(notebook, context.neutral())
+            is HideContextMenuEvent -> callback(notebook, context.notebook())
 
             else ->
                 throw IllegalArgumentException("Unsupported event : event::class=${event::class.qualifiedName}, event=$event")
@@ -49,7 +49,7 @@ class NotebookMenuContextEventProcessor(tag: String) {
 
         callback(
             notebook.copy(objects = notebook.objects + anchor),
-            context.activate(anchor)
+            context.focus(anchor)
         )
     }
 
@@ -63,7 +63,7 @@ class NotebookMenuContextEventProcessor(tag: String) {
 
         callback(
             notebook.copy(objects = notebook.objects + node),
-            context.activate(node)
+            context.focus(node)
         )
     }
 }

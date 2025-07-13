@@ -7,18 +7,18 @@ import kr.lul.stringnotebook.domain.foundation.Event
 import kr.lul.stringnotebook.domain.foundation.EventProcessor
 import kr.lul.stringnotebook.state.organism.AnchorState
 import kr.lul.stringnotebook.state.organism.Context
-import kr.lul.stringnotebook.state.organism.NeutralContext
 import kr.lul.stringnotebook.state.organism.NodeState
+import kr.lul.stringnotebook.state.organism.NotebookFocusedContext
 import kr.lul.stringnotebook.state.organism.NotebookMenuContext
 import kr.lul.stringnotebook.state.organism.NotebookState
-import kr.lul.stringnotebook.state.organism.ObjectActivatedContext
 import kr.lul.stringnotebook.state.organism.ObjectEditContext
+import kr.lul.stringnotebook.state.organism.ObjectFocusedContext
 import kr.lul.stringnotebook.viewmodel.atom.BaseViewModelet
 import kr.lul.stringnotebook.viewmodel.atom.ViewModeletOwner
-import kr.lul.stringnotebook.viewmodel.organism.NeutralContextEventProcessor
+import kr.lul.stringnotebook.viewmodel.organism.NotebookFocusedContextEventProcessor
 import kr.lul.stringnotebook.viewmodel.organism.NotebookMenuContextEventProcessor
-import kr.lul.stringnotebook.viewmodel.organism.ObjectActivatedContextEventProcessor
 import kr.lul.stringnotebook.viewmodel.organism.ObjectEditContextEventProcessor
+import kr.lul.stringnotebook.viewmodel.organism.ObjectFocusedContextEventProcessor
 import kotlin.uuid.ExperimentalUuidApi
 
 @ExperimentalUuidApi
@@ -30,12 +30,12 @@ class NotebookViewModelet(
     internal val _notebook = MutableStateFlow(initState)
     val notebook: StateFlow<NotebookState> = _notebook
 
-    internal val _context = MutableStateFlow<Context>(NeutralContext())
+    internal val _context = MutableStateFlow<Context>(NotebookFocusedContext())
     val context: StateFlow<Context> = _context
 
-    private val neutral = NeutralContextEventProcessor("${tag}.neutral")
+    private val notebookFocused = NotebookFocusedContextEventProcessor("${tag}.notebookFocused")
     private val notebookMenu = NotebookMenuContextEventProcessor("${tag}.notebookMenu")
-    private val objectActivated = ObjectActivatedContextEventProcessor("${tag}.objectActivated")
+    private val objectFocused = ObjectFocusedContextEventProcessor("${tag}.objectFocused")
     private val objectEdit = ObjectEditContextEventProcessor("${tag}.objectEdit")
 
     override fun invoke(event: Event) {
@@ -46,7 +46,7 @@ class NotebookViewModelet(
         logger.d("#invoke : notebook=$notebook, context=$context")
 
         when (context) {
-            is NeutralContext -> neutral(notebook, context, event) { note, ctx ->
+            is NotebookFocusedContext -> notebookFocused(notebook, context, event) { note, ctx ->
                 launch {
                     _notebook.emit(note)
                     _context.emit(ctx)
@@ -60,7 +60,7 @@ class NotebookViewModelet(
                 }
             }
 
-            is ObjectActivatedContext -> objectActivated(notebook, context, event) { note, ctx ->
+            is ObjectFocusedContext -> objectFocused(notebook, context, event) { note, ctx ->
                 launch {
                     _notebook.emit(note)
                     _context.emit(ctx)
@@ -80,7 +80,7 @@ class NotebookViewModelet(
         }
 
         when {
-            event is MoveEvent && context is NeutralContext -> launch {
+            event is MoveEvent && context is NotebookFocusedContext -> launch {
                 val target = notebook.objects.firstOrNull { event.target == it.id }
                 when (target) {
                     null -> {

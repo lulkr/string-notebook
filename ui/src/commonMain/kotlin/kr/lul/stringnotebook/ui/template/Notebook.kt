@@ -10,13 +10,13 @@ import kr.lul.stringnotebook.domain.event.HideContextMenuEvent
 import kr.lul.stringnotebook.domain.event.ShowNotebookContextMenuEvent
 import kr.lul.stringnotebook.domain.foundation.EventProcessor
 import kr.lul.stringnotebook.state.organism.Context
-import kr.lul.stringnotebook.state.organism.NeutralContext
+import kr.lul.stringnotebook.state.organism.NotebookFocusedContext
 import kr.lul.stringnotebook.state.organism.NotebookMenuContext
 import kr.lul.stringnotebook.state.organism.NotebookState
-import kr.lul.stringnotebook.state.organism.ObjectActivatedContext
 import kr.lul.stringnotebook.state.organism.ObjectEditContext
+import kr.lul.stringnotebook.state.organism.ObjectFocusedContext
 import kr.lul.stringnotebook.state.organism.ObjectMenuContext
-import kr.lul.stringnotebook.ui.organism.Viewer
+import kr.lul.stringnotebook.ui.organism.NoteBookContent
 import kr.lul.stringnotebook.ui.page.logger
 import kotlin.uuid.ExperimentalUuidApi
 
@@ -35,7 +35,7 @@ fun Notebook(state: NotebookState, context: Context, processor: EventProcessor, 
             detectTapGestures(
                 onDoubleTap = { offset ->
                     when (context) {
-                        is NeutralContext ->
+                        is NotebookFocusedContext ->
                             processor(
                                 ShowNotebookContextMenuEvent(
                                     x = offset.x.toDp().value,
@@ -48,7 +48,7 @@ fun Notebook(state: NotebookState, context: Context, processor: EventProcessor, 
                 },
                 onLongPress = { offset ->
                     when (context) {
-                        is NeutralContext ->
+                        is NotebookFocusedContext ->
                             processor(
                                 ShowNotebookContextMenuEvent(
                                     x = offset.x.toDp().value,
@@ -61,7 +61,7 @@ fun Notebook(state: NotebookState, context: Context, processor: EventProcessor, 
                 },
                 onTap = { offset ->
                     when (context) {
-                        is ObjectActivatedContext,
+                        is ObjectFocusedContext,
                         is ObjectEditContext ->
                             processor(DeactivateEvent())
 
@@ -73,7 +73,7 @@ fun Notebook(state: NotebookState, context: Context, processor: EventProcessor, 
     ) {
         val objects = state.objects // TODO 뷰포트로 걸러내기.
 
-        Viewer(objects, context, processor)
+        NoteBookContent(objects, context, processor)
 
         if (context is NotebookMenuContext || context is ObjectMenuContext) {
             ContextMenu(

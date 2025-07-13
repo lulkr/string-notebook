@@ -12,9 +12,9 @@ import kr.lul.stringnotebook.ui.page.logger
 import kotlin.uuid.ExperimentalUuidApi
 
 @Composable
-@OptIn(ExperimentalUuidApi::class)
-fun Viewer(objects: List<ObjectState>, context: Context, processor: EventProcessor) {
-    logger.v("#Viewer args : objects=$objects, context=$context, processor=$processor")
+@ExperimentalUuidApi
+fun NoteBookContent(objects: List<ObjectState>, context: Context, processor: EventProcessor) {
+    logger.v("#NoteBookContent args : objects=$objects, context=$context, processor=$processor")
 
     Layout(
         content = {
