@@ -5,9 +5,9 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
-import kr.lul.stringnotebook.domain.event.DeactivateEvent
 import kr.lul.stringnotebook.domain.event.HideContextMenuEvent
 import kr.lul.stringnotebook.domain.event.ShowNotebookContextMenuEvent
+import kr.lul.stringnotebook.domain.event.UnfocusObjectEvent
 import kr.lul.stringnotebook.domain.foundation.EventProcessor
 import kr.lul.stringnotebook.state.organism.Context
 import kr.lul.stringnotebook.state.organism.NotebookFocusedContext
@@ -63,7 +63,7 @@ fun NotebookEditor(state: NotebookState, context: Context, processor: EventProce
                     when (context) {
                         is ObjectFocusedContext,
                         is ObjectEditContext ->
-                            processor(DeactivateEvent())
+                            processor(UnfocusObjectEvent())
 
                         else -> {}
                     }

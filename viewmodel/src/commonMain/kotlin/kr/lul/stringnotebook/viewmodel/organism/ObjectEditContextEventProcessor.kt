@@ -1,9 +1,9 @@
 package kr.lul.stringnotebook.viewmodel.organism
 
 import kr.lul.logger.Logger
-import kr.lul.stringnotebook.domain.event.DeactivateEvent
-import kr.lul.stringnotebook.domain.event.ObjectFocusEvent
+import kr.lul.stringnotebook.domain.event.FocusObjectEvent
 import kr.lul.stringnotebook.domain.event.OpenEditorEvent
+import kr.lul.stringnotebook.domain.event.UnfocusObjectEvent
 import kr.lul.stringnotebook.domain.event.UpdateNodeTextEvent
 import kr.lul.stringnotebook.domain.foundation.Event
 import kr.lul.stringnotebook.state.organism.Context
@@ -25,9 +25,9 @@ class ObjectEditContextEventProcessor(tag: String) {
         logger.d("#invoke args : notebook=$notebook, context=$context, event=$event, callback=$callback")
 
         when (event) {
-            is ObjectFocusEvent -> handle(notebook, context, event, callback)
+            is FocusObjectEvent -> handle(notebook, context, event, callback)
 
-            is DeactivateEvent -> callback(notebook, context.notebook())
+            is UnfocusObjectEvent -> callback(notebook, context.notebook())
 
             is OpenEditorEvent -> handle(notebook, context, event, callback)
 
@@ -42,7 +42,7 @@ class ObjectEditContextEventProcessor(tag: String) {
     private fun handle(
         notebook: NotebookState,
         context: ObjectEditContext,
-        event: ObjectFocusEvent,
+        event: FocusObjectEvent,
         callback: (NotebookState, Context) -> Unit
     ) {
         val target = notebook.objects.firstOrNull { event.target == it.id }

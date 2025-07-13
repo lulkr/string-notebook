@@ -15,7 +15,7 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.dp
-import kr.lul.stringnotebook.domain.event.ObjectFocusEvent
+import kr.lul.stringnotebook.domain.event.FocusObjectEvent
 import kr.lul.stringnotebook.domain.event.OpenEditorEvent
 import kr.lul.stringnotebook.domain.event.UpdateNodeTextEvent
 import kr.lul.stringnotebook.domain.foundation.EventProcessor
@@ -82,7 +82,7 @@ fun NodeEditor(
                 detectTapGestures(
                     onTap = { offset ->
                         logger.d("#NodeEditor.onTap args : offset=$offset")
-                        processor(ObjectFocusEvent(state.id))
+                        processor(FocusObjectEvent(state.id))
                     }
                 )
 
@@ -139,7 +139,7 @@ fun NodeViewer(
                     onTap = { offset ->
                         logger.d("#NodeViewer.onTap args : offset=$offset")
                         if (!activated) {
-                            processor(ObjectFocusEvent(state.id))
+                            processor(FocusObjectEvent(state.id))
                         }
                     }
                 )
