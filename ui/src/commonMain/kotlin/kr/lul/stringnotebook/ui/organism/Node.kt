@@ -43,7 +43,7 @@ fun Node(
 
     val activated = remember(state, context) {
         (context is ObjectFocusedContext && context.obj == state) ||
-                (context is ObjectEditContext && context.active == state)
+                (context is ObjectEditContext && context.focused == state)
     }
 
     if (activated && context is ObjectEditContext) {

@@ -78,7 +78,13 @@ data class NotebookFocusedContext(
 data class NotebookMenuContext(
     override val preferences: NotebookPreferences = NotebookPreferences.Default,
     override val version: Uuid = Uuid.random(),
+    /**
+     * 메뉴의 x 좌표.
+     */
     val x: Float,
+    /**
+     * 메뉴의 y 좌표.
+     */
     val y: Float
 ) : Context {
     /**
@@ -108,14 +114,14 @@ data class NotebookMenuContext(
  * 오브젝트를 더블 클릭하면 수정 상태로 전환된다. 오브젝트를 우클릭하면 오브젝트 메뉴가 열린다. 빈 공간을 클릭하면 선택이 해제된다.
  * 드래그 & 드랍으로 이동하거나 오브젝트 메뉴를 열 수 있다.
  *
- * @property preferences 노트북의 설정.
- * @property version 컨텍스트 버전.
- * @property obj 선택된 오브젝트.
  */
 @ExperimentalUuidApi
 data class ObjectFocusedContext(
     override val preferences: NotebookPreferences = NotebookPreferences.Default,
     override val version: Uuid = Uuid.random(),
+    /**
+     * 오브젝트 선택 상태.
+     */
     val obj: ObjectState
 ) : Context {
     /**
@@ -135,7 +141,7 @@ data class ObjectFocusedContext(
     fun edit(target: ObjectState = obj) = ObjectEditContext(
         preferences = preferences,
         version = Uuid.random(),
-        active = target
+        focused = target
     )
 
     /**
@@ -151,7 +157,7 @@ data class ObjectFocusedContext(
     fun menu(x: Float, y: Float) = ObjectMenuContext(
         preferences = preferences,
         version = Uuid.random(),
-        active = obj,
+        focused = obj,
         x = x,
         y = y
     )
@@ -186,6 +192,9 @@ data class ObjectFocusedContext(
 class ObjectPreviewContext(
     override val preferences: NotebookPreferences = NotebookPreferences.Default,
     override val version: Uuid = Uuid.random(),
+    /**
+     * 미리보기로 보여주는 오브젝트.
+     */
     val preview: PreviewState
 ) : Context {
     /**
@@ -210,7 +219,7 @@ class ObjectPreviewContext(
     fun menu(x: Float, y: Float) = ObjectMenuContext(
         preferences = preferences,
         version = Uuid.random(),
-        active = preview.obj,
+        focused = preview.obj,
         x = x,
         y = y
     )
@@ -226,8 +235,17 @@ class ObjectPreviewContext(
 class ObjectMenuContext(
     override val preferences: NotebookPreferences = NotebookPreferences.Default,
     override val version: Uuid = Uuid.random(),
-    val active: ObjectState,
+    /**
+     * 메뉴를 열 오브젝트.
+     */
+    val focused: ObjectState,
+    /**
+     * 메뉴의 x 좌표.
+     */
     val x: Float,
+    /**
+     * 메뉴의 y 좌표.
+     */
     val y: Float
 ) : Context {
     /**
@@ -236,7 +254,7 @@ class ObjectMenuContext(
     fun focus() = ObjectFocusedContext(
         preferences = preferences,
         version = Uuid.random(),
-        obj = active
+        obj = focused
     )
 
     /**
@@ -256,11 +274,14 @@ class ObjectMenuContext(
  * 오브젝트를 수정하는 상태이다. 오브젝트의 내용 등을 변경할 수 있다.
  * 수정이 완료되면 오브젝트 선택 상태로 돌아간다. 빈 공간을 클릭하면 선택이 해제된다.
  */
-@OptIn(ExperimentalUuidApi::class)
+@ExperimentalUuidApi
 class ObjectEditContext(
     override val preferences: NotebookPreferences = NotebookPreferences.Default,
     override val version: Uuid = Uuid.random(),
-    val active: ObjectState
+    /**
+     * 수정할 오브젝트.
+     */
+    val focused: ObjectState
 ) : Context {
     /**
      * 다른 오븍젝트 선택 상태로 전환한다.
@@ -289,6 +310,6 @@ class ObjectEditContext(
     fun edit(target: ObjectState) = ObjectEditContext(
         preferences = preferences,
         version = Uuid.random(),
-        active = target
+        focused = target
     )
 }
