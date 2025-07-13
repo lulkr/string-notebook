@@ -15,6 +15,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
+import kr.lul.stringnotebook.domain.event.FocusObjectEvent
 import kr.lul.stringnotebook.domain.foundation.EventProcessor
 import kr.lul.stringnotebook.state.molecule.AnchorContainerProperties
 import kr.lul.stringnotebook.state.organism.AnchorState
@@ -65,6 +66,10 @@ fun AnchorContainer(
                     },
                     onTap = { offset ->
                         logger.d("#AnchorContainer.onTap args : offset=$offset.")
+
+                        if (!focused) {
+                            processor(FocusObjectEvent(anchor.id))
+                        }
                     }
                 )
             }
