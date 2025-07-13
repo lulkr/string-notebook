@@ -8,6 +8,8 @@ import kr.lul.stringnotebook.state.organism.AnchorState
 import kr.lul.stringnotebook.state.organism.Context
 import kr.lul.stringnotebook.state.organism.NodeState
 import kr.lul.stringnotebook.state.organism.ObjectState
+import kr.lul.stringnotebook.ui.molecule.AnchorContainerPropertiesDefaults
+import kr.lul.stringnotebook.ui.molecule.AnchorPropertiesDefaults
 import kr.lul.stringnotebook.ui.page.logger
 import kotlin.uuid.ExperimentalUuidApi
 
@@ -20,7 +22,7 @@ fun NoteBookContent(objects: List<ObjectState>, context: Context, processor: Eve
         content = {
             for (obj in objects) {
                 when (obj) {
-                    is AnchorState -> Anchor(obj, context, processor)
+                    is AnchorState -> AnchorContainer(obj, context, processor)
                     is NodeState -> Node(obj, context, processor)
                 }
             }
@@ -34,8 +36,8 @@ fun NoteBookContent(objects: List<ObjectState>, context: Context, processor: Eve
             placeables.forEachIndexed { index, placeable ->
                 when (val target = objects[index]) {
                     is AnchorState -> placeable.place(
-                        x = Dp(target.x).roundToPx(),
-                        y = Dp(target.y).roundToPx(),
+                        x = (Dp(target.x) - AnchorContainerPropertiesDefaults.PADDING - AnchorPropertiesDefaults.RADIUS).roundToPx(),
+                        y = (Dp(target.y) - AnchorContainerPropertiesDefaults.PADDING - AnchorPropertiesDefaults.RADIUS).roundToPx(),
                         zIndex = target.z
                     )
 

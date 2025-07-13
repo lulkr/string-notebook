@@ -12,13 +12,13 @@ import kotlin.uuid.Uuid
  * @see DeactivateEvent
  */
 @ExperimentalUuidApi
-data class ActivateEvent(
+data class ObjectFocusEvent(
     val target: Uuid
 ) : Event {
     override val id: Uuid = Uuid.random()
 
     override fun equals(other: Any?) = this === other || (
-            other is ActivateEvent &&
+            other is ObjectFocusEvent &&
                     id == other.id &&
                     target == other.target
             )

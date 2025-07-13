@@ -11,7 +11,7 @@ import kotlin.uuid.Uuid
  *
  * @property id 이벤트의 고유 식별자. 기본값은 무작위로 생성됩니다.
  *
- * @see ActivateEvent
+ * @see ObjectFocusEvent
  */
 @ExperimentalUuidApi
 class DeactivateEvent(

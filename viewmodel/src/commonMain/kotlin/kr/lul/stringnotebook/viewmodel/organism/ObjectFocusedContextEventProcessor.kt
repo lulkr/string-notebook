@@ -1,8 +1,8 @@
 package kr.lul.stringnotebook.viewmodel.organism
 
 import kr.lul.logger.Logger
-import kr.lul.stringnotebook.domain.event.ActivateEvent
 import kr.lul.stringnotebook.domain.event.DeactivateEvent
+import kr.lul.stringnotebook.domain.event.ObjectFocusEvent
 import kr.lul.stringnotebook.domain.event.OpenEditorEvent
 import kr.lul.stringnotebook.domain.foundation.Event
 import kr.lul.stringnotebook.state.organism.Context
@@ -27,7 +27,7 @@ class ObjectFocusedContextEventProcessor(tag: String) {
         logger.d("#invoke args : notebook=$notebook, context=$context, event=$event, callback=$callback")
 
         when (event) {
-            is ActivateEvent -> handle(notebook, context, event, callback)
+            is ObjectFocusEvent -> handle(notebook, context, event, callback)
 
             is DeactivateEvent -> callback(notebook, context.notebook())
 
@@ -41,7 +41,7 @@ class ObjectFocusedContextEventProcessor(tag: String) {
     fun handle(
         notebook: NotebookState,
         context: ObjectFocusedContext,
-        event: ActivateEvent,
+        event: ObjectFocusEvent,
         callback: (NotebookState, Context) -> Unit
     ) {
         val target = notebook.objects.firstOrNull { event.target == it.id }
