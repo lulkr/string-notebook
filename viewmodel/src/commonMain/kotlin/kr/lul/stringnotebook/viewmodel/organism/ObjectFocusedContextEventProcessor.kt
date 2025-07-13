@@ -3,12 +3,15 @@ package kr.lul.stringnotebook.viewmodel.organism
 import kr.lul.logger.Logger
 import kr.lul.stringnotebook.domain.event.FocusObjectEvent
 import kr.lul.stringnotebook.domain.event.OpenEditorEvent
+import kr.lul.stringnotebook.domain.event.StartMoveObjectEvent
 import kr.lul.stringnotebook.domain.event.UnfocusObjectEvent
 import kr.lul.stringnotebook.domain.foundation.Event
+import kr.lul.stringnotebook.state.organism.AnchorState
 import kr.lul.stringnotebook.state.organism.Context
 import kr.lul.stringnotebook.state.organism.NodeState
 import kr.lul.stringnotebook.state.organism.NotebookState
 import kr.lul.stringnotebook.state.organism.ObjectFocusedContext
+import kr.lul.stringnotebook.state.organism.PreviewAnchorState
 import kotlin.uuid.ExperimentalUuidApi
 
 /**
@@ -32,6 +35,8 @@ class ObjectFocusedContextEventProcessor(tag: String) {
             is UnfocusObjectEvent -> callback(notebook, context.notebook())
 
             is OpenEditorEvent -> handle(notebook, context, event, callback)
+
+            is StartMoveObjectEvent -> handle(notebook, context, event, callback)
 
             else ->
                 throw IllegalArgumentException("Unsupported event : event::class=${event::class.qualifiedName}, event=$event")
@@ -73,5 +78,27 @@ class ObjectFocusedContextEventProcessor(tag: String) {
         }
 
         callback(notebook, context.edit())
+    }
+
+    fun handle(
+        notebook: NotebookState,
+        context: ObjectFocusedContext,
+        event: StartMoveObjectEvent,
+        callback: (NotebookState, Context) -> Unit
+    ) {
+        val target = notebook.objects.firstOrNull { event.target == it.id }
+        requireNotNull(target) { "target not found : event.target=${event.target}" }
+        require(target == context.obj) { "target is not focused : event.target=${event.target}, object=${context.obj}" }
+        require(target is AnchorState || target is NodeState) { "unsupported target type : target::class=${target::class.qualifiedName}" }
+
+        val preview = when (target) {
+            is AnchorState ->
+                PreviewAnchorState(target, target.x, target.y)
+
+            else -> throw IllegalArgumentException()
+        }
+        target.preview = preview
+
+        callback(notebook.copy(objects = notebook.objects + preview), context.preview(target))
     }
 }

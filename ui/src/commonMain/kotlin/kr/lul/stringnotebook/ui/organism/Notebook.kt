@@ -34,17 +34,17 @@ fun NoteBookContent(objects: List<ObjectState>, context: Context, processor: Eve
 
         layout(constraints.maxWidth, constraints.maxHeight) {
             placeables.forEachIndexed { index, placeable ->
-                when (val target = objects[index]) {
+                when (val obj = objects[index]) {
                     is AnchorState -> placeable.place(
-                        x = (Dp(target.x) - AnchorContainerPropertiesDefaults.PADDING - AnchorPropertiesDefaults.RADIUS).roundToPx(),
-                        y = (Dp(target.y) - AnchorContainerPropertiesDefaults.PADDING - AnchorPropertiesDefaults.RADIUS).roundToPx(),
-                        zIndex = target.z
+                        x = (Dp(obj.x) - AnchorContainerPropertiesDefaults.PADDING - AnchorPropertiesDefaults.RADIUS).roundToPx(),
+                        y = (Dp(obj.y) - AnchorContainerPropertiesDefaults.PADDING - AnchorPropertiesDefaults.RADIUS).roundToPx(),
+                        zIndex = obj.z
                     )
 
                     is NodeState -> placeable.place(
-                        x = Dp(target.x).roundToPx(),
-                        y = Dp(target.y).roundToPx(),
-                        zIndex = target.z
+                        x = Dp(obj.x).roundToPx(),
+                        y = Dp(obj.y).roundToPx(),
+                        zIndex = obj.z
                     )
                 }
             }

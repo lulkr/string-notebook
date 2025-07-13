@@ -16,11 +16,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
 import kr.lul.stringnotebook.domain.event.FocusObjectEvent
+import kr.lul.stringnotebook.domain.event.MovePreviewEvent
+import kr.lul.stringnotebook.domain.event.StartMoveObjectEvent
 import kr.lul.stringnotebook.domain.foundation.EventProcessor
 import kr.lul.stringnotebook.state.molecule.AnchorContainerProperties
 import kr.lul.stringnotebook.state.organism.AnchorState
 import kr.lul.stringnotebook.state.organism.Context
 import kr.lul.stringnotebook.state.organism.ObjectFocusedContext
+import kr.lul.stringnotebook.state.organism.ObjectPreviewContext
 import kr.lul.stringnotebook.ui.molecule.AnchorContainerPropertiesDefaults
 import kr.lul.stringnotebook.ui.page.logger
 import kotlin.uuid.ExperimentalUuidApi
@@ -38,8 +41,8 @@ fun AnchorContainer(
 ) {
     logger.v("#AnchorContainer args : anchor=$anchor, context=$context, processor=$processor")
 
-    val focused = context is ObjectFocusedContext &&
-            context.obj == anchor
+    val focused = (context is ObjectFocusedContext && context.obj == anchor) ||
+            (context is ObjectPreviewContext && context.target == anchor)
     val interactionSource = remember { MutableInteractionSource() }
     val hovered by interactionSource.collectIsHoveredAsState()
     val internalProperties = when {
@@ -77,12 +80,29 @@ fun AnchorContainer(
                 detectDragGestures(
                     onDragStart = { offset ->
                         logger.d("#AnchorContainer.onDragStart args : offset=$offset.")
+
+                        if (focused) {
+                            processor(StartMoveObjectEvent(anchor.id))
+                        }
                     },
                     onDragEnd = {
                         logger.d("#AnchorContainer.onDragEnd called.")
                     },
                     onDrag = { change, dragAmount ->
                         logger.v("#AnchorContainer.onDrag args : change=$change, dragAmount=$dragAmount.")
+
+                        if (focused && context is ObjectPreviewContext && null != anchor.preview) {
+                            change.consume()
+                            anchor.preview!!.let {
+                                processor(
+                                    MovePreviewEvent(
+                                        anchor.id,
+                                        it.x + dragAmount.x.toDp().value,
+                                        it.y + dragAmount.y.toDp().value
+                                    )
+                                )
+                            }
+                        }
                     }
                 )
             }
