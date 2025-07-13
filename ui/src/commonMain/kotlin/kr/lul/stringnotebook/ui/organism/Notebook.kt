@@ -8,6 +8,7 @@ import kr.lul.stringnotebook.state.organism.AnchorState
 import kr.lul.stringnotebook.state.organism.Context
 import kr.lul.stringnotebook.state.organism.NodeState
 import kr.lul.stringnotebook.state.organism.ObjectState
+import kr.lul.stringnotebook.state.organism.PreviewAnchorState
 import kr.lul.stringnotebook.ui.molecule.AnchorContainerPropertiesDefaults
 import kr.lul.stringnotebook.ui.molecule.AnchorPropertiesDefaults
 import kr.lul.stringnotebook.ui.page.logger
@@ -23,6 +24,7 @@ fun NoteBookContent(objects: List<ObjectState>, context: Context, processor: Eve
             for (obj in objects) {
                 when (obj) {
                     is AnchorState -> AnchorContainer(obj, context, processor)
+                    is PreviewAnchorState -> Preview(obj)
                     is NodeState -> Node(obj, context, processor)
                 }
             }
@@ -46,6 +48,14 @@ fun NoteBookContent(objects: List<ObjectState>, context: Context, processor: Eve
                         y = Dp(obj.y).roundToPx(),
                         zIndex = obj.z
                     )
+
+                    is PreviewAnchorState -> {
+                        placeable.place(
+                            x = (Dp(obj.x) - AnchorPropertiesDefaults.RADIUS).roundToPx(),
+                            y = (Dp(obj.y) - AnchorPropertiesDefaults.RADIUS).roundToPx(),
+                            zIndex = Float.MAX_VALUE
+                        )
+                    }
                 }
             }
         }

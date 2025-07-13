@@ -1,6 +1,9 @@
 package kr.lul.stringnotebook.state.organism
 
 import androidx.compose.runtime.Stable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
@@ -21,10 +24,12 @@ interface PreviewState : ObjectState {
 @Stable
 class PreviewAnchorState(
     val anchor: AnchorState,
-    override var x: Float,
-    override var y: Float
+    x: Float,
+    y: Float
 ) : PreviewState {
     override val id: Uuid = Uuid.random()
+    override var x: Float by mutableStateOf(x)
+    override var y: Float by mutableStateOf(y)
 
     init {
         require(null == anchor.preview) { "anchor(id=${anchor.id}) already has a preview assigned." }

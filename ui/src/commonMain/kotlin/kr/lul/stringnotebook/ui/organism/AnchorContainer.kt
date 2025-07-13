@@ -91,14 +91,14 @@ fun AnchorContainer(
                     onDrag = { change, dragAmount ->
                         logger.v("#AnchorContainer.onDrag args : change=$change, dragAmount=$dragAmount.")
 
-                        if (focused && context is ObjectPreviewContext && null != anchor.preview) {
-                            change.consume()
-                            anchor.preview!!.let {
+                        change.consume()
+                        if (focused && null != anchor.preview) {
+                            anchor.preview!!.let { preview ->
                                 processor(
                                     MovePreviewEvent(
-                                        anchor.id,
-                                        it.x + dragAmount.x.toDp().value,
-                                        it.y + dragAmount.y.toDp().value
+                                        target = anchor.id,
+                                        x = preview.x + dragAmount.x.toDp().value,
+                                        y = preview.y + dragAmount.y.toDp().value
                                     )
                                 )
                             }

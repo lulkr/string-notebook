@@ -36,7 +36,6 @@ class ObjectPreviewContextEventProcessor(
         event: MovePreviewEvent,
         callback: (NotebookState, Context) -> Unit
     ) {
-
         val target = notebook.objects.firstOrNull { event.target == it.id }
         requireNotNull(target) { "Target object not found: event.target=${event.target}" }
 

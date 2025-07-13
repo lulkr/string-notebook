@@ -97,7 +97,6 @@ class ObjectFocusedContextEventProcessor(tag: String) {
 
             else -> throw IllegalArgumentException()
         }
-        target.preview = preview
 
         callback(notebook.copy(objects = notebook.objects + preview), context.preview(target))
     }

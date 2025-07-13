@@ -40,5 +40,5 @@ class MovePreviewEvent(
         "target=$target",
         "x=$x",
         "y=$y"
-    ).joinToString(", ", "MoveEvent(", ")")
+    ).joinToString(", ", "MovePreviewEvent(", ")")
 }

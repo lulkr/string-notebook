@@ -52,4 +52,16 @@ object AnchorPropertiesDefaults {
         radius: Dp = RADIUS,
         fill: Brush = SolidColor(MaterialTheme.colorScheme.primary)
     ) = AnchorProperties(radius, fill)
+
+    /**
+     * 드래그&드랍 조작 중인 경우.
+     *
+     * @param radius 반지름.
+     * @param fill 채우기 브러시.
+     */
+    @Composable
+    fun preview(
+        radius: Dp = RADIUS,
+        fill: Brush = SolidColor(MaterialTheme.colorScheme.primaryContainer)
+    ) = AnchorProperties(radius, fill)
 }
