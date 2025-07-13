@@ -16,7 +16,6 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.dp
 import kr.lul.stringnotebook.domain.event.ActivateEvent
-import kr.lul.stringnotebook.domain.event.MoveEvent
 import kr.lul.stringnotebook.domain.event.OpenEditorEvent
 import kr.lul.stringnotebook.domain.event.UpdateNodeTextEvent
 import kr.lul.stringnotebook.domain.foundation.EventProcessor
@@ -93,15 +92,6 @@ fun NodeEditor(
                     },
                     onDrag = { change, dragAmount ->
                         logger.d("#NodeEditor.onDrag args : change=$change, dragAmount=$dragAmount")
-
-                        change.consume()
-                        processor(
-                            MoveEvent(
-                                target = state.id,
-                                x = state.x + dragAmount.x.toDp().value,
-                                y = state.y + dragAmount.y.toDp().value
-                            )
-                        )
                     }
                 )
             }
@@ -160,16 +150,6 @@ fun NodeViewer(
                     },
                     onDrag = { change, dragAmount ->
                         logger.d("#NodeViewer.onDrag args : change=$change, dragAmount=$dragAmount")
-                        if (activated) {
-                            change.consume()
-                            processor(
-                                MoveEvent(
-                                    target = state.id,
-                                    x = state.x + dragAmount.x.toDp().value,
-                                    y = state.y + dragAmount.y.toDp().value
-                                )
-                            )
-                        }
                     }
                 )
             }
