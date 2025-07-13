@@ -27,7 +27,7 @@ class ObjectEditContextEventProcessor(tag: String) {
         when (event) {
             is ActivateEvent -> handle(notebook, context, event, callback)
 
-            is DeactivateEvent -> callback(notebook, context.neutral())
+            is DeactivateEvent -> callback(notebook, context.notebook())
 
             is OpenEditorEvent -> handle(notebook, context, event, callback)
 
@@ -53,7 +53,7 @@ class ObjectEditContextEventProcessor(tag: String) {
             }
         }
 
-        callback(notebook, context.activate(target))
+        callback(notebook, context.focus(target))
     }
 
     private fun handle(
@@ -75,7 +75,7 @@ class ObjectEditContextEventProcessor(tag: String) {
             }
         }
 
-        callback(notebook, context.switch(target))
+        callback(notebook, context.edit(target))
     }
 
     private fun handle(

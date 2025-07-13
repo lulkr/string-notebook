@@ -21,10 +21,10 @@ import kr.lul.stringnotebook.domain.event.UpdateNodeTextEvent
 import kr.lul.stringnotebook.domain.foundation.EventProcessor
 import kr.lul.stringnotebook.state.molecule.NodeColors
 import kr.lul.stringnotebook.state.organism.Context
-import kr.lul.stringnotebook.state.organism.NeutralContext
 import kr.lul.stringnotebook.state.organism.NodeState
-import kr.lul.stringnotebook.state.organism.ObjectActivatedContext
+import kr.lul.stringnotebook.state.organism.NotebookFocusedContext
 import kr.lul.stringnotebook.state.organism.ObjectEditContext
+import kr.lul.stringnotebook.state.organism.ObjectFocusedContext
 import kr.lul.stringnotebook.ui.molecule.NodeDefaults
 import kr.lul.stringnotebook.ui.page.logger
 import kotlin.uuid.ExperimentalUuidApi
@@ -36,13 +36,13 @@ import kotlin.uuid.ExperimentalUuidApi
 @ExperimentalUuidApi
 fun Node(
     state: NodeState,
-    context: Context = NeutralContext(),
+    context: Context = NotebookFocusedContext(),
     processor: EventProcessor = EventProcessor.NoOp
 ) {
     logger.v("#Node args : state=$state, context=$context, processor=$processor")
 
     val activated = remember(state, context) {
-        (context is ObjectActivatedContext && context.active == state) ||
+        (context is ObjectFocusedContext && context.obj == state) ||
                 (context is ObjectEditContext && context.active == state)
     }
 
@@ -112,7 +112,7 @@ fun NodeEditor(
 @ExperimentalUuidApi
 fun NodeViewer(
     state: NodeState,
-    context: Context = NeutralContext(),
+    context: Context = NotebookFocusedContext(),
     processor: EventProcessor = EventProcessor.NoOp,
     activated: Boolean = false,
     colors: NodeColors = NodeDefaults.colors()

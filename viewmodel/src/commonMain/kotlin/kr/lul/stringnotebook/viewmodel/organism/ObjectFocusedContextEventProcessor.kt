@@ -8,19 +8,19 @@ import kr.lul.stringnotebook.domain.foundation.Event
 import kr.lul.stringnotebook.state.organism.Context
 import kr.lul.stringnotebook.state.organism.NodeState
 import kr.lul.stringnotebook.state.organism.NotebookState
-import kr.lul.stringnotebook.state.organism.ObjectActivatedContext
+import kr.lul.stringnotebook.state.organism.ObjectFocusedContext
 import kotlin.uuid.ExperimentalUuidApi
 
 /**
- * [ObjectActivatedContext] 상태의 이벤트 처리기.
+ * [ObjectFocusedContext] 상태의 이벤트 처리기.
  */
 @ExperimentalUuidApi
-class ObjectActivatedContextEventProcessor(tag: String) {
+class ObjectFocusedContextEventProcessor(tag: String) {
     private val logger = Logger(tag)
 
     operator fun invoke(
         notebook: NotebookState,
-        context: ObjectActivatedContext,
+        context: ObjectFocusedContext,
         event: Event,
         callback: (NotebookState, Context) -> Unit
     ) {
@@ -29,7 +29,7 @@ class ObjectActivatedContextEventProcessor(tag: String) {
         when (event) {
             is ActivateEvent -> handle(notebook, context, event, callback)
 
-            is DeactivateEvent -> callback(notebook, context.neutral())
+            is DeactivateEvent -> callback(notebook, context.notebook())
 
             is OpenEditorEvent -> handle(notebook, context, event, callback)
 
@@ -40,13 +40,13 @@ class ObjectActivatedContextEventProcessor(tag: String) {
 
     fun handle(
         notebook: NotebookState,
-        context: ObjectActivatedContext,
+        context: ObjectFocusedContext,
         event: ActivateEvent,
         callback: (NotebookState, Context) -> Unit
     ) {
         val target = notebook.objects.firstOrNull { event.target == it.id }
-        if (null == target || target == context.active) {
-            logger.w("#handle target not found or not active : targetId=${event.target}, active=${context.active}")
+        if (null == target || target == context.obj) {
+            logger.w("#handle target not found or not focused : event.target=${event.target}, object=${context.obj}")
             return
         }
 
@@ -55,7 +55,7 @@ class ObjectActivatedContextEventProcessor(tag: String) {
 
     fun handle(
         notebook: NotebookState,
-        context: ObjectActivatedContext,
+        context: ObjectFocusedContext,
         event: OpenEditorEvent,
         callback: (NotebookState, Context) -> Unit
     ) {

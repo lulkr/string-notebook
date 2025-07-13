@@ -18,9 +18,9 @@ import kr.lul.stringnotebook.domain.event.MoveEvent
 import kr.lul.stringnotebook.domain.foundation.EventProcessor
 import kr.lul.stringnotebook.state.organism.AnchorState
 import kr.lul.stringnotebook.state.organism.Context
-import kr.lul.stringnotebook.state.organism.NeutralContext
+import kr.lul.stringnotebook.state.organism.NotebookFocusedContext
 import kr.lul.stringnotebook.state.organism.NotebookMenuContext
-import kr.lul.stringnotebook.state.organism.ObjectActivatedContext
+import kr.lul.stringnotebook.state.organism.ObjectFocusedContext
 import kr.lul.stringnotebook.ui.molecule.AnchorDefaults
 import kr.lul.stringnotebook.ui.page.logger
 import kotlin.uuid.ExperimentalUuidApi
@@ -32,14 +32,14 @@ import kotlin.uuid.ExperimentalUuidApi
 @ExperimentalUuidApi
 fun Anchor(
     state: AnchorState,
-    context: Context = NeutralContext(),
+    context: Context = NotebookFocusedContext(),
     processor: EventProcessor = EventProcessor.NoOp
 ) {
     logger.v("#Anchor args : state=$state, context=$context, processor=$processor")
 
     val activated = remember(state, context) {
-        context is ObjectActivatedContext &&
-                context.active == state
+        context is ObjectFocusedContext &&
+                context.obj == state
     }
     val preferences = context.preferences.anchor
     val colors = AnchorDefaults.colors()
@@ -60,7 +60,7 @@ fun Anchor(
                 detectDragGestures { change, dragAmount ->
                     logger.v("#Anchor.onDrag args : change=$change, dragAmount=$dragAmount")
 
-                    if (context is ObjectActivatedContext) {
+                    if (context is ObjectFocusedContext) {
                         change.consume()
                         processor(
                             MoveEvent(

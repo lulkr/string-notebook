@@ -5,7 +5,9 @@ import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
 /**
- * 노트북의 편집 컨텍스트.
+ * 노트북의 상태.
+ *
+ * 각 상태에 따라 사용할 수 있는 명령이 달라진다.
  */
 @ExperimentalUuidApi
 @Stable
@@ -24,15 +26,15 @@ sealed interface Context {
 }
 
 /**
- * 중립 상태.
+ * 노트북 선택 상태.
  *
- * 노트북 오브젝트를 아무것도 선택되지 않은 상태이다. 노트북 메뉴를 열거나 오브젝트를 선택할 수 있다.
+ * 오브젝트를 아무것도 선택되지 않은 상태이다. 노트북 메뉴를 열거나 오브젝트를 선택할 수 있다.
  *
  * @property preferences 노트북의 설정.
  * @property version 컨텍스트 버전.
  */
 @ExperimentalUuidApi
-data class NeutralContext(
+data class NotebookFocusedContext(
     override val preferences: NotebookPreferences = NotebookPreferences.Default,
     override val version: Uuid = Uuid.random()
 ) : Context {
@@ -54,10 +56,10 @@ data class NeutralContext(
      *
      * @param obj 선택한 오브젝트.
      */
-    fun activate(obj: ObjectState) = ObjectActivatedContext(
+    fun focus(obj: ObjectState) = ObjectFocusedContext(
         preferences = preferences,
         version = Uuid.random(),
-        active = obj
+        obj = obj
     )
 }
 
@@ -82,7 +84,7 @@ data class NotebookMenuContext(
     /**
      * 노트북의 빈 공간 클릭 등의 이유로 중립 상태로 전환한다.
      */
-    fun neutral() = NeutralContext(
+    fun notebook() = NotebookFocusedContext(
         preferences = preferences,
         version = Uuid.random()
     )
@@ -92,10 +94,10 @@ data class NotebookMenuContext(
      *
      * @param obj 선택한 오브젝트.
      */
-    fun activate(obj: ObjectState) = ObjectActivatedContext(
+    fun focus(obj: ObjectState) = ObjectFocusedContext(
         preferences = preferences,
         version = Uuid.random(),
-        active = obj
+        obj = obj
     )
 }
 
@@ -108,18 +110,18 @@ data class NotebookMenuContext(
  *
  * @property preferences 노트북의 설정.
  * @property version 컨텍스트 버전.
- * @property active 선택된 오브젝트.
+ * @property obj 선택된 오브젝트.
  */
 @ExperimentalUuidApi
-data class ObjectActivatedContext(
+data class ObjectFocusedContext(
     override val preferences: NotebookPreferences = NotebookPreferences.Default,
     override val version: Uuid = Uuid.random(),
-    val active: ObjectState
+    val obj: ObjectState
 ) : Context {
     /**
      * 빈공간 클릭 등의 조작으로 중립 상태로 전환한다.
      */
-    fun neutral() = NeutralContext(
+    fun notebook() = NotebookFocusedContext(
         preferences = preferences,
         version = Uuid.random()
     )
@@ -130,7 +132,7 @@ data class ObjectActivatedContext(
      * 오브젝트를 수정하는 상태이다. 오브젝트의 내용 등을 변경할 수 있다.
      * 수정이 완료되면 오브젝트 선택 상태로 돌아간다. 빈 공간을 클릭하면 선택이 해제된다.
      */
-    fun edit(target: ObjectState = active) = ObjectEditContext(
+    fun edit(target: ObjectState = obj) = ObjectEditContext(
         preferences = preferences,
         version = Uuid.random(),
         active = target
@@ -149,7 +151,7 @@ data class ObjectActivatedContext(
     fun menu(x: Float, y: Float) = ObjectMenuContext(
         preferences = preferences,
         version = Uuid.random(),
-        active = active,
+        active = obj,
         x = x,
         y = y
     )
@@ -157,7 +159,7 @@ data class ObjectActivatedContext(
     /**
      * 오브젝트 미리보기 상태로 전환한다.
      */
-    fun preview(preview: PreviewState) = PreviewContext(
+    fun preview(preview: PreviewState) = ObjectPreviewContext(
         preferences = preferences,
         version = Uuid.random(),
         preview = preview
@@ -166,10 +168,10 @@ data class ObjectActivatedContext(
     /**
      * 다른 오브젝트를 선택한다.
      */
-    fun switch(target: ObjectState) = ObjectActivatedContext(
+    fun switch(target: ObjectState) = ObjectFocusedContext(
         preferences = preferences,
         version = Uuid.random(),
-        active = target
+        obj = target
     )
 }
 
@@ -181,18 +183,18 @@ data class ObjectActivatedContext(
  * 다른 오브젝트에 드랍하면 오브젝트 메뉴가 열린다.
  */
 @ExperimentalUuidApi
-class PreviewContext(
+class ObjectPreviewContext(
     override val preferences: NotebookPreferences = NotebookPreferences.Default,
     override val version: Uuid = Uuid.random(),
     val preview: PreviewState
 ) : Context {
     /**
-     * 오브젝트를 빈 공간에 드랍하디 등으로 오브젝트 선택 상태로 돌아간다.
+     * 오브젝트를 빈 공간에 드랍하기 등으로 미리보기를 끝내고 오브젝트 선택 상태로 돌아간다.
      */
-    fun activate() = ObjectActivatedContext(
+    fun focus() = ObjectFocusedContext(
         preferences = preferences,
         version = Uuid.random(),
-        active = preview.obj
+        obj = preview.obj
     )
 
     /**
@@ -231,18 +233,18 @@ class ObjectMenuContext(
     /**
      * 오브젝트 선택 상태로 돌아간다.
      */
-    fun activate() = ObjectActivatedContext(
+    fun focus() = ObjectFocusedContext(
         preferences = preferences,
         version = Uuid.random(),
-        active = active
+        obj = active
     )
 
     /**
-     * 중립
+     * 노트북 선택 상태로 변경한다.
      *
      * 노트북 오브젝트를 아무것도 선택되지 않은 상태이다. 노트북 메뉴를 열거나 오브젝트를 선택할 수 있다.
      */
-    fun neutral() = NeutralContext(
+    fun notebook() = NotebookFocusedContext(
         preferences = preferences,
         version = Uuid.random()
     )
@@ -265,16 +267,16 @@ class ObjectEditContext(
      *
      * @param target 선택할 오브젝트.
      */
-    fun activate(target: ObjectState) = ObjectActivatedContext(
+    fun focus(target: ObjectState) = ObjectFocusedContext(
         preferences = preferences,
         version = Uuid.random(),
-        active = target
+        obj = target
     )
 
     /**
-     * 중립 상태로 전환한다.
+     * 노트북 선택 상태로 전환한다.
      */
-    fun neutral() = NeutralContext(
+    fun notebook() = NotebookFocusedContext(
         preferences = preferences,
         version = Uuid.random()
     )
@@ -284,7 +286,7 @@ class ObjectEditContext(
      *
      * @param target 선택할 오브젝트.
      */
-    fun switch(target: ObjectState) = ObjectEditContext(
+    fun edit(target: ObjectState) = ObjectEditContext(
         preferences = preferences,
         version = Uuid.random(),
         active = target

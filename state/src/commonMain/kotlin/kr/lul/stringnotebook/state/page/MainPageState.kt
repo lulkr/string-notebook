@@ -3,7 +3,7 @@ package kr.lul.stringnotebook.state.page
 import androidx.compose.runtime.Immutable
 import kr.lul.stringnotebook.domain.foundation.EventProcessor
 import kr.lul.stringnotebook.state.organism.Context
-import kr.lul.stringnotebook.state.organism.NeutralContext
+import kr.lul.stringnotebook.state.organism.NotebookFocusedContext
 import kr.lul.stringnotebook.state.organism.NotebookState
 import kotlin.uuid.ExperimentalUuidApi
 
@@ -16,6 +16,6 @@ import kotlin.uuid.ExperimentalUuidApi
 @Immutable
 data class MainPageState(
     val notebook: NotebookState = NotebookState(),
-    val context: Context = NeutralContext(),
+    val context: Context = NotebookFocusedContext(),
     val processor: EventProcessor = EventProcessor.NoOp
 )
