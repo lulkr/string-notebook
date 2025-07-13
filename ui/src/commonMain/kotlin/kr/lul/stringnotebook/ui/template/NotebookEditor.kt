@@ -27,8 +27,8 @@ import kotlin.uuid.ExperimentalUuidApi
  */
 @Composable
 @ExperimentalUuidApi
-fun Notebook(state: NotebookState, context: Context, processor: EventProcessor, modifier: Modifier = Modifier) {
-    logger.v("#MainPane args : state=$state, context=$context, processor=$processor, modifier=$modifier")
+fun NotebookEditor(state: NotebookState, context: Context, processor: EventProcessor, modifier: Modifier = Modifier) {
+    logger.v("#NotebookEditor args : state=$state, context=$context, processor=$processor, modifier=$modifier")
 
     Box(
         modifier.pointerInput(state, context) {
