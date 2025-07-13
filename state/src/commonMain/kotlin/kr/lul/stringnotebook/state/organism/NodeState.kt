@@ -36,6 +36,19 @@ class NodeState(
     constructor(id: Uuid = Uuid.random(), x: Long = 0L, y: Long = 0L, z: Long = 0L, text: String = "")
             : this(id, x.toFloat(), y.toFloat(), z.toFloat(), text)
 
+    fun copy(
+        x: Float = 0.0F,
+        y: Float = 0.0F,
+        z: Float = 0.0F,
+        text: String = ""
+    ) = NodeState(
+        id = id,
+        x = x,
+        y = y,
+        z = z,
+        text = text
+    )
+
     override fun equals(other: Any?) = this === other || (
             other is NodeState &&
                     id == other.id &&

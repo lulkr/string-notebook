@@ -5,29 +5,28 @@ import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
 /**
- * 객체를 활성화하는 이벤트. 활성화한 객체만 수정할 수 있다.
- *
- * @property target 활성화할 객체의 ID.
- *
- * @see DeactivateEvent
+ * 선택한 노드의 편집기를 엽니다.
  */
 @ExperimentalUuidApi
-data class ActivateEvent(
+class OpenEditorEvent(
     val target: Uuid
 ) : Event {
     override val id: Uuid = Uuid.random()
 
     override fun equals(other: Any?) = this === other || (
-            other is ActivateEvent &&
+            other is OpenEditorEvent &&
                     id == other.id &&
                     target == other.target
             )
 
     override fun hashCode(): Int {
-        var result = target.hashCode()
-        result = 31 * result + id.hashCode()
+        var result = id.hashCode()
+        result = 31 * result + target.hashCode()
         return result
     }
 
-    override fun toString() = "ActivateEvent(id=$id, target=$target)"
+    override fun toString() = listOf(
+        "id=$id",
+        "target=$target"
+    ).joinToString(", ", "OpenEditorEvent(", ")")
 }

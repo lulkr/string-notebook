@@ -1,23 +1,30 @@
 package kr.lul.stringnotebook.ui.organism
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectDragGestures
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.input.pointer.pointerInput
-import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
 import kr.lul.stringnotebook.domain.event.ActivateEvent
-import kr.lul.stringnotebook.domain.event.MoveEvent
+import kr.lul.stringnotebook.domain.event.OpenEditorEvent
 import kr.lul.stringnotebook.domain.event.UpdateNodeTextEvent
 import kr.lul.stringnotebook.domain.foundation.EventProcessor
+import kr.lul.stringnotebook.state.molecule.NodeColors
+import kr.lul.stringnotebook.state.organism.Context
+import kr.lul.stringnotebook.state.organism.NeutralContext
 import kr.lul.stringnotebook.state.organism.NodeState
-import kr.lul.stringnotebook.state.organism.NotebookContext
+import kr.lul.stringnotebook.state.organism.ObjectActivatedContext
+import kr.lul.stringnotebook.state.organism.ObjectEditContext
 import kr.lul.stringnotebook.ui.molecule.NodeDefaults
 import kr.lul.stringnotebook.ui.page.logger
 import kotlin.uuid.ExperimentalUuidApi
@@ -29,60 +36,67 @@ import kotlin.uuid.ExperimentalUuidApi
 @ExperimentalUuidApi
 fun Node(
     state: NodeState,
-    context: NotebookContext = NotebookContext.NoOp,
+    context: Context = NeutralContext(),
     processor: EventProcessor = EventProcessor.NoOp
 ) {
     logger.v("#Node args : state=$state, context=$context, processor=$processor")
 
-    val colors = NodeDefaults.colors()
+    val activated = remember(state, context) {
+        (context is ObjectActivatedContext && context.active == state) ||
+                (context is ObjectEditContext && context.active == state)
+    }
 
-    if (state != context.active) {
-        LocalFocusManager.current
-            .clearFocus()
+    if (activated && context is ObjectEditContext) {
+        NodeEditor(state, context, processor)
+    } else {
+        NodeViewer(state, context, processor, activated)
+    }
+}
+
+@Composable
+@ExperimentalUuidApi
+fun NodeEditor(
+    state: NodeState,
+    context: ObjectEditContext,
+    processor: EventProcessor,
+    colors: NodeColors = NodeDefaults.colors()
+) {
+    logger.v("#NodeEditor args : state=$state, context=$context, processor=$processor, colors=$colors")
+
+    val focusRequester = remember(state.id) {
+        FocusRequester()
+    }
+    LaunchedEffect(state.id) {
+        focusRequester.requestFocus()
     }
 
     OutlinedTextField(
         value = state.text,
         onValueChange = {
-            if (!context.lock && context.active == state) {
-                logger.d("#Node.onValueChange called : text=$it")
-                processor(UpdateNodeTextEvent(state.id, it))
-            }
+            logger.d("#NodeEditor.onValueChange args : text=$it")
+            processor(UpdateNodeTextEvent(state.id, it))
         },
         modifier = Modifier
-            .clickable(!context.lock && state != context.active) {
-                logger.d("#Node.onClick args : state=$state, context=$context")
-                processor(ActivateEvent(state.id))
-            }
+            .focusRequester(focusRequester)
             .pointerInput(state, context) {
-                detectDragGestures { change, dragAmount ->
-                    logger.d("#Node.onDrag called : change=$change, dragAmount=$dragAmount")
+                detectTapGestures(
+                    onTap = { offset ->
+                        logger.d("#NodeEditor.onTap args : offset=$offset")
+                        processor(ActivateEvent(state.id))
+                    }
+                )
 
-                    if (!context.lock && context.active == state) {
-                        change.consume()
-                        processor(
-                            MoveEvent(
-                                target = context.active!!.id,
-                                x = state.x + dragAmount.x.toDp().value,
-                                y = state.y + dragAmount.y.toDp().value
-                            )
-                        )
+                detectDragGestures(
+                    onDragStart = { offset ->
+                        logger.d("#NodeEditor.onDragStart args : offset=$offset")
+                    },
+                    onDrag = { change, dragAmount ->
+                        logger.d("#NodeEditor.onDrag args : change=$change, dragAmount=$dragAmount")
                     }
-                }
+                )
             }
-            .onFocusChanged { focus ->
-                if (!context.lock) {
-                    when {
-                        focus.isFocused && state != context.active -> {
-                            logger.d("#Node.onFocusChanged : focus=$focus")
-                            processor(ActivateEvent(state.id))
-                        }
-                    }
-                }
-            }
-            .background(if (state == context.active) colors.background else colors.inactiveBackground)
+            .background(colors.background)
             .padding(16.dp),
-        readOnly = state != context.active,
         colors = OutlinedTextFieldDefaults.colors(
             focusedTextColor = colors.text,
             unfocusedTextColor = colors.inactiveText,
@@ -91,5 +105,55 @@ fun Node(
             focusedBorderColor = colors.border,
             unfocusedBorderColor = colors.inactiveBorder
         )
+    )
+}
+
+@Composable
+@ExperimentalUuidApi
+fun NodeViewer(
+    state: NodeState,
+    context: Context = NeutralContext(),
+    processor: EventProcessor = EventProcessor.NoOp,
+    activated: Boolean = false,
+    colors: NodeColors = NodeDefaults.colors()
+) {
+    logger.v(
+        listOf(
+            "state=$state",
+            "context=$context",
+            "processor=$processor",
+            "activated=$activated",
+            "colors=$colors"
+        ).joinToString(", ", "#NodeViewer args : ")
+    )
+
+    Text(
+        text = state.text,
+        modifier = Modifier
+            .pointerInput(state, context) {
+                detectTapGestures(
+                    onDoubleTap = { offset ->
+                        logger.d("#NodeViewer.onDoubleTap args : offset=$offset")
+                        processor(OpenEditorEvent(state.id))
+                    },
+                    onTap = { offset ->
+                        logger.d("#NodeViewer.onTap args : offset=$offset")
+                        if (!activated) {
+                            processor(ActivateEvent(state.id))
+                        }
+                    }
+                )
+
+                detectDragGestures(
+                    onDragStart = { offset ->
+                        logger.d("#NodeViewer.onDragStart args : offset=$offset")
+                    },
+                    onDrag = { change, dragAmount ->
+                        logger.d("#NodeViewer.onDrag args : change=$change, dragAmount=$dragAmount")
+                    }
+                )
+            }
+            .background(if (activated) colors.background else colors.inactiveBackground)
+            .padding(16.dp)
     )
 }

@@ -36,20 +36,23 @@ stateDiagram-v2
     object_activate --> neutral: 빈공간 클릭
     object_activate --> object_editing: 더블 클릭
     object_activate --> object_menu: 오브젝트 우클릭
+    object_activate --> object_activate: 다른 오브젝트 선택
     object_editing --> object_activate: 수정 완료
     object_editing --> object_activate: 다른 오브젝트 클릭
     object_editing --> neutral: 빈공간 클릭
+    object_editing --> object_editing: 다른 오브젝트 더블클릭
     object_activate --> object_preview: 드래그
     object_preview --> object_activate: 빈 공간에 드랍
     object_preview --> object_menu: 다른 오브젝트에 드랍
     object_menu --> object_activate: 오브젝트 기능 실행
     object_menu --> neutral: 기타 기능 실행
 ```
+
 </details>
 
 ### 중립
 
-노트북이 아무것도 선택되지 않은 상태이다. 노트북 메뉴를 열거나 오브젝트를 선택할 수 있다.
+노트북 오브젝트를 아무것도 선택되지 않은 상태이다. 노트북 메뉴를 열거나 오브젝트를 선택할 수 있다.
 
 ### 노트북 메뉴
 
@@ -85,4 +88,5 @@ stateDiagram-v2
 2. [유한 상태 기계][2]
 
 [1]: https://www.figma.com/board/aR9QaELgTdhOUnaIHNK5pt/%EB%85%B8%ED%8A%B8%EB%B6%81-%EC%83%81%ED%83%9C%EA%B4%80%EB%A6%AC
+
 [2]: https://ko.wikipedia.org/wiki/%EC%9C%A0%ED%95%9C_%EC%83%81%ED%83%9C_%EA%B8%B0%EA%B3%84
