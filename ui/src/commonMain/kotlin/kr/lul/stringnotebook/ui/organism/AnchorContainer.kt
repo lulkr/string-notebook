@@ -58,7 +58,7 @@ fun AnchorContainer(
     Box(
         modifier = Modifier
             .hoverable(interactionSource)
-            .pointerInput(anchor.id) {
+            .pointerInput(anchor) {
                 detectTapGestures(
                     onDoubleTap = { offset ->
                         logger.d("#AnchorContainer.onDoubleTap args : offset=$offset.")
@@ -68,7 +68,7 @@ fun AnchorContainer(
                     }
                 )
             }
-            .pointerInput(anchor.id) {
+            .pointerInput(anchor, focused) {
                 detectDragGestures(
                     onDragStart = { offset ->
                         logger.d("#AnchorContainer.onDragStart args : offset=$offset.")
