@@ -15,6 +15,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
+import kr.lul.stringnotebook.domain.event.EndMoveObjectEvent
 import kr.lul.stringnotebook.domain.event.FocusObjectEvent
 import kr.lul.stringnotebook.domain.event.MovePreviewEvent
 import kr.lul.stringnotebook.domain.event.StartMoveObjectEvent
@@ -86,6 +87,10 @@ fun AnchorContainer(
                     },
                     onDragEnd = {
                         logger.d("#AnchorContainer.onDragEnd called.")
+
+                        if (focused) {
+                            processor(EndMoveObjectEvent(anchor.id))
+                        }
                     },
                     onDrag = { change, dragAmount ->
                         logger.v("#AnchorContainer.onDrag args : change=$change, dragAmount=$dragAmount.")

@@ -1,6 +1,7 @@
 package kr.lul.stringnotebook.viewmodel.organism
 
 import kr.lul.logger.Logger
+import kr.lul.stringnotebook.domain.event.EndMoveObjectEvent
 import kr.lul.stringnotebook.domain.event.MovePreviewEvent
 import kr.lul.stringnotebook.domain.foundation.Event
 import kr.lul.stringnotebook.state.organism.AnchorState
@@ -23,11 +24,40 @@ class ObjectPreviewContextEventProcessor(
     ) {
         logger.d("#invoke args : notebook=$notebook, context=$context, event=$event, callback=$callback")
         when (event) {
+            is EndMoveObjectEvent -> handle(notebook, context, event, callback)
             is MovePreviewEvent -> handle(notebook, context, event, callback)
-
             else -> {}
             //throw IllegalArgumentException("unsupported event: ${event::class.qualifiedName}, event=$event")
         }
+    }
+
+    fun handle(
+        notebook: NotebookState,
+        context: ObjectPreviewContext,
+        event: EndMoveObjectEvent,
+        callback: (NotebookState, Context) -> Unit
+    ) {
+        val target = notebook.objects.firstOrNull { event.target == it.id }
+        requireNotNull(target) { "target object not found: event.target=${event.target}" }
+        require(target == context.target) { "target does not match : event.target=${event.target}, context.target=${context.target}" }
+
+        val preview = when (target) {
+            is AnchorState ->
+                requireNotNull(target.preview) { "anchor preview not found: target=$target" }
+
+            else ->
+                throw IllegalArgumentException("unsupported target type : target::class=${target::class.qualifiedName}")
+        }
+
+        target.x = preview.x
+        target.y = preview.y
+        target.preview = null
+
+
+        callback(
+            notebook.copy(objects = notebook.objects.filterNot { it.id == preview.id }),
+            context.focus(target)
+        )
     }
 
     fun handle(
