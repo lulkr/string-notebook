@@ -58,7 +58,7 @@ open class BaseViewModel(
 
         val job = viewModelScope.launch(context, start, block)
         job.invokeOnCompletion { e ->
-            if (null != e && e !is CancellationException) {
+            if (e != null && e !is CancellationException) {
                 logger.w("#launch error : key=$key", e)
             }
         }

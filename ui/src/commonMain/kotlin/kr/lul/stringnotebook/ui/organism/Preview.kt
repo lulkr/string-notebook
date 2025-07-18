@@ -14,7 +14,7 @@ import kotlin.uuid.ExperimentalUuidApi
 @Composable
 @ExperimentalUuidApi
 fun Preview(preview: PreviewAnchorState, properties: AnchorProperties = AnchorPropertiesDefaults.preview()) {
-    logger.v("#Preview args : preview=$properties, properties=$properties")
+    logger.v("#Preview args : preview=$preview, properties=$properties")
 
     Box(modifier = Modifier.background(properties.fill, CircleShape).padding(properties.radius))
 }

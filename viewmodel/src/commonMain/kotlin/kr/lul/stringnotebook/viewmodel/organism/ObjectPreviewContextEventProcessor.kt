@@ -74,7 +74,7 @@ class ObjectPreviewContextEventProcessor(
                 requireNotNull(target.preview) { "anchor preview not found : target=$target" }
 
             else ->
-                throw IllegalArgumentException()
+                throw IllegalArgumentException("unsupported target type : target::class=${target::class.qualifiedName}")
 
         }
         preview.x = event.x

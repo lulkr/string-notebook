@@ -95,7 +95,7 @@ class ObjectFocusedContextEventProcessor(tag: String) {
             is AnchorState ->
                 PreviewAnchorState(target, target.x, target.y)
 
-            else -> throw IllegalArgumentException()
+            else -> throw IllegalArgumentException("unsupported target type : target::class=${target::class.qualifiedName}")
         }
 
         callback(notebook.copy(objects = notebook.objects + preview), context.preview(target))

@@ -32,7 +32,7 @@ class PreviewAnchorState(
     override var y: Float by mutableStateOf(y)
 
     init {
-        require(null == anchor.preview) { "anchor(id=${anchor.id}) already has a preview assigned." }
+        requireNotNull(anchor.preview) { "anchor(id=${anchor.id}) already has a preview assigned." }
         anchor.preview = this
     }
 
