@@ -65,11 +65,12 @@ fun AnchorContainer(
             .pointerInput(anchor) {
                 detectTapGestures(
                     onDoubleTap = { offset ->
-                        logger.d("#AnchorContainer.onDoubleTap args : offset=$offset.")
+                        logger.d("#AnchorContainer.onDoubleTap args : offset=$offset")
                     },
                     onTap = { offset ->
-                        logger.d("#AnchorContainer.onTap args : offset=$offset.")
+                        logger.d("#AnchorContainer.onTap args : offset=$offset")
 
+                        logger.v("#AnchorContainer.onTap : focused=$focused, anchor.id=${anchor.id}, context=$context")
                         if (!focused) {
                             processor(FocusObjectEvent(anchor.id))
                         }
@@ -79,7 +80,7 @@ fun AnchorContainer(
             .pointerInput(anchor, focused) {
                 detectDragGestures(
                     onDragStart = { offset ->
-                        logger.d("#AnchorContainer.onDragStart args : offset=$offset.")
+                        logger.d("#AnchorContainer.onDragStart args : offset=$offset")
 
                         if (focused) {
                             processor(StartMoveObjectEvent(anchor.id))
@@ -93,7 +94,7 @@ fun AnchorContainer(
                         }
                     },
                     onDrag = { change, dragAmount ->
-                        logger.v("#AnchorContainer.onDrag args : change=$change, dragAmount=$dragAmount.")
+                        logger.v("#AnchorContainer.onDrag args : change=$change, dragAmount=$dragAmount")
 
                         change.consume()
                         if (focused && null != anchor.preview) {
