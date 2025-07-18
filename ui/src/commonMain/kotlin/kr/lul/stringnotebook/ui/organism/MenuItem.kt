@@ -6,7 +6,6 @@ import androidx.compose.runtime.Composable
 import kr.lul.stringnotebook.domain.foundation.EventProcessor
 import kr.lul.stringnotebook.state.organism.Context
 import kr.lul.stringnotebook.state.organism.MenuItemState
-import kr.lul.stringnotebook.ui.page.logger
 import kotlin.uuid.ExperimentalUuidApi
 
 @Composable

@@ -9,7 +9,6 @@ import androidx.compose.ui.Modifier
 import kr.lul.stringnotebook.state.molecule.AnchorProperties
 import kr.lul.stringnotebook.state.organism.PreviewAnchorState
 import kr.lul.stringnotebook.ui.molecule.AnchorPropertiesDefaults
-import kr.lul.stringnotebook.ui.page.logger
 import kotlin.uuid.ExperimentalUuidApi
 
 @Composable

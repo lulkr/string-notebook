@@ -11,7 +11,6 @@ import kr.lul.stringnotebook.state.organism.ObjectState
 import kr.lul.stringnotebook.state.organism.PreviewAnchorState
 import kr.lul.stringnotebook.ui.molecule.AnchorContainerPropertiesDefaults
 import kr.lul.stringnotebook.ui.molecule.AnchorPropertiesDefaults
-import kr.lul.stringnotebook.ui.page.logger
 import kotlin.uuid.ExperimentalUuidApi
 
 @Composable

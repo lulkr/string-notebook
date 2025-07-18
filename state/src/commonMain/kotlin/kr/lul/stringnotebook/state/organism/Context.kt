@@ -204,10 +204,10 @@ class ObjectPreviewContext(
     /**
      * 오브젝트를 빈 공간에 드랍하기 등으로 미리보기를 끝내고 오브젝트 선택 상태로 돌아간다.
      */
-    fun focus() = ObjectFocusedContext(
+    fun focus(obj: ObjectState = target) = ObjectFocusedContext(
         preferences = preferences,
         version = Uuid.random(),
-        obj = target
+        obj = obj
     )
 
     /**

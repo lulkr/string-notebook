@@ -25,7 +25,6 @@ import kr.lul.stringnotebook.state.organism.Context
 import kr.lul.stringnotebook.state.organism.ObjectFocusedContext
 import kr.lul.stringnotebook.state.organism.ObjectPreviewContext
 import kr.lul.stringnotebook.ui.molecule.AnchorContainerPropertiesDefaults
-import kr.lul.stringnotebook.ui.page.logger
 import kotlin.uuid.ExperimentalUuidApi
 
 /**
