@@ -7,7 +7,7 @@ import kotlin.uuid.Uuid
 /**
  * 노트북의 내용 객체.
  */
-@OptIn(ExperimentalUuidApi::class)
+@ExperimentalUuidApi
 @Stable
 interface ObjectState {
     /**

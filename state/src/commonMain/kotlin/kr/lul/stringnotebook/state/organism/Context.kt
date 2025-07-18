@@ -165,10 +165,10 @@ data class ObjectFocusedContext(
     /**
      * 오브젝트 미리보기 상태로 전환한다.
      */
-    fun preview(preview: PreviewState) = ObjectPreviewContext(
+    fun preview(target: ObjectState) = ObjectPreviewContext(
         preferences = preferences,
         version = Uuid.random(),
-        preview = preview
+        target = target
     )
 
     /**
@@ -193,17 +193,21 @@ class ObjectPreviewContext(
     override val preferences: NotebookPreferences = NotebookPreferences.Default,
     override val version: Uuid = Uuid.random(),
     /**
-     * 미리보기로 보여주는 오브젝트.
+     * 미리보기로 보여줄 오브젝트.
      */
-    val preview: PreviewState
+    val target: ObjectState
 ) : Context {
+    init {
+        require(target !is PreviewState)
+    }
+
     /**
      * 오브젝트를 빈 공간에 드랍하기 등으로 미리보기를 끝내고 오브젝트 선택 상태로 돌아간다.
      */
-    fun focus() = ObjectFocusedContext(
+    fun focus(obj: ObjectState = target) = ObjectFocusedContext(
         preferences = preferences,
         version = Uuid.random(),
-        obj = preview.obj
+        obj = obj
     )
 
     /**
@@ -219,7 +223,7 @@ class ObjectPreviewContext(
     fun menu(x: Float, y: Float) = ObjectMenuContext(
         preferences = preferences,
         version = Uuid.random(),
-        focused = preview.obj,
+        focused = target,
         x = x,
         y = y
     )

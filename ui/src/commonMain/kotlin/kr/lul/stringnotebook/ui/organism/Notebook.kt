@@ -8,7 +8,9 @@ import kr.lul.stringnotebook.state.organism.AnchorState
 import kr.lul.stringnotebook.state.organism.Context
 import kr.lul.stringnotebook.state.organism.NodeState
 import kr.lul.stringnotebook.state.organism.ObjectState
-import kr.lul.stringnotebook.ui.page.logger
+import kr.lul.stringnotebook.state.organism.PreviewAnchorState
+import kr.lul.stringnotebook.ui.molecule.AnchorContainerPropertiesDefaults
+import kr.lul.stringnotebook.ui.molecule.AnchorPropertiesDefaults
 import kotlin.uuid.ExperimentalUuidApi
 
 @Composable
@@ -20,7 +22,8 @@ fun NoteBookContent(objects: List<ObjectState>, context: Context, processor: Eve
         content = {
             for (obj in objects) {
                 when (obj) {
-                    is AnchorState -> Anchor(obj, context, processor)
+                    is AnchorState -> AnchorContainer(obj, context, processor)
+                    is PreviewAnchorState -> Preview(obj)
                     is NodeState -> Node(obj, context, processor)
                 }
             }
@@ -32,18 +35,26 @@ fun NoteBookContent(objects: List<ObjectState>, context: Context, processor: Eve
 
         layout(constraints.maxWidth, constraints.maxHeight) {
             placeables.forEachIndexed { index, placeable ->
-                when (val target = objects[index]) {
+                when (val obj = objects[index]) {
                     is AnchorState -> placeable.place(
-                        x = Dp(target.x).roundToPx(),
-                        y = Dp(target.y).roundToPx(),
-                        zIndex = target.z
+                        x = (Dp(obj.x) - AnchorContainerPropertiesDefaults.PADDING - AnchorPropertiesDefaults.RADIUS).roundToPx(),
+                        y = (Dp(obj.y) - AnchorContainerPropertiesDefaults.PADDING - AnchorPropertiesDefaults.RADIUS).roundToPx(),
+                        zIndex = obj.z
                     )
 
                     is NodeState -> placeable.place(
-                        x = Dp(target.x).roundToPx(),
-                        y = Dp(target.y).roundToPx(),
-                        zIndex = target.z
+                        x = Dp(obj.x).roundToPx(),
+                        y = Dp(obj.y).roundToPx(),
+                        zIndex = obj.z
                     )
+
+                    is PreviewAnchorState -> {
+                        placeable.place(
+                            x = (Dp(obj.x) - AnchorPropertiesDefaults.RADIUS).roundToPx(),
+                            y = (Dp(obj.y) - AnchorPropertiesDefaults.RADIUS).roundToPx(),
+                            zIndex = Float.MAX_VALUE
+                        )
+                    }
                 }
             }
         }

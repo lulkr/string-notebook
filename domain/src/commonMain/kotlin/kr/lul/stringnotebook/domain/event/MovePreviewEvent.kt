@@ -7,12 +7,12 @@ import kotlin.uuid.Uuid
 /**
  * 객체 이동하기 이벤트.
  *
- * @property target 이동할 객체의 ID
+ * @property target 미리보기 중인 오브젝트의 ID
  * @property x 이동할 위치의 x 좌표
  * @property y 이동할 위치의 y 좌표
  */
 @ExperimentalUuidApi
-class MoveEvent(
+class MovePreviewEvent(
     val target: Uuid,
     val x: Float,
     val y: Float,
@@ -20,7 +20,7 @@ class MoveEvent(
     override val id = Uuid.random()
 
     override fun equals(other: Any?) = this === other || (
-            other is MoveEvent &&
+            other is MovePreviewEvent &&
                     id == other.id &&
                     target == other.target &&
                     x == other.x &&
@@ -28,10 +28,10 @@ class MoveEvent(
             )
 
     override fun hashCode(): Int {
-        var result = x.hashCode()
-        result = 31 * result + y.hashCode()
+        var result = id.hashCode()
         result = 31 * result + target.hashCode()
-        result = 31 * result + id.hashCode()
+        result = 31 * result + x.hashCode()
+        result = 31 * result + y.hashCode()
         return result
     }
 
@@ -40,5 +40,5 @@ class MoveEvent(
         "target=$target",
         "x=$x",
         "y=$y"
-    ).joinToString(", ", "MoveEvent(", ")")
+    ).joinToString(", ", "MovePreviewEvent(", ")")
 }

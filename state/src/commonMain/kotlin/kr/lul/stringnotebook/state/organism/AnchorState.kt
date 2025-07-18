@@ -21,11 +21,13 @@ class AnchorState(
     override val id: Uuid = Uuid.random(),
     x: Float = 0.0F,
     y: Float = 0.0F,
-    z: Float = 0.0F
+    z: Float = 0.0F,
+    preview: PreviewAnchorState? = null
 ) : ObjectState {
     var x: Float by mutableStateOf(x)
     var y: Float by mutableStateOf(y)
     var z: Float by mutableStateOf(z)
+    var preview: PreviewAnchorState? by mutableStateOf(preview)
 
     constructor(id: Uuid = Uuid.random(), x: Int = 0, y: Int = 0, z: Int = 0)
             : this(id, x.toFloat(), y.toFloat(), z.toFloat())
@@ -38,7 +40,8 @@ class AnchorState(
                     id == other.id &&
                     x == other.x &&
                     y == other.y &&
-                    z == other.z
+                    z == other.z &&
+                    preview == other.preview
             )
 
     override fun hashCode(): Int {
@@ -46,6 +49,7 @@ class AnchorState(
         result = 31 * result + y.hashCode()
         result = 31 * result + z.hashCode()
         result = 31 * result + id.hashCode()
+        result = 31 * result + (preview?.hashCode() ?: 0)
         return result
     }
 
@@ -53,6 +57,7 @@ class AnchorState(
         "id=$id",
         "x=$x",
         "y=$y",
-        "z=$z"
+        "z=$z",
+        "preview=${preview?.id ?: "null"}"
     ).joinToString(", ", "AnchorState(", ")")
 }
