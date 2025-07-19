@@ -8,7 +8,7 @@ import kr.lul.stringnotebook.preview.ui.atom.ComponentPreviewContainer
 import kr.lul.stringnotebook.state.organism.AnchorState
 import kr.lul.stringnotebook.state.organism.NotebookFocusedContext
 import kr.lul.stringnotebook.state.organism.NotebookState
-import kr.lul.stringnotebook.ui.template.Notebook
+import kr.lul.stringnotebook.ui.template.NotebookEditor
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import kotlin.random.Random
 import kotlin.uuid.ExperimentalUuidApi
@@ -23,6 +23,6 @@ fun NotebookPreview() {
     )
 
     ComponentPreviewContainer(Modifier.fillMaxSize()) {
-        Notebook(notebook, NotebookFocusedContext(), EventProcessor.NoOp)
+        NotebookEditor(notebook, NotebookFocusedContext(), EventProcessor.NoOp)
     }
 }
