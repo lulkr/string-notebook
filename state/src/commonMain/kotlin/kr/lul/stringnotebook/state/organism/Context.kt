@@ -141,7 +141,7 @@ data class ObjectFocusedContext(
     fun edit(target: ObjectState = obj) = ObjectEditContext(
         preferences = preferences,
         version = Uuid.random(),
-        focused = target
+        obj = target
     )
 
     /**
@@ -285,7 +285,7 @@ class ObjectEditContext(
     /**
      * 수정할 오브젝트.
      */
-    val focused: ObjectState
+    val obj: ObjectState
 ) : Context {
     /**
      * 다른 오븍젝트 선택 상태로 전환한다.
@@ -314,6 +314,6 @@ class ObjectEditContext(
     fun edit(target: ObjectState) = ObjectEditContext(
         preferences = preferences,
         version = Uuid.random(),
-        focused = target
+        obj = target
     )
 }

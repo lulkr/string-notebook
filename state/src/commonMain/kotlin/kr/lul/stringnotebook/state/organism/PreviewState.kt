@@ -32,7 +32,7 @@ class PreviewAnchorState(
     override var y: Float by mutableStateOf(y)
 
     init {
-        requireNotNull(anchor.preview) { "anchor(id=${anchor.id}) already has a preview assigned." }
+        require(null == anchor.preview) { "anchor already has a preview assigned : anchor=$anchor" }
         anchor.preview = this
     }
 
@@ -58,4 +58,44 @@ class PreviewAnchorState(
         "x=$x",
         "y=$y"
     ).joinToString(", ", "PreviewAnchorState(", ")")
+}
+
+@ExperimentalUuidApi
+@Stable
+class PreviewNodeState(
+    val node: NodeState,
+    x: Float,
+    y: Float
+) : PreviewState {
+    override val id: Uuid = Uuid.random()
+    override var x: Float by mutableStateOf(x)
+    override var y: Float by mutableStateOf(y)
+
+    init {
+        require(null == node.preview) { "node already has a preview assigned : node=$node" }
+        node.preview = this
+    }
+
+    override fun equals(other: Any?) = this === other || (
+            other is PreviewNodeState &&
+                    id == other.id &&
+                    node.id == other.node.id &&
+                    x == other.x &&
+                    y == other.y
+            )
+
+    override fun hashCode(): Int {
+        var result = id.hashCode()
+        result = 31 * result + node.hashCode()
+        result = 31 * result + x.hashCode()
+        result = 31 * result + y.hashCode()
+        return result
+    }
+
+    override fun toString() = listOf(
+        "id=$id",
+        "node=${node.id}",
+        "x=$x",
+        "y=$y"
+    ).joinToString(", ", "PreviewNodeState(", ")")
 }

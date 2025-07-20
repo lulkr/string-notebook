@@ -12,6 +12,7 @@ import kr.lul.stringnotebook.state.organism.NodeState
 import kr.lul.stringnotebook.state.organism.NotebookState
 import kr.lul.stringnotebook.state.organism.ObjectFocusedContext
 import kr.lul.stringnotebook.state.organism.PreviewAnchorState
+import kr.lul.stringnotebook.state.organism.PreviewNodeState
 import kotlin.uuid.ExperimentalUuidApi
 
 /**
@@ -31,12 +32,9 @@ class ObjectFocusedContextEventProcessor(tag: String) {
 
         when (event) {
             is FocusObjectEvent -> handle(notebook, context, event, callback)
-
-            is UnfocusObjectEvent -> callback(notebook, context.notebook())
-
             is OpenEditorEvent -> handle(notebook, context, event, callback)
-
             is StartMoveObjectEvent -> handle(notebook, context, event, callback)
+            is UnfocusObjectEvent -> callback(notebook, context.notebook())
 
             else ->
                 throw IllegalArgumentException("Unsupported event : event::class=${event::class.qualifiedName}, event=$event")
@@ -65,19 +63,10 @@ class ObjectFocusedContextEventProcessor(tag: String) {
         callback: (NotebookState, Context) -> Unit
     ) {
         val target = notebook.objects.firstOrNull { event.target == it.id }
-        when (target) {
-            null -> {
-                logger.e("#handle target not found : targetId=${event.target}")
-                return
-            }
+        requireNotNull(target) { "target not found : event.target=${event.target}" }
+        require(target is NodeState) { "unsupported target type : target::class=${target::class.qualifiedName}" }
 
-            !is NodeState -> {
-                logger.e("#handle target is not NodeState : target=$target")
-                return
-            }
-        }
-
-        callback(notebook, context.edit())
+        callback(notebook, context.edit(target))
     }
 
     fun handle(
@@ -94,6 +83,9 @@ class ObjectFocusedContextEventProcessor(tag: String) {
         val preview = when (target) {
             is AnchorState ->
                 PreviewAnchorState(target, target.x, target.y)
+
+            is NodeState ->
+                PreviewNodeState(target, target.x, target.y)
 
             else -> throw IllegalArgumentException("unsupported target type : target::class=${target::class.qualifiedName}")
         }

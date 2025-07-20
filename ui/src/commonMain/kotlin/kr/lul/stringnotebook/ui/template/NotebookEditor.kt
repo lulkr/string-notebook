@@ -26,6 +26,7 @@ import kotlin.uuid.ExperimentalUuidApi
  * @see kr.lul.stringnotebook.preview.ui.template.NotebookPreview
  */
 @Composable
+@ExperimentalStdlibApi
 @ExperimentalUuidApi
 fun NotebookEditor(state: NotebookState, context: Context, processor: EventProcessor, modifier: Modifier = Modifier) {
     logger.v("#NotebookEditor args : state=$state, context=$context, processor=$processor, modifier=$modifier")

@@ -85,22 +85,9 @@ class ObjectEditContextEventProcessor(tag: String) {
         callback: (NotebookState, Context) -> Unit
     ) {
         val target = notebook.objects.firstOrNull { event.target == it.id }
-        when {
-            null == target -> {
-                logger.e("#handle target not found : event=$event")
-                return
-            }
-
-            target !is NodeState -> {
-                logger.e("#handle target is not NodeState : event=$event, target=$target")
-                return
-            }
-
-            target != context.focused -> {
-                logger.e("#handle target not match : event=$event, context.active=${context.focused}")
-                return
-            }
-        }
+        requireNotNull(target) { "target not found : event.target=${event.target}" }
+        require(target is NodeState) { "unsupported target type : target::class=${target::class.qualifiedName}" }
+        require(target == context.obj) { "target is not focused : event.target=${event.target}, focused=${context.obj}" }
 
         target.text = event.text
         callback(notebook, context)

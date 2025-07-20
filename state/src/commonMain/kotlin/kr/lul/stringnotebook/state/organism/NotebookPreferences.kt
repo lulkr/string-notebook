@@ -7,12 +7,5 @@ import androidx.compose.runtime.Stable
  */
 @Stable
 interface NotebookPreferences {
-    object Default : NotebookPreferences {
-        override val anchor: AnchorPreferences = AnchorPreferences.Default
-    }
-
-    /**
-     * 앵커 설정.
-     */
-    val anchor: AnchorPreferences
+    object Default : NotebookPreferences
 }

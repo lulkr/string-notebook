@@ -29,12 +29,23 @@ class NodeState(
     var y: Float by mutableStateOf(y)
     var z: Float by mutableStateOf(z)
     var text: String by mutableStateOf(text)
+    var preview: PreviewNodeState? by mutableStateOf(null)
 
-    constructor(id: Uuid = Uuid.random(), x: Int = 0, y: Int = 0, z: Int = 0, text: String = "")
-            : this(id, x.toFloat(), y.toFloat(), z.toFloat(), text)
+    constructor(
+        id: Uuid = Uuid.random(),
+        x: Int = 0,
+        y: Int = 0,
+        z: Int = 0,
+        text: String = ""
+    ) : this(id, x.toFloat(), y.toFloat(), z.toFloat(), text)
 
-    constructor(id: Uuid = Uuid.random(), x: Long = 0L, y: Long = 0L, z: Long = 0L, text: String = "")
-            : this(id, x.toFloat(), y.toFloat(), z.toFloat(), text)
+    constructor(
+        id: Uuid = Uuid.random(),
+        x: Long = 0L,
+        y: Long = 0L,
+        z: Long = 0L,
+        text: String = ""
+    ) : this(id, x.toFloat(), y.toFloat(), z.toFloat(), text)
 
     fun copy(
         x: Float = 0.0F,

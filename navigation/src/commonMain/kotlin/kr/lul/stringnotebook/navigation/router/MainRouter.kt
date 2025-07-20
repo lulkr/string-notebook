@@ -11,6 +11,7 @@ import kr.lul.stringnotebook.viewmodel.page.MainPageViewModel
 import kotlin.uuid.ExperimentalUuidApi
 
 @Composable
+@ExperimentalStdlibApi
 @ExperimentalUuidApi
 fun MainRouter(
     navigator: MainNavigator,
