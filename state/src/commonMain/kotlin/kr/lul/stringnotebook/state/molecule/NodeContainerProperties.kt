@@ -17,4 +17,7 @@ data class NodeContainerProperties(
     val background: BackgroundState,
     val padding: Dp,
     val node: NodeProperties
-)
+) {
+    @ExperimentalStdlibApi
+    val summary = "(b=${border.summary}, bg=${background.summary}, p=$padding, n=${node.summary})"
+}

@@ -14,6 +14,7 @@ import kr.lul.stringnotebook.ui.template.NotebookEditor
 import kotlin.uuid.ExperimentalUuidApi
 
 @Composable
+@ExperimentalStdlibApi
 @ExperimentalUuidApi
 fun MainPage(
     state: MainPageState,

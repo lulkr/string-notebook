@@ -22,6 +22,7 @@ import kr.lul.stringnotebook.ui.molecule.NodeContainerPropertiesDefaults
 import kotlin.uuid.ExperimentalUuidApi
 
 @Composable
+@ExperimentalStdlibApi
 @ExperimentalUuidApi
 fun NodeContainer(
     node: NodeState,
@@ -29,7 +30,7 @@ fun NodeContainer(
     processor: EventProcessor = EventProcessor.NoOp,
     properties: NodeContainerProperties? = null
 ) {
-    logger.v("#NodeContainer args : node=$node, context=$context, processor=$processor, properties=$properties)")
+    logger.v("#NodeContainer args : node=$node, context=$context, processor=$processor, properties=${properties?.summary})")
 
     val focused = (context is ObjectFocusedContext && context.obj == node) ||
             (context is ObjectPreviewContext && context.target == node)
@@ -39,7 +40,7 @@ fun NodeContainer(
         focused -> NodeContainerPropertiesDefaults.focused()
         else -> NodeContainerPropertiesDefaults.default()
     }
-    logger.v("#NodeContainer : internalProperties=$internalProperties")
+    logger.v("#NodeContainer : internalProperties=${internalProperties.summary}")
 
     Box(
         modifier = Modifier.hoverable(interactionSource)

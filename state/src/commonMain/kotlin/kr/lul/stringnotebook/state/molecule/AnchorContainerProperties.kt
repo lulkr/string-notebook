@@ -19,6 +19,9 @@ data class AnchorContainerProperties(
     val padding: Dp,
     val anchor: AnchorProperties
 ) {
+    @ExperimentalStdlibApi
+    val summary = "(b=${border.summary}, bg=${background.summary}, p=$padding, a=${anchor.summary})"
+
     constructor(border: BorderState, backgroundState: BackgroundState, padding: Int, anchor: AnchorProperties) : this(
         border = border,
         background = backgroundState,

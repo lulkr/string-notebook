@@ -16,6 +16,7 @@ import kr.lul.stringnotebook.ui.molecule.NodePropertiesDefaults
 import kotlin.uuid.ExperimentalUuidApi
 
 @Composable
+@ExperimentalStdlibApi
 @ExperimentalUuidApi
 fun NoteBookContent(objects: List<ObjectState>, context: Context, processor: EventProcessor) {
     logger.v("#NoteBookContent args : objects=$objects, context=$context, processor=$processor")

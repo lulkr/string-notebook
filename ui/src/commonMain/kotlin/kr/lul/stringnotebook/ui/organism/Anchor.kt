@@ -18,6 +18,7 @@ import kotlin.uuid.ExperimentalUuidApi
  * @see kr.lul.stringnotebook.preview.ui.organism.AnchorPreview
  */
 @Composable
+@ExperimentalStdlibApi
 @ExperimentalUuidApi
 fun Anchor(
     state: AnchorState,
@@ -25,7 +26,7 @@ fun Anchor(
     processor: EventProcessor = EventProcessor.NoOp,
     properties: AnchorProperties = AnchorPropertiesDefaults.default()
 ) {
-    logger.v("#Anchor args : state=$state, context=$context, processor=$processor, properties=$properties")
+    logger.v("#Anchor args : state=$state, context=$context, processor=$processor, properties=${properties.summary}")
 
     Box(modifier = Modifier.background(properties.fill, CircleShape).padding(properties.radius))
 }

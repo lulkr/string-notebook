@@ -20,6 +20,6 @@ data class NodeProperties(
     val border: BorderState,
     val padding: Dp,
 ) {
-    val summary: String
-        get() = "($width, $height)"
+    @ExperimentalStdlibApi
+    val summary = "(s=$width*$height, bg=${background.summary}, b=${border.summary}, p=$padding)"
 }

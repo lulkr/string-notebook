@@ -165,6 +165,7 @@ fun NodeViewer(
 }
 
 @Composable
+@ExperimentalStdlibApi
 @ExperimentalUuidApi
 fun Node(
     node: NodeState,
@@ -184,6 +185,7 @@ fun Node(
 }
 
 @Composable
+@ExperimentalStdlibApi
 @ExperimentalUuidApi
 fun NodeDefault(
     node: NodeState,
@@ -202,6 +204,7 @@ fun NodeDefault(
 }
 
 @Composable
+@ExperimentalStdlibApi
 @ExperimentalUuidApi
 fun NodeFocused(
     node: NodeState,

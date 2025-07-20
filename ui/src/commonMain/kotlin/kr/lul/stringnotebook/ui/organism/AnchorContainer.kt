@@ -32,6 +32,7 @@ import kotlin.uuid.ExperimentalUuidApi
  * 화면상의 표시와 조작을 편하게 할 수 있도록 더 크고 알아보기 쉽게 만든 앵커 컨테이너.
  */
 @Composable
+@ExperimentalStdlibApi
 @ExperimentalUuidApi
 fun AnchorContainer(
     anchor: AnchorState,
@@ -39,7 +40,7 @@ fun AnchorContainer(
     processor: EventProcessor = EventProcessor.NoOp,
     properties: AnchorContainerProperties? = null
 ) {
-    logger.v("#AnchorContainer args : anchor=$anchor, context=$context, processor=$processor")
+    logger.v("#AnchorContainer args : anchor=$anchor, context=$context, processor=$processor, properties=${properties?.summary}")
 
     val focused = (context is ObjectFocusedContext && context.obj == anchor) ||
             (context is ObjectPreviewContext && context.target == anchor)
@@ -55,7 +56,7 @@ fun AnchorContainer(
         listOf(
             "focused=$focused",
             "hovered=$hovered",
-            "properties=$internalProperties"
+            "properties=${internalProperties.summary}"
         ).joinToString(", ", "#AnchorContainer : ")
     )
 

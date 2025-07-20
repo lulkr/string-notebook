@@ -18,6 +18,7 @@ import kr.lul.stringnotebook.ui.atom.StringNotebookTheme
 import kotlin.uuid.ExperimentalUuidApi
 
 @Composable
+@ExperimentalStdlibApi
 @ExperimentalUuidApi
 fun Root(
     baseNavigator: BaseNavigator

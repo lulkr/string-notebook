@@ -6,6 +6,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.unit.Dp
+import kr.lul.stringnotebook.state.atom.summary
 
 /**
  * 외곽선 정보.
@@ -20,5 +21,8 @@ data class BorderState(
     val brush: Brush,
     val shape: Shape
 ) {
+    @ExperimentalStdlibApi
+    val summary = "(w=$width, b=${brush.summary}, s=${shape.summary})"
+
     constructor(width: Dp, color: Color, shape: Shape) : this(width, SolidColor(color), shape)
 }
