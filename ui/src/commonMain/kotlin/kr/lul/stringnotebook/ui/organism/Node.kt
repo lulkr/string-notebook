@@ -8,6 +8,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
+import kr.lul.stringnotebook.domain.event.UpdateNodeTextEvent
 import kr.lul.stringnotebook.domain.foundation.EventProcessor
 import kr.lul.stringnotebook.state.molecule.NodeProperties
 import kr.lul.stringnotebook.state.organism.Context
@@ -72,8 +73,9 @@ fun NodeEditor(
 
     OutlinedTextField(
         value = node.text,
-        onValueChange = {
-            logger.d("#NodeEditor.onValueChange : node=$node, context=$context, value=$it")
+        onValueChange = { value ->
+            logger.d("#NodeEditor.onValueChange : node=$node, context=$context, value=$value")
+            processor(UpdateNodeTextEvent(node.id, value))
         },
         modifier = Modifier.apply(properties)
             .focusRequester(focusRequester)
