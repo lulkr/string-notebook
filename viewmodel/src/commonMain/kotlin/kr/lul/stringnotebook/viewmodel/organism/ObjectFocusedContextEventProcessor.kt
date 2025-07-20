@@ -63,19 +63,10 @@ class ObjectFocusedContextEventProcessor(tag: String) {
         callback: (NotebookState, Context) -> Unit
     ) {
         val target = notebook.objects.firstOrNull { event.target == it.id }
-        when (target) {
-            null -> {
-                logger.e("#handle target not found : targetId=${event.target}")
-                return
-            }
+        requireNotNull(target) { "target not found : event.target=${event.target}" }
+        require(target is NodeState) { "unsupported target type : target::class=${target::class.qualifiedName}" }
 
-            !is NodeState -> {
-                logger.e("#handle target is not NodeState : target=$target")
-                return
-            }
-        }
-
-        callback(notebook, context.edit())
+        callback(notebook, context.edit(target))
     }
 
     fun handle(

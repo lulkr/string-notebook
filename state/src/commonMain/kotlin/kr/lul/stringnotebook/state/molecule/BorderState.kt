@@ -24,5 +24,15 @@ data class BorderState(
     @ExperimentalStdlibApi
     val summary = "(w=$width, b=${brush.summary}, s=${shape.summary})"
 
-    constructor(width: Dp, color: Color, shape: Shape) : this(width, SolidColor(color), shape)
+    constructor(
+        width: Dp,
+        color: Color,
+        shape: Shape
+    ) : this(width, SolidColor(color), shape)
+
+    fun copy(
+        color: Color,
+        width: Dp = this.width,
+        shape: Shape = this.shape
+    ) = BorderState(width, SolidColor(color), shape)
 }

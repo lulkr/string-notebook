@@ -96,8 +96,8 @@ class ObjectEditContextEventProcessor(tag: String) {
                 return
             }
 
-            target != context.focused -> {
-                logger.e("#handle target not match : event=$event, context.active=${context.focused}")
+            target != context.obj -> {
+                logger.e("#handle target not match : event=$event, context.active=${context.obj}")
                 return
             }
         }
