@@ -30,4 +30,14 @@ data class BackgroundState(
         shape,
         alpha
     )
+
+    fun copy(
+        color: Color,
+        shape: Shape = this.shape,
+        @FloatRange(from = 0.0, to = 1.0) alpha: Float = this.alpha
+    ): BackgroundState = BackgroundState(
+        brush = SolidColor(color),
+        shape = shape,
+        alpha = alpha
+    )
 }

@@ -11,6 +11,8 @@ import kr.lul.stringnotebook.state.organism.ObjectState
 import kr.lul.stringnotebook.state.organism.PreviewAnchorState
 import kr.lul.stringnotebook.ui.molecule.AnchorContainerPropertiesDefaults
 import kr.lul.stringnotebook.ui.molecule.AnchorPropertiesDefaults
+import kr.lul.stringnotebook.ui.molecule.NodeContainerPropertiesDefaults
+import kr.lul.stringnotebook.ui.molecule.NodePropertiesDefaults
 import kotlin.uuid.ExperimentalUuidApi
 
 @Composable
@@ -24,7 +26,7 @@ fun NoteBookContent(objects: List<ObjectState>, context: Context, processor: Eve
                 when (obj) {
                     is AnchorState -> AnchorContainer(obj, context, processor)
                     is PreviewAnchorState -> Preview(obj)
-                    is NodeState -> Node(obj, context, processor)
+                    is NodeState -> NodeContainer(obj, context, processor)
                 }
             }
         }
@@ -43,8 +45,8 @@ fun NoteBookContent(objects: List<ObjectState>, context: Context, processor: Eve
                     )
 
                     is NodeState -> placeable.place(
-                        x = Dp(obj.x).roundToPx(),
-                        y = Dp(obj.y).roundToPx(),
+                        x = (Dp(obj.x) - NodeContainerPropertiesDefaults.PADDING - NodePropertiesDefaults.WIDTH / 2).roundToPx(),
+                        y = (Dp(obj.y) - NodeContainerPropertiesDefaults.PADDING - NodePropertiesDefaults.HEIGHT / 2).roundToPx(),
                         zIndex = obj.z
                     )
 

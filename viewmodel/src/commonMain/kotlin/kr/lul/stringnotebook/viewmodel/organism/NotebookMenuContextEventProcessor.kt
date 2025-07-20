@@ -59,7 +59,7 @@ class NotebookMenuContextEventProcessor(tag: String) {
         event: AddNodeEvent,
         callback: (NotebookState, Context) -> Unit
     ) {
-        val node = NodeState(x = event.x, y = event.y)
+        val node = NodeState(x = event.x, y = event.y, text = "Node #${notebook.nodes.size}")
 
         callback(
             notebook.copy(objects = notebook.objects + node),
