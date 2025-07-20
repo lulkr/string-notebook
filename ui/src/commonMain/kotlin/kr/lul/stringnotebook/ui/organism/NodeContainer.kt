@@ -12,10 +12,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
+import kr.lul.stringnotebook.domain.event.FocusObjectEvent
 import kr.lul.stringnotebook.domain.foundation.EventProcessor
 import kr.lul.stringnotebook.state.molecule.NodeContainerProperties
 import kr.lul.stringnotebook.state.organism.Context
 import kr.lul.stringnotebook.state.organism.NodeState
+import kr.lul.stringnotebook.state.organism.NotebookFocusedContext
 import kr.lul.stringnotebook.state.organism.ObjectFocusedContext
 import kr.lul.stringnotebook.state.organism.ObjectPreviewContext
 import kr.lul.stringnotebook.ui.molecule.NodeContainerPropertiesDefaults
@@ -51,6 +53,10 @@ fun NodeContainer(
                     },
                     onTap = { offset ->
                         logger.d("#NodeContainer.onTap : node=$node, offset=$offset")
+
+                        if (context is NotebookFocusedContext || (context is ObjectFocusedContext && node != context.obj)) {
+                            processor(FocusObjectEvent(target = node.id))
+                        }
                     }
                 )
             }
