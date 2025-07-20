@@ -62,6 +62,24 @@ object NodePropertiesDefaults {
      * 포커스한 노드의 속성.
      */
     @Composable
+    fun editing(
+        width: Dp = WIDTH,
+        height: Dp = HEIGHT,
+        background: BackgroundState = BACKGROUND.copy(MaterialTheme.colorScheme.primaryContainer),
+        border: BorderState = BORDER.copy(color = MaterialTheme.colorScheme.outline),
+        padding: Dp = PADDING
+    ): NodeProperties = NodeProperties(
+        width = width,
+        height = height,
+        background = background,
+        border = border,
+        padding = padding
+    )
+
+    /**
+     * 포커스한 노드의 속성.
+     */
+    @Composable
     fun focused(
         width: Dp = WIDTH,
         height: Dp = HEIGHT,

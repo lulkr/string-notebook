@@ -15,11 +15,13 @@ import androidx.compose.ui.input.pointer.pointerInput
 import kr.lul.stringnotebook.domain.event.EndMoveObjectEvent
 import kr.lul.stringnotebook.domain.event.FocusObjectEvent
 import kr.lul.stringnotebook.domain.event.MovePreviewEvent
+import kr.lul.stringnotebook.domain.event.OpenEditorEvent
 import kr.lul.stringnotebook.domain.event.StartMoveObjectEvent
 import kr.lul.stringnotebook.domain.foundation.EventProcessor
 import kr.lul.stringnotebook.state.molecule.NodeContainerProperties
 import kr.lul.stringnotebook.state.organism.Context
 import kr.lul.stringnotebook.state.organism.NodeState
+import kr.lul.stringnotebook.state.organism.ObjectEditContext
 import kr.lul.stringnotebook.state.organism.ObjectFocusedContext
 import kr.lul.stringnotebook.state.organism.ObjectPreviewContext
 import kr.lul.stringnotebook.ui.molecule.NodeContainerPropertiesDefaults
@@ -52,6 +54,10 @@ fun NodeContainer(
                 detectTapGestures(
                     onDoubleTap = { offset ->
                         logger.d("#NodeContainer.onDoubleTap : node=$node, offset=$offset")
+
+                        if (focused && context !is ObjectEditContext) {
+                            processor(OpenEditorEvent(node.id))
+                        }
                     },
                     onTap = { offset ->
                         logger.d("#NodeContainer.onTap : node=$node, context=$context, focused=$focused, offset=$offset")
