@@ -13,6 +13,7 @@ import androidx.compose.ui.graphics.Color
  * @property inactiveBorder 비활성화된 노드의 테두리 색
  * @property inactiveText 비활성화된 노드의 텍스트 색
  */
+@Deprecated("kr.lul.stringnotebook.state.molecule.NodeContainerProperties or kr.lul.stringnotebook.state.molecule.NodeProperties")
 @Immutable
 data class NodeColors(
     val background: Color = Color.Unspecified,
