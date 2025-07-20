@@ -41,6 +41,24 @@ object NodePropertiesDefaults {
     val BORDER = BorderState(1.dp, Color.Transparent, RoundedCornerShape(PADDING))
 
     /**
+     * 노드의 기본 속성.
+     */
+    @Composable
+    fun default(
+        width: Dp = WIDTH,
+        height: Dp = HEIGHT,
+        background: BackgroundState = BACKGROUND.copy(color = MaterialTheme.colorScheme.surfaceContainer),
+        border: BorderState = BORDER,
+        padding: Dp = PADDING
+    ): NodeProperties = NodeProperties(
+        width = width,
+        height = height,
+        background = background,
+        border = border,
+        padding = padding
+    )
+
+    /**
      * 포커스한 노드의 속성.
      */
     @Composable
@@ -59,13 +77,13 @@ object NodePropertiesDefaults {
     )
 
     /**
-     * 노드의 기본 속성.
+     * 노드 미리보기의 속성.
      */
     @Composable
-    fun default(
+    fun preview(
         width: Dp = WIDTH,
         height: Dp = HEIGHT,
-        background: BackgroundState = BACKGROUND.copy(color = MaterialTheme.colorScheme.surfaceContainer),
+        background: BackgroundState = BACKGROUND.copy(MaterialTheme.colorScheme.secondaryContainer, alpha = 0.75F),
         border: BorderState = BORDER,
         padding: Dp = PADDING
     ): NodeProperties = NodeProperties(

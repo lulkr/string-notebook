@@ -12,12 +12,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
+import kr.lul.stringnotebook.domain.event.EndMoveObjectEvent
 import kr.lul.stringnotebook.domain.event.FocusObjectEvent
+import kr.lul.stringnotebook.domain.event.MovePreviewEvent
+import kr.lul.stringnotebook.domain.event.StartMoveObjectEvent
 import kr.lul.stringnotebook.domain.foundation.EventProcessor
 import kr.lul.stringnotebook.state.molecule.NodeContainerProperties
 import kr.lul.stringnotebook.state.organism.Context
 import kr.lul.stringnotebook.state.organism.NodeState
-import kr.lul.stringnotebook.state.organism.NotebookFocusedContext
 import kr.lul.stringnotebook.state.organism.ObjectFocusedContext
 import kr.lul.stringnotebook.state.organism.ObjectPreviewContext
 import kr.lul.stringnotebook.ui.molecule.NodeContainerPropertiesDefaults
@@ -42,7 +44,7 @@ fun NodeContainer(
         focused -> NodeContainerPropertiesDefaults.focused()
         else -> NodeContainerPropertiesDefaults.default()
     }
-    logger.v("#NodeContainer : internalProperties=${internalProperties.summary}")
+    logger.v("#NodeContainer : focused=$focused, internalProperties=${internalProperties.summary}")
 
     Box(
         modifier = Modifier.hoverable(interactionSource)
@@ -52,9 +54,9 @@ fun NodeContainer(
                         logger.d("#NodeContainer.onDoubleTap : node=$node, offset=$offset")
                     },
                     onTap = { offset ->
-                        logger.d("#NodeContainer.onTap : node=$node, offset=$offset")
+                        logger.d("#NodeContainer.onTap : node=$node, context=$context, focused=$focused, offset=$offset")
 
-                        if (context is NotebookFocusedContext || (context is ObjectFocusedContext && node != context.obj)) {
+                        if (!focused) {
                             processor(FocusObjectEvent(target = node.id))
                         }
                     }
@@ -64,12 +66,33 @@ fun NodeContainer(
                 detectDragGestures(
                     onDragStart = { offset ->
                         logger.d("#NodeContainer.onDragStart : node=$node, offset=$offset")
+
+                        if (focused) {
+                            processor(StartMoveObjectEvent(target = node.id))
+                        }
                     },
                     onDragEnd = {
                         logger.d("#NodeContainer.onDragEnd : node=$node")
+
+                        if (focused && null != node.preview) {
+                            processor(EndMoveObjectEvent(node.id))
+                        }
                     },
                     onDrag = { change, dragAmount ->
                         logger.d("#NodeContainer.onDrag : change=$change, dragAmount=$dragAmount")
+
+                        change.consume()
+                        if (focused) {
+                            node.preview!!.let { preview ->
+                                processor(
+                                    MovePreviewEvent(
+                                        target = node.id,
+                                        x = preview.x + dragAmount.x.toDp().value,
+                                        y = preview.y + dragAmount.y.toDp().value
+                                    )
+                                )
+                            }
+                        }
                     }
                 )
             }

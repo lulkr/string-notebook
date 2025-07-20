@@ -9,6 +9,7 @@ import kr.lul.stringnotebook.state.organism.Context
 import kr.lul.stringnotebook.state.organism.NodeState
 import kr.lul.stringnotebook.state.organism.ObjectState
 import kr.lul.stringnotebook.state.organism.PreviewAnchorState
+import kr.lul.stringnotebook.state.organism.PreviewNodeState
 import kr.lul.stringnotebook.ui.molecule.AnchorContainerPropertiesDefaults
 import kr.lul.stringnotebook.ui.molecule.AnchorPropertiesDefaults
 import kr.lul.stringnotebook.ui.molecule.NodeContainerPropertiesDefaults
@@ -28,6 +29,7 @@ fun NoteBookContent(objects: List<ObjectState>, context: Context, processor: Eve
                     is AnchorState -> AnchorContainer(obj, context, processor)
                     is PreviewAnchorState -> Preview(obj)
                     is NodeState -> NodeContainer(obj, context, processor)
+                    is PreviewNodeState -> Preview(obj)
                 }
             }
         }
@@ -45,19 +47,23 @@ fun NoteBookContent(objects: List<ObjectState>, context: Context, processor: Eve
                         zIndex = obj.z
                     )
 
+                    is PreviewAnchorState -> placeable.place(
+                        x = (Dp(obj.x) - AnchorPropertiesDefaults.RADIUS).roundToPx(),
+                        y = (Dp(obj.y) - AnchorPropertiesDefaults.RADIUS).roundToPx(),
+                        zIndex = Float.MAX_VALUE
+                    )
+
                     is NodeState -> placeable.place(
                         x = (Dp(obj.x) - NodeContainerPropertiesDefaults.PADDING - NodePropertiesDefaults.WIDTH / 2).roundToPx(),
                         y = (Dp(obj.y) - NodeContainerPropertiesDefaults.PADDING - NodePropertiesDefaults.HEIGHT / 2).roundToPx(),
                         zIndex = obj.z
                     )
 
-                    is PreviewAnchorState -> {
-                        placeable.place(
-                            x = (Dp(obj.x) - AnchorPropertiesDefaults.RADIUS).roundToPx(),
-                            y = (Dp(obj.y) - AnchorPropertiesDefaults.RADIUS).roundToPx(),
-                            zIndex = Float.MAX_VALUE
-                        )
-                    }
+                    is PreviewNodeState -> placeable.place(
+                        x = (Dp(obj.x) - NodeContainerPropertiesDefaults.PADDING - NodePropertiesDefaults.WIDTH / 2).roundToPx(),
+                        y = (Dp(obj.y) - NodeContainerPropertiesDefaults.PADDING - NodePropertiesDefaults.HEIGHT / 2).roundToPx(),
+                        zIndex = Float.MAX_VALUE
+                    )
                 }
             }
         }

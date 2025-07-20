@@ -6,6 +6,7 @@ import kr.lul.stringnotebook.domain.event.MovePreviewEvent
 import kr.lul.stringnotebook.domain.foundation.Event
 import kr.lul.stringnotebook.state.organism.AnchorState
 import kr.lul.stringnotebook.state.organism.Context
+import kr.lul.stringnotebook.state.organism.NodeState
 import kr.lul.stringnotebook.state.organism.NotebookState
 import kr.lul.stringnotebook.state.organism.ObjectPreviewContext
 import kotlin.uuid.ExperimentalUuidApi
@@ -41,23 +42,33 @@ class ObjectPreviewContextEventProcessor(
         requireNotNull(target) { "target object not found: event.target=${event.target}" }
         require(target == context.target) { "target does not match : event.target=${event.target}, context.target=${context.target}" }
 
-        val preview = when (target) {
-            is AnchorState ->
-                requireNotNull(target.preview) { "anchor preview not found: target=$target" }
+        val objects = when (target) {
+            is AnchorState -> {
+                val preview = requireNotNull(target.preview) { "anchor preview not found: target=$target" }
+
+                target.x = preview.x
+                target.y = preview.y
+                target.preview = null
+
+                notebook.objects.filterNot { it.id == preview.id }
+            }
+
+            is NodeState -> {
+                val preview = requireNotNull(target.preview) { "node preview not found: target=$target" }
+
+                target.x = preview.x
+                target.y = preview.y
+                target.preview = null
+
+                notebook.objects.filterNot { it.id == preview.id }
+            }
 
             else ->
                 throw IllegalArgumentException("unsupported target type : target::class=${target::class.qualifiedName}")
         }
 
-        target.x = preview.x
-        target.y = preview.y
-        target.preview = null
 
-
-        callback(
-            notebook.copy(objects = notebook.objects.filterNot { it.id == preview.id }),
-            context.focus(target)
-        )
+        callback(notebook.copy(objects = objects), context.focus(target))
     }
 
     fun handle(
@@ -72,6 +83,9 @@ class ObjectPreviewContextEventProcessor(
         val preview = when (target) {
             is AnchorState ->
                 requireNotNull(target.preview) { "anchor preview not found : target=$target" }
+
+            is NodeState ->
+                requireNotNull(target.preview) { "node preview not found : target=$target" }
 
             else ->
                 throw IllegalArgumentException("unsupported target type : target::class=${target::class.qualifiedName}")
