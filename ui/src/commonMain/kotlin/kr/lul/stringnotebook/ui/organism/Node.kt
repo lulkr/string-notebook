@@ -18,7 +18,6 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.dp
 import kr.lul.stringnotebook.domain.event.FocusObjectEvent
-import kr.lul.stringnotebook.domain.event.OpenEditorEvent
 import kr.lul.stringnotebook.domain.event.UpdateNodeTextEvent
 import kr.lul.stringnotebook.domain.foundation.EventProcessor
 import kr.lul.stringnotebook.state.molecule.NodeColors
@@ -52,8 +51,6 @@ fun Node(
 
     if (activated && context is ObjectEditContext) {
         NodeEditor(state, context, processor)
-    } else {
-        NodeViewer(state, context, processor, activated)
     }
 }
 
@@ -110,57 +107,6 @@ fun NodeEditor(
             focusedBorderColor = colors.border,
             unfocusedBorderColor = colors.inactiveBorder
         )
-    )
-}
-
-@Deprecated("Node")
-@Composable
-@ExperimentalUuidApi
-fun NodeViewer(
-    state: NodeState,
-    context: Context = NotebookFocusedContext(),
-    processor: EventProcessor = EventProcessor.NoOp,
-    activated: Boolean = false,
-    colors: NodeColors = NodeDefaults.colors()
-) {
-    logger.v(
-        listOf(
-            "state=$state",
-            "context=$context",
-            "processor=$processor",
-            "activated=$activated",
-            "colors=$colors"
-        ).joinToString(", ", "#NodeViewer args : ")
-    )
-
-    Text(
-        text = state.text,
-        modifier = Modifier
-            .pointerInput(state, context) {
-                detectTapGestures(
-                    onDoubleTap = { offset ->
-                        logger.d("#NodeViewer.onDoubleTap args : offset=$offset")
-                        processor(OpenEditorEvent(state.id))
-                    },
-                    onTap = { offset ->
-                        logger.d("#NodeViewer.onTap args : offset=$offset")
-                        if (!activated) {
-                            processor(FocusObjectEvent(state.id))
-                        }
-                    }
-                )
-
-                detectDragGestures(
-                    onDragStart = { offset ->
-                        logger.d("#NodeViewer.onDragStart args : offset=$offset")
-                    },
-                    onDrag = { change, dragAmount ->
-                        logger.d("#NodeViewer.onDrag args : change=$change, dragAmount=$dragAmount")
-                    }
-                )
-            }
-            .background(if (activated) colors.background else colors.inactiveBackground)
-            .padding(16.dp)
     )
 }
 
