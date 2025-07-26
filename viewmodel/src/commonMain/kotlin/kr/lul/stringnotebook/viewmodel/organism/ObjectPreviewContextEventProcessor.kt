@@ -24,10 +24,8 @@ import kr.lul.stringnotebook.state.resources.event_move_to
 import kotlin.uuid.ExperimentalUuidApi
 
 @ExperimentalUuidApi
-class ObjectPreviewContextEventProcessor(
-    tag: String
-) {
-    private val logger = Logger(tag)
+class ObjectPreviewContextEventProcessor {
+    private val logger = Logger("ObjectPreviewContextEventProcessor")
 
     operator fun invoke(
         notebook: NotebookState,

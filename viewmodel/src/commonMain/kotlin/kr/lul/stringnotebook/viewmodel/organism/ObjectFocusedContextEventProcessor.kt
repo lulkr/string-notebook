@@ -19,8 +19,8 @@ import kotlin.uuid.ExperimentalUuidApi
  * [ObjectFocusedContext] 상태의 이벤트 처리기.
  */
 @ExperimentalUuidApi
-class ObjectFocusedContextEventProcessor(tag: String) {
-    private val logger = Logger(tag)
+class ObjectFocusedContextEventProcessor {
+    private val logger = Logger("ObjectFocusedContextEventProcessor")
 
     operator fun invoke(
         notebook: NotebookState,

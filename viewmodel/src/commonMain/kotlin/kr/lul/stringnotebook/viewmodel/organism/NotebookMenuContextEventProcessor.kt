@@ -16,8 +16,8 @@ import kotlin.uuid.ExperimentalUuidApi
  * [NotebookMenuContext] 상태의 이벤트 처리기.
  */
 @ExperimentalUuidApi
-class NotebookMenuContextEventProcessor(tag: String) {
-    private val logger = Logger(tag)
+class NotebookMenuContextEventProcessor {
+    private val logger = Logger("NotebookMenuContextEventProcessor")
 
     operator fun invoke(
         notebook: NotebookState,

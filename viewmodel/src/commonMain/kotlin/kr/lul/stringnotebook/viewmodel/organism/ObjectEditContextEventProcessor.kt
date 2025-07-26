@@ -13,8 +13,8 @@ import kr.lul.stringnotebook.state.organism.ObjectEditContext
 import kotlin.uuid.ExperimentalUuidApi
 
 @ExperimentalUuidApi
-class ObjectEditContextEventProcessor(tag: String) {
-    private val logger = Logger(tag)
+class ObjectEditContextEventProcessor {
+    private val logger = Logger("ObjectEditContextEventProcessor")
 
     operator fun invoke(
         notebook: NotebookState,

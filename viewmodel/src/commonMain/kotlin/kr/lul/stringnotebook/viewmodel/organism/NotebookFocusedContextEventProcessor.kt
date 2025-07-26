@@ -13,8 +13,8 @@ import kotlin.uuid.ExperimentalUuidApi
  * [NotebookFocusedContext] 상태의 이벤트 처리기.
  */
 @ExperimentalUuidApi
-class NotebookFocusedContextEventProcessor(tag: String) {
-    private val logger = Logger(tag)
+class NotebookFocusedContextEventProcessor {
+    private val logger = Logger("NotebookFocusedContextEventProcessor")
 
     operator fun invoke(
         notebook: NotebookState,
