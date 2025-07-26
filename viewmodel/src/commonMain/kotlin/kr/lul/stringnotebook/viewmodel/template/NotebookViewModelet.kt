@@ -38,7 +38,7 @@ class NotebookViewModelet(
     private val notebookMenu = NotebookMenuContextEventProcessor()
     private val objectEdit = ObjectEditContextEventProcessor()
     private val objectFocused = ObjectFocusedContextEventProcessor()
-    private val objectEdit = ObjectEditContextEventProcessor()
+    private val objectMenu = ObjectMenuContextEventProcessor()
     private val objectPreview = ObjectPreviewContextEventProcessor()
 
     override fun invoke(event: Event) {
@@ -61,8 +61,7 @@ class NotebookViewModelet(
             is NotebookMenuContext -> notebookMenu(notebook, context, event, callback)
             is ObjectEditContext -> objectEdit(notebook, context, event, callback)
             is ObjectFocusedContext -> objectFocused(notebook, context, event, callback)
-            is ObjectEditContext -> objectEdit(notebook, context, event, callback)
-            is ObjectMenuContext -> {}
+            is ObjectMenuContext -> objectMenu(notebook, context, event, callback)
             is ObjectPreviewContext -> objectPreview(notebook, context, event, callback)
         }
     }

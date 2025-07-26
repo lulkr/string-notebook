@@ -10,6 +10,7 @@ import kr.lul.stringnotebook.state.molecule.Area
 import kr.lul.stringnotebook.state.molecule.TextResourceContainer
 import kr.lul.stringnotebook.state.organism.AnchorState
 import kr.lul.stringnotebook.state.organism.Context
+import kr.lul.stringnotebook.state.organism.LinkState
 import kr.lul.stringnotebook.state.organism.MenuItemState
 import kr.lul.stringnotebook.state.organism.NodeState
 import kr.lul.stringnotebook.state.organism.NotebookState
@@ -119,7 +120,7 @@ class ObjectPreviewContextEventProcessor {
     private fun dropTargets(offset: Offset, objects: List<ObjectState>): List<ObjectState> {
         val padding = 32.0F // TODO 노트북, 앵커 혹은 노드 속성으로 변경.
         return objects
-            .filterNot { it is PreviewAnchorState || it is PreviewNodeState }
+            .filterNot { it is PreviewAnchorState || it is PreviewNodeState || it is LinkState }
             .map {
                 when (it) {
                     is AnchorState -> it to Area(

@@ -16,7 +16,7 @@ import kr.lul.stringnotebook.state.organism.NotebookState
 import kr.lul.stringnotebook.state.organism.ObjectEditContext
 import kr.lul.stringnotebook.state.organism.ObjectFocusedContext
 import kr.lul.stringnotebook.state.organism.ObjectMenuContext
-import kr.lul.stringnotebook.ui.organism.NoteBookContent
+import kr.lul.stringnotebook.ui.organism.NotebookContent
 import kr.lul.stringnotebook.ui.page.logger
 import kotlin.uuid.ExperimentalUuidApi
 
@@ -86,7 +86,7 @@ fun NotebookEditor(
     ) {
         val objects = state.objects // TODO 뷰포트로 걸러내기.
 
-        NoteBookContent(objects, context, processor)
+        NotebookContent(objects, context, processor)
 
         if (context is NotebookMenuContext || context is ObjectMenuContext) {
             ContextMenu(

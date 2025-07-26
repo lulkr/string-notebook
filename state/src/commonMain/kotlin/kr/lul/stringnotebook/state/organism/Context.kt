@@ -274,11 +274,13 @@ class ObjectMenuContext(
 ) : Context {
     /**
      * 오브젝트 선택 상태로 돌아간다.
+     *
+     * @param target 선택할 오브젝트.
      */
-    fun focus() = ObjectFocusedContext(
+    fun focus(target: ObjectState = this.focused) = ObjectFocusedContext(
         preferences = preferences,
         version = Uuid.random(),
-        obj = focused
+        obj = target
     )
 
     /**
