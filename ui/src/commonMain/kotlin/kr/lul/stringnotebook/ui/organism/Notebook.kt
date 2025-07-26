@@ -77,7 +77,6 @@ fun NotebookContent(objects: List<ObjectState>, context: Context, processor: Eve
                     is LinkState -> {
                         val x = Dp(min(obj.from.x, obj.to.x)).roundToPx()
                         val y = Dp(min(obj.from.y, obj.to.y)).roundToPx()
-                        logger.w("#NotebookContent place link object : link=$obj, x=$x, y=$y")
                         placeable.place(x = x, y = y)
                     }
                 }
