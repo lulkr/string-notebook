@@ -7,7 +7,7 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextLayoutResult
 import kr.lul.stringnotebook.state.molecule.hasTestTag
 import kr.lul.stringnotebook.state.organism.TextState
-import org.jetbrains.compose.resources.stringResource
+import kr.lul.stringnotebook.ui.atom.string
 import kotlin.uuid.ExperimentalUuidApi
 
 /**
@@ -24,6 +24,9 @@ fun Text(
 ) {
     logger.v("#Text args : state=$state, modifier=$modifier, onTextLayout=$onTextLayout")
 
+    val text = state.text
+        ?: AnnotatedString(state.resource!!.string)
+
     @Suppress("LocalVariableName")
     val _modifier = if (modifier.hasTestTag()) {
         logger.w("#Text testTag already exists in the modifier : modifier=$modifier")
@@ -33,7 +36,7 @@ fun Text(
     }
 
     androidx.compose.material3.Text(
-        text = state.text ?: AnnotatedString(stringResource(state.resource!!)),
+        text = text,
         modifier = _modifier,
         color = state.color,
         fontSize = state.fontSize,

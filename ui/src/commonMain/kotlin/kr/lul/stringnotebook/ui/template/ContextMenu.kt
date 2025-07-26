@@ -14,7 +14,7 @@ import kr.lul.stringnotebook.domain.foundation.EventProcessor
 import kr.lul.stringnotebook.state.organism.Context
 import kr.lul.stringnotebook.state.organism.NotebookMenuContext
 import kr.lul.stringnotebook.state.organism.ObjectMenuContext
-import kr.lul.stringnotebook.ui.page.logger
+import kr.lul.stringnotebook.ui.organism.MenuItem
 import kotlin.uuid.ExperimentalUuidApi
 
 @Composable
@@ -45,7 +45,9 @@ fun ContextMenu(
             onDismissRequest = onDismissRequest,
         ) {
             if (context is ObjectMenuContext) {
-                // TODO
+                for (item in context.items) {
+                    MenuItem(item, context, processor)
+                }
             }
 
             if (context is NotebookMenuContext) {

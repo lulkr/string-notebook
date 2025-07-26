@@ -14,7 +14,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.TextUnit
 import kr.lul.stringnotebook.state.molecule.DefaultTextLines
 import kr.lul.stringnotebook.state.molecule.TextLines
-import org.jetbrains.compose.resources.StringResource
+import kr.lul.stringnotebook.state.molecule.TextResourceContainer
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
@@ -42,9 +42,9 @@ import kotlin.uuid.Uuid
  */
 @ExperimentalUuidApi
 @Immutable
-open class TextState(
+open class TextState private constructor(
     val text: AnnotatedString? = null,
-    val resource: StringResource? = null,
+    val resource: TextResourceContainer? = null,
     val color: Color = Color.Unspecified,
     val fontSize: TextUnit = TextUnit.Unspecified,
     val fontStyle: FontStyle? = null,
@@ -63,8 +63,7 @@ open class TextState(
     val testTag: String = key.toString()
 ) {
     constructor(
-        text: String? = null,
-        resource: StringResource? = null,
+        text: AnnotatedString,
         color: Color = Color.Unspecified,
         fontSize: TextUnit = TextUnit.Unspecified,
         fontStyle: FontStyle? = null,
@@ -82,7 +81,46 @@ open class TextState(
         key: Any = Uuid.random(),
         testTag: String = key.toString()
     ) : this(
-        text?.let { AnnotatedString(it) },
+        text,
+        null,
+        color,
+        fontSize,
+        fontStyle,
+        fontWeight,
+        fontFamily,
+        letterSpacing,
+        textDecoration,
+        textAlign,
+        lineHeight,
+        overflow,
+        softWrap,
+        textLines,
+        inlineContent,
+        style,
+        key,
+        testTag
+    )
+
+    constructor(
+        resource: TextResourceContainer,
+        color: Color = Color.Unspecified,
+        fontSize: TextUnit = TextUnit.Unspecified,
+        fontStyle: FontStyle? = null,
+        fontWeight: FontWeight? = null,
+        fontFamily: FontFamily? = null,
+        letterSpacing: TextUnit = TextUnit.Unspecified,
+        textDecoration: TextDecoration? = null,
+        textAlign: TextAlign? = null,
+        lineHeight: TextUnit = TextUnit.Unspecified,
+        overflow: TextOverflow = TextOverflow.Clip,
+        softWrap: Boolean = true,
+        textLines: TextLines = DefaultTextLines,
+        inlineContent: Map<String, InlineTextContent> = mapOf(),
+        style: TextStyle = TextStyle.Default,
+        key: Any = Uuid.random(),
+        testTag: String = key.toString()
+    ) : this(
+        null,
         resource,
         color,
         fontSize,
@@ -107,8 +145,7 @@ open class TextState(
     }
 
     fun copy(
-        text: AnnotatedString? = this.text,
-        resource: StringResource? = this.resource,
+        text: AnnotatedString,
         color: Color = this.color,
         fontSize: TextUnit = this.fontSize,
         fontStyle: FontStyle? = this.fontStyle,
@@ -125,7 +162,7 @@ open class TextState(
         style: TextStyle = this.style,
     ) = TextState(
         text,
-        resource,
+        null,
         color,
         fontSize,
         fontStyle,
@@ -145,8 +182,7 @@ open class TextState(
     )
 
     fun copy(
-        text: String? = this.text?.text,
-        resource: StringResource? = this.resource,
+        resource: TextResourceContainer,
         color: Color = this.color,
         fontSize: TextUnit = this.fontSize,
         fontStyle: FontStyle? = this.fontStyle,
@@ -162,7 +198,7 @@ open class TextState(
         inlineContent: Map<String, InlineTextContent> = this.inlineContent,
         style: TextStyle = this.style,
     ) = TextState(
-        text,
+        null,
         resource,
         color,
         fontSize,

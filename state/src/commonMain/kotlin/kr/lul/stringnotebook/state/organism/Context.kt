@@ -154,12 +154,13 @@ data class ObjectFocusedContext(
      * @param x 메뉴의 x 좌표.
      * @param y 메뉴의 y 좌표.
      */
-    fun menu(x: Float, y: Float) = ObjectMenuContext(
+    fun menu(x: Float, y: Float, vararg items: MenuItemState) = ObjectMenuContext(
         preferences = preferences,
         version = Uuid.random(),
         focused = obj,
         x = x,
-        y = y
+        y = y,
+        items = items.toList()
     )
 
     /**
@@ -219,13 +220,28 @@ class ObjectPreviewContext(
      *
      * @param x 메뉴의 x 좌표.
      * @param y 메뉴의 y 좌표.
+     * @param items 메뉴 항목들.
      */
-    fun menu(x: Float, y: Float) = ObjectMenuContext(
+    fun menu(x: Float, y: Float, vararg items: MenuItemState) = menu(x, y, items.toList())
+
+    /**
+     * 오브젝트 메뉴
+     *
+     * 오브젝트의 메뉴를 연 상태이다.
+     *
+     * 오브젝트를 우클릭하거나 다른 오브젝트에 드랍해서 열 수 있다. 오브젝트 한정 기능이나 기타 기능을 실행할 수 있다.
+     *
+     * @param x 메뉴의 x 좌표.
+     * @param y 메뉴의 y 좌표.
+     * @param items 메뉴 항목들.
+     */
+    fun menu(x: Float, y: Float, items: List<MenuItemState>) = ObjectMenuContext(
         preferences = preferences,
         version = Uuid.random(),
         focused = target,
         x = x,
-        y = y
+        y = y,
+        items = items
     )
 }
 
@@ -250,7 +266,11 @@ class ObjectMenuContext(
     /**
      * 메뉴의 y 좌표.
      */
-    val y: Float
+    val y: Float,
+    /**
+     * 메뉴 항목.
+     */
+    val items: List<MenuItemState>
 ) : Context {
     /**
      * 오브젝트 선택 상태로 돌아간다.

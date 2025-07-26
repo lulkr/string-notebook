@@ -3,17 +3,24 @@ package kr.lul.stringnotebook.viewmodel.organism
 import androidx.compose.ui.geometry.Offset
 import kr.lul.logger.Logger
 import kr.lul.stringnotebook.domain.event.EndMoveObjectEvent
+import kr.lul.stringnotebook.domain.event.LinkObjectEvent
 import kr.lul.stringnotebook.domain.event.MovePreviewEvent
 import kr.lul.stringnotebook.domain.foundation.Event
 import kr.lul.stringnotebook.state.molecule.Area
+import kr.lul.stringnotebook.state.molecule.TextResourceContainer
 import kr.lul.stringnotebook.state.organism.AnchorState
 import kr.lul.stringnotebook.state.organism.Context
+import kr.lul.stringnotebook.state.organism.MenuItemState
 import kr.lul.stringnotebook.state.organism.NodeState
 import kr.lul.stringnotebook.state.organism.NotebookState
 import kr.lul.stringnotebook.state.organism.ObjectPreviewContext
 import kr.lul.stringnotebook.state.organism.ObjectState
 import kr.lul.stringnotebook.state.organism.PreviewAnchorState
 import kr.lul.stringnotebook.state.organism.PreviewNodeState
+import kr.lul.stringnotebook.state.organism.TextState
+import kr.lul.stringnotebook.state.resources.Res
+import kr.lul.stringnotebook.state.resources.event_link_to_anchor
+import kr.lul.stringnotebook.state.resources.event_move_to
 import kotlin.uuid.ExperimentalUuidApi
 
 @ExperimentalUuidApi
@@ -53,15 +60,41 @@ class ObjectPreviewContextEventProcessor(
 
                 val dropTargets = dropTargets(Offset(preview.x, preview.y), notebook.objects)
                 if (dropTargets.isEmpty()) {
-
                     target.x = preview.x
                     target.y = preview.y
                     target.preview = null
 
-                    notebook.objects.filterNot { it.id == preview.id }
+                    callback(
+                        notebook.copy(notebook.objects.filterNot { it.id == preview.id }),
+                        context
+                    )
                 } else {
-                    // TODO 링크하기가 있는 앵커 메뉴 표시.
-                    logger.w("#handle drop target found : target=$target, dropTargets=$dropTargets")
+                    target.preview = null
+
+                    val items = dropTargets.map {
+                        MenuItemState(
+                            label = TextState(TextResourceContainer(Res.string.event_link_to_anchor, it.id)),
+                            event = LinkObjectEvent(target.id, it.id)
+                        )
+                    } + MenuItemState(
+                        label = TextState(
+                            TextResourceContainer(
+                                Res.string.event_move_to,
+                                preview.x,
+                                preview.y
+                            )
+                        ),
+                        event = EndMoveObjectEvent(target.id)
+                    )
+
+                    callback(
+                        notebook.copy(notebook.objects - preview),
+                        context.menu(
+                            x = preview.x,
+                            y = preview.y,
+                            items = items
+                        )
+                    )
                 }
             }
 
