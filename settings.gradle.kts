@@ -69,6 +69,7 @@ include(
     ":app",
     ":data",
     ":domain",
+    ":mcp",
     ":model",
     ":navigation",
     ":navigation:preview",
