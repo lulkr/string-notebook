@@ -8,6 +8,7 @@ import kr.lul.logger.Logger
 import kr.lul.logger.d
 import kr.lul.stringnotebook.domain.foundation.Configuration.ID_PREFIX_APP_PROCESS
 import kr.lul.stringnotebook.domain.foundation.Configuration.generateId
+import kr.lul.stringnotebook.mcp.StringNotebookServer
 import kr.lul.stringnotebook.mcp.mcpModule
 import kr.lul.stringnotebook.model.Process
 import kr.lul.stringnotebook.navigation.Root
@@ -44,6 +45,9 @@ fun main() {
                 navigationModule
             )
             logger.d { "#main check koin : process=${koin.get<Process>()}" }
+
+            val mcp = koin.get<StringNotebookServer>()
+            mcp.start()
         }
 
         Window(
