@@ -27,7 +27,10 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
+            implementation(projects.model)
+            implementation(project.dependencies.platform(libs.koin.bom))
             implementation(project.dependencies.platform(libs.ktor.bom))
+            implementation(libs.koin.core)
             implementation(libs.ktor.serialization.kotlinx.json)
             implementation(libs.mcp)
             implementation(libs.util.logger)

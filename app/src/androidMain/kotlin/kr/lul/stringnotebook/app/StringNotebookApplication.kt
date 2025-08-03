@@ -8,6 +8,7 @@ import kr.lul.logger.d
 import kr.lul.stringnotebook.domain.foundation.Configuration
 import kr.lul.stringnotebook.domain.foundation.Configuration.ID_PREFIX_APP_PROCESS
 import kr.lul.stringnotebook.domain.foundation.Configuration.generateId
+import kr.lul.stringnotebook.mcp.mcpModule
 import kr.lul.stringnotebook.model.Build
 import kr.lul.stringnotebook.model.Process
 import kr.lul.stringnotebook.navigation.navigationModule
@@ -44,6 +45,7 @@ class StringNotebookApplication : Application() {
                 module {
                     single { this@StringNotebookApplication.process }
                 },
+                mcpModule(),
                 navigationModule
             )
         }
