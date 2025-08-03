@@ -6,6 +6,7 @@ import androidx.compose.ui.unit.Dp
 import kr.lul.stringnotebook.domain.foundation.EventProcessor
 import kr.lul.stringnotebook.state.organism.AnchorState
 import kr.lul.stringnotebook.state.organism.Context
+import kr.lul.stringnotebook.state.organism.LinkState
 import kr.lul.stringnotebook.state.organism.NodeState
 import kr.lul.stringnotebook.state.organism.ObjectState
 import kr.lul.stringnotebook.state.organism.PreviewAnchorState
@@ -14,13 +15,14 @@ import kr.lul.stringnotebook.ui.molecule.AnchorContainerPropertiesDefaults
 import kr.lul.stringnotebook.ui.molecule.AnchorPropertiesDefaults
 import kr.lul.stringnotebook.ui.molecule.NodeContainerPropertiesDefaults
 import kr.lul.stringnotebook.ui.molecule.NodePropertiesDefaults
+import kotlin.math.min
 import kotlin.uuid.ExperimentalUuidApi
 
 @Composable
 @ExperimentalStdlibApi
 @ExperimentalUuidApi
-fun NoteBookContent(objects: List<ObjectState>, context: Context, processor: EventProcessor) {
-    logger.v("#NoteBookContent args : objects=$objects, context=$context, processor=$processor")
+fun NotebookContent(objects: List<ObjectState>, context: Context, processor: EventProcessor) {
+    logger.v("#NotebookContent args : objects=$objects, context=$context, processor=$processor")
 
     Layout(
         content = {
@@ -28,8 +30,15 @@ fun NoteBookContent(objects: List<ObjectState>, context: Context, processor: Eve
                 when (obj) {
                     is AnchorState -> AnchorContainer(obj, context, processor)
                     is PreviewAnchorState -> Preview(obj)
+
                     is NodeState -> NodeContainer(obj, context, processor)
                     is PreviewNodeState -> Preview(obj)
+
+                    is LinkState -> LinkContainer(obj, context, processor)
+
+                    else -> {
+                        logger.e("#NotebookContent unsupported object type : object=$obj")
+                    }
                 }
             }
         }
@@ -64,6 +73,12 @@ fun NoteBookContent(objects: List<ObjectState>, context: Context, processor: Eve
                         y = (Dp(obj.y) - NodeContainerPropertiesDefaults.PADDING - NodePropertiesDefaults.HEIGHT / 2).roundToPx(),
                         zIndex = Float.MAX_VALUE
                     )
+
+                    is LinkState -> {
+                        val x = Dp(min(obj.from.x, obj.to.x)).roundToPx()
+                        val y = Dp(min(obj.from.y, obj.to.y)).roundToPx()
+                        placeable.place(x = x, y = y)
+                    }
                 }
             }
         }

@@ -16,7 +16,7 @@ import kr.lul.stringnotebook.state.organism.NotebookState
 import kr.lul.stringnotebook.state.organism.ObjectEditContext
 import kr.lul.stringnotebook.state.organism.ObjectFocusedContext
 import kr.lul.stringnotebook.state.organism.ObjectMenuContext
-import kr.lul.stringnotebook.ui.organism.NoteBookContent
+import kr.lul.stringnotebook.ui.organism.NotebookContent
 import kr.lul.stringnotebook.ui.page.logger
 import kotlin.uuid.ExperimentalUuidApi
 
@@ -28,8 +28,20 @@ import kotlin.uuid.ExperimentalUuidApi
 @Composable
 @ExperimentalStdlibApi
 @ExperimentalUuidApi
-fun NotebookEditor(state: NotebookState, context: Context, processor: EventProcessor, modifier: Modifier = Modifier) {
-    logger.v("#NotebookEditor args : state=$state, context=$context, processor=$processor, modifier=$modifier")
+fun NotebookEditor(
+    state: NotebookState,
+    context: Context,
+    processor: EventProcessor,
+    modifier: Modifier = Modifier
+) {
+    logger.v(
+        listOf(
+            "state=$state",
+            "context=$context",
+            "processor=$processor",
+            "modifier=$modifier"
+        ).joinToString(", ", "#NotebookEditor args : ")
+    )
 
     Box(
         modifier.pointerInput(state, context) {
@@ -74,7 +86,7 @@ fun NotebookEditor(state: NotebookState, context: Context, processor: EventProce
     ) {
         val objects = state.objects // TODO 뷰포트로 걸러내기.
 
-        NoteBookContent(objects, context, processor)
+        NotebookContent(objects, context, processor)
 
         if (context is NotebookMenuContext || context is ObjectMenuContext) {
             ContextMenu(

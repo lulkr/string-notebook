@@ -19,6 +19,14 @@ import kr.lul.stringnotebook.ui.atom.apply
 import kr.lul.stringnotebook.ui.molecule.NodePropertiesDefaults
 import kotlin.uuid.ExperimentalUuidApi
 
+/**
+ * [NodeState]의 UI 컴포넌트 딜리게이터.
+ *
+ * @param node 노드 상태 홀더.
+ * @param context 현재 컨텍스트.
+ * @param processor 이벤트 처리기.
+ * @param properties 노드 속성.
+ */
 @Composable
 @ExperimentalStdlibApi
 @ExperimentalUuidApi
@@ -28,7 +36,14 @@ fun Node(
     processor: EventProcessor,
     properties: NodeProperties = NodePropertiesDefaults.default()
 ) {
-    logger.v("#Node args : node=$node, context=$context, processor=$processor, properties=${properties.summary}")
+    logger.v(
+        listOf(
+            "node=$node",
+            "context=$context",
+            "processor=$processor",
+            "properties=${properties.summary}"
+        ).joinToString(", ", "#Node args : ")
+    )
 
     when {
         context is ObjectFocusedContext && node == context.obj ->
@@ -66,6 +81,10 @@ fun NodeEditor(
     processor: EventProcessor,
     properties: NodeProperties = NodePropertiesDefaults.editing()
 ) {
+    require(node == context.obj) {
+        "editing node does not match context object : node=${node}, context=${context.obj}"
+    }
+
     val focusRequester = remember(node.id, context) { FocusRequester() }
     LaunchedEffect(node.id, context) {
         focusRequester.requestFocus()

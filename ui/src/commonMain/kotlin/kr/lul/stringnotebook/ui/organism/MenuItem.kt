@@ -1,7 +1,6 @@
 package kr.lul.stringnotebook.ui.organism
 
 import androidx.compose.material3.DropdownMenuItem
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import kr.lul.stringnotebook.domain.foundation.EventProcessor
 import kr.lul.stringnotebook.state.organism.Context
@@ -15,8 +14,10 @@ fun MenuItem(state: MenuItemState, context: Context, processor: EventProcessor) 
 
     DropdownMenuItem(
         text = {
-            Text(text = state.label)
+            Text(state = state.label)
         },
-        onClick = state.action
+        onClick = {
+            processor(state.event)
+        }
     )
 }
