@@ -1,13 +1,15 @@
-package kr.lul.stringnotebook.ui.organism
+package kr.lul.stringnotebook.ui.molecule
 
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextLayoutResult
-import kr.lul.stringnotebook.state.molecule.hasTestTag
-import kr.lul.stringnotebook.state.organism.TextState
+import kr.lul.stringnotebook.state.atom.hasTestTag
+import kr.lul.stringnotebook.state.molecule.TextState
 import kr.lul.stringnotebook.ui.atom.string
+import kr.lul.stringnotebook.ui.organism.logger
 import kotlin.uuid.ExperimentalUuidApi
 
 /**
@@ -35,7 +37,7 @@ fun Text(
         modifier.testTag(state.testTag)
     }
 
-    androidx.compose.material3.Text(
+    Text(
         text = text,
         modifier = _modifier,
         color = state.color,

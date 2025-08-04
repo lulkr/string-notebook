@@ -23,8 +23,6 @@ kotlin {
         commonMain.dependencies {
             api(projects.navigation)
 
-            implementation(projects.mcp)
-
             implementation(project.dependencies.platform(libs.koin.bom))
             implementation(libs.koin.core)
             implementation(libs.util.logger)

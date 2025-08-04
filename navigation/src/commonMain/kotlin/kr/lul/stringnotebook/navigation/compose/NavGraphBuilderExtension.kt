@@ -34,7 +34,7 @@ inline fun <reified N : Navigator> NavGraphBuilder.composable(
 ) {
     val destination = navigator.destination
     composable(
-        destination.routePattern,
+        destination.route,
         destination.arguments,
         destination.deepLinks,
         enterTransition,

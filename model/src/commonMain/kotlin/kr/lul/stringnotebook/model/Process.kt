@@ -7,7 +7,7 @@ import kotlin.uuid.Uuid
 /**
  * 앱 실행 정보.
  */
-@OptIn(ExperimentalUuidApi::class)
+@ExperimentalUuidApi
 interface Process {
     /**
      * 프로세스 ID.

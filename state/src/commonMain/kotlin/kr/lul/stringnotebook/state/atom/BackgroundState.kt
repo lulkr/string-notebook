@@ -1,4 +1,4 @@
-package kr.lul.stringnotebook.state.molecule
+package kr.lul.stringnotebook.state.atom
 
 import androidx.annotation.FloatRange
 import androidx.compose.runtime.Immutable
@@ -7,7 +7,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.SolidColor
-import kr.lul.stringnotebook.state.atom.summary
 
 /**
  * 배경 상태를 나타내는 데이터 클래스입니다.

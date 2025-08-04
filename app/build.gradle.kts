@@ -23,7 +23,6 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            implementation(projects.mcp)
             implementation(projects.model)
             implementation(projects.navigation)
 

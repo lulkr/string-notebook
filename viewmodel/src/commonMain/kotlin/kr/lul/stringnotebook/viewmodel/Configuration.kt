@@ -7,6 +7,7 @@ import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
 import kotlin.uuid.ExperimentalUuidApi
 
+@ExperimentalStdlibApi
 @ExperimentalUuidApi
 val viewmodelModule = module {
     includes(modelModule)

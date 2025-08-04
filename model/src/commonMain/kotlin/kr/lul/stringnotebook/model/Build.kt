@@ -10,7 +10,8 @@ import kotlin.uuid.Uuid
  *
  * 애플리케이션을 빌드할 때 지정된다.
  */
-@OptIn(ExperimentalStdlibApi::class, ExperimentalUuidApi::class)
+@ExperimentalStdlibApi
+@ExperimentalUuidApi
 data object Build {
     /**
      * 빌드 ID.

@@ -22,7 +22,7 @@ fun SplashRouter(
     navigator: SplashNavigator,
     viewModel: SplashPageViewModel = baseViewModel()
 ) {
-    logger.v("#SplashRouter args : navigator=$navigator")
+    logger.v("#SplashRouter args : navigator=$navigator, viewModel=$viewModel")
 
     val state by viewModel.state.collectAsState()
     val handler = remember(navigator, viewModel) {

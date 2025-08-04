@@ -1,4 +1,4 @@
-package kr.lul.stringnotebook.state.organism
+package kr.lul.stringnotebook.state.molecule
 
 import androidx.compose.foundation.text.InlineTextContent
 import androidx.compose.runtime.Immutable
@@ -12,9 +12,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.TextUnit
-import kr.lul.stringnotebook.state.molecule.DefaultTextLines
-import kr.lul.stringnotebook.state.molecule.TextLines
-import kr.lul.stringnotebook.state.molecule.TextResource
+import kr.lul.stringnotebook.state.atom.DefaultTextLines
+import kr.lul.stringnotebook.state.atom.TextLines
+import kr.lul.stringnotebook.state.atom.TextResource
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
@@ -37,48 +37,46 @@ import kotlin.uuid.Uuid
  * @property textLines 텍스트 줄 수. 최대 줄 수를 초과하면 [overflow]에 따라 처리된다.
  * @property inlineContent 인라인 콘텐츠. 특정 위치에 끼워넣을 내용.
  * @property style 텍스트 스타일.
- * @property key 고유 키. 기본값은 [Uuid.random]으로 생성된 UUID.
- * @property testTag [androidx.compose.ui.platform.testTag]에 사용할 태그. 기본값은 [key]의 문자열 표현.
  */
 @ExperimentalUuidApi
 @Immutable
 open class TextState private constructor(
     val text: AnnotatedString? = null,
     val resource: TextResource? = null,
-    val color: Color = Color.Unspecified,
-    val fontSize: TextUnit = TextUnit.Unspecified,
+    val color: Color = Color.Companion.Unspecified,
+    val fontSize: TextUnit = TextUnit.Companion.Unspecified,
     val fontStyle: FontStyle? = null,
     val fontWeight: FontWeight? = null,
     val fontFamily: FontFamily? = null,
-    val letterSpacing: TextUnit = TextUnit.Unspecified,
+    val letterSpacing: TextUnit = TextUnit.Companion.Unspecified,
     val textDecoration: TextDecoration? = null,
     val textAlign: TextAlign? = null,
-    val lineHeight: TextUnit = TextUnit.Unspecified,
-    val overflow: TextOverflow = TextOverflow.Ellipsis,
+    val lineHeight: TextUnit = TextUnit.Companion.Unspecified,
+    val overflow: TextOverflow = TextOverflow.Companion.Ellipsis,
     val softWrap: Boolean = true,
     val textLines: TextLines = DefaultTextLines,
     val inlineContent: Map<String, InlineTextContent> = mapOf(),
-    val style: TextStyle = TextStyle.Default,
-    val key: Any = Uuid.random(),
-    val testTag: String = key.toString()
-) {
+    val style: TextStyle = TextStyle.Companion.Default,
+    override val key: Any = Uuid.Companion.random(),
+    override val testTag: String = key.toString()
+) : State {
     constructor(
         text: AnnotatedString,
-        color: Color = Color.Unspecified,
-        fontSize: TextUnit = TextUnit.Unspecified,
+        color: Color = Color.Companion.Unspecified,
+        fontSize: TextUnit = TextUnit.Companion.Unspecified,
         fontStyle: FontStyle? = null,
         fontWeight: FontWeight? = null,
         fontFamily: FontFamily? = null,
-        letterSpacing: TextUnit = TextUnit.Unspecified,
+        letterSpacing: TextUnit = TextUnit.Companion.Unspecified,
         textDecoration: TextDecoration? = null,
         textAlign: TextAlign? = null,
-        lineHeight: TextUnit = TextUnit.Unspecified,
-        overflow: TextOverflow = TextOverflow.Clip,
+        lineHeight: TextUnit = TextUnit.Companion.Unspecified,
+        overflow: TextOverflow = TextOverflow.Companion.Clip,
         softWrap: Boolean = true,
         textLines: TextLines = DefaultTextLines,
         inlineContent: Map<String, InlineTextContent> = mapOf(),
-        style: TextStyle = TextStyle.Default,
-        key: Any = Uuid.random(),
+        style: TextStyle = TextStyle.Companion.Default,
+        key: Any = Uuid.Companion.random(),
         testTag: String = key.toString()
     ) : this(
         text,
@@ -103,21 +101,21 @@ open class TextState private constructor(
 
     constructor(
         resource: TextResource,
-        color: Color = Color.Unspecified,
-        fontSize: TextUnit = TextUnit.Unspecified,
+        color: Color = Color.Companion.Unspecified,
+        fontSize: TextUnit = TextUnit.Companion.Unspecified,
         fontStyle: FontStyle? = null,
         fontWeight: FontWeight? = null,
         fontFamily: FontFamily? = null,
-        letterSpacing: TextUnit = TextUnit.Unspecified,
+        letterSpacing: TextUnit = TextUnit.Companion.Unspecified,
         textDecoration: TextDecoration? = null,
         textAlign: TextAlign? = null,
-        lineHeight: TextUnit = TextUnit.Unspecified,
-        overflow: TextOverflow = TextOverflow.Clip,
+        lineHeight: TextUnit = TextUnit.Companion.Unspecified,
+        overflow: TextOverflow = TextOverflow.Companion.Clip,
         softWrap: Boolean = true,
         textLines: TextLines = DefaultTextLines,
         inlineContent: Map<String, InlineTextContent> = mapOf(),
-        style: TextStyle = TextStyle.Default,
-        key: Any = Uuid.random(),
+        style: TextStyle = TextStyle.Companion.Default,
+        key: Any = Uuid.Companion.random(),
         testTag: String = key.toString()
     ) : this(
         null,

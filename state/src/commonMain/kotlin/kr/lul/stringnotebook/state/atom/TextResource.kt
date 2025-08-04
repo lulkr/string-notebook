@@ -1,4 +1,4 @@
-package kr.lul.stringnotebook.state.molecule
+package kr.lul.stringnotebook.state.atom
 
 import org.jetbrains.compose.resources.StringResource
 

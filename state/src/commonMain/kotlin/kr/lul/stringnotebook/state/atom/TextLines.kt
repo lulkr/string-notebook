@@ -1,4 +1,4 @@
-package kr.lul.stringnotebook.state.molecule
+package kr.lul.stringnotebook.state.atom
 
 import androidx.compose.runtime.Immutable
 

@@ -33,9 +33,7 @@ open class BaseViewModel(
     override val parent: ViewModeletOwner? = null
 
     init {
-        if (tag.isBlank()) {
-            throw IllegalArgumentException("tag must not be blank.")
-        }
+        require(tag.isNotBlank()) { "tag must not be blank." }
     }
 
     /**

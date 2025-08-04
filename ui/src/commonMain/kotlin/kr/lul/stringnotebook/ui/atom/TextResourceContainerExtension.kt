@@ -1,12 +1,11 @@
 package kr.lul.stringnotebook.ui.atom
 
 import androidx.compose.runtime.Composable
-import kr.lul.stringnotebook.state.molecule.TextResourceContainer
+import kr.lul.stringnotebook.state.atom.TextResource
 import org.jetbrains.compose.resources.stringResource
 
-val TextResourceContainer.string: String
+val TextResource.string: String
     @Composable
     get() {
-        val txt = stringResource(resource, *args.toTypedArray())
-        return txt
+        return stringResource(resource, *args.toTypedArray())
     }
