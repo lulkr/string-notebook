@@ -7,8 +7,8 @@ import androidx.activity.enableEdgeToEdge
 import kr.lul.logger.Logger
 import kr.lul.logger.i
 
-class MainActivity : ComponentActivity() {
-    private val logger = Logger("MainActivity")
+class DummyActivity : ComponentActivity() {
+    private val logger = Logger("DummyActivity")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         logger.i { "#onCreate args : savedInstanceState=$savedInstanceState" }

@@ -1,20 +1,23 @@
-package kr.lul.stringnotebook.preview.ui.atom
+package kr.lul.stringnotebook.preview.ui.foundation
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import kr.lul.stringnotebook.ui.atom.StringNotebookTheme
 
 @Composable
-fun ComponentPreviewContainer(
+fun PagePreviewContainer(
     modifier: Modifier = Modifier,
-    contentAlignment: Alignment = Alignment.Center,
     content: @Composable () -> Unit
 ) {
     StringNotebookTheme {
-        Box(modifier, contentAlignment) {
-            content()
+        Scaffold {
+            Box(modifier.padding(it), Alignment.Center) {
+                content()
+            }
         }
     }
 }

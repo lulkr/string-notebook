@@ -14,7 +14,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.TextUnit
 import kr.lul.stringnotebook.state.molecule.DefaultTextLines
 import kr.lul.stringnotebook.state.molecule.TextLines
-import kr.lul.stringnotebook.state.molecule.TextResourceContainer
+import kr.lul.stringnotebook.state.molecule.TextResource
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
@@ -44,7 +44,7 @@ import kotlin.uuid.Uuid
 @Immutable
 open class TextState private constructor(
     val text: AnnotatedString? = null,
-    val resource: TextResourceContainer? = null,
+    val resource: TextResource? = null,
     val color: Color = Color.Unspecified,
     val fontSize: TextUnit = TextUnit.Unspecified,
     val fontStyle: FontStyle? = null,
@@ -102,7 +102,7 @@ open class TextState private constructor(
     )
 
     constructor(
-        resource: TextResourceContainer,
+        resource: TextResource,
         color: Color = Color.Unspecified,
         fontSize: TextUnit = TextUnit.Unspecified,
         fontStyle: FontStyle? = null,
@@ -182,7 +182,7 @@ open class TextState private constructor(
     )
 
     fun copy(
-        resource: TextResourceContainer,
+        resource: TextResource,
         color: Color = this.color,
         fontSize: TextUnit = this.fontSize,
         fontStyle: FontStyle? = this.fontStyle,

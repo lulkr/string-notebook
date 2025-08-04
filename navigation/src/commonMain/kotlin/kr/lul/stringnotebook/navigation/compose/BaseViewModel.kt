@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModelStoreOwner
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.viewmodel.CreationExtras
 import androidx.lifecycle.viewmodel.compose.LocalViewModelStoreOwner
-import kr.lul.stringnotebook.viewmodel.atom.BaseViewModel
+import kr.lul.stringnotebook.viewmodel.foundation.BaseViewModel
 import org.koin.compose.currentKoinScope
 import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.parameter.ParametersDefinition

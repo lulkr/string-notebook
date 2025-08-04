@@ -1,4 +1,4 @@
-package kr.lul.stringnotebook.viewmodel.atom
+package kr.lul.stringnotebook.viewmodel.foundation
 
 import androidx.annotation.CallSuper
 import androidx.lifecycle.DefaultLifecycleObserver

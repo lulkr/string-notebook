@@ -7,6 +7,7 @@ import kr.lul.stringnotebook.navigation.navigator.SplashNavigator
 import platform.UIKit.UIViewController
 import kotlin.uuid.ExperimentalUuidApi
 
+@ExperimentalStdlibApi
 @ExperimentalUuidApi
 @Suppress("unused", "FunctionName")
 fun ComposeController(): UIViewController {

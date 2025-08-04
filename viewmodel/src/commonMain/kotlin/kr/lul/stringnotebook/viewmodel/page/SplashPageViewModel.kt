@@ -11,7 +11,7 @@ import kr.lul.stringnotebook.state.page.SplashPageState.Init
 import kr.lul.stringnotebook.state.page.SplashPageState.Success
 import kr.lul.stringnotebook.state.resources.Res
 import kr.lul.stringnotebook.state.resources.name
-import kr.lul.stringnotebook.viewmodel.atom.BaseViewModel
+import kr.lul.stringnotebook.viewmodel.foundation.BaseViewModel
 import org.jetbrains.compose.resources.getString
 import kotlin.uuid.ExperimentalUuidApi
 

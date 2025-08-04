@@ -5,6 +5,6 @@ import androidx.compose.ui.graphics.Shape
 
 val Shape.summary: String
     get() = when (this) {
-        is RoundedCornerShape -> "RoundedCornerShape"
+        is RoundedCornerShape -> "RoundedCornerShape($topStart,$topEnd,$bottomEnd,$bottomStart)"
         else -> toString()
     }

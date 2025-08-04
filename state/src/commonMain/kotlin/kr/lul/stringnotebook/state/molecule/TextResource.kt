@@ -7,8 +7,10 @@ import org.jetbrains.compose.resources.StringResource
  *
  * @property resource 텍스트 리소스.
  * @property args 텍스트 리소스에 전달할 인자 목록.
+ *
+ * @see StringResource
  */
-data class TextResourceContainer(
+data class TextResource(
     val resource: StringResource,
     val args: List<Any> = emptyList()
 ) {

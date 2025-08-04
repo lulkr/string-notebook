@@ -23,7 +23,7 @@ import kotlin.jvm.JvmSuppressWildcards
  * @param sizeTransform 크기 변환 애니메이션
  * @param content 컴포저블 콘텐츠
  */
-inline fun <N : Navigator> NavGraphBuilder.composable(
+inline fun <reified N : Navigator> NavGraphBuilder.composable(
     navigator: N,
     noinline enterTransition: (@JvmSuppressWildcards AnimatedContentTransitionScope<NavBackStackEntry>.() -> EnterTransition?)? = null,
     noinline exitTransition: (@JvmSuppressWildcards AnimatedContentTransitionScope<NavBackStackEntry>.() -> ExitTransition?)? = null,

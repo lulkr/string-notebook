@@ -16,8 +16,8 @@ import kotlin.uuid.Uuid
 
 @ExperimentalStdlibApi
 @ExperimentalUuidApi
-object SharedConfiguration {
-    private val logger = Logger("SharedConfiguration")
+object Configuration {
+    private val logger = Logger("Configuration")
 
     fun initialize() {
         logger.i("#initialize called : Configuration=${kr.lul.stringnotebook.domain.foundation.Configuration}")
