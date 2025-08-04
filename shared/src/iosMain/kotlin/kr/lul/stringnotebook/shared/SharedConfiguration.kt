@@ -5,6 +5,7 @@ import kotlinx.datetime.Instant
 import kr.lul.logger.Logger
 import kr.lul.stringnotebook.domain.foundation.Configuration.ID_PREFIX_APP_PROCESS
 import kr.lul.stringnotebook.domain.foundation.Configuration.generateId
+import kr.lul.stringnotebook.mcp.mcpModule
 import kr.lul.stringnotebook.model.Process
 import kr.lul.stringnotebook.navigation.navigationModule
 
@@ -32,7 +33,11 @@ object SharedConfiguration {
             ).joinToString(", ", "Process(", ")")
         }
         startKoin {
-            modules(module { single { process } }, navigationModule)
+            modules(
+                module { single { process } },
+                mcpModule(),
+                navigationModule
+            )
 
             logger.d("#initialize check koin : process=${koin.get<Process>()}")
         }
