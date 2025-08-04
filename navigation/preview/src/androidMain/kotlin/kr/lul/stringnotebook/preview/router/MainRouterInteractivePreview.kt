@@ -13,7 +13,8 @@ import kotlin.uuid.ExperimentalUuidApi
  * @see MainRouter
  */
 @Composable
-@OptIn(ExperimentalUuidApi::class)
+@ExperimentalStdlibApi
+@ExperimentalUuidApi
 @Preview
 fun MainRouterInteractivePreview() {
     InteractivePreviewContainer(destination = MainNavigator) {

@@ -6,7 +6,8 @@ import kotlin.uuid.Uuid
 /**
  * 앱 설치 정보.
  */
-@OptIn(ExperimentalUuidApi::class)
+@ExperimentalStdlibApi
+@ExperimentalUuidApi
 interface Install {
     /**
      * 앱 설치 ID.

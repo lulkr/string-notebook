@@ -1,13 +1,15 @@
 package kr.lul.stringnotebook.domain.foundation
 
 import kr.lul.semver.Version
+import kr.lul.stringnotebook.domain.foundation.Configuration.generateId
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
 /**
  * 코드 수준의 String Notebook의 설정 정보.
  */
-@OptIn(ExperimentalUuidApi::class, ExperimentalStdlibApi::class)
+@ExperimentalStdlibApi
+@ExperimentalUuidApi
 object Configuration {
     const val NAME = "String Notebook"
     const val VERSION_VALUE = "0.0.1"

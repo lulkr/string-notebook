@@ -11,6 +11,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import kr.lul.stringnotebook.state.page.SplashPageHandler
@@ -21,9 +22,12 @@ import kr.lul.stringnotebook.state.page.SplashPageState.Init
 import kr.lul.stringnotebook.state.page.SplashPageState.Success
 import kr.lul.stringnotebook.state.resources.Res
 import kr.lul.stringnotebook.state.resources.name
+import kr.lul.stringnotebook.state.resources.ui_error_unknown
 import org.jetbrains.compose.resources.stringResource
+import kotlin.uuid.ExperimentalUuidApi
 
 @Composable
+@ExperimentalUuidApi
 fun SplashPage(state: SplashPageState, handler: SplashPageHandler) {
     when (state) {
         is Init ->
@@ -44,6 +48,7 @@ fun SplashPage(state: SplashPageState, handler: SplashPageHandler) {
 fun SplashInitPage(state: Init, handler: SplashPageHandler) {
     Column(
         Modifier
+            .testTag(state.testTag)
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background),
         Arrangement.Center,
@@ -61,6 +66,7 @@ fun SplashInitPage(state: Init, handler: SplashPageHandler) {
 fun SplashInProgressPage(state: InProgress, handler: SplashPageHandler) {
     Column(
         Modifier
+            .testTag(state.testTag)
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.surface),
         Arrangement.Center,
@@ -79,6 +85,7 @@ fun SplashInProgressPage(state: InProgress, handler: SplashPageHandler) {
 fun SplashSuccessPage(state: Success, handler: SplashPageHandler) {
     Column(
         Modifier
+            .testTag(state.testTag)
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.primaryContainer),
         Arrangement.Center,
@@ -96,9 +103,11 @@ fun SplashSuccessPage(state: Success, handler: SplashPageHandler) {
 }
 
 @Composable
+@ExperimentalUuidApi
 fun SplashErrorPage(state: Fail, handler: SplashPageHandler) {
     Column(
         Modifier
+            .testTag(state.testTag)
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.errorContainer),
         Arrangement.Center,
@@ -114,7 +123,8 @@ fun SplashErrorPage(state: Fail, handler: SplashPageHandler) {
         Spacer(Modifier.height(32.dp))
 
         Text(
-            text = state.cause.message ?: "Unknown Error",
+            text = state.cause.message
+                ?: stringResource(Res.string.ui_error_unknown),
             color = MaterialTheme.colorScheme.onErrorContainer,
         )
     }

@@ -29,7 +29,7 @@ fun Root(
         Scaffold { padding ->
             NavHost(
                 navController = baseNavigator.navController,
-                startDestination = baseNavigator.destination.routePattern,
+                startDestination = baseNavigator.destination.route,
                 modifier = Modifier.fillMaxSize()
                     .background(MaterialTheme.colorScheme.background)
                     .padding(padding)

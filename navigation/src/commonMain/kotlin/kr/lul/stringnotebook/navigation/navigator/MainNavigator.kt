@@ -10,14 +10,12 @@ class MainNavigator(
     private val base: BaseNavigator
 ) : Navigator by base {
     companion object : Destination<MainNavigator> {
-        override val routePattern = "Main"
+        override val route = "main"
         override val arguments: List<NamedNavArgument> = emptyList()
         override val deepLinks: List<NavDeepLink> = emptyList()
 
-        override fun navigator(baseNavigator: BaseNavigator) = MainNavigator(baseNavigator)
-
         override fun route(vararg args: Any?) = if (args.isEmpty()) {
-            routePattern
+            route
         } else {
             throw IllegalArgumentException("MainNavigator does not accept arguments")
         }

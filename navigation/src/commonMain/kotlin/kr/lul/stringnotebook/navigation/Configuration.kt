@@ -7,6 +7,7 @@ import kotlin.uuid.ExperimentalUuidApi
 
 internal val logger = Logger("ui")
 
+@ExperimentalStdlibApi
 @ExperimentalUuidApi
 val navigationModule = module {
     includes(viewmodelModule)
