@@ -27,6 +27,9 @@ class SplashNavigator(
 
     override val destination = Companion
 
+    /**
+     * 홈 화면으로 이동하기.
+     */
     fun home() {
         logger.d("#home called.")
 

@@ -17,6 +17,8 @@ import kr.lul.stringnotebook.ui.molecule.Text
 import kotlin.uuid.ExperimentalUuidApi
 
 /**
+ * 노트북 목록 헤더용 버튼.
+ *
  * - 디자인 : [ListHeaderButton](https://www.figma.com/design/tNIeYiEjJyahF30EAaJrjy/Untitled?node-id=1-1766)
  */
 @Composable

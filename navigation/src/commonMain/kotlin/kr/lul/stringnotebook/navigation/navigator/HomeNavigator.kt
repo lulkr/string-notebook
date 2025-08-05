@@ -29,6 +29,8 @@ class HomeNavigator(
     override val destination = Companion
 
     /**
+     * 노트북 열기.
+     *
      * @param id 노트북 ID.
      */
     fun notebook(id: Uuid) {

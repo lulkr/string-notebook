@@ -14,6 +14,9 @@ import kr.lul.stringnotebook.viewmodel.page.HomePageViewModel
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
+/**
+ * 홈 화면의 각 MVVM 요소를 연결한다.
+ */
 @Composable
 @ExperimentalStdlibApi
 @ExperimentalUuidApi

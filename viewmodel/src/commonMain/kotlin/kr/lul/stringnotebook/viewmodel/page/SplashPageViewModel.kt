@@ -15,6 +15,9 @@ import kr.lul.stringnotebook.viewmodel.foundation.BaseViewModel
 import org.jetbrains.compose.resources.getString
 import kotlin.uuid.ExperimentalUuidApi
 
+/**
+ * 스플래시 화면의 ViewModel.
+ */
 @ExperimentalUuidApi
 class SplashPageViewModel : BaseViewModel("SplashPageViewModel") {
     private val _state = MutableStateFlow<SplashPageState>(Init)

@@ -7,6 +7,9 @@ import kr.lul.stringnotebook.state.resources.Res
 import kr.lul.stringnotebook.state.resources.organism_new_notebook_label
 import kotlin.uuid.ExperimentalUuidApi
 
+/**
+ * 새 노트북 생성 버튼.
+ */
 @ExperimentalUuidApi
 val NewNotebookHeaderButton = HeaderButtonState(
     icon = NewNotebookIcon,

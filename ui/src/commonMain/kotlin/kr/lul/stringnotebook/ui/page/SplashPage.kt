@@ -49,6 +49,11 @@ fun SplashPage(state: SplashPageState, handler: SplashPageHandler) {
     }
 }
 
+/**
+ * 첫 상태.
+ *
+ * 앱 초기화를 시작할 때까지만 표시한다.
+ */
 @Composable
 fun SplashInitPage(state: Init, handler: SplashPageHandler) {
     Column(
@@ -67,6 +72,9 @@ fun SplashInitPage(state: Init, handler: SplashPageHandler) {
     }
 }
 
+/**
+ * 앱 초기화 진행 중일 때.
+ */
 @Composable
 fun SplashInProgressPage(state: InProgress, handler: SplashPageHandler) {
     Column(
@@ -86,6 +94,11 @@ fun SplashInProgressPage(state: InProgress, handler: SplashPageHandler) {
     }
 }
 
+/**
+ * 앱 초기화를 끝낸 상태.
+ *
+ * 화면 이동할 때 까지만 표시한다.
+ */
 @Composable
 fun SplashSuccessPage(state: Success, handler: SplashPageHandler) {
     Column(
@@ -107,6 +120,9 @@ fun SplashSuccessPage(state: Success, handler: SplashPageHandler) {
     }
 }
 
+/**
+ * 앱 초기화에 실패한 경우.
+ */
 @Composable
 @ExperimentalUuidApi
 fun SplashErrorPage(state: Fail, handler: SplashPageHandler) {

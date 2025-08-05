@@ -6,6 +6,11 @@ import kr.lul.stringnotebook.state.page.HomePageState
 import kr.lul.stringnotebook.viewmodel.foundation.BaseViewModel
 import kotlin.uuid.ExperimentalUuidApi
 
+/**
+ * 홈 화면의 ViewModel.
+ *
+ * @param initState 초기 상태.
+ */
 @ExperimentalUuidApi
 class HomePageViewModel(
     initState: HomePageState = HomePageState()

@@ -15,6 +15,9 @@ class NotebookNavigator(
     private val base: BaseNavigator
 ) : Navigator by base {
     companion object : Destination<NotebookNavigator> {
+        /**
+         * 인자 이름 : 노트북 ID.
+         */
         const val ARG_NOTEBOOK_ID = "notebookId"
 
         override val route = "notebook/{$ARG_NOTEBOOK_ID}"
@@ -33,7 +36,7 @@ class NotebookNavigator(
                 "notebook/${args[0]}"
 
             else ->
-                throw IllegalArgumentException("NotebookNavigator requires exactly one argument of type Uuid")
+                throw IllegalArgumentException("notebook page should only use Uuid type notebook ID : args=${args.toList()}")
         }
     }
 
