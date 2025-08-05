@@ -35,7 +35,7 @@ fun SplashRouter(
         when (state) {
             is Success -> scope.launch {
                 delay(753L)
-                navigator.main()
+                navigator.home()
             }
 
             else -> {}

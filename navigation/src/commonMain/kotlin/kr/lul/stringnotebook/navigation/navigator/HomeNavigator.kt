@@ -9,22 +9,22 @@ import kotlin.uuid.Uuid
 
 @ExperimentalUuidApi
 @Immutable
-class MainNavigator(
+class HomeNavigator(
     private val base: BaseNavigator
 ) : Navigator by base {
-    companion object : Destination<MainNavigator> {
-        override val route = "main"
+    companion object : Destination<HomeNavigator> {
+        override val route = "home"
         override val arguments: List<NamedNavArgument> = emptyList()
         override val deepLinks: List<NavDeepLink> = emptyList()
 
         override fun route(vararg args: Any?) = if (args.isEmpty()) {
             route
         } else {
-            throw IllegalArgumentException("MainNavigator does not accept arguments")
+            throw IllegalArgumentException("HomeNavigator does not accept arguments")
         }
     }
 
-    private val logger = Logger("MainNavigator")
+    private val logger = Logger("HomeNavigator")
 
     override val destination = Companion
 
@@ -39,5 +39,5 @@ class MainNavigator(
 
     override fun toString() = listOf(
         "base=$base"
-    ).joinToString(", ", "MainNavigator(", ")")
+    ).joinToString(", ", "HomeNavigator(", ")")
 }

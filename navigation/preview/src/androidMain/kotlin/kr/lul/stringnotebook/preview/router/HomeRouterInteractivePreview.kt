@@ -1,8 +1,8 @@
 package kr.lul.stringnotebook.preview.router
 
 import androidx.compose.runtime.Composable
-import kr.lul.stringnotebook.navigation.navigator.MainNavigator
-import kr.lul.stringnotebook.navigation.router.MainRouter
+import kr.lul.stringnotebook.navigation.navigator.HomeNavigator
+import kr.lul.stringnotebook.navigation.router.HomeRouter
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import kotlin.uuid.ExperimentalUuidApi
 
@@ -10,14 +10,14 @@ import kotlin.uuid.ExperimentalUuidApi
  * 메인 라우터의 인터랙티브 프리뷰 컴포넌트
  *
  * @see InteractivePreviewContainer
- * @see MainRouter
+ * @see HomeRouter
  */
 @Composable
 @ExperimentalStdlibApi
 @ExperimentalUuidApi
 @Preview
-fun MainRouterInteractivePreview() {
-    InteractivePreviewContainer(destination = MainNavigator) {
-        MainRouter(it)
+fun HomeRouterInteractivePreview() {
+    InteractivePreviewContainer(destination = HomeNavigator) {
+        HomeRouter(it)
     }
 }

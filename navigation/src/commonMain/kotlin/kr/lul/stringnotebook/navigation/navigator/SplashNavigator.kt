@@ -27,10 +27,10 @@ class SplashNavigator(
 
     override val destination = Companion
 
-    fun main() {
-        logger.d("#main called.")
+    fun home() {
+        logger.d("#home called.")
 
-        base.navController.navigate(MainNavigator.route()) {
+        base.navController.navigate(HomeNavigator.route()) {
             popUpTo(base.navController.graph.id) {
                 inclusive = true
             }

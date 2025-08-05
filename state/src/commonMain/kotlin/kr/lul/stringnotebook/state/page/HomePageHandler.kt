@@ -4,11 +4,11 @@ import kr.lul.stringnotebook.state.template.notebook.NotebookListHandler
 import kotlin.uuid.ExperimentalUuidApi
 
 /**
- * 메인 페이지 핸들러.
+ * 홈 화면 핸들러.
  */
 @ExperimentalUuidApi
-interface MainPageHandler {
-    object NoOp : MainPageHandler {
+interface HomePageHandler {
+    object NoOp : HomePageHandler {
         override val list: NotebookListHandler = NotebookListHandler.NoOp
     }
 
