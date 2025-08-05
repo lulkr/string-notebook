@@ -1,8 +1,8 @@
 package kr.lul.stringnotebook.navigation.router
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kr.lul.stringnotebook.navigation.compose.baseViewModel
 import kr.lul.stringnotebook.navigation.navigator.MainNavigator
 import kr.lul.stringnotebook.state.page.MainPageHandler
@@ -19,7 +19,7 @@ fun MainRouter(
 ) {
     logger.v("#MainRouter args : navigator=$navigator, viewModel=$viewModel")
 
-    val state by viewModel.state.collectAsState()
+    val state by viewModel.state.collectAsStateWithLifecycle()
 
     MainPage(state, MainPageHandler.NoOp)
 }

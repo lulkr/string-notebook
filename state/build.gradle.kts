@@ -33,6 +33,8 @@ kotlin {
             api(projects.domain)
             api(compose.components.resources)
             api(compose.foundation)
+
+            implementation(libs.util.logger)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)

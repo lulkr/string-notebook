@@ -7,4 +7,6 @@
     <string name="event_move_to">여기(%1$d, %2$d)로 이동하기</string>
 
     <string name="ui_error_unknown">알 수 없는 오류</string>
+
+    <string name="organism_new_notebook_label">새 노트북</string>
 </resources>

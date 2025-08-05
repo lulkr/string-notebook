@@ -26,6 +26,11 @@ import kr.lul.stringnotebook.state.resources.ui_error_unknown
 import org.jetbrains.compose.resources.stringResource
 import kotlin.uuid.ExperimentalUuidApi
 
+/**
+ * `SplashPage`
+ *
+ * - [Figma 디자인](https://www.figma.com/design/tNIeYiEjJyahF30EAaJrjy/String-Notebook-UI?node-id=1-9)
+ */
 @Composable
 @ExperimentalUuidApi
 fun SplashPage(state: SplashPageState, handler: SplashPageHandler) {
