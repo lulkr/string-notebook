@@ -1,7 +1,9 @@
 package kr.lul.stringnotebook.ui.molecule
 
+import androidx.compose.material3.LocalContentColor
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
 import kr.lul.stringnotebook.state.atom.hasTestTag
 import kr.lul.stringnotebook.state.molecule.IconState
@@ -23,10 +25,16 @@ fun Icon(icon: IconState, modifier: Modifier = Modifier) {
         modifier.testTag(icon.testTag)
     }
 
+    @Suppress("LocalVariableName") val _tint = if (icon.tint == Color.Unspecified) {
+        LocalContentColor.current
+    } else {
+        icon.tint
+    }
+
     androidx.compose.material3.Icon(
         painterResource(icon.icon),
         icon.description,
         _modifier,
-        icon.tint
+        _tint
     )
 }
