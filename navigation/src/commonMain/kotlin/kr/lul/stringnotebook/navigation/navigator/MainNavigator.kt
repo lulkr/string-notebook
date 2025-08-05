@@ -4,7 +4,10 @@ import androidx.compose.runtime.Immutable
 import androidx.navigation.NamedNavArgument
 import androidx.navigation.NavDeepLink
 import kr.lul.logger.Logger
+import kotlin.uuid.ExperimentalUuidApi
+import kotlin.uuid.Uuid
 
+@ExperimentalUuidApi
 @Immutable
 class MainNavigator(
     private val base: BaseNavigator
@@ -24,6 +27,15 @@ class MainNavigator(
     private val logger = Logger("MainNavigator")
 
     override val destination = Companion
+
+    /**
+     * @param id 노트북 ID.
+     */
+    fun notebook(id: Uuid) {
+        logger.d("#notebook args : id=$id")
+
+        base.navController.navigate(NotebookNavigator.route(id))
+    }
 
     override fun toString() = listOf(
         "base=$base"

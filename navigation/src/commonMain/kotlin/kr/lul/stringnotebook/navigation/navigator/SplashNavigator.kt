@@ -4,7 +4,9 @@ import androidx.compose.runtime.Immutable
 import androidx.navigation.NamedNavArgument
 import androidx.navigation.NavDeepLink
 import kr.lul.logger.Logger
+import kotlin.uuid.ExperimentalUuidApi
 
+@ExperimentalUuidApi
 @Immutable
 class SplashNavigator(
     private val base: BaseNavigator

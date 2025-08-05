@@ -20,7 +20,7 @@ import kotlin.uuid.ExperimentalUuidApi
 @ExperimentalUuidApi
 fun MainPage(
     state: MainPageState,
-    handler: MainPageHandler
+    handler: MainPageHandler = MainPageHandler.NoOp
 ) {
     logger.v("#MainPage args : state=$state, handler=$handler")
 
@@ -28,6 +28,6 @@ fun MainPage(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {
-        NotebookList()
+        NotebookList(handler.list)
     }
 }

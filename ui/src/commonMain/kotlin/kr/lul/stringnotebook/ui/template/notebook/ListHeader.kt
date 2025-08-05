@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import kr.lul.stringnotebook.state.organism.notebook.NewNotebookHeaderButton
+import kr.lul.stringnotebook.state.template.notebook.NotebookListHandler
 import kr.lul.stringnotebook.ui.organism.notebook.ListHeaderButton
 import kotlin.uuid.ExperimentalUuidApi
 
@@ -12,8 +13,8 @@ import kotlin.uuid.ExperimentalUuidApi
  */
 @Composable
 @ExperimentalUuidApi
-fun ListHeader() {
+fun ListHeader(handler: NotebookListHandler = NotebookListHandler.NoOp) {
     Row(verticalAlignment = Alignment.CenterVertically) {
-        ListHeaderButton(NewNotebookHeaderButton)
+        ListHeaderButton(NewNotebookHeaderButton, handler.new)
     }
 }

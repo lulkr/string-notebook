@@ -32,8 +32,14 @@ fun ListHeaderButton(
 
     Column(
         modifier = Modifier
-            .clickable(onClick = handler::onClick)
-            .background(MaterialTheme.colorScheme.surfaceContainer, RoundedCornerShape(16.dp))
+            .clickable(
+                enabled = state.enabled,
+                onClick = handler::onClick
+            )
+            .background(
+                color = MaterialTheme.colorScheme.surfaceContainer,
+                shape = RoundedCornerShape(16.dp)
+            )
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {

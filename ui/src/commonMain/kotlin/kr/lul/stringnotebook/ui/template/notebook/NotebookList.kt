@@ -3,6 +3,8 @@ package kr.lul.stringnotebook.ui.template.notebook
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
+import kr.lul.stringnotebook.state.template.notebook.NotebookListHandler
+import kr.lul.stringnotebook.ui.template.logger
 import kotlin.uuid.ExperimentalUuidApi
 
 /**
@@ -10,8 +12,10 @@ import kotlin.uuid.ExperimentalUuidApi
  */
 @Composable
 @ExperimentalUuidApi
-fun NotebookList() {
+fun NotebookList(handler: NotebookListHandler = NotebookListHandler.NoOp) {
+    logger.v("#NotebookList args : handler=$handler")
+
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
-        ListHeader()
+        ListHeader(handler)
     }
 }

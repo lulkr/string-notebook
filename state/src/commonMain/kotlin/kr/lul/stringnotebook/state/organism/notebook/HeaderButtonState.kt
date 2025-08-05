@@ -13,6 +13,7 @@ import kotlin.uuid.Uuid
 data class HeaderButtonState(
     val icon: IconState,
     val label: TextState,
+    val enabled: Boolean = true,
     override val key: Any = Uuid.Companion.random(),
     override val testTag: String = key.toString()
 ) : State
