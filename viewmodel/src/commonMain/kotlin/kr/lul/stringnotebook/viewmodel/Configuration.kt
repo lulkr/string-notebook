@@ -13,5 +13,5 @@ val viewmodelModule = module {
     includes(modelModule)
 
     viewModel { SplashPageViewModel() }
-    viewModel { HomePageViewModel() }
+    viewModel { HomePageViewModel(get()) }
 }
