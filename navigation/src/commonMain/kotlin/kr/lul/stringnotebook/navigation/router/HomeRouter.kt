@@ -34,6 +34,10 @@ fun HomeRouter(
                 override val new: ButtonHandler = object : ButtonHandler {
                     override fun onClick() {
                         logger.d("#HomeRouter.handler.list.new.onClick called.")
+
+                        viewModel.newNotebook {
+                            logger.d("#HomeRouter.handler.list.new.onClick.callback called.")
+                        }
                     }
                 }
 
