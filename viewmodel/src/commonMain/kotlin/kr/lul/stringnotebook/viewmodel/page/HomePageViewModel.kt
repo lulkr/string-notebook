@@ -4,8 +4,10 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kr.lul.stringnotebook.model.NotebookModel
+import kr.lul.stringnotebook.state.organism.notebook.NotebookState
 import kr.lul.stringnotebook.state.page.HomePageState
 import kr.lul.stringnotebook.viewmodel.foundation.BaseViewModel
+import kr.lul.stringnotebook.viewmodel.organism.state
 import kotlin.uuid.ExperimentalUuidApi
 
 /**
@@ -21,15 +23,15 @@ class HomePageViewModel(
 
     val state: StateFlow<HomePageState> = MutableStateFlow(initState)
 
-    fun newNotebook(callback: () -> Unit) {
+    fun newNotebook(callback: (NotebookState) -> Unit) {
         logger.d("#newNotebook args : callback=$callback")
 
         launch {
-            val notebook = model.create()
+            val notebook = model.create().state
             logger.d("#newNotebook : notebook=$notebook")
 
             delay(1000L)
-            callback()
+            callback(notebook)
         }
     }
 

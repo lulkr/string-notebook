@@ -35,8 +35,10 @@ fun HomeRouter(
                     override fun onClick() {
                         logger.d("#HomeRouter.handler.list.new.onClick called.")
 
-                        viewModel.newNotebook {
-                            logger.d("#HomeRouter.handler.list.new.onClick.callback called.")
+                        viewModel.newNotebook { notebook ->
+                            logger.d("#HomeRouter.handler.list.new.onClick.callback args : notebook=$notebook")
+
+                            navigator.notebook(notebook)
                         }
                     }
                 }

@@ -4,6 +4,7 @@ import androidx.compose.runtime.Immutable
 import androidx.navigation.NamedNavArgument
 import androidx.navigation.NavDeepLink
 import kr.lul.logger.Logger
+import kr.lul.stringnotebook.state.organism.notebook.NotebookState
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
@@ -37,6 +38,16 @@ class HomeNavigator(
         logger.d("#notebook args : id=$id")
 
         base.navController.navigate(NotebookNavigator.route(id))
+    }
+
+    /**
+     * 노트북 열기.
+     *
+     * @param notebook 노트북.
+     */
+    fun notebook(notebook: NotebookState) {
+        logger.d("#notebook args : notebook=$notebook")
+        notebook(notebook.id)
     }
 
     override fun toString() = listOf(
