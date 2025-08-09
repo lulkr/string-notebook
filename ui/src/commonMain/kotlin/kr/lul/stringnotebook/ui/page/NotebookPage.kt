@@ -1,0 +1,93 @@
+package kr.lul.stringnotebook.ui.page
+
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.width
+import androidx.compose.material3.LinearProgressIndicator
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+import kr.lul.stringnotebook.state.page.ComponentsMode
+import kr.lul.stringnotebook.state.page.NotebookPageHandler
+import kr.lul.stringnotebook.state.page.NotebookPageState
+import kr.lul.stringnotebook.state.resources.Res
+import kr.lul.stringnotebook.state.resources.page_notebook_loading_label
+import kr.lul.stringnotebook.ui.organism.notebook.Notebook
+import kr.lul.stringnotebook.ui.template.notebook.NoteToolBar
+import kr.lul.stringnotebook.ui.template.notebook.PropertyEditor
+import kr.lul.stringnotebook.ui.template.notebook.Summary
+import org.jetbrains.compose.resources.stringResource
+import kotlin.uuid.ExperimentalUuidApi
+
+/**
+ * 노트북 편집 화면.
+ *
+ * @param state 노트북 편집 화면의 상태.
+ * @param handler 사용자의 노트북 조작 핸들러.
+ */
+@Composable
+@ExperimentalUuidApi
+fun NotebookPage(
+    state: NotebookPageState,
+    handler: NotebookPageHandler = NotebookPageHandler.NoOp
+) {
+    logger.v("#NotebookPage args : state=$state, handler=$handler")
+
+    when (state) {
+        is NotebookPageState.Loading ->
+            NotebookPageLoading(state, handler)
+
+        is NotebookPageState.Editing ->
+            NotebookPageEditing(state, handler)
+    }
+}
+
+@Composable
+@ExperimentalUuidApi
+fun NotebookPageLoading(state: NotebookPageState.Loading, handler: NotebookPageHandler) {
+    Column(Modifier.fillMaxSize()) {
+        LinearProgressIndicator(Modifier.fillMaxWidth())
+        Box(
+            modifier = Modifier.fillMaxWidth(),
+            contentAlignment = Alignment.Center
+        ) {
+            Text(stringResource(Res.string.page_notebook_loading_label))
+        }
+    }
+}
+
+@Composable
+@ExperimentalUuidApi
+fun NotebookPageEditing(state: NotebookPageState.Editing, handler: NotebookPageHandler) {
+    Row(Modifier.fillMaxSize()) {
+        Box(Modifier.weight(1F)) {
+            Notebook(state.notebook)
+
+            if (state.componentsMode == ComponentsMode.ALL) {
+                Box(Modifier.offset(16.dp, 16.dp)) {
+                    Summary(state.notebook)
+                }
+
+                Box(
+                    modifier = Modifier
+                        .align(Alignment.BottomCenter)
+                        .offset(y = (-16).dp)
+                ) {
+                    NoteToolBar(state.notebook)
+                }
+            }
+        }
+
+        if (state.componentsMode != ComponentsMode.NOTEBOOK_ONLY) {
+            Spacer(Modifier.width(8.dp))
+            PropertyEditor()
+        }
+    }
+}
