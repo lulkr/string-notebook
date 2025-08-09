@@ -2,6 +2,7 @@ package kr.lul.stringnotebook.state.page
 
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.Stable
+import kr.lul.stringnotebook.state.molecule.State
 import kr.lul.stringnotebook.state.organism.notebook.NotebookState
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
@@ -11,7 +12,7 @@ import kotlin.uuid.Uuid
  *
  * @see NotebookPageHandler
  */
-sealed interface NotebookPageState {
+sealed interface NotebookPageState : State {
     companion object {
         /**
          * @see kr.lul.stringnotebook.domain.foundation.Notebook.id
@@ -24,9 +25,37 @@ sealed interface NotebookPageState {
      */
     @ExperimentalUuidApi
     @Immutable
-    data class Loading(
-        val id: Uuid = NotebookState.Placeholder.id
-    ) : NotebookPageState
+    class Loading(
+        val id: Uuid = NotebookState.Placeholder.id,
+        override val key: Any = Uuid.random(),
+        override val testTag: String = key.toString()
+    ) : NotebookPageState {
+        fun copy(id: Uuid = this.id) = Loading(
+            id = id,
+            key = key,
+            testTag = testTag
+        )
+
+        override fun equals(other: Any?) = this === other || (
+                other is Loading &&
+                        id == other.id &&
+                        key == other.key &&
+                        testTag == other.testTag
+                )
+
+        override fun hashCode(): Int {
+            var result = id.hashCode()
+            result = 31 * result + key.hashCode()
+            result = 31 * result + testTag.hashCode()
+            return result
+        }
+
+        override fun toString() = listOf(
+            "id=$id",
+            "key=$key",
+            "testTag=$testTag"
+        ).joinToString(", ", "Loading(", ")")
+    }
 
     /**
      * 노트북 편집 화면이 로드되었으며, 노트북 편집이 가능한 상태.
@@ -37,18 +66,35 @@ sealed interface NotebookPageState {
     @Stable
     class Editing(
         val notebook: NotebookState = NotebookState.Placeholder,
+        override val key: Any = Uuid.random(),
+        override val testTag: String = key.toString()
     ) : NotebookPageState {
+        fun copy(
+            notebook: NotebookState = this.notebook
+        ) = Editing(
+            notebook = notebook,
+            key = key,
+            testTag = testTag
+        )
+
         override fun equals(other: Any?) = this === other || (
                 other is Editing &&
-                        notebook == other.notebook
+                        notebook == other.notebook &&
+                        key == other.key &&
+                        testTag == other.testTag
                 )
 
         override fun hashCode(): Int {
-            return notebook.hashCode()
+            var result = notebook.hashCode()
+            result = 31 * result + key.hashCode()
+            result = 31 * result + testTag.hashCode()
+            return result
         }
 
         override fun toString() = listOf(
-            "notebook=$notebook"
+            "notebook=$notebook",
+            "key=$key",
+            "testTag=$testTag"
         ).joinToString(", ", "Editing(", ")")
     }
 }
