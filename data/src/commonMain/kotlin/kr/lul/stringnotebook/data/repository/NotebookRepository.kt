@@ -2,6 +2,7 @@ package kr.lul.stringnotebook.data.repository
 
 import kr.lul.stringnotebook.domain.foundation.Notebook
 import kotlin.uuid.ExperimentalUuidApi
+import kotlin.uuid.Uuid
 
 /**
  * 노트북 저장소 인터페이스.
@@ -17,4 +18,12 @@ interface NotebookRepository {
      * @see kr.lul.stringnotebook.data.entity.Notebook
      */
     suspend fun create(notebook: Notebook): Notebook
+
+    /**
+     * 노트북을 ID로 조회한다.
+     *
+     * @param id 조회할 노트북의 ID. [Notebook.id]
+     * @return 조회된 노트북. 존재하지 않으면 `null`을 반환한다.
+     */
+    suspend fun read(id: Uuid): Notebook?
 }

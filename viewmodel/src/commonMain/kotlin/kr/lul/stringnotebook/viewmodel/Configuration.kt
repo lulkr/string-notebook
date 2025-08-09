@@ -25,6 +25,7 @@ val viewmodelModule = module {
     viewModel {
         val handle: SavedStateHandle = get()
         NotebookPageViewModel(
+            model = get(),
             initState = NotebookPageState.Loading(Uuid.parse(requireNotNull(handle[ARG_NOTEBOOK_ID])))
         )
     }

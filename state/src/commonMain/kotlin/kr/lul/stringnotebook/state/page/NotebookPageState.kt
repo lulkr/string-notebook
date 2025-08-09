@@ -37,5 +37,18 @@ sealed interface NotebookPageState {
     @Stable
     class Editing(
         val notebook: NotebookState = NotebookState.Placeholder,
-    ) : NotebookPageState
+    ) : NotebookPageState {
+        override fun equals(other: Any?) = this === other || (
+                other is Editing &&
+                        notebook == other.notebook
+                )
+
+        override fun hashCode(): Int {
+            return notebook.hashCode()
+        }
+
+        override fun toString() = listOf(
+            "notebook=$notebook"
+        ).joinToString(", ", "Editing(", ")")
+    }
 }
