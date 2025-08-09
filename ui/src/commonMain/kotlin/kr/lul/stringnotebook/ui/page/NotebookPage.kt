@@ -2,17 +2,27 @@ package kr.lul.stringnotebook.ui.page
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+import kr.lul.stringnotebook.state.page.ComponentsMode
 import kr.lul.stringnotebook.state.page.NotebookPageHandler
 import kr.lul.stringnotebook.state.page.NotebookPageState
 import kr.lul.stringnotebook.state.resources.Res
 import kr.lul.stringnotebook.state.resources.page_notebook_loading_label
+import kr.lul.stringnotebook.ui.organism.notebook.Notebook
+import kr.lul.stringnotebook.ui.template.notebook.NoteToolBar
+import kr.lul.stringnotebook.ui.template.notebook.PropertyEditor
+import kr.lul.stringnotebook.ui.template.notebook.Summary
 import org.jetbrains.compose.resources.stringResource
 import kotlin.uuid.ExperimentalUuidApi
 
@@ -56,5 +66,28 @@ fun NotebookPageLoading(state: NotebookPageState.Loading, handler: NotebookPageH
 @Composable
 @ExperimentalUuidApi
 fun NotebookPageEditing(state: NotebookPageState.Editing, handler: NotebookPageHandler) {
-    Text("$state")
+    Row(Modifier.fillMaxSize()) {
+        Box(Modifier.weight(1F)) {
+            Notebook(state.notebook)
+
+            if (state.componentsMode == ComponentsMode.ALL) {
+                Box(Modifier.offset(16.dp, 16.dp)) {
+                    Summary(state.notebook)
+                }
+
+                Box(
+                    modifier = Modifier
+                        .align(Alignment.BottomCenter)
+                        .offset(y = (-16).dp)
+                ) {
+                    NoteToolBar(state.notebook)
+                }
+            }
+        }
+
+        if (state.componentsMode != ComponentsMode.NOTEBOOK_ONLY) {
+            Spacer(Modifier.width(8.dp))
+            PropertyEditor()
+        }
+    }
 }
