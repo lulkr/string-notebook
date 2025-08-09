@@ -1,6 +1,5 @@
 package kr.lul.stringnotebook.ui.molecule
 
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
@@ -37,7 +36,7 @@ fun Text(
         modifier.testTag(state.testTag)
     }
 
-    Text(
+    androidx.compose.material3.Text(
         text = text,
         modifier = _modifier,
         color = state.color,

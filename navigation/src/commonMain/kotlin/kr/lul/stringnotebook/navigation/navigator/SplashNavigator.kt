@@ -4,7 +4,9 @@ import androidx.compose.runtime.Immutable
 import androidx.navigation.NamedNavArgument
 import androidx.navigation.NavDeepLink
 import kr.lul.logger.Logger
+import kotlin.uuid.ExperimentalUuidApi
 
+@ExperimentalUuidApi
 @Immutable
 class SplashNavigator(
     private val base: BaseNavigator
@@ -25,10 +27,13 @@ class SplashNavigator(
 
     override val destination = Companion
 
-    fun main() {
-        logger.d("#main called.")
+    /**
+     * 홈 화면으로 이동하기.
+     */
+    fun home() {
+        logger.d("#home called.")
 
-        base.navController.navigate(MainNavigator.route()) {
+        base.navController.navigate(HomeNavigator.route()) {
             popUpTo(base.navController.graph.id) {
                 inclusive = true
             }

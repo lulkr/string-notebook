@@ -6,11 +6,11 @@ import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
 /**
- * 메인 페이지 상태.
+ * 홈 화면 상태.
  */
 @ExperimentalUuidApi
 @Immutable
-class MainPageState(
+class HomePageState(
     override val key: Any = Uuid.random(),
     override val testTag: String = key.toString()
 ) : State
