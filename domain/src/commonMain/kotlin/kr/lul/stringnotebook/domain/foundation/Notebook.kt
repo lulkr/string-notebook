@@ -12,4 +12,14 @@ interface Notebook {
      * 고유 식별자.
      */
     val id: Uuid
+
+    /**
+     * 이름.
+     */
+    val name: String
+
+    /**
+     * 간단한 설명.
+     */
+    val description: String?
 }

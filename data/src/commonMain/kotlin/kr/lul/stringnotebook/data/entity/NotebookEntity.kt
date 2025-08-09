@@ -7,8 +7,14 @@ import kotlin.uuid.Uuid
 
 @ExperimentalUuidApi
 internal class NotebookEntity(
-    override val id: Uuid = Uuid.random()
+    override val id: Uuid = Uuid.random(),
+    override val name: String = DEFAULT_NAME,
+    override val description: String? = null
 ) : Notebook {
+    companion object {
+        const val DEFAULT_NAME = "New Notebook"
+    }
+
     private val logger = Logger("NotebookEntity@$id")
 
     override fun toString() = listOf(

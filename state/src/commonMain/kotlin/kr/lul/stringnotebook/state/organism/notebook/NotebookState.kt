@@ -1,6 +1,9 @@
 package kr.lul.stringnotebook.state.organism.notebook
 
 import androidx.compose.runtime.Stable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import kr.lul.stringnotebook.domain.foundation.Notebook
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
@@ -14,16 +17,30 @@ class NotebookState(
     /**
      * @see Notebook.id
      */
-    val id: Uuid
+    val id: Uuid,
+    name: String,
+    description: String?
 ) {
+    var name: String by mutableStateOf(name)
+    var description: String? by mutableStateOf(description)
+
     override fun equals(other: Any?) = this === other || (
             other is NotebookState &&
-                    id == other.id
+                    id == other.id &&
+                    name == other.name &&
+                    description == other.description
             )
 
-    override fun hashCode() = id.hashCode()
+    override fun hashCode(): Int {
+        var result = id.hashCode()
+        result = 31 * result + name.hashCode()
+        result = 31 * result + (description?.hashCode() ?: 0)
+        return result
+    }
 
     override fun toString() = listOf(
-        "id=$id"
+        "id=$id",
+        "name='$name'",
+        "description=${description?.let { "'$it'" }}"
     ).joinToString(", ", "NotebookState(", ")")
 }
