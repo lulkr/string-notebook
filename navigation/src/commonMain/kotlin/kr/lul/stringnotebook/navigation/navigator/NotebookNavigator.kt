@@ -6,6 +6,7 @@ import androidx.navigation.NavDeepLink
 import androidx.navigation.NavType.Companion.StringType
 import androidx.navigation.navArgument
 import kr.lul.logger.Logger
+import kr.lul.stringnotebook.state.page.NotebookPageState.Companion.ARG_NOTEBOOK_ID
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
@@ -15,11 +16,6 @@ class NotebookNavigator(
     private val base: BaseNavigator
 ) : Navigator by base {
     companion object : Destination<NotebookNavigator> {
-        /**
-         * 인자 이름 : 노트북 ID.
-         */
-        const val ARG_NOTEBOOK_ID = "notebookId"
-
         override val route = "notebook/{$ARG_NOTEBOOK_ID}"
 
         override val arguments: List<NamedNavArgument> = listOf(

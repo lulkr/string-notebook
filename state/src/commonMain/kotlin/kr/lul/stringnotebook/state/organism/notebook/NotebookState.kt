@@ -21,6 +21,14 @@ class NotebookState(
     name: String,
     description: String?
 ) {
+    companion object {
+        val Placeholder = NotebookState(
+            Uuid.parse("00000000-0000-0000-0000-000000000000"),
+            "플레이스홀더 노트북",
+            null
+        )
+    }
+
     var name: String by mutableStateOf(name)
     var description: String? by mutableStateOf(description)
 
