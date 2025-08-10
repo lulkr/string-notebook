@@ -22,7 +22,7 @@ import kotlin.uuid.ExperimentalUuidApi
  */
 @Composable
 @ExperimentalUuidApi
-fun NoteToolBar(state: NotebookState) {
+fun ToolBar(state: NotebookState) {
     Row(
         modifier = Modifier
             .background(MaterialTheme.colorScheme.surfaceContainer, RoundedCornerShape(16.dp))

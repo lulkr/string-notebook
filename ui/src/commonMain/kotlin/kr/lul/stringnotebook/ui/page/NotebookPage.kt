@@ -22,9 +22,9 @@ import kr.lul.stringnotebook.state.page.NotebookPageState
 import kr.lul.stringnotebook.state.resources.Res
 import kr.lul.stringnotebook.state.resources.page_notebook_loading_label
 import kr.lul.stringnotebook.ui.organism.notebook.Notebook
-import kr.lul.stringnotebook.ui.template.notebook.NoteToolBar
 import kr.lul.stringnotebook.ui.template.notebook.PropertyEditor
 import kr.lul.stringnotebook.ui.template.notebook.Summary
+import kr.lul.stringnotebook.ui.template.notebook.ToolBar
 import org.jetbrains.compose.resources.stringResource
 import kotlin.uuid.ExperimentalUuidApi
 
@@ -91,7 +91,7 @@ fun NotebookPageEditing(state: NotebookPageState.Editing, handler: NotebookPageH
                         .align(Alignment.BottomCenter)
                         .offset(y = (-16).dp)
                 ) {
-                    NoteToolBar(state.notebook)
+                    ToolBar(state.notebook)
                 }
             }
         }
