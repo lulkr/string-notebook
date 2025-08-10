@@ -9,12 +9,18 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.dp
 import kr.lul.stringnotebook.state.organism.notebook.NotebookState
 import kr.lul.stringnotebook.ui.template.logger
+import kr.lul.stringnotebook.ui.template.notebook.ContextMenu
 import kotlin.uuid.ExperimentalUuidApi
 
 /**
@@ -23,9 +29,23 @@ import kotlin.uuid.ExperimentalUuidApi
 @Composable
 @ExperimentalUuidApi
 fun Notebook(state: NotebookState) {
+    var contextMenuPosition by remember {
+        mutableStateOf<Offset?>(null)
+    }
+
     Box(
         Modifier.fillMaxSize()
-            .background(MaterialTheme.colorScheme.background),
+            .background(MaterialTheme.colorScheme.background)
+            .pointerInput(state) {
+                detectTapGestures(
+                    onDoubleTap = { offset ->
+                        contextMenuPosition = offset
+                    },
+                    onLongPress = { offset ->
+                        contextMenuPosition = offset
+                    }
+                )
+            },
         Alignment.Center
     ) {
         Column(
@@ -43,5 +63,12 @@ fun Notebook(state: NotebookState) {
                 Text(description, Modifier.padding(8.dp))
             }
         }
+    }
+
+    contextMenuPosition?.let { offset ->
+        ContextMenu(
+            position = offset,
+            onDismissRequest = { contextMenuPosition = null }
+        )
     }
 }
