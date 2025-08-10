@@ -34,6 +34,9 @@ sealed class Type(
     }
 
     init {
+        require("$id".lowercase().startsWith(ID_PREFIX_NOTEBOOK_TYPE.lowercase())) {
+            "illegal id prefix : id=$id, prefix=$ID_PREFIX_NOTEBOOK_TYPE"
+        }
         require(name.isNotBlank()) { "name must not be blank." }
         require(description.isNotBlank()) { "description must not be blank." }
     }
@@ -80,10 +83,20 @@ abstract class CompositeType(
      */
     val properties: Map<String, Type>
 ) : Type(id, name, description) {
+    companion object {
+        const val PROPERTY_NAME_PATTERN = "[a-z][A-Za-z0-9_]*"
+        val PROPERTY_NAME_REGEX = PROPERTY_NAME_PATTERN.toRegex()
+    }
+
     init {
         require(properties.isNotEmpty()) { "properties must have at least one property." }
         require(properties.keys.toSet().size == properties.size) {
             "properties must have unique property names : properties.names=${properties.keys}"
+        }
+        for (name in properties.keys) {
+            require(PROPERTY_NAME_REGEX.matches(name)) {
+                "illegal property name : name=$name, pattern=$PROPERTY_NAME_PATTERN"
+            }
         }
     }
 

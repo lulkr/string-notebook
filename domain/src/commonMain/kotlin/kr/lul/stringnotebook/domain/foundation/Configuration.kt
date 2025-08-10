@@ -28,6 +28,8 @@ object Configuration {
 
     /**
      * String Notebook 앱 빌드 정보에 관한 ID 접두사.
+     *
+     * `BEEFCAFE-4096-0001-0001-############` 형식으로 지정된다.
      */
     const val ID_PREFIX_APP_BUILD = "$ID_PREFIX_APP-0001"
 
@@ -54,9 +56,9 @@ object Configuration {
     /**
      * 타입의 ID 접두사.
      *
-     * `BEEFCAFE-4096-0002-0010-############` 형식으로 지정된다.
+     * `BEEFCAFE-4096-0002-0001-############` 형식으로 지정된다.
      */
-    const val ID_PREFIX_NOTEBOOK_TYPE = "$ID_PREFIX_NOTEBOOK-0010"
+    const val ID_PREFIX_NOTEBOOK_TYPE = "$ID_PREFIX_NOTEBOOK-0001"
 
     /**
      * ID 생성에 사용할 수 있는 접두사 목록.
