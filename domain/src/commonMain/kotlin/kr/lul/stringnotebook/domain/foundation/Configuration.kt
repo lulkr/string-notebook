@@ -61,6 +61,13 @@ object Configuration {
     const val ID_PREFIX_NOTEBOOK_TYPE = "$ID_PREFIX_NOTEBOOK-0001"
 
     /**
+     * 노트북 속성에 관한 ID 접두사.
+     *
+     * `BEEFCAFE-4096-0002-0002-############` 형식으로 지정된다.
+     */
+    const val ID_PREFIX_NOTEBOOK_PROPERTY = "$ID_PREFIX_NOTEBOOK-0002"
+
+    /**
      * ID 생성에 사용할 수 있는 접두사 목록.
      *
      * @see generateId
@@ -69,7 +76,8 @@ object Configuration {
         ID_PREFIX_APP_BUILD,
         ID_PREFIX_APP_INSTALL,
         ID_PREFIX_APP_PROCESS,
-        ID_PREFIX_NOTEBOOK
+        ID_PREFIX_NOTEBOOK_TYPE,
+        ID_PREFIX_NOTEBOOK_PROPERTY
     )
 
     /**

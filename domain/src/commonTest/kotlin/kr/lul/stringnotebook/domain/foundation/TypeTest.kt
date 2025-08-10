@@ -52,13 +52,33 @@ class TypeTest {
             // THEN
             assertNotNull(ex1)
             assertNotNull(ex2)
+            println()
         }
     }
 
     @Test
     fun `쓸 수 없는 이름을 걸러내는지 확인하기`() {
         for (name in listOf(
-            ""
+            "",
+            " ",
+            "\t",
+            "\n",
+            "a b",
+            "a-b",
+            "a.b",
+            "a@b",
+            "a#b",
+            "a\$b",
+            "a%b",
+            "a^b",
+            "a&b",
+            "a*b",
+            "a(b",
+            "A_",
+            "Ab",
+            "A1",
+            "A_b",
+            "A_1"
         )) {
             logger.i("[GIVEN] name=$name")
 
@@ -83,6 +103,7 @@ class TypeTest {
             // THEN
             assertNotNull(ex1)
             assertNotNull(ex2)
+            println()
         }
     }
 
@@ -107,6 +128,7 @@ class TypeTest {
             // THEN
             assertNotNull(type)
             assertEquals(name, type.properties.keys.first())
+            println()
         }
     }
 
@@ -136,6 +158,7 @@ class TypeTest {
 
             // THEN
             assertNotNull(ex)
+            println()
         }
     }
 }
