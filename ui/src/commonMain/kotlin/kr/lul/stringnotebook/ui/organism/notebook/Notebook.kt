@@ -1,6 +1,7 @@
 package kr.lul.stringnotebook.ui.organism.notebook
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -10,8 +11,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.dp
 import kr.lul.stringnotebook.state.organism.notebook.NotebookState
+import kr.lul.stringnotebook.ui.template.logger
 import kotlin.uuid.ExperimentalUuidApi
 
 /**
@@ -25,7 +28,15 @@ fun Notebook(state: NotebookState) {
             .background(MaterialTheme.colorScheme.background),
         Alignment.Center
     ) {
-        Column {
+        Column(
+            modifier = Modifier.pointerInput(state) {
+                detectTapGestures(
+                    onTap = { offset ->
+                        logger.d("#Notebook.Text.onTap 노트북 클릭 대상에서 제외.")
+                    }
+                )
+            }
+        ) {
             Text("${state.id}", Modifier.padding(8.dp))
             Text(state.name, Modifier.padding(8.dp))
             state.description?.let { description ->
