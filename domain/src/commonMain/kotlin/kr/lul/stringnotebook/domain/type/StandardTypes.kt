@@ -12,7 +12,8 @@ import kotlin.uuid.Uuid
 enum class StandardTypes(
     val type: Type
 ) {
-    LENGTH(LengthType);
+    LENGTH(LengthType),
+    SIZE(SizeType);
 
     companion object {
         operator fun get(type: Type) = entries.first { it.type == type }

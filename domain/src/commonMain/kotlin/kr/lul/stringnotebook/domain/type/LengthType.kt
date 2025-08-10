@@ -8,7 +8,7 @@ import kotlin.uuid.ExperimentalUuidApi
 @ExperimentalUuidApi
 object LengthType : ScalarType(
     id = id(ID_SUFFIX),
-    name = "length",
+    name = "Length",
     description = "길이를 표현하는 속성 타입"
 ) {
     const val ID_SUFFIX = 0L
