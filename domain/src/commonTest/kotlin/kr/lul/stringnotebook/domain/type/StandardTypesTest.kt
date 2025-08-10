@@ -1,4 +1,4 @@
-package kr.lul.stringnotebook.domain.property
+package kr.lul.stringnotebook.domain.type
 
 import kr.lul.logger.Logger
 import kotlin.test.Test
@@ -8,13 +8,13 @@ import kotlin.uuid.ExperimentalUuidApi
 @ExperimentalStdlibApi
 @ExperimentalUuidApi
 @Suppress("NonAsciiCharacters")
-class StandardPropertyTypesTest {
-    private val logger = Logger("StandardPropertyTypesTest")
+class StandardTypesTest {
+    private val logger = Logger("StandardTypesTest")
 
     @Test
     fun `id 중복이 있는지 검사한다`() {
         // GIVEN
-        val entries = StandardPropertyTypes.entries
+        val entries = StandardTypes.entries
         logger.i("[GIVEN] entries=${entries.toList()}")
 
         // WHEN
@@ -28,7 +28,7 @@ class StandardPropertyTypesTest {
     @Test
     fun `이름 중복이 있는지 검사한다`() {
         // GIVEN
-        val entries = StandardPropertyTypes.entries
+        val entries = StandardTypes.entries
         logger.i("[GIVEN] entries=${entries.toList()}")
 
         // WHEN
