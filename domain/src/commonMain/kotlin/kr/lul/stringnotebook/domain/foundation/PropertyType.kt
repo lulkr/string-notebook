@@ -1,5 +1,7 @@
 package kr.lul.stringnotebook.domain.foundation
 
+import kr.lul.stringnotebook.domain.foundation.Configuration.ID_PREFIX_NOTEBOOK_PROPERTY_TYPE
+import kr.lul.stringnotebook.domain.foundation.Configuration.generateId
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
@@ -15,8 +17,15 @@ import kotlin.uuid.Uuid
 sealed class PropertyType(
     val id: Uuid,
     val name: String,
-    val description: String,
+    val description: String
 ) {
+    companion object {
+        /**
+         * @see ID_PREFIX_NOTEBOOK_PROPERTY_TYPE
+         */
+        internal fun id(id: Long) = ID_PREFIX_NOTEBOOK_PROPERTY_TYPE.generateId(id)
+    }
+
     init {
         require(name.isNotBlank()) { "name must not be blank." }
         require(description.isNotBlank()) { "description must not be blank." }
