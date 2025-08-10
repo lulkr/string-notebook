@@ -1,4 +1,4 @@
-package kr.lul.stringnotebook.state.template.notebook
+package kr.lul.stringnotebook.state.template
 
 import kr.lul.logger.Logger
 import kr.lul.stringnotebook.state.molecule.ButtonHandler

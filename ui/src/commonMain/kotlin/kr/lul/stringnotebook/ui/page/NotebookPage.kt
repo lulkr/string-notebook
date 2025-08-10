@@ -22,9 +22,9 @@ import kr.lul.stringnotebook.state.page.NotebookPageState
 import kr.lul.stringnotebook.state.resources.Res
 import kr.lul.stringnotebook.state.resources.page_notebook_loading_label
 import kr.lul.stringnotebook.ui.organism.notebook.Notebook
-import kr.lul.stringnotebook.ui.template.notebook.PropertyEditor
-import kr.lul.stringnotebook.ui.template.notebook.Summary
-import kr.lul.stringnotebook.ui.template.notebook.ToolBar
+import kr.lul.stringnotebook.ui.template.PropertyEditor
+import kr.lul.stringnotebook.ui.template.Summary
+import kr.lul.stringnotebook.ui.template.ToolBar
 import org.jetbrains.compose.resources.stringResource
 import kotlin.uuid.ExperimentalUuidApi
 

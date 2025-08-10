@@ -19,8 +19,8 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.dp
 import kr.lul.stringnotebook.state.organism.notebook.NotebookState
+import kr.lul.stringnotebook.ui.template.ContextMenu
 import kr.lul.stringnotebook.ui.template.logger
-import kr.lul.stringnotebook.ui.template.notebook.ContextMenu
 import kotlin.uuid.ExperimentalUuidApi
 
 /**

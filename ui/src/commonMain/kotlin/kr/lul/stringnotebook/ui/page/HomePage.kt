@@ -7,7 +7,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import kr.lul.stringnotebook.state.page.HomePageHandler
 import kr.lul.stringnotebook.state.page.HomePageState
-import kr.lul.stringnotebook.ui.template.notebook.NotebookList
+import kr.lul.stringnotebook.ui.template.NotebookList
 import kotlin.uuid.ExperimentalUuidApi
 
 /**

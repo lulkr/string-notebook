@@ -1,4 +1,4 @@
-package kr.lul.stringnotebook.ui.template.notebook
+package kr.lul.stringnotebook.ui.template
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.offset

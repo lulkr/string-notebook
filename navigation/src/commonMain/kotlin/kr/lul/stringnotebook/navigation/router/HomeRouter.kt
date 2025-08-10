@@ -8,7 +8,7 @@ import kr.lul.stringnotebook.navigation.compose.baseViewModel
 import kr.lul.stringnotebook.navigation.navigator.HomeNavigator
 import kr.lul.stringnotebook.state.molecule.ButtonHandler
 import kr.lul.stringnotebook.state.page.HomePageHandler
-import kr.lul.stringnotebook.state.template.notebook.NotebookListHandler
+import kr.lul.stringnotebook.state.template.NotebookListHandler
 import kr.lul.stringnotebook.ui.page.HomePage
 import kr.lul.stringnotebook.viewmodel.page.HomePageViewModel
 import kotlin.uuid.ExperimentalUuidApi

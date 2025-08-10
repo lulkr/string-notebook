@@ -1,4 +1,4 @@
-package kr.lul.stringnotebook.ui.template.notebook
+package kr.lul.stringnotebook.ui.template
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectTapGestures
@@ -16,7 +16,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.dp
-import kr.lul.stringnotebook.ui.template.logger
 
 @Composable
 fun PropertyEditor() {
