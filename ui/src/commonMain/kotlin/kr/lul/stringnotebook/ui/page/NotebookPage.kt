@@ -16,11 +16,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.dp
-import kr.lul.stringnotebook.state.page.ComponentsMode
 import kr.lul.stringnotebook.state.page.NotebookPageHandler
 import kr.lul.stringnotebook.state.page.NotebookPageState
 import kr.lul.stringnotebook.state.resources.Res
 import kr.lul.stringnotebook.state.resources.page_notebook_loading_label
+import kr.lul.stringnotebook.state.template.FullLayoutState
+import kr.lul.stringnotebook.state.template.WyswygLayoutState
 import kr.lul.stringnotebook.ui.organism.notebook.Notebook
 import kr.lul.stringnotebook.ui.template.PropertyEditor
 import kr.lul.stringnotebook.ui.template.Summary
@@ -73,7 +74,7 @@ fun NotebookPageEditing(state: NotebookPageState.Editing, handler: NotebookPageH
             .pointerInput(state) {
                 detectTapGestures(
                     onTap = { offset ->
-                        handler.onClickNotebook()
+                        handler.layout.onChangeLayout()
                     }
                 )
             }
@@ -81,7 +82,7 @@ fun NotebookPageEditing(state: NotebookPageState.Editing, handler: NotebookPageH
         Box(Modifier.weight(1F)) {
             Notebook(state.notebook)
 
-            if (state.componentsMode == ComponentsMode.ALL) {
+            if (state.layout is FullLayoutState) {
                 Box(Modifier.offset(16.dp, 16.dp)) {
                     Summary(state.notebook)
                 }
@@ -96,7 +97,7 @@ fun NotebookPageEditing(state: NotebookPageState.Editing, handler: NotebookPageH
             }
         }
 
-        if (state.componentsMode != ComponentsMode.NOTEBOOK_ONLY) {
+        if (state.layout !is WyswygLayoutState) {
             Spacer(Modifier.width(8.dp))
             PropertyEditor()
         }

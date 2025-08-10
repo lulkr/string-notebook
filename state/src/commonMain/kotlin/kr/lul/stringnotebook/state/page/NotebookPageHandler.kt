@@ -1,6 +1,7 @@
 package kr.lul.stringnotebook.state.page
 
 import kr.lul.logger.Logger
+import kr.lul.stringnotebook.state.template.LayoutHandler
 
 /**
  * 사용자의 노트북 조작 핸들러.
@@ -11,15 +12,11 @@ interface NotebookPageHandler {
     object NoOp : NotebookPageHandler {
         private val logger = Logger("NotebookPageHandler.NoOp")
 
-        override fun onClickNotebook() {
-            logger.d("#onClickNotebook called.")
-        }
+        override val layout: LayoutHandler = LayoutHandler.NoOp
     }
 
     /**
-     * 노트가 없는 노트북 배경 클릭 핸들러.
-     *
-     * @see NotebookPageState.Editing.componentsMode
+     * 화면 레이아웃 핸들러.
      */
-    fun onClickNotebook()
+    val layout: LayoutHandler
 }
