@@ -1,5 +1,6 @@
 package kr.lul.stringnotebook.ui.page
 
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -13,6 +14,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.dp
 import kr.lul.stringnotebook.state.page.ComponentsMode
 import kr.lul.stringnotebook.state.page.NotebookPageHandler
@@ -51,7 +53,7 @@ fun NotebookPage(
 
 @Composable
 @ExperimentalUuidApi
-fun NotebookPageLoading(state: NotebookPageState.Loading, handler: NotebookPageHandler) {
+fun NotebookPageLoading(state: NotebookPageState.Loading, handler: NotebookPageHandler = NotebookPageHandler.NoOp) {
     Column(Modifier.fillMaxSize()) {
         LinearProgressIndicator(Modifier.fillMaxWidth())
         Box(
@@ -65,8 +67,17 @@ fun NotebookPageLoading(state: NotebookPageState.Loading, handler: NotebookPageH
 
 @Composable
 @ExperimentalUuidApi
-fun NotebookPageEditing(state: NotebookPageState.Editing, handler: NotebookPageHandler) {
-    Row(Modifier.fillMaxSize()) {
+fun NotebookPageEditing(state: NotebookPageState.Editing, handler: NotebookPageHandler = NotebookPageHandler.NoOp) {
+    Row(
+        modifier = Modifier.fillMaxSize()
+            .pointerInput(state) {
+                detectTapGestures(
+                    onTap = { offset ->
+                        handler.onClickNotebook()
+                    }
+                )
+            }
+    ) {
         Box(Modifier.weight(1F)) {
             Notebook(state.notebook)
 
