@@ -1,6 +1,7 @@
 package kr.lul.stringnotebook.state.page
 
 import kr.lul.logger.Logger
+import kr.lul.stringnotebook.state.organism.notebook.NotebookHandler
 import kr.lul.stringnotebook.state.template.LayoutHandler
 
 /**
@@ -13,10 +14,17 @@ interface NotebookPageHandler {
         private val logger = Logger("NotebookPageHandler.NoOp")
 
         override val layout: LayoutHandler = LayoutHandler.NoOp
+
+        override val notebook: NotebookHandler = NotebookHandler.NoOp
     }
 
     /**
      * 화면 레이아웃 핸들러.
      */
     val layout: LayoutHandler
+
+    /**
+     * 노트북 핸들러.
+     */
+    val notebook: NotebookHandler
 }

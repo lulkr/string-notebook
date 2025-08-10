@@ -8,6 +8,7 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kr.lul.stringnotebook.model.NotebookModel
+import kr.lul.stringnotebook.state.organism.notebook.NotebookHandler
 import kr.lul.stringnotebook.state.organism.notebook.NotebookState
 import kr.lul.stringnotebook.state.page.NotebookPageHandler
 import kr.lul.stringnotebook.state.page.NotebookPageState
@@ -37,9 +38,11 @@ class NotebookPageViewModel(
     private val _notebook = NotebookViewModelet(
         parent = this,
         tag = "${tag}.notebook",
+        layoutHandler = layout,
         model = model,
         id = initState.id
     )
+    override val notebook: NotebookHandler = _notebook
 
     val state: StateFlow<NotebookPageState> = combine(
         _layout,

@@ -80,7 +80,7 @@ fun NotebookPageEditing(state: NotebookPageState.Editing, handler: NotebookPageH
             }
     ) {
         Box(Modifier.weight(1F)) {
-            Notebook(state.notebook)
+            Notebook(state.notebook, handler.notebook)
 
             if (state.layout is FullLayoutState) {
                 Box(Modifier.offset(16.dp, 16.dp)) {
