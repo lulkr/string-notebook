@@ -5,10 +5,8 @@ import kotlinx.datetime.Instant
 import kr.lul.logger.Logger
 import kr.lul.stringnotebook.domain.foundation.Configuration.ID_PREFIX_APP_PROCESS
 import kr.lul.stringnotebook.domain.foundation.Configuration.generateId
-import kr.lul.stringnotebook.mcp.mcpModule
 import kr.lul.stringnotebook.model.Process
 import kr.lul.stringnotebook.navigation.navigationModule
-
 import org.koin.core.context.startKoin
 import org.koin.dsl.module
 import kotlin.uuid.ExperimentalUuidApi
@@ -35,7 +33,6 @@ object Configuration {
         startKoin {
             modules(
                 module { single { process } },
-                mcpModule(),
                 navigationModule
             )
 
