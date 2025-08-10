@@ -10,7 +10,7 @@ import SharedKit
 @main
 struct StringNotebookApp: App {
     init() {
-        SharedConfiguration.shared.initialize()
+        Configuration.shared.initialize()
     }
     
     var body: some Scene {

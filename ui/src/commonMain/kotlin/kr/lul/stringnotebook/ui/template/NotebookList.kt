@@ -1,10 +1,9 @@
-package kr.lul.stringnotebook.ui.template.notebook
+package kr.lul.stringnotebook.ui.template
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
-import kr.lul.stringnotebook.state.template.notebook.NotebookListHandler
-import kr.lul.stringnotebook.ui.template.logger
+import kr.lul.stringnotebook.state.template.NotebookListHandler
 import kotlin.uuid.ExperimentalUuidApi
 
 /**

@@ -1,5 +1,6 @@
 package kr.lul.stringnotebook.ui.page
 
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -13,16 +14,18 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.dp
-import kr.lul.stringnotebook.state.page.ComponentsMode
 import kr.lul.stringnotebook.state.page.NotebookPageHandler
 import kr.lul.stringnotebook.state.page.NotebookPageState
 import kr.lul.stringnotebook.state.resources.Res
 import kr.lul.stringnotebook.state.resources.page_notebook_loading_label
+import kr.lul.stringnotebook.state.template.FullLayoutState
+import kr.lul.stringnotebook.state.template.WyswygLayoutState
 import kr.lul.stringnotebook.ui.organism.notebook.Notebook
-import kr.lul.stringnotebook.ui.template.notebook.NoteToolBar
-import kr.lul.stringnotebook.ui.template.notebook.PropertyEditor
-import kr.lul.stringnotebook.ui.template.notebook.Summary
+import kr.lul.stringnotebook.ui.template.PropertyEditor
+import kr.lul.stringnotebook.ui.template.Summary
+import kr.lul.stringnotebook.ui.template.ToolBar
 import org.jetbrains.compose.resources.stringResource
 import kotlin.uuid.ExperimentalUuidApi
 
@@ -51,7 +54,7 @@ fun NotebookPage(
 
 @Composable
 @ExperimentalUuidApi
-fun NotebookPageLoading(state: NotebookPageState.Loading, handler: NotebookPageHandler) {
+fun NotebookPageLoading(state: NotebookPageState.Loading, handler: NotebookPageHandler = NotebookPageHandler.NoOp) {
     Column(Modifier.fillMaxSize()) {
         LinearProgressIndicator(Modifier.fillMaxWidth())
         Box(
@@ -65,12 +68,21 @@ fun NotebookPageLoading(state: NotebookPageState.Loading, handler: NotebookPageH
 
 @Composable
 @ExperimentalUuidApi
-fun NotebookPageEditing(state: NotebookPageState.Editing, handler: NotebookPageHandler) {
-    Row(Modifier.fillMaxSize()) {
+fun NotebookPageEditing(state: NotebookPageState.Editing, handler: NotebookPageHandler = NotebookPageHandler.NoOp) {
+    Row(
+        modifier = Modifier.fillMaxSize()
+            .pointerInput(state) {
+                detectTapGestures(
+                    onTap = { offset ->
+                        handler.layout.onChangeLayout()
+                    }
+                )
+            }
+    ) {
         Box(Modifier.weight(1F)) {
-            Notebook(state.notebook)
+            Notebook(state.notebook, handler.notebook)
 
-            if (state.componentsMode == ComponentsMode.ALL) {
+            if (state.layout is FullLayoutState) {
                 Box(Modifier.offset(16.dp, 16.dp)) {
                     Summary(state.notebook)
                 }
@@ -80,12 +92,12 @@ fun NotebookPageEditing(state: NotebookPageState.Editing, handler: NotebookPageH
                         .align(Alignment.BottomCenter)
                         .offset(y = (-16).dp)
                 ) {
-                    NoteToolBar(state.notebook)
+                    ToolBar(state.notebook)
                 }
             }
         }
 
-        if (state.componentsMode != ComponentsMode.NOTEBOOK_ONLY) {
+        if (state.layout !is WyswygLayoutState) {
             Spacer(Modifier.width(8.dp))
             PropertyEditor()
         }

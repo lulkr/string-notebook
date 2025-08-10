@@ -1,6 +1,6 @@
 package kr.lul.stringnotebook.state.page
 
-import kr.lul.stringnotebook.state.template.notebook.NotebookListHandler
+import kr.lul.stringnotebook.state.template.NotebookListHandler
 import kotlin.uuid.ExperimentalUuidApi
 
 /**

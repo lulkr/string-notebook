@@ -19,5 +19,8 @@ fun NotebookRouter(
 
     val state by viewModel.state.collectAsStateWithLifecycle()
 
-    NotebookPage(state)
+    NotebookPage(
+        state = state,
+        handler = viewModel
+    )
 }
