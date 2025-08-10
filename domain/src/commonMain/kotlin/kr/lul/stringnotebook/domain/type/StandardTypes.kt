@@ -13,7 +13,8 @@ enum class StandardTypes(
     val type: Type
 ) {
     LENGTH(LengthType),
-    SIZE(SizeType);
+    SIZE(SizeType),
+    POSITION(PositionType);
 
     companion object {
         operator fun get(type: Type) = entries.first { it.type == type }
