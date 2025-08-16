@@ -5,12 +5,15 @@ import kr.lul.stringnotebook.domain.type.LengthType
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
+/**
+ * 길이.
+ */
 @ExperimentalStdlibApi
 @ExperimentalUuidApi
 class LengthProperty(
     id: Uuid,
     name: String,
-    initValue: Float
+    override var value: Float
 ) : ScalarProperty<Float>(id, LengthType, name) {
-    override var value: Float = initValue
+    constructor(name: String, value: Float) : this(Uuid.random(), name, value)
 }

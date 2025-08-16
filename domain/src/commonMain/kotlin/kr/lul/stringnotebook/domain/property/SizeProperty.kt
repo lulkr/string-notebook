@@ -31,4 +31,11 @@ class SizeProperty(
         WIDTH to width,
         HEIGHT to height
     )
-)
+) {
+    constructor(name: String, width: Float, height: Float) : this(
+        id = Uuid.random(),
+        name = name,
+        width = LengthProperty(WIDTH, 0F),
+        height = LengthProperty(WIDTH, 0F)
+    )
+}
