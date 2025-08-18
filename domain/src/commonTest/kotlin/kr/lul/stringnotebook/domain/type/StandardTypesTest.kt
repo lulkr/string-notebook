@@ -1,6 +1,7 @@
 package kr.lul.stringnotebook.domain.type
 
 import kr.lul.logger.Logger
+import kr.lul.stringnotebook.domain.foundation.Type
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.uuid.ExperimentalUuidApi
@@ -37,5 +38,20 @@ class StandardTypesTest {
 
         // THEN
         assertEquals(entries.size, names.size)
+    }
+
+    @Test
+    fun `id - ordinal과 동일한지 검사한다`() {
+        for (type in StandardTypes.entries) {
+            // GIVEN
+            logger.i("[GIVEN] type=${type.type}, ordinal=${type.ordinal}")
+
+            // WHEN
+            val id = type.type.id
+            logger.i("[WHEN] id=$id")
+
+            // THEN
+            assertEquals(Type.id(type.ordinal.toLong()), id)
+        }
     }
 }
