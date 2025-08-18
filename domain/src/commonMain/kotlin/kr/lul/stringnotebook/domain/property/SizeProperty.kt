@@ -23,20 +23,12 @@ class SizeProperty(
      * 높이
      */
     val height: LengthProperty
-) : CompositeProperty(
-    id = id,
-    type = SizeType,
-    name = name,
-    children = mapOf(
-        WIDTH to width,
-        HEIGHT to height
-    )
-) {
+) : CompositeProperty(id, SizeType, name, mapOf(WIDTH to width, HEIGHT to height)) {
     constructor(name: String, width: Float, height: Float) : this(
         id = Uuid.random(),
         name = name,
-        width = LengthProperty(WIDTH, 0F),
-        height = LengthProperty(WIDTH, 0F)
+        width = LengthProperty(WIDTH, width),
+        height = LengthProperty(WIDTH, height)
     )
 
     override fun toString() = listOf(
