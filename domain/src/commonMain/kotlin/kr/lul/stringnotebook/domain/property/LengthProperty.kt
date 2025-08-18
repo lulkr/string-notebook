@@ -16,10 +16,4 @@ class LengthProperty(
     override var value: Float
 ) : ScalarProperty<Float>(id, LengthType, name) {
     constructor(name: String, value: Float) : this(Uuid.random(), name, value)
-
-    override fun toString() = listOf(
-        "id=$id",
-        "name='$name'",
-        "value=$value"
-    ).joinToString(", ", "LengthProperty(", ")")
 }

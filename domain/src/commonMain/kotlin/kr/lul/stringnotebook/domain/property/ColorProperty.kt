@@ -48,6 +48,15 @@ class ColorProperty(
 
     constructor(name: String, value: Long) : this(id(Random.nextLong(0xFFFFFFFFFFL)), name, value)
 
+    constructor(id: Uuid, name: String, red: Int, green: Int, blue: Int, alpha: Int) : this(
+        id = id,
+        name = name,
+        value = ((requireColorChannel(red, "red") and 0xFF).toLong() shl 24) or
+                ((requireColorChannel(green, "green") and 0xFF).toLong() shl 16) or
+                ((requireColorChannel(blue, "blue") and 0xFF).toLong() shl 8) or
+                (requireColorChannel(alpha, "alpha") and 0xFF).toLong()
+    )
+
     constructor(name: String, red: Int, green: Int, blue: Int, alpha: Int) : this(
         id = id(Random.nextLong(0xFFFFFFFFFFL)),
         name = name,
@@ -55,6 +64,15 @@ class ColorProperty(
                 ((requireColorChannel(green, "green") and 0xFF).toLong() shl 16) or
                 ((requireColorChannel(blue, "blue") and 0xFF).toLong() shl 8) or
                 (requireColorChannel(alpha, "alpha") and 0xFF).toLong()
+    )
+
+    constructor(id: Uuid, name: String, red: Float, green: Float, blue: Float, alpha: Float) : this(
+        id = id,
+        name = name,
+        red = (requireColorChannel(red, "red") * 255).toInt(),
+        green = (requireColorChannel(green, "green") * 255).toInt(),
+        blue = (requireColorChannel(blue, "blue") * 255).toInt(),
+        alpha = (requireColorChannel(alpha, "alpha") * 255).toInt()
     )
 
     constructor(name: String, red: Float, green: Float, blue: Float, alpha: Float) : this(
@@ -86,9 +104,7 @@ class ColorProperty(
         }"
 
     override fun toString() = listOf(
-        "id=$id",
-        "name=$name",
-        "value=$value",
+        super.toString(),
         "red=$red",
         "green=$green",
         "blue=$blue",

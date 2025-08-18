@@ -75,7 +75,6 @@ abstract class ScalarProperty<T>(
 
     override fun toString() = listOf(
         "id=$id",
-        "type=$type",
         "name=$name",
         "value=$value"
     ).joinToString(", ")
@@ -127,7 +126,6 @@ abstract class CompositeProperty(
 
     override fun toString() = listOf(
         "id=$id",
-        "type=$type",
         "name=$name",
         "children=$children"
     ).joinToString(", ")
