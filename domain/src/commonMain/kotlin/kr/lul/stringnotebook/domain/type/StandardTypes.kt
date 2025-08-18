@@ -14,12 +14,13 @@ enum class StandardTypes(
 ) {
     LENGTH(LengthType),
     SIZE(SizeType),
-    POSITION(PositionType);
+    POSITION(PositionType),
+    COLOR(ColorType);
 
     companion object {
         operator fun get(type: Type) = entries.first { it.type == type }
 
-        operator fun get(name: String) = entries.first { it.type.name == name }
+        operator fun get(name: String) = entries.first { it.type.name.equals(name, true) }
 
         operator fun get(ordinal: Int) = entries[ordinal]
 

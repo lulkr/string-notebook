@@ -49,7 +49,7 @@ abstract class ScalarProperty<T>(
     abstract var value: T
 
     init {
-        require("$id".lowercase().startsWith(ID_PREFIX_NOTEBOOK_PROPERTY.lowercase())) {
+        require("$id".startsWith(ID_PREFIX_NOTEBOOK_PROPERTY, true)) {
             "illegal id prefix : id=$id, prefix=$ID_PREFIX_NOTEBOOK_PROPERTY"
         }
         require(NAME_REGEX.matches(name)) {

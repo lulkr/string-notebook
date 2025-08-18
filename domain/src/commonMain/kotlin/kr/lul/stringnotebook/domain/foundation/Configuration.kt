@@ -63,7 +63,7 @@ object Configuration {
     /**
      * 노트북 속성에 관한 ID 접두사.
      *
-     * `BEEFCAFE-4096-0002-0002-############` 형식으로 지정된다.
+     * `BEEFCAFE-4096-0002-0002-################` 형식으로 지정된다.
      */
     const val ID_PREFIX_NOTEBOOK_PROPERTY = "$ID_PREFIX_NOTEBOOK-0002"
 
