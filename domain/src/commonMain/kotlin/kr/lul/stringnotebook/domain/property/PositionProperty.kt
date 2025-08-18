@@ -30,4 +30,11 @@ class PositionProperty(
         x = LengthProperty(X, x),
         y = LengthProperty(Y, y)
     )
+
+    override fun toString() = listOf(
+        "id=$id",
+        "name='$name'",
+        "x=$x",
+        "y=$y"
+    ).joinToString(", ", "PositionProperty(", ")")
 }

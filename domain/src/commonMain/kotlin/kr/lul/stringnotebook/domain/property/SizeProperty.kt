@@ -38,4 +38,11 @@ class SizeProperty(
         width = LengthProperty(WIDTH, 0F),
         height = LengthProperty(WIDTH, 0F)
     )
+
+    override fun toString() = listOf(
+        "id=$id",
+        "name='$name'",
+        "width=$width",
+        "height=$height"
+    ).joinToString(", ", "SizeProperty(", ")")
 }
