@@ -5,8 +5,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kr.lul.stringnotebook.domain.foundation.Notebook
 import kr.lul.stringnotebook.model.NotebookModel
-import kr.lul.stringnotebook.state.organism.notebook.NotebookHandler
-import kr.lul.stringnotebook.state.organism.notebook.NotebookState
+import kr.lul.stringnotebook.state.organism.NotebookHandler
+import kr.lul.stringnotebook.state.organism.NotebookState
 import kr.lul.stringnotebook.state.template.LayoutHandler
 import kr.lul.stringnotebook.viewmodel.foundation.BaseViewModelet
 import kr.lul.stringnotebook.viewmodel.foundation.ViewModeletOwner

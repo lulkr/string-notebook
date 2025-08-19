@@ -4,7 +4,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kr.lul.stringnotebook.model.NotebookModel
-import kr.lul.stringnotebook.state.organism.notebook.NotebookState
+import kr.lul.stringnotebook.state.organism.NotebookState
 import kr.lul.stringnotebook.state.page.HomePageState
 import kr.lul.stringnotebook.viewmodel.foundation.BaseViewModel
 import kr.lul.stringnotebook.viewmodel.organism.state

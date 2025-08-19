@@ -22,7 +22,7 @@ import kr.lul.stringnotebook.state.resources.Res
 import kr.lul.stringnotebook.state.resources.page_notebook_loading_label
 import kr.lul.stringnotebook.state.template.FullLayoutState
 import kr.lul.stringnotebook.state.template.WyswygLayoutState
-import kr.lul.stringnotebook.ui.organism.notebook.Notebook
+import kr.lul.stringnotebook.ui.organism.Notebook
 import kr.lul.stringnotebook.ui.template.PropertyEditor
 import kr.lul.stringnotebook.ui.template.Summary
 import kr.lul.stringnotebook.ui.template.ToolBar

@@ -1,4 +1,4 @@
-package kr.lul.stringnotebook.state.organism.notebook
+package kr.lul.stringnotebook.state.organism
 
 import androidx.compose.runtime.Immutable
 import kr.lul.stringnotebook.state.molecule.IconState

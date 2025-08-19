@@ -1,7 +1,7 @@
 package kr.lul.stringnotebook.viewmodel.organism
 
 import kr.lul.stringnotebook.domain.foundation.Notebook
-import kr.lul.stringnotebook.state.organism.notebook.NotebookState
+import kr.lul.stringnotebook.state.organism.NotebookState
 import kotlin.uuid.ExperimentalUuidApi
 
 /**

@@ -3,7 +3,7 @@ package kr.lul.stringnotebook.state.page
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.Stable
 import kr.lul.stringnotebook.state.molecule.State
-import kr.lul.stringnotebook.state.organism.notebook.NotebookState
+import kr.lul.stringnotebook.state.organism.NotebookState
 import kr.lul.stringnotebook.state.template.FullLayoutState
 import kr.lul.stringnotebook.state.template.LayoutState
 import kotlin.uuid.ExperimentalUuidApi

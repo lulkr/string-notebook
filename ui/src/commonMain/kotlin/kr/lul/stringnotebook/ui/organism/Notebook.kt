@@ -1,4 +1,4 @@
-package kr.lul.stringnotebook.ui.organism.notebook
+package kr.lul.stringnotebook.ui.organism
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectTapGestures
@@ -18,8 +18,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.dp
-import kr.lul.stringnotebook.state.organism.notebook.NotebookHandler
-import kr.lul.stringnotebook.state.organism.notebook.NotebookState
+import kr.lul.stringnotebook.state.organism.NotebookHandler
+import kr.lul.stringnotebook.state.organism.NotebookState
 import kr.lul.stringnotebook.ui.template.ContextMenu
 import kr.lul.stringnotebook.ui.template.logger
 import kotlin.uuid.ExperimentalUuidApi

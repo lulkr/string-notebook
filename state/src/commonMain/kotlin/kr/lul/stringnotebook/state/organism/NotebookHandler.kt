@@ -1,4 +1,4 @@
-package kr.lul.stringnotebook.state.organism.notebook
+package kr.lul.stringnotebook.state.organism
 
 import kr.lul.logger.Logger
 
