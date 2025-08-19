@@ -83,17 +83,18 @@ fun NotebookPageEditing(state: NotebookPageState.Editing, handler: NotebookPageH
             Notebook(state.notebook, handler.notebook)
 
             if (state.layout is FullLayoutState) {
-                Box(Modifier.offset(16.dp, 16.dp)) {
-                    Summary(state.notebook)
-                }
+                Summary(
+                    state = state.notebook,
+                    modifier = Modifier.align(Alignment.TopStart)
+                        .offset(x = 16.dp, y = 16.dp)
+                )
 
-                Box(
+                ToolBar(
+                    state = state.notebook,
                     modifier = Modifier
                         .align(Alignment.BottomCenter)
                         .offset(y = (-16).dp)
-                ) {
-                    ToolBar(state.notebook)
-                }
+                )
             }
         }
 

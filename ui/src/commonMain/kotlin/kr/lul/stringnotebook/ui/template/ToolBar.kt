@@ -24,9 +24,9 @@ import kotlin.uuid.ExperimentalUuidApi
  */
 @Composable
 @ExperimentalUuidApi
-fun ToolBar(state: NotebookState) {
+fun ToolBar(state: NotebookState, modifier: Modifier = Modifier) {
     Row(
-        modifier = Modifier
+        modifier = modifier
             .background(MaterialTheme.colorScheme.surfaceContainer, RoundedCornerShape(16.dp))
             .padding(32.dp, 16.dp),
         verticalAlignment = Alignment.CenterVertically

@@ -21,9 +21,9 @@ import kotlin.uuid.ExperimentalUuidApi
  */
 @Composable
 @ExperimentalUuidApi
-fun Summary(state: NotebookState) {
+fun Summary(state: NotebookState, modifier: Modifier = Modifier) {
     Column(
-        Modifier.background(MaterialTheme.colorScheme.surfaceContainer, RoundedCornerShape(16.dp))
+        modifier.background(MaterialTheme.colorScheme.surfaceContainer, RoundedCornerShape(16.dp))
             .padding(32.dp, 16.dp)
     ) {
         Text(
