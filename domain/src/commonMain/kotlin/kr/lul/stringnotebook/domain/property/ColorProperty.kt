@@ -3,7 +3,6 @@ package kr.lul.stringnotebook.domain.property
 import kr.lul.stringnotebook.domain.foundation.Property.Companion.id
 import kr.lul.stringnotebook.domain.foundation.ScalarProperty
 import kr.lul.stringnotebook.domain.type.ColorPropertyType
-import kotlin.random.Random
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
@@ -13,9 +12,9 @@ import kotlin.uuid.Uuid
 @ExperimentalStdlibApi
 @ExperimentalUuidApi
 class ColorProperty(
-    id: Uuid,
-    name: String,
-    override var value: Long
+    id: Uuid = id(),
+    name: String? = null,
+    override var value: Long = 0L
 ) : ScalarProperty<Long>(id, ColorPropertyType, name) {
     companion object {
         val HEX_FORMAT: HexFormat = HexFormat {
@@ -46,9 +45,14 @@ class ColorProperty(
         }
     }
 
-    constructor(name: String, value: Long) : this(id(Random.nextLong(0xFFFFFFFFFFL)), name, value)
-
-    constructor(id: Uuid, name: String, red: Int, green: Int, blue: Int, alpha: Int) : this(
+    constructor(
+        id: Uuid = id(),
+        name: String? = null,
+        red: Int = 0,
+        green: Int = 0,
+        blue: Int = 0,
+        alpha: Int = 0
+    ) : this(
         id = id,
         name = name,
         value = ((requireColorChannel(red, "red") and 0xFF).toLong() shl 24) or
@@ -57,25 +61,15 @@ class ColorProperty(
                 (requireColorChannel(alpha, "alpha") and 0xFF).toLong()
     )
 
-    constructor(name: String, red: Int, green: Int, blue: Int, alpha: Int) : this(
-        id = id(Random.nextLong(0xFFFFFFFFFFL)),
-        name = name,
-        value = ((requireColorChannel(red, "red") and 0xFF).toLong() shl 24) or
-                ((requireColorChannel(green, "green") and 0xFF).toLong() shl 16) or
-                ((requireColorChannel(blue, "blue") and 0xFF).toLong() shl 8) or
-                (requireColorChannel(alpha, "alpha") and 0xFF).toLong()
-    )
-
-    constructor(id: Uuid, name: String, red: Float, green: Float, blue: Float, alpha: Float) : this(
+    constructor(
+        id: Uuid = id(),
+        name: String? = null,
+        red: Float = 0F,
+        green: Float = 0F,
+        blue: Float = 0F,
+        alpha: Float = 0F
+    ) : this(
         id = id,
-        name = name,
-        red = (requireColorChannel(red, "red") * 255).toInt(),
-        green = (requireColorChannel(green, "green") * 255).toInt(),
-        blue = (requireColorChannel(blue, "blue") * 255).toInt(),
-        alpha = (requireColorChannel(alpha, "alpha") * 255).toInt()
-    )
-
-    constructor(name: String, red: Float, green: Float, blue: Float, alpha: Float) : this(
         name = name,
         red = (requireColorChannel(red, "red") * 255).toInt(),
         green = (requireColorChannel(green, "green") * 255).toInt(),
