@@ -1,9 +1,9 @@
 package kr.lul.stringnotebook.domain.type
 
-import kr.lul.stringnotebook.domain.foundation.CompositeType
-import kr.lul.stringnotebook.domain.type.SizeType.HEIGHT
-import kr.lul.stringnotebook.domain.type.SizeType.ID_SUFFIX
-import kr.lul.stringnotebook.domain.type.SizeType.WIDTH
+import kr.lul.stringnotebook.domain.foundation.CompositePropertyType
+import kr.lul.stringnotebook.domain.type.SizePropertyType.HEIGHT
+import kr.lul.stringnotebook.domain.type.SizePropertyType.ID_SUFFIX
+import kr.lul.stringnotebook.domain.type.SizePropertyType.WIDTH
 import kotlin.uuid.ExperimentalUuidApi
 
 /**
@@ -11,13 +11,13 @@ import kotlin.uuid.ExperimentalUuidApi
  */
 @ExperimentalStdlibApi
 @ExperimentalUuidApi
-object SizeType : CompositeType(
+object SizePropertyType : CompositePropertyType(
     id = id(ID_SUFFIX),
     name = "Size",
     description = "크기를 가진 오브젝트를 감싸는 직사각형의 크기를 표현하는 속성 타입",
     properties = mapOf(
-        WIDTH to LengthType,
-        HEIGHT to LengthType
+        WIDTH to LengthPropertyType,
+        HEIGHT to LengthPropertyType
     )
 ) {
     const val ID_SUFFIX = 1L
@@ -27,10 +27,10 @@ object SizeType : CompositeType(
     /**
      * 폭
      */
-    val width = LengthType
+    val width = LengthPropertyType
 
     /**
      * 높이
      */
-    val height = LengthType
+    val height = LengthPropertyType
 }

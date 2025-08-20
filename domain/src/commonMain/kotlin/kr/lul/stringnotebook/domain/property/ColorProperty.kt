@@ -2,7 +2,7 @@ package kr.lul.stringnotebook.domain.property
 
 import kr.lul.stringnotebook.domain.foundation.Property.Companion.id
 import kr.lul.stringnotebook.domain.foundation.ScalarProperty
-import kr.lul.stringnotebook.domain.type.ColorType
+import kr.lul.stringnotebook.domain.type.ColorPropertyType
 import kotlin.random.Random
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
@@ -16,7 +16,7 @@ class ColorProperty(
     id: Uuid,
     name: String,
     override var value: Long
-) : ScalarProperty<Long>(id, ColorType, name) {
+) : ScalarProperty<Long>(id, ColorPropertyType, name) {
     companion object {
         val HEX_FORMAT: HexFormat = HexFormat {
             number.removeLeadingZeros = true

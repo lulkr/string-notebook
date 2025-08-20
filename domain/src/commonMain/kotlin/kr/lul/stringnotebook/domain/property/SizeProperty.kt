@@ -1,9 +1,9 @@
 package kr.lul.stringnotebook.domain.property
 
 import kr.lul.stringnotebook.domain.foundation.CompositeProperty
-import kr.lul.stringnotebook.domain.type.SizeType
-import kr.lul.stringnotebook.domain.type.SizeType.HEIGHT
-import kr.lul.stringnotebook.domain.type.SizeType.WIDTH
+import kr.lul.stringnotebook.domain.type.SizePropertyType
+import kr.lul.stringnotebook.domain.type.SizePropertyType.HEIGHT
+import kr.lul.stringnotebook.domain.type.SizePropertyType.WIDTH
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
@@ -23,7 +23,7 @@ class SizeProperty(
      * 높이
      */
     val height: LengthProperty
-) : CompositeProperty(id, SizeType, name, mapOf(WIDTH to width, HEIGHT to height)) {
+) : CompositeProperty(id, SizePropertyType, name, mapOf(WIDTH to width, HEIGHT to height)) {
     constructor(
         name: String,
         width: LengthProperty,

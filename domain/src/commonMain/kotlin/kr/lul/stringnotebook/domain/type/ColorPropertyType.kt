@@ -1,7 +1,7 @@
 package kr.lul.stringnotebook.domain.type
 
-import kr.lul.stringnotebook.domain.foundation.ScalarType
-import kr.lul.stringnotebook.domain.type.ColorType.ID_SUFFIX
+import kr.lul.stringnotebook.domain.foundation.ScalarPropertyType
+import kr.lul.stringnotebook.domain.type.ColorPropertyType.ID_SUFFIX
 import kotlin.uuid.ExperimentalUuidApi
 
 /**
@@ -9,7 +9,7 @@ import kotlin.uuid.ExperimentalUuidApi
  */
 @ExperimentalStdlibApi
 @ExperimentalUuidApi
-object ColorType : ScalarType(
+object ColorPropertyType : ScalarPropertyType(
     id = id(ID_SUFFIX),
     name = "Color",
     description = "색상을 표현하는 속성 타입."

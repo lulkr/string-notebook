@@ -7,11 +7,11 @@ import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
 /**
- * [Type]의 인스턴스.
+ * [PropertyType]의 인스턴스.
  *
  * @param T 스트링노트 앱 내부에서 사용하는 타입.
  *
- * @see Type
+ * @see PropertyType
  */
 @ExperimentalStdlibApi
 @ExperimentalUuidApi
@@ -31,7 +31,7 @@ sealed interface Property {
     /**
      * 타입.
      */
-    val type: Type
+    val type: PropertyType
 
     /**
      * 이름.
@@ -43,7 +43,7 @@ sealed interface Property {
 @ExperimentalUuidApi
 abstract class ScalarProperty<T>(
     override val id: Uuid,
-    override val type: ScalarType,
+    override val type: ScalarPropertyType,
     override val name: String,
 ) : Property {
     abstract var value: T
@@ -84,7 +84,7 @@ abstract class ScalarProperty<T>(
 @ExperimentalUuidApi
 abstract class CompositeProperty(
     override val id: Uuid,
-    override val type: CompositeType,
+    override val type: CompositePropertyType,
     override val name: String,
     val children: Map<String, Property>
 ) : Property {

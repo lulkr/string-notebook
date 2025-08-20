@@ -1,6 +1,6 @@
 package kr.lul.stringnotebook.domain.foundation
 
-import kr.lul.stringnotebook.domain.foundation.Configuration.ID_PREFIX_NOTEBOOK_TYPE
+import kr.lul.stringnotebook.domain.foundation.Configuration.ID_PREFIX_NOTEBOOK_PROPERTY_TYPE
 import kr.lul.stringnotebook.domain.foundation.Configuration.generateId
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
@@ -10,11 +10,11 @@ import kotlin.uuid.Uuid
  */
 @ExperimentalStdlibApi
 @ExperimentalUuidApi
-sealed class Type(
+sealed class PropertyType(
     /**
      * 고유 식별자.
      *
-     * @see ID_PREFIX_NOTEBOOK_TYPE
+     * @see ID_PREFIX_NOTEBOOK_PROPERTY_TYPE
      */
     val id: Uuid,
     /**
@@ -26,23 +26,23 @@ sealed class Type(
      */
     val description: String
 ) {
-    companion object {
+    companion object Companion {
         /**
-         * @see ID_PREFIX_NOTEBOOK_TYPE
+         * @see ID_PREFIX_NOTEBOOK_PROPERTY_TYPE
          */
-        internal fun id(suffix: Long) = ID_PREFIX_NOTEBOOK_TYPE.generateId(suffix)
+        internal fun id(suffix: Long) = ID_PREFIX_NOTEBOOK_PROPERTY_TYPE.generateId(suffix)
     }
 
     init {
-        require("$id".lowercase().startsWith(ID_PREFIX_NOTEBOOK_TYPE.lowercase())) {
-            "illegal id prefix : id=$id, prefix=$ID_PREFIX_NOTEBOOK_TYPE"
+        require("$id".startsWith(ID_PREFIX_NOTEBOOK_PROPERTY_TYPE, true)) {
+            "illegal id prefix : id=$id, prefix=$ID_PREFIX_NOTEBOOK_PROPERTY_TYPE"
         }
         require(name.isNotBlank()) { "name must not be blank." }
         require(description.isNotBlank()) { "description must not be blank." }
     }
 
     override fun equals(other: Any?) = this === other || (
-            other is Type &&
+            other is PropertyType &&
                     id == other.id &&
                     name == other.name &&
                     description == other.description
@@ -63,27 +63,27 @@ sealed class Type(
  */
 @ExperimentalStdlibApi
 @ExperimentalUuidApi
-abstract class ScalarType(
+abstract class ScalarPropertyType(
     id: Uuid,
     name: String,
     description: String
-) : Type(id, name, description)
+) : PropertyType(id, name, description)
 
 /**
  * 여러 속성을 가진 타입으로, 여러 개의 하위 속성을 포함하는 타입.
  */
 @ExperimentalStdlibApi
 @ExperimentalUuidApi
-abstract class CompositeType(
+abstract class CompositePropertyType(
     id: Uuid,
     name: String,
     description: String,
     /**
      * 하위 속성들의 이름과 인스턴스의 맵.
      */
-    val properties: Map<String, Type>
-) : Type(id, name, description) {
-    companion object {
+    val properties: Map<String, PropertyType>
+) : PropertyType(id, name, description) {
+    companion object Companion {
         const val PROPERTY_NAME_PATTERN = "[a-z][A-Za-z0-9_]*"
         val PROPERTY_NAME_REGEX = PROPERTY_NAME_PATTERN.toRegex()
     }
@@ -101,7 +101,7 @@ abstract class CompositeType(
     }
 
     override fun equals(other: Any?) = this === other || (
-            other is CompositeType &&
+            other is CompositePropertyType &&
                     id == other.id &&
                     name == other.name &&
                     description == other.description &&

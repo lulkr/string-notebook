@@ -1,9 +1,9 @@
 package kr.lul.stringnotebook.domain.property
 
 import kr.lul.stringnotebook.domain.foundation.CompositeProperty
-import kr.lul.stringnotebook.domain.type.PositionType
-import kr.lul.stringnotebook.domain.type.PositionType.X
-import kr.lul.stringnotebook.domain.type.PositionType.Y
+import kr.lul.stringnotebook.domain.type.PositionPropertyType
+import kr.lul.stringnotebook.domain.type.PositionPropertyType.X
+import kr.lul.stringnotebook.domain.type.PositionPropertyType.Y
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
@@ -23,7 +23,7 @@ class PositionProperty(
      * Y 좌표.
      */
     val y: LengthProperty
-) : CompositeProperty(id, PositionType, name, mapOf(X to x, Y to y)) {
+) : CompositeProperty(id, PositionPropertyType, name, mapOf(X to x, Y to y)) {
     constructor(name: String, x: Float, y: Float) : this(
         id = Uuid.random(),
         name = name,

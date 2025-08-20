@@ -54,11 +54,11 @@ object Configuration {
     const val ID_PREFIX_NOTEBOOK = "$ID_PREFIX-0002"
 
     /**
-     * 타입의 ID 접두사.
+     * 속성 타입의 ID 접두사.
      *
      * `BEEFCAFE-4096-0002-0001-############` 형식으로 지정된다.
      */
-    const val ID_PREFIX_NOTEBOOK_TYPE = "$ID_PREFIX_NOTEBOOK-0001"
+    const val ID_PREFIX_NOTEBOOK_PROPERTY_TYPE = "$ID_PREFIX_NOTEBOOK-0001"
 
     /**
      * 노트북 속성에 관한 ID 접두사.
@@ -76,7 +76,7 @@ object Configuration {
         ID_PREFIX_APP_BUILD,
         ID_PREFIX_APP_INSTALL,
         ID_PREFIX_APP_PROCESS,
-        ID_PREFIX_NOTEBOOK_TYPE,
+        ID_PREFIX_NOTEBOOK_PROPERTY_TYPE,
         ID_PREFIX_NOTEBOOK_PROPERTY
     )
 
@@ -115,6 +115,6 @@ object Configuration {
         "ID_PREFIX_APP_BUILD='$ID_PREFIX_APP_BUILD'",
         "ID_PREFIX_APP_INSTALL='$ID_PREFIX_APP_INSTALL'",
         "ID_PREFIX_APP_PROCESS='$ID_PREFIX_APP_PROCESS'",
-        "ID_PREFIX_NOTEBOOK_TYPE='$ID_PREFIX_NOTEBOOK_TYPE'"
+        "ID_PREFIX_NOTEBOOK_TYPE='$ID_PREFIX_NOTEBOOK_PROPERTY_TYPE'"
     ).joinToString(", ", "Configuration(", ")")
 }
