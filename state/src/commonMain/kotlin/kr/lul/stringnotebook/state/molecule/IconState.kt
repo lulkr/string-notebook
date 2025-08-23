@@ -15,4 +15,6 @@ data class IconState(
     val tint: Color = Color.Unspecified,
     override val key: Any = Uuid.random(),
     override val testTag: String = key.toString()
-) : State
+) : State {
+    override val summary = "IconState($icon)"
+}

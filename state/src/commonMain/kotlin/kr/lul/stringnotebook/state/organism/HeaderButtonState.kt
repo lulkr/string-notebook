@@ -20,4 +20,6 @@ data class HeaderButtonState(
     val enabled: Boolean = true,
     override val key: Any = Uuid.Companion.random(),
     override val testTag: String = key.toString()
-) : State
+) : State {
+    override val summary = "HeaderButtonState(${icon.summary}, ${label.summary})"
+}

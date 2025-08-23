@@ -60,6 +60,10 @@ open class TextState private constructor(
     override val key: Any = Uuid.Companion.random(),
     override val testTag: String = key.toString()
 ) : State {
+    override val summary = text?.text
+        ?: resource?.toString()
+        ?: "null"
+
     constructor(
         text: AnnotatedString,
         color: Color = Color.Companion.Unspecified,

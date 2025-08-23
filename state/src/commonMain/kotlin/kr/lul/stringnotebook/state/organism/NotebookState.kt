@@ -33,6 +33,8 @@ class NotebookState(
         )
     }
 
+    override val summary = "NotebookState(name='$name')"
+
     var name: String by mutableStateOf(name)
     var description: String? by mutableStateOf(description)
 

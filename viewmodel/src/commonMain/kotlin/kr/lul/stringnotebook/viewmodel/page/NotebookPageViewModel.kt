@@ -19,6 +19,7 @@ import kr.lul.stringnotebook.viewmodel.foundation.BaseViewModel
 import kr.lul.stringnotebook.viewmodel.organism.NotebookViewModelet
 import kotlin.uuid.ExperimentalUuidApi
 
+@ExperimentalStdlibApi
 @ExperimentalUuidApi
 class NotebookPageViewModel(
     model: NotebookModel,

@@ -9,6 +9,7 @@ import kr.lul.stringnotebook.ui.page.NotebookPage
 import kr.lul.stringnotebook.viewmodel.page.NotebookPageViewModel
 import kotlin.uuid.ExperimentalUuidApi
 
+@ExperimentalStdlibApi
 @ExperimentalUuidApi
 @Composable
 fun NotebookRouter(

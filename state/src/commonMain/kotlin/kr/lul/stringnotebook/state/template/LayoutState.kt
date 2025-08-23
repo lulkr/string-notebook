@@ -21,10 +21,10 @@ sealed interface LayoutState : State {
 @ExperimentalUuidApi
 @Immutable
 class FullLayoutState(
-    override val key: Any = Uuid.random()
+    override val key: Any = Uuid.random(),
+    override val testTag: String = key.toString()
 ) : LayoutState {
-    override val testTag = key.toString()
-
+    override val summary = "FullLayoutState"
     override val next: LayoutState
         get() = EditorOnlyLayoutState()
 
@@ -52,9 +52,10 @@ class FullLayoutState(
 @ExperimentalUuidApi
 @Immutable
 class EditorOnlyLayoutState(
-    override val key: Any = Uuid.random()
+    override val key: Any = Uuid.random(),
+    override val testTag: String = key.toString()
 ) : LayoutState {
-    override val testTag = key.toString()
+    override val summary = "EditorOnlyLayoutState"
 
     override val next: LayoutState
         get() = WyswygLayoutState()
@@ -83,9 +84,10 @@ class EditorOnlyLayoutState(
 @ExperimentalUuidApi
 @Immutable
 class WyswygLayoutState(
-    override val key: Any = Uuid.random()
+    override val key: Any = Uuid.random(),
+    override val testTag: String = key.toString()
 ) : LayoutState {
-    override val testTag = key.toString()
+    override val summary = "WyswygLayoutState"
 
     override val next: LayoutState
         get() = FullLayoutState()

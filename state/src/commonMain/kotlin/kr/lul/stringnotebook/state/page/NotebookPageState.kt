@@ -32,6 +32,8 @@ sealed interface NotebookPageState : State {
         override val key: Any = Uuid.random(),
         override val testTag: String = key.toString()
     ) : NotebookPageState {
+        override val summary = "NotebookPageState.Loading"
+
         fun copy(id: Uuid = this.id) = Loading(
             id = id,
             key = key,
@@ -72,6 +74,8 @@ sealed interface NotebookPageState : State {
         override val key: Any = Uuid.random(),
         override val testTag: String = key.toString()
     ) : NotebookPageState {
+        override val summary = "NotebookPageState.Editing(notebook=${notebook.summary}, layout=${layout.summary})"
+
         fun copy(
             notebook: NotebookState = this.notebook,
             layout: LayoutState = this.layout,
