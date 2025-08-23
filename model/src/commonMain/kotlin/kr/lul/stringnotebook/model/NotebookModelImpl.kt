@@ -7,6 +7,7 @@ import kr.lul.stringnotebook.domain.foundation.Notebook
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
+@ExperimentalStdlibApi
 @ExperimentalUuidApi
 class NotebookModelImpl(
     private val repository: NotebookRepository

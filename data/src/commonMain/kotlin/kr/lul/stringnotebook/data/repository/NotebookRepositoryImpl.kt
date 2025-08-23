@@ -7,9 +7,7 @@ import kr.lul.stringnotebook.domain.foundation.Notebook
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
-/**
- *
- */
+@ExperimentalStdlibApi
 @ExperimentalUuidApi
 internal class NotebookRepositoryImpl : NotebookRepository {
     private val logger = Logger("NotebookRepositoryImpl")

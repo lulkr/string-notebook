@@ -15,6 +15,7 @@ import kotlin.uuid.ExperimentalUuidApi
  *
  * @param initState 초기 상태.
  */
+@ExperimentalStdlibApi
 @ExperimentalUuidApi
 class HomePageViewModel(
     private val model: NotebookModel,

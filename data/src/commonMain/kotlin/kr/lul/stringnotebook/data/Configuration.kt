@@ -5,6 +5,7 @@ import kr.lul.stringnotebook.data.repository.NotebookRepositoryImpl
 import org.koin.dsl.module
 import kotlin.uuid.ExperimentalUuidApi
 
+@ExperimentalStdlibApi
 @ExperimentalUuidApi
 val dataModule = module {
     single<NotebookRepository> { NotebookRepositoryImpl() }

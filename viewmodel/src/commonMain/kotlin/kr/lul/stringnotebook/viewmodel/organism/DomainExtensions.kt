@@ -7,6 +7,7 @@ import kotlin.uuid.ExperimentalUuidApi
 /**
  * 상태 홀더로 변환.
  */
+@ExperimentalStdlibApi
 @ExperimentalUuidApi
 val Notebook.state: NotebookState
     get() = NotebookState(id, name, description)
