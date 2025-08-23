@@ -1,5 +1,6 @@
 package kr.lul.stringnotebook.state.organism
 
+import androidx.compose.ui.geometry.Offset
 import kr.lul.logger.Logger
 
 /**
@@ -9,13 +10,31 @@ interface NotebookHandler {
     object NoOp : NotebookHandler {
         private val logger = Logger("NotebookHandler.NoOp")
 
-        override fun onClickBackground() {
-            logger.d("#onClickBackground called.")
+        override fun onClick(offset: Offset) {
+            logger.d("#onClick args : offset=$offset")
+        }
+
+        override fun onDoubleClick(offset: Offset) {
+            logger.d("#onDoubleClick args : offset=$offset")
+        }
+
+        override fun onLongClick(offset: Offset) {
+            logger.d("#onLongClick args : offset=$offset")
         }
     }
 
     /**
-     * 바탕화면 클릭.
+     * 노트북(바탕화면) 클릭.
      */
-    fun onClickBackground()
+    fun onClick(offset: Offset)
+
+    /**
+     * 노트북(바탕화면) 더블 클릭.
+     */
+    fun onDoubleClick(offset: Offset)
+
+    /**
+     * 노트북(바탕화면) 길게 클릭.
+     */
+    fun onLongClick(offset: Offset)
 }

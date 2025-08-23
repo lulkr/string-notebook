@@ -1,5 +1,6 @@
 package kr.lul.stringnotebook.viewmodel.organism
 
+import androidx.compose.ui.geometry.Offset
 import androidx.lifecycle.LifecycleOwner
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -13,6 +14,7 @@ import kr.lul.stringnotebook.viewmodel.foundation.ViewModeletOwner
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
+@ExperimentalStdlibApi
 @ExperimentalUuidApi
 class NotebookViewModelet(
     parent: ViewModeletOwner,
@@ -26,12 +28,20 @@ class NotebookViewModelet(
     private val _state: MutableStateFlow<NotebookState?> = MutableStateFlow(null)
     val state: StateFlow<NotebookState?> = _state
 
-    override fun onClickBackground() {
-        logger.d("#onClickBackground called.")
+    override fun onClick(offset: Offset) {
+        logger.d("#onClick args : offset=$offset")
 
         // TODO FSM 상태에 따른 동작 정의.
 
         layoutHandler.onChangeLayout()
+    }
+
+    override fun onDoubleClick(offset: Offset) = onLongClick(offset)
+
+    override fun onLongClick(offset: Offset) {
+        logger.d("#onLongClick args : offset=$offset")
+
+        // TODO 컨텍스트 메뉴 표시.
     }
 
     override fun onStart(owner: LifecycleOwner) {

@@ -47,7 +47,7 @@ fun Notebook(
                         contextMenuPosition = offset
                     },
                     onTap = { offset ->
-                        handler.onClickBackground()
+                        handler.onClick(offset)
                     }
                 )
             }
