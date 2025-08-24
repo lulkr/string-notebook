@@ -13,7 +13,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
+import kr.lul.stringnotebook.state.atom.toDp
 import kr.lul.stringnotebook.state.organism.NotebookHandler
 import kr.lul.stringnotebook.state.organism.NotebookState
 import kr.lul.stringnotebook.ui.template.ContextMenu
@@ -39,28 +41,24 @@ fun Notebook(
             .pointerInput(state) {
                 detectTapGestures(
                     onDoubleTap = { offset ->
-                        handler.onDoubleClick(offset)
+                        handler.onDoubleClick(offset.toDp(density))
                     },
                     onLongPress = { offset ->
-                        handler.onLongClick(offset)
+                        handler.onLongClick(offset.toDp(density))
                     },
                     onTap = { offset ->
-                        handler.onClick(offset)
+                        handler.onClick(offset.toDp(density))
                     }
                 )
             },
         contentAlignment = Alignment.Center
     ) {
         state.menu?.let { menu ->
-            val x = with(density) { menu.position.x.toDp() }
-            val y = with(density) { menu.position.y.toDp() }
-            logger.e("#Notebook.menu : menu.position=${menu.position}, density=$density => ($x, $y)")
-
             Box(
                 modifier = Modifier
                     .zIndex(Float.MAX_VALUE)
                     .align(Alignment.TopStart)
-                    .offset(x, y)
+                    .offset(menu.position.x.dp, menu.position.y.dp)
             ) {
                 ContextMenu(
                     state = menu,

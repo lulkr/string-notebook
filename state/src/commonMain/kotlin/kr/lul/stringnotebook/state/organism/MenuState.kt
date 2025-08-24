@@ -13,7 +13,7 @@ import kotlin.uuid.Uuid
 @Immutable
 class MenuState(
     /**
-     * 표시 위치.
+     * 표시 위치(DP 단위).
      */
     val position: Offset,
     /**

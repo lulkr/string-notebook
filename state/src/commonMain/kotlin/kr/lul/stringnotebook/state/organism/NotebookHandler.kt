@@ -25,16 +25,22 @@ interface NotebookHandler {
 
     /**
      * 노트북(바탕화면) 클릭.
+     *
+     * @param offset 클릭 좌표(DP 단위).
      */
     fun onClick(offset: Offset)
 
     /**
      * 노트북(바탕화면) 더블 클릭.
+     *
+     * @param offset 클릭 좌표(DP 단위).
      */
     fun onDoubleClick(offset: Offset)
 
     /**
      * 노트북(바탕화면) 길게 클릭.
+     *
+     * @param offset 클릭 좌표(DP 단위).
      */
     fun onLongClick(offset: Offset)
 }

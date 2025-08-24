@@ -68,8 +68,6 @@ class NotebookViewModelet(
                         if (state == null)
                             throw IllegalStateException("Notebook state is not initialized yet.")
 
-                        // TODO offset -> DP 단위의 좌표로 변환.
-
                         state.menu = null
                     }
                 )
