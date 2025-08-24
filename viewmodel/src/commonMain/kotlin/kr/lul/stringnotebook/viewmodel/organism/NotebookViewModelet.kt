@@ -36,7 +36,12 @@ class NotebookViewModelet(
 
         // TODO FSM 상태에 따른 동작 정의.
 
-        layoutHandler.onChangeLayout()
+        val state = this.state.value
+        if (state?.menu != null) {
+            state.menu = null
+        } else {
+            layoutHandler.onChangeLayout()
+        }
     }
 
     override fun onDoubleClick(offset: Offset) = onLongClick(offset)
@@ -44,10 +49,9 @@ class NotebookViewModelet(
     override fun onLongClick(offset: Offset) {
         logger.d("#onLongClick args : offset=$offset")
 
-        val state = this@NotebookViewModelet.state.value
-        if (state == null) {
+        val state = this.state.value
+        if (state == null)
             throw IllegalStateException("Notebook state is not initialized yet.")
-        }
 
         state.menu = MenuState(
             position = offset,

@@ -14,12 +14,12 @@ import kotlin.uuid.ExperimentalUuidApi
 @ExperimentalStdlibApi
 @ExperimentalUuidApi
 @Composable
-fun ContextMenu(state: MenuState, modifier: Modifier = Modifier) {
+fun ContextMenu(state: MenuState, onDismissRequest: () -> Unit, modifier: Modifier = Modifier) {
     logger.v("#ContextMenu args : state=${state.summary}, modifier=$modifier")
 
     DropdownMenu(
         expanded = true,
-        onDismissRequest = {},
+        onDismissRequest = onDismissRequest,
         modifier = modifier.background(Color.White).padding(16.dp)
     ) {
         for (item in state.items) {
