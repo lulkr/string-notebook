@@ -12,10 +12,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.input.pointer.pointerInput
-import androidx.compose.ui.layout.onGloballyPositioned
-import androidx.compose.ui.layout.positionInParent
-import androidx.compose.ui.layout.positionInRoot
-import androidx.compose.ui.layout.positionInWindow
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.zIndex
 import kr.lul.stringnotebook.state.organism.NotebookHandler
@@ -59,19 +55,22 @@ fun Notebook(
             val x = with(density) { menu.position.x.toDp() }
             val y = with(density) { menu.position.y.toDp() }
             logger.e("#Notebook.menu : menu.position=${menu.position}, density=$density => ($x, $y)")
-            ContextMenu(
-                state = menu,
-                onDismissRequest = { handler.onClick(Offset.Unspecified) },
+
+            Box(
                 modifier = Modifier
                     .zIndex(Float.MAX_VALUE)
                     .align(Alignment.TopStart)
                     .offset(x, y)
-                    .onGloballyPositioned {
-                        logger.e("#Notebook.ContextMenu.onGloballyPositioned : positionInWindow=${it.positionInWindow()}, positionInRoot=${it.positionInRoot()}, positionInParent=${it.positionInParent()}")
-                    }
-            )
+            ) {
+                ContextMenu(
+                    state = menu,
+                    onDismissRequest = { handler.onClick(Offset.Unspecified) }
+                )
+            }
         }
 
-        Text(state.summary)
+        if (state.notes.isEmpty()) {
+            Text(state.summary)
+        }
     }
 }

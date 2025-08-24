@@ -6,11 +6,14 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kr.lul.stringnotebook.domain.foundation.Notebook
 import kr.lul.stringnotebook.model.NotebookModel
+import kr.lul.stringnotebook.state.atom.TextResource
 import kr.lul.stringnotebook.state.molecule.TextState
 import kr.lul.stringnotebook.state.organism.MenuItemState
 import kr.lul.stringnotebook.state.organism.MenuState
 import kr.lul.stringnotebook.state.organism.NotebookHandler
 import kr.lul.stringnotebook.state.organism.NotebookState
+import kr.lul.stringnotebook.state.resources.Res
+import kr.lul.stringnotebook.state.resources.molecule_context_menu_add_anchor
 import kr.lul.stringnotebook.state.template.LayoutHandler
 import kr.lul.stringnotebook.viewmodel.foundation.BaseViewModelet
 import kr.lul.stringnotebook.viewmodel.foundation.ViewModeletOwner
@@ -57,9 +60,17 @@ class NotebookViewModelet(
             position = offset,
             items = listOf(
                 MenuItemState(
-                    label = TextState(text = "Test"),
+                    label = TextState(TextResource(Res.string.molecule_context_menu_add_anchor)),
                     onClick = {
-                        logger.d("#menu.onClick")
+                        logger.d("#menu.items[0].onClick add anchor : offset=$offset")
+
+                        val state = this.state.value
+                        if (state == null)
+                            throw IllegalStateException("Notebook state is not initialized yet.")
+
+                        // TODO offset -> DP 단위의 좌표로 변환.
+
+                        state.menu = null
                     }
                 )
             ),
