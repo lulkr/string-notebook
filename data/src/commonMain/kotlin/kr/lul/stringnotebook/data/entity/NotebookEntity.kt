@@ -13,7 +13,7 @@ import kotlin.uuid.Uuid
 internal class NotebookEntity(
     override val id: Uuid = Uuid.random(),
     override val name: String = DEFAULT_NAME,
-    override val description: String? = null,
+    override val memo: String? = null,
     override val createdAt: Instant = Clock.System.now()
 ) : Notebook {
     companion object {
@@ -29,7 +29,7 @@ internal class NotebookEntity(
     override fun toString() = listOf(
         "id=$id",
         "name='$name'",
-        "description=$description",
+        "description=$memo",
         "anchors=$anchors",
         "createdAt=$createdAt",
         "updatedAt=$updatedAt"

@@ -11,7 +11,7 @@ import kotlin.uuid.Uuid
  */
 @ExperimentalUuidApi
 @Immutable
-data class MenuItem(
+data class MenuItemState(
     /**
      * 화면에 표시할 라벨.
      */
@@ -23,5 +23,5 @@ data class MenuItem(
     override val key: Any = Uuid.random(),
     override val testTag: String = key.toString()
 ) : State {
-    override val summary = "MenuItem(${label.summary})"
+    override val summary = "MenuItemState(${label.summary})"
 }

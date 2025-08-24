@@ -6,12 +6,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.Layout
 import kr.lul.stringnotebook.state.organism.NotebookHandler
@@ -23,15 +18,12 @@ import kotlin.uuid.ExperimentalUuidApi
  * WYSWYG 노트북 편집기.
  */
 @Composable
+@ExperimentalStdlibApi
 @ExperimentalUuidApi
 fun Notebook(
     state: NotebookState,
     handler: NotebookHandler = NotebookHandler.NoOp
 ) {
-    var contextMenuPosition by remember {
-        mutableStateOf<Offset?>(null)
-    }
-
     Layout(
         content = {
             Text("$state")
@@ -41,10 +33,10 @@ fun Notebook(
             .pointerInput(state) {
                 detectTapGestures(
                     onDoubleTap = { offset ->
-                        contextMenuPosition = offset
+                        handler.onDoubleClick(offset)
                     },
                     onLongPress = { offset ->
-                        contextMenuPosition = offset
+                        handler.onLongClick(offset)
                     },
                     onTap = { offset ->
                         handler.onClick(offset)
@@ -73,10 +65,7 @@ fun Notebook(
         }
     }
 
-    contextMenuPosition?.let { offset ->
-        ContextMenu(
-            position = offset,
-            onDismissRequest = { contextMenuPosition = null }
-        )
+    state.menu?.let { menu ->
+        ContextMenu(menu)
     }
 }

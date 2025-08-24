@@ -21,9 +21,9 @@ interface Notebook {
     val name: String
 
     /**
-     * 간단한 설명.
+     * 간단한 설명을 포함한 메모.
      */
-    val description: String?
+    val memo: String?
 
     /**
      * 노트 목록.

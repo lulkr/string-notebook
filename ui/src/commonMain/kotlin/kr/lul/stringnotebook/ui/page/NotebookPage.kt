@@ -36,6 +36,7 @@ import kotlin.uuid.ExperimentalUuidApi
  * @param handler 사용자의 노트북 조작 핸들러.
  */
 @Composable
+@ExperimentalStdlibApi
 @ExperimentalUuidApi
 fun NotebookPage(
     state: NotebookPageState,
@@ -53,6 +54,7 @@ fun NotebookPage(
 }
 
 @Composable
+@ExperimentalStdlibApi
 @ExperimentalUuidApi
 fun NotebookPageLoading(state: NotebookPageState.Loading, handler: NotebookPageHandler = NotebookPageHandler.NoOp) {
     Column(Modifier.fillMaxSize()) {
@@ -67,6 +69,7 @@ fun NotebookPageLoading(state: NotebookPageState.Loading, handler: NotebookPageH
 }
 
 @Composable
+@ExperimentalStdlibApi
 @ExperimentalUuidApi
 fun NotebookPageEditing(state: NotebookPageState.Editing, handler: NotebookPageHandler = NotebookPageHandler.NoOp) {
     Row(

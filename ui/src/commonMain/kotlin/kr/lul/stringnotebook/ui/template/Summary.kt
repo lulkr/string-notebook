@@ -20,6 +20,7 @@ import kotlin.uuid.ExperimentalUuidApi
  * 노트북의 요약 정보를 표시한다.
  */
 @Composable
+@ExperimentalStdlibApi
 @ExperimentalUuidApi
 fun Summary(state: NotebookState, modifier: Modifier = Modifier) {
     Column(

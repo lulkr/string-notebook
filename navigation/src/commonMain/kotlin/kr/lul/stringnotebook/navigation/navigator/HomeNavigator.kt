@@ -8,6 +8,7 @@ import kr.lul.stringnotebook.state.organism.NotebookState
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
+@ExperimentalStdlibApi
 @ExperimentalUuidApi
 @Immutable
 class HomeNavigator(

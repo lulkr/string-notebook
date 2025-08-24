@@ -23,6 +23,7 @@ import kotlin.uuid.ExperimentalUuidApi
  * @param state 노트북 상태.
  */
 @Composable
+@ExperimentalStdlibApi
 @ExperimentalUuidApi
 fun ToolBar(state: NotebookState, modifier: Modifier = Modifier) {
     Row(

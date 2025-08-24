@@ -25,6 +25,7 @@ sealed interface NotebookPageState : State {
     /**
      * 노트북 편집 화면을 열고, 노트북을 로드하는 중.
      */
+    @ExperimentalStdlibApi
     @ExperimentalUuidApi
     @Immutable
     class Loading(
@@ -66,6 +67,7 @@ sealed interface NotebookPageState : State {
      *
      * @param notebook 로드한 노트북 상태.
      */
+    @ExperimentalStdlibApi
     @ExperimentalUuidApi
     @Stable
     class Editing(
