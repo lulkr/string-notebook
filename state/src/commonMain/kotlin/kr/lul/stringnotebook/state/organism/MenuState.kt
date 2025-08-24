@@ -23,7 +23,7 @@ class MenuState(
     override val key: Any = Uuid.random(),
     override val testTag: String = key.toString()
 ) : State {
-    override val summary = "MenuState(position=$position, items.size=${items.size})"
+    override val summary = "MenuState(position=$position, items=${items.map { it.summary }})"
 
     override fun equals(other: Any?) = this === other || (
             other is MenuState &&

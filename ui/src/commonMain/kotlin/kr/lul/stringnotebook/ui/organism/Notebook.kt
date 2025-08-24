@@ -8,11 +8,16 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.input.pointer.pointerInput
-import androidx.compose.ui.layout.Layout
+import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.layout.positionInParent
+import androidx.compose.ui.layout.positionInRoot
+import androidx.compose.ui.layout.positionInWindow
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.zIndex
 import kr.lul.stringnotebook.state.organism.NotebookHandler
 import kr.lul.stringnotebook.state.organism.NotebookState
 import kr.lul.stringnotebook.ui.template.ContextMenu
@@ -28,60 +33,45 @@ fun Notebook(
     state: NotebookState,
     handler: NotebookHandler = NotebookHandler.NoOp
 ) {
-    Box(Modifier.fillMaxSize()) {
-        Layout(
-            content = {
-                //Text("$state")
-                Text("Test")
-            },
-            modifier = Modifier.fillMaxSize()
-                .background(MaterialTheme.colorScheme.background)
-                .pointerInput(state) {
-                    detectTapGestures(
-                        onDoubleTap = { offset ->
-                            handler.onDoubleClick(offset)
-                        },
-                        onLongPress = { offset ->
-                            handler.onLongClick(offset)
-                        },
-                        onTap = { offset ->
-                            handler.onClick(offset)
-                        }
-                    )
-                }
-        ) { measurables, constraints ->
-            logger.d("#Notebook.Layout.measurePolicy args : measurables=$measurables,  constraints=$constraints")
-            val childConstraints = constraints.copy(minWidth = 0, minHeight = 0)
-            val placeables = measurables.map { measurable ->
-                measurable.measure(childConstraints)
-            }
-            logger.d(
-                "#Notebook.Layout.measurePolicy measured : placeables=${
-                    placeables.map { placeable ->
-                        "(${placeable.width}x${placeable.height})"
+    logger.v("#Notebook args : state=${state.summary}, handler=$handler")
+
+    val density = LocalDensity.current
+
+    Box(
+        modifier = Modifier.fillMaxSize()
+            .background(MaterialTheme.colorScheme.background)
+            .pointerInput(state) {
+                detectTapGestures(
+                    onDoubleTap = { offset ->
+                        handler.onDoubleClick(offset)
+                    },
+                    onLongPress = { offset ->
+                        handler.onLongClick(offset)
+                    },
+                    onTap = { offset ->
+                        handler.onClick(offset)
                     }
-                }"
-            )
-
-            val x = (constraints.maxWidth - placeables[0].width) / 2
-            val y = (constraints.maxHeight - placeables[0].height) / 2
-
-            layout(constraints.maxWidth, constraints.maxHeight) {
-                placeables[0].place(x = x, y = y)
-            }
-        }
-
+                )
+            },
+        contentAlignment = Alignment.Center
+    ) {
         state.menu?.let { menu ->
-            val density = LocalDensity.current
+            val x = with(density) { menu.position.x.toDp() }
+            val y = with(density) { menu.position.y.toDp() }
+            logger.e("#Notebook.menu : menu.position=${menu.position}, density=$density => ($x, $y)")
             ContextMenu(
                 state = menu,
-                onDismissRequest = { handler.onClick(Offset.Zero) },
+                onDismissRequest = { handler.onClick(Offset.Unspecified) },
                 modifier = Modifier
-                    .offset(
-                        x = with(density) { menu.position.x.toDp() },
-                        y = with(density) { menu.position.y.toDp() }
-                    )
+                    .zIndex(Float.MAX_VALUE)
+                    .align(Alignment.TopStart)
+                    .offset(x, y)
+                    .onGloballyPositioned {
+                        logger.e("#Notebook.ContextMenu.onGloballyPositioned : positionInWindow=${it.positionInWindow()}, positionInRoot=${it.positionInRoot()}, positionInParent=${it.positionInParent()}")
+                    }
             )
         }
+
+        Text(state.summary)
     }
 }
