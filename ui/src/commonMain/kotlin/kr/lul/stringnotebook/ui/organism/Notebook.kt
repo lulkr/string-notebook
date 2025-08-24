@@ -11,7 +11,6 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.Layout
 import kr.lul.stringnotebook.state.organism.NotebookHandler
 import kr.lul.stringnotebook.state.organism.NotebookState
-import kr.lul.stringnotebook.ui.template.ContextMenu
 import kotlin.uuid.ExperimentalUuidApi
 
 /**
@@ -26,7 +25,8 @@ fun Notebook(
 ) {
     Layout(
         content = {
-            Text("$state")
+            //Text("$state")
+            Text("Test")
         },
         modifier = Modifier.fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
@@ -63,9 +63,5 @@ fun Notebook(
         layout(constraints.maxWidth, constraints.maxHeight) {
             placeables[0].place(x = x, y = y)
         }
-    }
-
-    state.menu?.let { menu ->
-        ContextMenu(menu)
     }
 }

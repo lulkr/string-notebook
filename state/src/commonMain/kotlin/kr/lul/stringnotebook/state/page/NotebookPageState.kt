@@ -105,7 +105,7 @@ sealed interface NotebookPageState : State {
         }
 
         override fun toString() = listOf(
-            "notebook=$notebook",
+            "notebook=${notebook.summary}",
             "layout=$layout",
             "key=$key",
             "testTag=$testTag"

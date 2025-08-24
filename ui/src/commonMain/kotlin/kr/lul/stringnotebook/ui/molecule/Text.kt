@@ -8,7 +8,6 @@ import androidx.compose.ui.text.TextLayoutResult
 import kr.lul.stringnotebook.state.atom.hasTestTag
 import kr.lul.stringnotebook.state.molecule.TextState
 import kr.lul.stringnotebook.ui.atom.string
-import kr.lul.stringnotebook.ui.organism.logger
 import kotlin.uuid.ExperimentalUuidApi
 
 /**
@@ -23,7 +22,7 @@ fun Text(
     modifier: Modifier = Modifier,
     onTextLayout: (TextLayoutResult) -> Unit = {}
 ) {
-    logger.v("#Text args : state=$state, modifier=$modifier, onTextLayout=$onTextLayout")
+    logger.v("#Text args : state=${state.summary}, modifier=$modifier, onTextLayout=$onTextLayout")
 
     val text = state.text
         ?: AnnotatedString(state.resource!!.string)

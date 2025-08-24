@@ -15,6 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import kr.lul.stringnotebook.state.page.NotebookPageHandler
 import kr.lul.stringnotebook.state.page.NotebookPageState
@@ -23,6 +24,7 @@ import kr.lul.stringnotebook.state.resources.page_notebook_loading_label
 import kr.lul.stringnotebook.state.template.FullLayoutState
 import kr.lul.stringnotebook.state.template.WyswygLayoutState
 import kr.lul.stringnotebook.ui.organism.Notebook
+import kr.lul.stringnotebook.ui.template.ContextMenu
 import kr.lul.stringnotebook.ui.template.PropertyEditor
 import kr.lul.stringnotebook.ui.template.Summary
 import kr.lul.stringnotebook.ui.template.ToolBar
@@ -84,6 +86,18 @@ fun NotebookPageEditing(state: NotebookPageState.Editing, handler: NotebookPageH
     ) {
         Box(Modifier.weight(1F)) {
             Notebook(state.notebook, handler.notebook)
+            state.notebook.menu?.let { menu ->
+                val density = LocalDensity.current
+                ContextMenu(
+                    state = menu,
+                    modifier = Modifier
+                        .align(Alignment.TopStart)
+                        .offset(
+                            x = with(density) { menu.position.x.toDp() },
+                            y = with(density) { menu.position.y.toDp() }
+                        )
+                )
+            }
 
             if (state.layout is FullLayoutState) {
                 Summary(

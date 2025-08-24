@@ -6,6 +6,9 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kr.lul.stringnotebook.domain.foundation.Notebook
 import kr.lul.stringnotebook.model.NotebookModel
+import kr.lul.stringnotebook.state.molecule.TextState
+import kr.lul.stringnotebook.state.organism.MenuItemState
+import kr.lul.stringnotebook.state.organism.MenuState
 import kr.lul.stringnotebook.state.organism.NotebookHandler
 import kr.lul.stringnotebook.state.organism.NotebookState
 import kr.lul.stringnotebook.state.template.LayoutHandler
@@ -41,7 +44,24 @@ class NotebookViewModelet(
     override fun onLongClick(offset: Offset) {
         logger.d("#onLongClick args : offset=$offset")
 
-        // TODO 컨텍스트 메뉴 표시.
+        val state = this@NotebookViewModelet.state.value
+        if (state == null) {
+            throw IllegalStateException("Notebook state is not initialized yet.")
+        }
+
+        state.menu = MenuState(
+            position = offset,
+            items = listOf(
+                MenuItemState(
+                    label = TextState(text = "Test"),
+                    onClick = {
+                        logger.d("#menu.onClick")
+                    }
+                )
+            ),
+            key = state.key,
+            testTag = state.testTag
+        )
     }
 
     override fun onStart(owner: LifecycleOwner) {

@@ -8,6 +8,9 @@ import kotlin.uuid.Uuid
 
 /**
  * 메뉴 아이템.
+ *
+ * 메뉴 아이템이 담당하는 기능은 아이템 사이에 차이가 크기 때문에, 공통화 할 수 없어서 상태 콜백을 속성([onClick])을
+ * 사용하고 별도의 핸들러를 사용하지 않는다.
  */
 @ExperimentalUuidApi
 @Immutable

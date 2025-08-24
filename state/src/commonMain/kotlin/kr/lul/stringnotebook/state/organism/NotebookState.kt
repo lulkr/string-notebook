@@ -24,8 +24,8 @@ class NotebookState(
     name: String,
     memo: String?,
     anchors: List<AnchorState>,
-    override val menu: MenuState?,
-    val createdAt: Instant,
+    menu: MenuState?,
+    createdAt: Instant,
     updatedAt: Instant,
     override val key: Any = Uuid.random(),
     override val testTag: String = key.toString()
@@ -49,6 +49,8 @@ class NotebookState(
     override val notes: List<NoteState>
         get() = anchors
 
+    override var menu: MenuState? by mutableStateOf(menu)
+    val createdAt: Instant by mutableStateOf(createdAt)
     var updatedAt: Instant by mutableStateOf(updatedAt)
 
     override val summary = "NotebookState($name, anchors=${anchors.size})"
