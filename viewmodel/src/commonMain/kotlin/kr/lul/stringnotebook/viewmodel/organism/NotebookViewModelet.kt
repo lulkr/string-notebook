@@ -4,6 +4,8 @@ import androidx.compose.ui.geometry.Offset
 import androidx.lifecycle.LifecycleOwner
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kr.lul.stringnotebook.domain.event.AddAnchorEvent
+import kr.lul.stringnotebook.domain.foundation.EventProcessor
 import kr.lul.stringnotebook.domain.foundation.Notebook
 import kr.lul.stringnotebook.model.NotebookModel
 import kr.lul.stringnotebook.state.atom.TextResource
@@ -30,6 +32,7 @@ class NotebookViewModelet(
     val id: Uuid
 ) : BaseViewModelet(parent, tag), NotebookHandler {
     private lateinit var notebook: Notebook
+    private lateinit var eventProcessor: EventProcessor
 
     private val _state: MutableStateFlow<NotebookState?> = MutableStateFlow(null)
     val state: StateFlow<NotebookState?> = _state
@@ -69,6 +72,10 @@ class NotebookViewModelet(
                             throw IllegalStateException("Notebook state is not initialized yet.")
 
                         state.menu = null
+
+                        eventProcessor(AddAnchorEvent(offset.x, offset.y)) { result ->
+                            logger.d("#menu.items[0].onClick add anchor callback args : result=$result")
+                        }
                     }
                 )
             ),
@@ -83,6 +90,7 @@ class NotebookViewModelet(
         launch {
             notebook = model.read(id)
                 ?: throw IllegalArgumentException("Notebook not found : id=$id")
+            eventProcessor = notebook as EventProcessor
             _state.emit(notebook.state)
         }
     }
