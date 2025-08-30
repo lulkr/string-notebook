@@ -58,7 +58,7 @@ fun Notebook(
         state.anchors.forEachIndexed { idx, anchor ->
             Box(
                 Modifier.offset(anchor.position.x.dp, anchor.position.y.dp)
-                    .zIndex(Float.MAX_VALUE / 2 + idx)
+                    .zIndex(Z_INDEX_ANCHOR_BASE + idx)
                     .background(MaterialTheme.colorScheme.secondaryContainer, CircleShape)
                     .size(8.dp)
             )
@@ -67,7 +67,7 @@ fun Notebook(
         state.menu?.let { menu ->
             Box(
                 modifier = Modifier
-                    .zIndex(Float.MAX_VALUE)
+                    .zIndex(Z_INDEX_MENU)
                     .align(Alignment.TopStart)
                     .offset(menu.position.x.dp, menu.position.y.dp)
             ) {
