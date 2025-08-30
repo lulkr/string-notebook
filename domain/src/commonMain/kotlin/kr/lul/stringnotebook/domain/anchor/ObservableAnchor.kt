@@ -1,6 +1,7 @@
 package kr.lul.stringnotebook.domain.anchor
 
 import kotlinx.datetime.Instant
+import kr.lul.logger.Logger
 import kr.lul.stringnotebook.domain.foundation.Anchor
 import kr.lul.stringnotebook.domain.foundation.AnchorType
 import kr.lul.stringnotebook.domain.property.PositionProperty
@@ -12,18 +13,14 @@ import kotlin.uuid.Uuid
  */
 @ExperimentalStdlibApi
 @ExperimentalUuidApi
-open class ObservableAnchor(
+abstract class ObservableAnchor(
     /**
      * 관찰할 앵커.
      */
-    val anchor: Anchor,
-    /**
-     * 앵커 변경 콜백. [anchor] 변경 후 호출한다.
-     *
-     * @see beforeChange
-     */
-    val afterChange: ObservableAnchor.() -> Unit
+    val anchor: Anchor
 ) : Anchor {
+    protected val logger = Logger("ObservableAnchor@${anchor.id}")
+
     override val id: Uuid = anchor.id
     override var type: AnchorType
         get() = anchor.type
@@ -58,17 +55,19 @@ open class ObservableAnchor(
      */
     open fun beforeChange() {}
 
+    /**
+     * 앵커 변경 콜백. [anchor] 변경 후 호출한다.
+     *
+     * @see beforeChange
+     */
+    abstract fun afterChange()
+
     override fun equals(other: Any?) = this === other || (
             other is ObservableAnchor &&
-                    anchor == other.anchor &&
-                    afterChange == other.afterChange
+                    anchor == other.anchor
             )
 
-    override fun hashCode(): Int {
-        var result = anchor.hashCode()
-        result = 31 * result + afterChange.hashCode()
-        return result
-    }
+    override fun hashCode() = anchor.hashCode()
 
-    override fun toString() = "ObservableAnchor(anchor=$anchor, onChange=$afterChange)"
+    override fun toString() = "ObservableAnchor(anchor=$anchor)"
 }

@@ -53,7 +53,7 @@ class NotebookState(
     val createdAt: Instant by mutableStateOf(createdAt)
     var updatedAt: Instant by mutableStateOf(updatedAt)
 
-    override val summary = "NotebookState($name, anchors=${anchors.size})"
+    override val summary = "NotebookState($name, anchors=${this.anchors.size})"
 
     override fun equals(other: Any?) = this === other || (
             other is NotebookState &&
@@ -85,7 +85,7 @@ class NotebookState(
         "id=$id",
         "name='$name'",
         "memo=$memo",
-        "anchors=$anchors",
+        "anchors=${anchors.map { it.summary }}",
         "menu=$menu",
         "createdAt=$createdAt",
         "updatedAt=$updatedAt",

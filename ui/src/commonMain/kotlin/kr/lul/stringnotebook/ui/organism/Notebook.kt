@@ -5,6 +5,8 @@ import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -31,7 +33,7 @@ fun Notebook(
     state: NotebookState,
     handler: NotebookHandler = NotebookHandler.NoOp
 ) {
-    logger.v("#Notebook args : state=${state.summary}, handler=$handler")
+    logger.v("#Notebook args : state=$state, handler=$handler")
 
     val density = LocalDensity.current
 
@@ -53,6 +55,15 @@ fun Notebook(
             },
         contentAlignment = Alignment.Center
     ) {
+        state.anchors.forEachIndexed { idx, anchor ->
+            Box(
+                Modifier.offset(anchor.position.x.dp, anchor.position.y.dp)
+                    .zIndex(Float.MAX_VALUE / 2 + idx)
+                    .background(MaterialTheme.colorScheme.secondaryContainer, CircleShape)
+                    .size(8.dp)
+            )
+        }
+
         state.menu?.let { menu ->
             Box(
                 modifier = Modifier
