@@ -24,5 +24,5 @@ interface Anchor : Note {
     /**
      * 위치.
      */
-    var position: PositionProperty
+    val position: PositionProperty
 }

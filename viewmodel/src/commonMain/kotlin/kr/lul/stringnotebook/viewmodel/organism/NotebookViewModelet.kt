@@ -6,7 +6,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kr.lul.stringnotebook.domain.event.AddAnchorEvent
 import kr.lul.stringnotebook.domain.foundation.EventProcessor
-import kr.lul.stringnotebook.domain.foundation.Notebook
+import kr.lul.stringnotebook.domain.notebook.ObservableNotebook
+import kr.lul.stringnotebook.model.NotebookEventProcessor
 import kr.lul.stringnotebook.model.NotebookModel
 import kr.lul.stringnotebook.state.atom.TextResource
 import kr.lul.stringnotebook.state.molecule.TextState
@@ -31,11 +32,11 @@ class NotebookViewModelet(
     private val model: NotebookModel,
     val id: Uuid
 ) : BaseViewModelet(parent, tag), NotebookHandler {
-    private lateinit var notebook: Notebook
+    private lateinit var notebook: ObservableNotebook
     private lateinit var eventProcessor: EventProcessor
 
-    private val _state: MutableStateFlow<NotebookState?> = MutableStateFlow(null)
-    val state: StateFlow<NotebookState?> = _state
+    private val _state: NotebookState? = null
+    val state: StateFlow<NotebookState?> = MutableStateFlow(_state)
 
     override fun onClick(offset: Offset) {
         logger.d("#onClick args : offset=$offset")
@@ -73,9 +74,7 @@ class NotebookViewModelet(
 
                         state.menu = null
 
-                        eventProcessor(AddAnchorEvent(offset.x, offset.y)) { result ->
-                            logger.d("#menu.items[0].onClick add anchor callback args : result=$result")
-                        }
+                        eventProcessor(AddAnchorEvent(x = offset.x, y = offset.y))
                     }
                 )
             ),
@@ -88,10 +87,14 @@ class NotebookViewModelet(
         super.onStart(owner)
 
         launch {
-            notebook = model.read(id)
-                ?: throw IllegalArgumentException("Notebook not found : id=$id")
-            eventProcessor = notebook as EventProcessor
-            _state.emit(notebook.state)
+            notebook = ObservableNotebook(
+                notebook = model.read(id) ?: throw IllegalArgumentException("Notebook not found : id=$id")
+            ) {
+                logger.d("#notebook.afterChange called : notebook=$this")
+            }
+            eventProcessor = NotebookEventProcessor(notebook)
+
+            // TODO _state 초기화.
         }
     }
 

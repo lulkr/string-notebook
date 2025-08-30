@@ -3,10 +3,7 @@ package kr.lul.stringnotebook.data.entity
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 import kr.lul.logger.Logger
-import kr.lul.stringnotebook.domain.event.AddAnchorEvent
 import kr.lul.stringnotebook.domain.foundation.Anchor
-import kr.lul.stringnotebook.domain.foundation.Event
-import kr.lul.stringnotebook.domain.foundation.EventProcessor
 import kr.lul.stringnotebook.domain.foundation.Notebook
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
@@ -15,10 +12,10 @@ import kotlin.uuid.Uuid
 @ExperimentalUuidApi
 internal class NotebookEntity(
     override val id: Uuid = Uuid.random(),
-    override val name: String = DEFAULT_NAME,
-    override val memo: String? = null,
+    override var name: String = DEFAULT_NAME,
+    override var memo: String? = null,
     override val createdAt: Instant = Clock.System.now()
-) : Notebook, EventProcessor {
+) : Notebook {
     companion object {
         const val DEFAULT_NAME = "New Notebook"
     }
@@ -28,33 +25,28 @@ internal class NotebookEntity(
     private val _anchors: MutableList<Anchor> = mutableListOf()
     override val anchors: List<Anchor> = _anchors
 
-    override val updatedAt: Instant = createdAt
+    override var updatedAt: Instant = createdAt
+        private set
 
-    override fun invoke(event: Event, callback: (Boolean) -> Unit) {
-        logger.d("#invoke args : event=$event, callback=$callback")
+    override fun add(anchor: Anchor): Boolean {
+        logger.d("#add args : anchor=$anchor")
 
-        val result = when (event) {
-            is AddAnchorEvent ->
-                handle(event)
-
-            else -> {
-                logger.w("Unsupported event type : event=$event, event::class=${event::class}")
-                false
-            }
+        val result: Boolean
+        if (anchors.none { it.id == anchor.id }) {
+            result = _anchors.add(anchor)
+            updatedAt = Clock.System.now()
+        } else {
+            result = false
         }
 
-        callback(result)
-    }
-
-    private fun handle(event: AddAnchorEvent): Boolean {
-        // TODO 이벤트 처리.
-        return true
+        logger.d("#add return : $result")
+        return result
     }
 
     override fun toString() = listOf(
         "id=$id",
         "name='$name'",
-        "description=$memo",
+        "memo=$memo",
         "anchors=$anchors",
         "createdAt=$createdAt",
         "updatedAt=$updatedAt"

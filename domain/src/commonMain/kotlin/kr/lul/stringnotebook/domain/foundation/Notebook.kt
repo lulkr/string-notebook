@@ -18,12 +18,12 @@ interface Notebook {
     /**
      * 이름.
      */
-    val name: String
+    var name: String
 
     /**
      * 간단한 설명을 포함한 메모.
      */
-    val memo: String?
+    var memo: String?
 
     /**
      * 노트 목록.
@@ -47,4 +47,12 @@ interface Notebook {
      * 마지막 수정 시각.
      */
     val updatedAt: Instant
+
+    /**
+     * 앵커 추가.
+     *
+     * @param anchor 추가할 앵커.
+     * @return 정상적으로 추가하면 `true`.
+     */
+    fun add(anchor: Anchor): Boolean
 }

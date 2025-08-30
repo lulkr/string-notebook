@@ -11,6 +11,7 @@ import kotlin.uuid.ExperimentalUuidApi
 /**
  * 상태 홀더로 변환.
  */
+@Deprecated("VM에서 직접 상태 홀더 관리하도록 변경.")
 @ExperimentalStdlibApi
 @ExperimentalUuidApi
 val Notebook.state: NotebookState

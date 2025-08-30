@@ -9,13 +9,13 @@ interface EventProcessor {
     object NoOp : EventProcessor {
         private val logger = Logger("EventProcessor.NoOp")
 
-        override fun invoke(event: Event, callback: (Boolean) -> Unit) {
-            logger.d("#invoke args : event=$event, callback=$callback")
+        override fun invoke(event: Event) {
+            logger.d("#invoke args : event=$event")
         }
     }
 
     /**
      * 이벤트를 처리한다.
      */
-    operator fun invoke(event: Event, callback: (Boolean) -> Unit = {})
+    operator fun invoke(event: Event)
 }
