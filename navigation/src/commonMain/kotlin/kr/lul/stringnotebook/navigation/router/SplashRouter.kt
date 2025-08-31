@@ -20,6 +20,7 @@ import kotlin.uuid.ExperimentalUuidApi
  * 스플래시 화면의 각 MVVM 요소를 연결한다.
  */
 @Composable
+@ExperimentalStdlibApi
 @ExperimentalUuidApi
 fun SplashRouter(
     navigator: SplashNavigator,

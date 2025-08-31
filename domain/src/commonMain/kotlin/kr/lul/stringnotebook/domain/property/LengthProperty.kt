@@ -1,7 +1,8 @@
 package kr.lul.stringnotebook.domain.property
 
+import kr.lul.stringnotebook.domain.foundation.Property
 import kr.lul.stringnotebook.domain.foundation.ScalarProperty
-import kr.lul.stringnotebook.domain.type.LengthType
+import kr.lul.stringnotebook.domain.type.LengthPropertyType
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
@@ -11,9 +12,7 @@ import kotlin.uuid.Uuid
 @ExperimentalStdlibApi
 @ExperimentalUuidApi
 class LengthProperty(
-    id: Uuid,
-    name: String,
-    override var value: Float
-) : ScalarProperty<Float>(id, LengthType, name) {
-    constructor(name: String, value: Float) : this(Uuid.random(), name, value)
-}
+    id: Uuid = Property.id(),
+    name: String? = null,
+    override var value: Float = 0F
+) : ScalarProperty<Float>(id, LengthPropertyType, name)

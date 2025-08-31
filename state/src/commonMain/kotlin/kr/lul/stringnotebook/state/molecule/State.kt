@@ -9,4 +9,6 @@ interface State {
     val key: Any
 
     val testTag: String
+
+    val summary: String
 }

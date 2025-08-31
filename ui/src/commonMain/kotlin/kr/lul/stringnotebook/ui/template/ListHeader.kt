@@ -3,9 +3,9 @@ package kr.lul.stringnotebook.ui.template
 import androidx.compose.foundation.layout.Row
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
-import kr.lul.stringnotebook.state.organism.notebook.NewNotebookHeaderButton
+import kr.lul.stringnotebook.state.organism.NewNotebookHeaderButton
 import kr.lul.stringnotebook.state.template.NotebookListHandler
-import kr.lul.stringnotebook.ui.organism.notebook.ListHeaderButton
+import kr.lul.stringnotebook.ui.organism.ListHeaderButton
 import kotlin.uuid.ExperimentalUuidApi
 
 /**

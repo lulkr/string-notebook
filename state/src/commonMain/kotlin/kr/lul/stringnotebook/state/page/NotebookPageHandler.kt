@@ -1,7 +1,7 @@
 package kr.lul.stringnotebook.state.page
 
 import kr.lul.logger.Logger
-import kr.lul.stringnotebook.state.organism.notebook.NotebookHandler
+import kr.lul.stringnotebook.state.organism.NotebookHandler
 import kr.lul.stringnotebook.state.template.LayoutHandler
 
 /**

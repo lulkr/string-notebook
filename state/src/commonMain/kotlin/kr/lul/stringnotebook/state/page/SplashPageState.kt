@@ -17,6 +17,7 @@ sealed interface SplashPageState : State {
     data object Init : SplashPageState {
         override val testTag: String = "SplashPageState.Init"
         override val key: Any = testTag
+        override val summary = "SplashPageState.Init"
     }
 
     /**
@@ -28,6 +29,7 @@ sealed interface SplashPageState : State {
     data object InProgress : SplashPageState {
         override val testTag: String = "SplashPageState.InProgress"
         override val key: Any = testTag
+        override val summary = "SplashPageState.InProgress"
     }
 
     /**
@@ -39,6 +41,7 @@ sealed interface SplashPageState : State {
     data object Success : SplashPageState {
         override val testTag: String = "SplashPageState.Success"
         override val key: Any = testTag
+        override val summary = "SplashPageState.Success"
     }
 
     /**
@@ -54,5 +57,7 @@ sealed interface SplashPageState : State {
         val cause: Throwable,
         override val key: Any = Uuid.random(),
         override val testTag: String = key.toString()
-    ) : SplashPageState
+    ) : SplashPageState {
+        override val summary = "SplashPageState.Fail(cause=${cause.message})"
+    }
 }

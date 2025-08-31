@@ -13,4 +13,6 @@ import kotlin.uuid.Uuid
 class HomePageState(
     override val key: Any = Uuid.random(),
     override val testTag: String = key.toString()
-) : State
+) : State {
+    override val summary = "HomePageState"
+}

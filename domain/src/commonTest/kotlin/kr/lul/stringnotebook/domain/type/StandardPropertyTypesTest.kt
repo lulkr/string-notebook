@@ -1,7 +1,7 @@
 package kr.lul.stringnotebook.domain.type
 
 import kr.lul.logger.Logger
-import kr.lul.stringnotebook.domain.foundation.Type
+import kr.lul.stringnotebook.domain.foundation.PropertyType
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.uuid.ExperimentalUuidApi
@@ -9,13 +9,13 @@ import kotlin.uuid.ExperimentalUuidApi
 @ExperimentalStdlibApi
 @ExperimentalUuidApi
 @Suppress("NonAsciiCharacters")
-class StandardTypesTest {
-    private val logger = Logger("StandardTypesTest")
+class StandardPropertyTypesTest {
+    private val logger = Logger("StandardPropertyTypesTest")
 
     @Test
     fun `id 중복이 있는지 검사한다`() {
         // GIVEN
-        val entries = StandardTypes.entries
+        val entries = StandardPropertyTypes.entries
         logger.i("[GIVEN] entries=${entries.toList()}")
 
         // WHEN
@@ -29,7 +29,7 @@ class StandardTypesTest {
     @Test
     fun `이름 중복이 있는지 검사한다`() {
         // GIVEN
-        val entries = StandardTypes.entries
+        val entries = StandardPropertyTypes.entries
         logger.i("[GIVEN] entries=${entries.toList()}")
 
         // WHEN
@@ -42,7 +42,7 @@ class StandardTypesTest {
 
     @Test
     fun `id - ordinal과 동일한지 검사한다`() {
-        for (type in StandardTypes.entries) {
+        for (type in StandardPropertyTypes.entries) {
             // GIVEN
             logger.i("[GIVEN] type=${type.type}, ordinal=${type.ordinal}")
 
@@ -51,7 +51,7 @@ class StandardTypesTest {
             logger.i("[WHEN] id=$id")
 
             // THEN
-            assertEquals(Type.id(type.ordinal.toLong()), id)
+            assertEquals(PropertyType.id(type.ordinal.toLong()), id)
         }
     }
 }

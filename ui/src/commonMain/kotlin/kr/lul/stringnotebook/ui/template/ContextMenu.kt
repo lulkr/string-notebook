@@ -1,33 +1,33 @@
 package kr.lul.stringnotebook.ui.template
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.offset
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.DropdownMenu
-import androidx.compose.material3.Text
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.unit.dp
+import kr.lul.stringnotebook.state.organism.MenuState
+import kr.lul.stringnotebook.ui.molecule.Text
+import kotlin.uuid.ExperimentalUuidApi
 
+/**
+ * 노트북과 노트를 조작할 수 있는 메뉴.
+ */
+@ExperimentalStdlibApi
+@ExperimentalUuidApi
 @Composable
 fun ContextMenu(
-    position: Offset,
-    onDismissRequest: () -> Unit = {}
+    state: MenuState,
+    onDismissRequest: () -> Unit
 ) {
-    val density = LocalDensity.current
-    Box(
-        Modifier.offset(
-            x = with(density) { position.x.toDp() },
-            y = with(density) { position.y.toDp() }
-        )) {
-        DropdownMenu(
-            expanded = true,
-            onDismissRequest = onDismissRequest,
-            modifier = Modifier.padding(16.dp)
-        ) {
-            Text("#ContextMenu 더미 메뉴")
+    logger.v("#ContextMenu args : state=${state.summary}")
+
+    DropdownMenu(
+        expanded = true,
+        onDismissRequest = onDismissRequest
+    ) {
+        for (item in state.items) {
+            DropdownMenuItem(
+                text = { Text(item.label) },
+                onClick = item.onClick
+            )
         }
     }
 }

@@ -3,15 +3,16 @@ package kr.lul.stringnotebook.domain.foundation
 import kr.lul.stringnotebook.domain.foundation.Configuration.ID_PREFIX_NOTEBOOK_PROPERTY
 import kr.lul.stringnotebook.domain.foundation.Configuration.generateId
 import kr.lul.stringnotebook.domain.foundation.Property.Companion.NAME_REGEX
+import kotlin.random.Random
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
 /**
- * [Type]의 인스턴스.
+ * [PropertyType]의 인스턴스.
  *
  * @param T 스트링노트 앱 내부에서 사용하는 타입.
  *
- * @see Type
+ * @see PropertyType
  */
 @ExperimentalStdlibApi
 @ExperimentalUuidApi
@@ -20,7 +21,7 @@ sealed interface Property {
         const val NAME_PATTERN = "[a-z][a-zA-Z0-9_]*"
         val NAME_REGEX = NAME_PATTERN.toRegex()
 
-        fun id(suffix: Long) = ID_PREFIX_NOTEBOOK_PROPERTY.generateId(suffix)
+        fun id(suffix: Long = Random.nextLong(0xFFFFFFFFFFFFL)) = ID_PREFIX_NOTEBOOK_PROPERTY.generateId(suffix)
     }
 
     /**
@@ -31,20 +32,20 @@ sealed interface Property {
     /**
      * 타입.
      */
-    val type: Type
+    val type: PropertyType
 
     /**
      * 이름.
      */
-    val name: String
+    val name: String?
 }
 
 @ExperimentalStdlibApi
 @ExperimentalUuidApi
 abstract class ScalarProperty<T>(
     override val id: Uuid,
-    override val type: ScalarType,
-    override val name: String,
+    override val type: ScalarPropertyType,
+    override val name: String?,
 ) : Property {
     abstract var value: T
 
@@ -52,7 +53,7 @@ abstract class ScalarProperty<T>(
         require("$id".startsWith(ID_PREFIX_NOTEBOOK_PROPERTY, true)) {
             "illegal id prefix : id=$id, prefix=$ID_PREFIX_NOTEBOOK_PROPERTY"
         }
-        require(NAME_REGEX.matches(name)) {
+        require(name == null || NAME_REGEX.matches(name!!)) {
             "illegal name pattern : name='$name', regex=$NAME_REGEX"
         }
     }
@@ -84,15 +85,15 @@ abstract class ScalarProperty<T>(
 @ExperimentalUuidApi
 abstract class CompositeProperty(
     override val id: Uuid,
-    override val type: CompositeType,
-    override val name: String,
+    override val type: CompositePropertyType,
+    override val name: String?,
     val children: Map<String, Property>
 ) : Property {
     init {
         require("$id".lowercase().startsWith(ID_PREFIX_NOTEBOOK_PROPERTY.lowercase())) {
             "illegal id prefix : id=$id, prefix=$ID_PREFIX_NOTEBOOK_PROPERTY"
         }
-        require(NAME_REGEX.matches(name)) {
+        require(name == null || NAME_REGEX.matches(name!!)) {
             "illegal name pattern : name='$name', regex=$NAME_REGEX"
         }
         require(children.isNotEmpty()) {

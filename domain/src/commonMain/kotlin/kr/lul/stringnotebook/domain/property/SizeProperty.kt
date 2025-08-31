@@ -1,9 +1,10 @@
 package kr.lul.stringnotebook.domain.property
 
 import kr.lul.stringnotebook.domain.foundation.CompositeProperty
-import kr.lul.stringnotebook.domain.type.SizeType
-import kr.lul.stringnotebook.domain.type.SizeType.HEIGHT
-import kr.lul.stringnotebook.domain.type.SizeType.WIDTH
+import kr.lul.stringnotebook.domain.foundation.Property.Companion.id
+import kr.lul.stringnotebook.domain.type.SizePropertyType
+import kr.lul.stringnotebook.domain.type.SizePropertyType.PROP_HEIGHT
+import kr.lul.stringnotebook.domain.type.SizePropertyType.PROP_WIDTH
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
@@ -13,28 +14,33 @@ import kotlin.uuid.Uuid
 @ExperimentalStdlibApi
 @ExperimentalUuidApi
 class SizeProperty(
-    id: Uuid,
-    name: String,
+    id: Uuid = id(),
+    name: String? = null,
     /**
      * 폭
      */
-    val width: LengthProperty,
+    val width: LengthProperty = LengthProperty(name = PROP_WIDTH),
     /**
      * 높이
      */
-    val height: LengthProperty
-) : CompositeProperty(id, SizeType, name, mapOf(WIDTH to width, HEIGHT to height)) {
+    val height: LengthProperty = LengthProperty(name = PROP_HEIGHT)
+) : CompositeProperty(id, SizePropertyType, name, mapOf(PROP_WIDTH to width, PROP_HEIGHT to height)) {
     constructor(
-        name: String,
-        width: LengthProperty,
-        height: LengthProperty
-    ) : this(Uuid.random(), name, width, height)
+        id: Uuid = id(),
+        name: String? = null,
+        width: Float = 0F,
+        height: Float = 0F
+    ) : this(
+        id = id,
+        name = name,
+        width = LengthProperty(name = PROP_WIDTH, value = width),
+        height = LengthProperty(name = PROP_WIDTH, value = height)
+    )
 
-    constructor(
-        name: String,
-        width: Float,
-        height: Float
-    ) : this(Uuid.random(), name, LengthProperty(WIDTH, width), LengthProperty(WIDTH, height))
+    init {
+        require(width.name == PROP_WIDTH)
+        require(height.name == PROP_HEIGHT)
+    }
 
     override fun toString() = listOf(
         "id=$id",

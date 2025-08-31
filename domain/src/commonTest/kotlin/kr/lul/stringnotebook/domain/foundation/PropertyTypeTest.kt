@@ -4,7 +4,7 @@ import kr.lul.logger.Logger
 import kr.lul.stringnotebook.domain.foundation.Configuration.ID_PREFIX_APP_BUILD
 import kr.lul.stringnotebook.domain.foundation.Configuration.ID_PREFIX_APP_INSTALL
 import kr.lul.stringnotebook.domain.foundation.Configuration.ID_PREFIX_APP_PROCESS
-import kr.lul.stringnotebook.domain.type.LengthType
+import kr.lul.stringnotebook.domain.type.LengthPropertyType
 import kotlin.random.Random
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -17,7 +17,7 @@ import kotlin.uuid.Uuid
 @ExperimentalStdlibApi
 @ExperimentalUuidApi
 @Suppress("NonAsciiCharacters")
-class TypeTest {
+class PropertyTypeTest {
     private val logger = Logger("TypeTest")
 
     @Test
@@ -33,18 +33,18 @@ class TypeTest {
 
             // WHEN
             val ex1 = assertFails {
-                object : ScalarType(
+                object : ScalarPropertyType(
                     id,
                     "unit test",
                     "실패해야 하는 테스트"
                 ) {}
             }
             val ex2 = assertFails {
-                object : CompositeType(
+                object : CompositePropertyType(
                     id,
                     "unit test",
                     "실패해야 하는 테스트",
-                    mapOf("ut" to LengthType)
+                    mapOf("ut" to LengthPropertyType)
                 ) {}
             }
             logger.i("[WHEN] ex1=$ex1, ex2=$ex2")
@@ -84,18 +84,18 @@ class TypeTest {
 
             // WHEN
             val ex1 = assertFailsWith<IllegalArgumentException> {
-                object : ScalarType(
+                object : ScalarPropertyType(
                     id = id(Random.nextLong(Long.MAX_VALUE)),
                     name = name,
                     description = "실패해야 하는 테스트"
                 ) {}
             }
             val ex2 = assertFailsWith<IllegalArgumentException> {
-                object : CompositeType(
+                object : CompositePropertyType(
                     id = id(Random.nextLong(Long.MAX_VALUE)),
                     name = name,
                     description = "실패해야 하는 테스트",
-                    properties = mapOf("ut" to LengthType)
+                    properties = mapOf("ut" to LengthPropertyType)
                 ) {}
             }
             logger.i("[WHEN] ex1=$ex1, ex2=$ex2")
@@ -117,11 +117,11 @@ class TypeTest {
             logger.i("[GIVEN] name=$name")
 
             // WHEN
-            val type = object : CompositeType(
+            val type = object : CompositePropertyType(
                 id = id(Random.nextLong(1_000)),
                 name = "test type",
                 description = "성공해야 하는 테스트",
-                properties = mapOf(name to LengthType)
+                properties = mapOf(name to LengthPropertyType)
             ) {}
             logger.i("[WHEN] type=$type")
 
@@ -147,11 +147,11 @@ class TypeTest {
 
             // WHEN
             val ex = assertFailsWith<IllegalArgumentException> {
-                object : CompositeType(
+                object : CompositePropertyType(
                     id = id(Random.nextLong(Long.MAX_VALUE)),
                     name = "test type",
                     description = "실패해야 하는 테스트",
-                    properties = mapOf(name to LengthType)
+                    properties = mapOf(name to LengthPropertyType)
                 ) {}
             }
             logger.i("[WHEN] ex=$ex")

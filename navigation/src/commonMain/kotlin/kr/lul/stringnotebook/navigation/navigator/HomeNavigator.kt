@@ -4,10 +4,11 @@ import androidx.compose.runtime.Immutable
 import androidx.navigation.NamedNavArgument
 import androidx.navigation.NavDeepLink
 import kr.lul.logger.Logger
-import kr.lul.stringnotebook.state.organism.notebook.NotebookState
+import kr.lul.stringnotebook.state.organism.NotebookState
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
+@ExperimentalStdlibApi
 @ExperimentalUuidApi
 @Immutable
 class HomeNavigator(

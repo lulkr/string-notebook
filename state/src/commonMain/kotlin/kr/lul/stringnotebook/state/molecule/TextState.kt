@@ -60,6 +60,10 @@ open class TextState private constructor(
     override val key: Any = Uuid.Companion.random(),
     override val testTag: String = key.toString()
 ) : State {
+    override val summary = text?.text
+        ?: resource?.toString()
+        ?: "null"
+
     constructor(
         text: AnnotatedString,
         color: Color = Color.Companion.Unspecified,
@@ -80,6 +84,45 @@ open class TextState private constructor(
         testTag: String = key.toString()
     ) : this(
         text,
+        null,
+        color,
+        fontSize,
+        fontStyle,
+        fontWeight,
+        fontFamily,
+        letterSpacing,
+        textDecoration,
+        textAlign,
+        lineHeight,
+        overflow,
+        softWrap,
+        textLines,
+        inlineContent,
+        style,
+        key,
+        testTag
+    )
+
+    constructor(
+        text: String,
+        color: Color = Color.Companion.Unspecified,
+        fontSize: TextUnit = TextUnit.Companion.Unspecified,
+        fontStyle: FontStyle? = null,
+        fontWeight: FontWeight? = null,
+        fontFamily: FontFamily? = null,
+        letterSpacing: TextUnit = TextUnit.Companion.Unspecified,
+        textDecoration: TextDecoration? = null,
+        textAlign: TextAlign? = null,
+        lineHeight: TextUnit = TextUnit.Companion.Unspecified,
+        overflow: TextOverflow = TextOverflow.Companion.Clip,
+        softWrap: Boolean = true,
+        textLines: TextLines = DefaultTextLines,
+        inlineContent: Map<String, InlineTextContent> = mapOf(),
+        style: TextStyle = TextStyle.Companion.Default,
+        key: Any = Uuid.Companion.random(),
+        testTag: String = key.toString()
+    ) : this(
+        AnnotatedString(text),
         null,
         color,
         fontSize,
@@ -160,6 +203,43 @@ open class TextState private constructor(
         style: TextStyle = this.style,
     ) = TextState(
         text,
+        null,
+        color,
+        fontSize,
+        fontStyle,
+        fontWeight,
+        fontFamily,
+        letterSpacing,
+        textDecoration,
+        textAlign,
+        lineHeight,
+        overflow,
+        softWrap,
+        textLines,
+        inlineContent,
+        style,
+        key,
+        testTag
+    )
+
+    fun copy(
+        text: String,
+        color: Color = this.color,
+        fontSize: TextUnit = this.fontSize,
+        fontStyle: FontStyle? = this.fontStyle,
+        fontWeight: FontWeight? = this.fontWeight,
+        fontFamily: FontFamily? = this.fontFamily,
+        letterSpacing: TextUnit = this.letterSpacing,
+        textDecoration: TextDecoration? = this.textDecoration,
+        textAlign: TextAlign? = this.textAlign,
+        lineHeight: TextUnit = this.lineHeight,
+        overflow: TextOverflow = this.overflow,
+        softWrap: Boolean = this.softWrap,
+        textLines: TextLines = this.textLines,
+        inlineContent: Map<String, InlineTextContent> = this.inlineContent,
+        style: TextStyle = this.style,
+    ) = TextState(
+        AnnotatedString(text),
         null,
         color,
         fontSize,

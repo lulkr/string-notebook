@@ -3,7 +3,7 @@ package kr.lul.stringnotebook.domain.property
 import kr.lul.logger.Logger
 import kr.lul.stringnotebook.domain.foundation.Property
 import kr.lul.stringnotebook.domain.foundation.ScalarProperty
-import kr.lul.stringnotebook.domain.type.LengthType
+import kr.lul.stringnotebook.domain.type.LengthPropertyType
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFails
@@ -35,7 +35,7 @@ class ScalarPropertyTest {
             // WHEN
             val property = object : ScalarProperty<Float>(
                 id = Property.id(0L),
-                type = LengthType,
+                type = LengthPropertyType,
                 name = name
             ) {
                 override var value: Float = 0F
@@ -76,7 +76,7 @@ class ScalarPropertyTest {
             val exception = assertFails {
                 object : ScalarProperty<Float>(
                     id = Property.id(0L),
-                    type = LengthType,
+                    type = LengthPropertyType,
                     name = name
                 ) {
                     override var value: Float = 0F

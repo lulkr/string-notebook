@@ -4,17 +4,17 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kr.lul.stringnotebook.model.NotebookModel
-import kr.lul.stringnotebook.state.organism.notebook.NotebookState
 import kr.lul.stringnotebook.state.page.HomePageState
 import kr.lul.stringnotebook.viewmodel.foundation.BaseViewModel
-import kr.lul.stringnotebook.viewmodel.organism.state
 import kotlin.uuid.ExperimentalUuidApi
+import kotlin.uuid.Uuid
 
 /**
  * 홈 화면의 ViewModel.
  *
  * @param initState 초기 상태.
  */
+@ExperimentalStdlibApi
 @ExperimentalUuidApi
 class HomePageViewModel(
     private val model: NotebookModel,
@@ -23,15 +23,15 @@ class HomePageViewModel(
 
     val state: StateFlow<HomePageState> = MutableStateFlow(initState)
 
-    fun newNotebook(callback: (NotebookState) -> Unit) {
+    fun newNotebook(callback: (Uuid) -> Unit) {
         logger.d("#newNotebook args : callback=$callback")
 
         launch {
-            val notebook = model.create().state
+            val notebook = model.create()
             logger.d("#newNotebook : notebook=$notebook")
 
             delay(1000L)
-            callback(notebook)
+            callback(notebook.id)
         }
     }
 

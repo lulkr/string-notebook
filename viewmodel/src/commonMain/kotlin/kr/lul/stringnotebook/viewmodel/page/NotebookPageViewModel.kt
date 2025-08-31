@@ -8,8 +8,8 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kr.lul.stringnotebook.model.NotebookModel
-import kr.lul.stringnotebook.state.organism.notebook.NotebookHandler
-import kr.lul.stringnotebook.state.organism.notebook.NotebookState
+import kr.lul.stringnotebook.state.organism.NotebookHandler
+import kr.lul.stringnotebook.state.organism.NotebookState
 import kr.lul.stringnotebook.state.page.NotebookPageHandler
 import kr.lul.stringnotebook.state.page.NotebookPageState
 import kr.lul.stringnotebook.state.template.FullLayoutState
@@ -19,6 +19,7 @@ import kr.lul.stringnotebook.viewmodel.foundation.BaseViewModel
 import kr.lul.stringnotebook.viewmodel.organism.NotebookViewModelet
 import kotlin.uuid.ExperimentalUuidApi
 
+@ExperimentalStdlibApi
 @ExperimentalUuidApi
 class NotebookPageViewModel(
     model: NotebookModel,

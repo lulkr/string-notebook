@@ -1,7 +1,7 @@
 package kr.lul.stringnotebook.domain.property
 
 import kr.lul.logger.Logger
-import kr.lul.stringnotebook.domain.type.ColorType
+import kr.lul.stringnotebook.domain.type.ColorPropertyType
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.uuid.ExperimentalUuidApi
@@ -30,7 +30,7 @@ class ColorPropertyTest {
         assertEquals("#01234567", property.hex)
         assertEquals(value, property.value)
         assertEquals("test", property.name)
-        assertEquals(ColorType, property.type)
+        assertEquals(ColorPropertyType, property.type)
     }
 
     @Test
@@ -43,7 +43,7 @@ class ColorPropertyTest {
         logger.i("[GIVEN] red=$red, green=$green, blue=$blue, alpha=$alpha")
 
         // WHEN
-        val property = ColorProperty(name = "test", red, green, blue, alpha)
+        val property = ColorProperty(name = "test", red = red, green = green, blue = blue, alpha = alpha)
         logger.i("[WHEN] property=$property(0x${property.value.toHexString().uppercase()})")
 
         // THEN
@@ -64,7 +64,7 @@ class ColorPropertyTest {
         logger.i("[GIVEN] red=$red, green=$green, blue=$blue, alpha=$alpha")
 
         // WHEN
-        val property = ColorProperty(name = "test", red, green, blue, alpha)
+        val property = ColorProperty(name = "test", red = red, green = green, blue = blue, alpha = alpha)
         logger.i("[WHEN] property=$property(0x${property.value.toHexString().uppercase()})")
 
         // THEN

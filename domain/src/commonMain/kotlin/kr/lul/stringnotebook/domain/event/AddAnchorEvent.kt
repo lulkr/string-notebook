@@ -1,6 +1,8 @@
 package kr.lul.stringnotebook.domain.event
 
+import kr.lul.stringnotebook.domain.foundation.AnchorType
 import kr.lul.stringnotebook.domain.foundation.Event
+import kr.lul.stringnotebook.domain.type.PlainAnchorType
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
@@ -10,8 +12,10 @@ import kotlin.uuid.Uuid
  * @property x 앵커의 X 좌표.
  * @property y 앵커의 Y 좌표.
  */
+@ExperimentalStdlibApi
 @ExperimentalUuidApi
 data class AddAnchorEvent(
+    val type: AnchorType = PlainAnchorType,
     val x: Float = 0F,
     val y: Float = 0F
 ) : Event {

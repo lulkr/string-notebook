@@ -22,7 +22,7 @@ import kr.lul.stringnotebook.state.resources.Res
 import kr.lul.stringnotebook.state.resources.page_notebook_loading_label
 import kr.lul.stringnotebook.state.template.FullLayoutState
 import kr.lul.stringnotebook.state.template.WyswygLayoutState
-import kr.lul.stringnotebook.ui.organism.notebook.Notebook
+import kr.lul.stringnotebook.ui.organism.Notebook
 import kr.lul.stringnotebook.ui.template.PropertyEditor
 import kr.lul.stringnotebook.ui.template.Summary
 import kr.lul.stringnotebook.ui.template.ToolBar
@@ -36,6 +36,7 @@ import kotlin.uuid.ExperimentalUuidApi
  * @param handler 사용자의 노트북 조작 핸들러.
  */
 @Composable
+@ExperimentalStdlibApi
 @ExperimentalUuidApi
 fun NotebookPage(
     state: NotebookPageState,
@@ -53,6 +54,7 @@ fun NotebookPage(
 }
 
 @Composable
+@ExperimentalStdlibApi
 @ExperimentalUuidApi
 fun NotebookPageLoading(state: NotebookPageState.Loading, handler: NotebookPageHandler = NotebookPageHandler.NoOp) {
     Column(Modifier.fillMaxSize()) {
@@ -67,6 +69,7 @@ fun NotebookPageLoading(state: NotebookPageState.Loading, handler: NotebookPageH
 }
 
 @Composable
+@ExperimentalStdlibApi
 @ExperimentalUuidApi
 fun NotebookPageEditing(state: NotebookPageState.Editing, handler: NotebookPageHandler = NotebookPageHandler.NoOp) {
     Row(
@@ -83,17 +86,18 @@ fun NotebookPageEditing(state: NotebookPageState.Editing, handler: NotebookPageH
             Notebook(state.notebook, handler.notebook)
 
             if (state.layout is FullLayoutState) {
-                Box(Modifier.offset(16.dp, 16.dp)) {
-                    Summary(state.notebook)
-                }
+                Summary(
+                    state = state.notebook,
+                    modifier = Modifier.align(Alignment.TopStart)
+                        .offset(x = 16.dp, y = 16.dp)
+                )
 
-                Box(
+                ToolBar(
+                    state = state.notebook,
                     modifier = Modifier
                         .align(Alignment.BottomCenter)
                         .offset(y = (-16).dp)
-                ) {
-                    ToolBar(state.notebook)
-                }
+                )
             }
         }
 

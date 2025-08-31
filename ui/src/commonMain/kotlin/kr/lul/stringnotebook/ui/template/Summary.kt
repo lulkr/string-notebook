@@ -11,7 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.dp
-import kr.lul.stringnotebook.state.organism.notebook.NotebookState
+import kr.lul.stringnotebook.state.organism.NotebookState
 import kotlin.uuid.ExperimentalUuidApi
 
 /**
@@ -20,10 +20,11 @@ import kotlin.uuid.ExperimentalUuidApi
  * 노트북의 요약 정보를 표시한다.
  */
 @Composable
+@ExperimentalStdlibApi
 @ExperimentalUuidApi
-fun Summary(state: NotebookState) {
+fun Summary(state: NotebookState, modifier: Modifier = Modifier) {
     Column(
-        Modifier.background(MaterialTheme.colorScheme.surfaceContainer, RoundedCornerShape(16.dp))
+        modifier.background(MaterialTheme.colorScheme.surfaceContainer, RoundedCornerShape(16.dp))
             .padding(32.dp, 16.dp)
     ) {
         Text(

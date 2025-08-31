@@ -3,7 +3,7 @@ package kr.lul.stringnotebook.state.page
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.Stable
 import kr.lul.stringnotebook.state.molecule.State
-import kr.lul.stringnotebook.state.organism.notebook.NotebookState
+import kr.lul.stringnotebook.state.organism.NotebookState
 import kr.lul.stringnotebook.state.template.FullLayoutState
 import kr.lul.stringnotebook.state.template.LayoutState
 import kotlin.uuid.ExperimentalUuidApi
@@ -25,6 +25,7 @@ sealed interface NotebookPageState : State {
     /**
      * 노트북 편집 화면을 열고, 노트북을 로드하는 중.
      */
+    @ExperimentalStdlibApi
     @ExperimentalUuidApi
     @Immutable
     class Loading(
@@ -32,6 +33,8 @@ sealed interface NotebookPageState : State {
         override val key: Any = Uuid.random(),
         override val testTag: String = key.toString()
     ) : NotebookPageState {
+        override val summary = "NotebookPageState.Loading"
+
         fun copy(id: Uuid = this.id) = Loading(
             id = id,
             key = key,
@@ -64,6 +67,7 @@ sealed interface NotebookPageState : State {
      *
      * @param notebook 로드한 노트북 상태.
      */
+    @ExperimentalStdlibApi
     @ExperimentalUuidApi
     @Stable
     class Editing(
@@ -72,6 +76,8 @@ sealed interface NotebookPageState : State {
         override val key: Any = Uuid.random(),
         override val testTag: String = key.toString()
     ) : NotebookPageState {
+        override val summary = "NotebookPageState.Editing(notebook=${notebook.summary}, layout=${layout.summary})"
+
         fun copy(
             notebook: NotebookState = this.notebook,
             layout: LayoutState = this.layout,
@@ -99,7 +105,7 @@ sealed interface NotebookPageState : State {
         }
 
         override fun toString() = listOf(
-            "notebook=$notebook",
+            "notebook=${notebook.summary}",
             "layout=$layout",
             "key=$key",
             "testTag=$testTag"

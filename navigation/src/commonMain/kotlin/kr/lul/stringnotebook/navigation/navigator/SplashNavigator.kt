@@ -6,6 +6,7 @@ import androidx.navigation.NavDeepLink
 import kr.lul.logger.Logger
 import kotlin.uuid.ExperimentalUuidApi
 
+@ExperimentalStdlibApi
 @ExperimentalUuidApi
 @Immutable
 class SplashNavigator(

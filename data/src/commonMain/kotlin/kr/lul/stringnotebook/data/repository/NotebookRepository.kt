@@ -7,6 +7,7 @@ import kotlin.uuid.Uuid
 /**
  * 노트북 저장소 인터페이스.
  */
+@ExperimentalStdlibApi
 @ExperimentalUuidApi
 interface NotebookRepository {
     /**

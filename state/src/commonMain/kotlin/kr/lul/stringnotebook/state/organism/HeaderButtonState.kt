@@ -1,4 +1,4 @@
-package kr.lul.stringnotebook.state.organism.notebook
+package kr.lul.stringnotebook.state.organism
 
 import androidx.compose.runtime.Immutable
 import kr.lul.stringnotebook.state.molecule.IconState
@@ -20,4 +20,6 @@ data class HeaderButtonState(
     val enabled: Boolean = true,
     override val key: Any = Uuid.Companion.random(),
     override val testTag: String = key.toString()
-) : State
+) : State {
+    override val summary = "HeaderButtonState(${icon.summary}, ${label.summary})"
+}

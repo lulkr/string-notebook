@@ -54,11 +54,11 @@ object Configuration {
     const val ID_PREFIX_NOTEBOOK = "$ID_PREFIX-0002"
 
     /**
-     * 타입의 ID 접두사.
+     * 속성 타입의 ID 접두사.
      *
      * `BEEFCAFE-4096-0002-0001-############` 형식으로 지정된다.
      */
-    const val ID_PREFIX_NOTEBOOK_TYPE = "$ID_PREFIX_NOTEBOOK-0001"
+    const val ID_PREFIX_NOTEBOOK_PROPERTY_TYPE = "$ID_PREFIX_NOTEBOOK-0001"
 
     /**
      * 노트북 속성에 관한 ID 접두사.
@@ -66,6 +66,20 @@ object Configuration {
      * `BEEFCAFE-4096-0002-0002-################` 형식으로 지정된다.
      */
     const val ID_PREFIX_NOTEBOOK_PROPERTY = "$ID_PREFIX_NOTEBOOK-0002"
+
+    /**
+     * 앵커 타입의 ID 접두사.
+     *
+     * `BEEFCAFE-4096-0002-0003-############` 형식으로 지정된다.
+     */
+    const val ID_PREFIX_NOTEBOOK_ANCHOR_TYPE = "$ID_PREFIX_NOTEBOOK-0003"
+
+    /**
+     * 앵커의 ID 접두사.
+     *
+     * `BEEFCAFE-4096-0002-0004-############` 형식으로 지정된다.
+     */
+    const val ID_PREFIX_NOTEBOOK_ANCHOR = "$ID_PREFIX_NOTEBOOK-0004"
 
     /**
      * ID 생성에 사용할 수 있는 접두사 목록.
@@ -76,8 +90,10 @@ object Configuration {
         ID_PREFIX_APP_BUILD,
         ID_PREFIX_APP_INSTALL,
         ID_PREFIX_APP_PROCESS,
-        ID_PREFIX_NOTEBOOK_TYPE,
-        ID_PREFIX_NOTEBOOK_PROPERTY
+        ID_PREFIX_NOTEBOOK_PROPERTY_TYPE,
+        ID_PREFIX_NOTEBOOK_PROPERTY,
+        ID_PREFIX_NOTEBOOK_ANCHOR_TYPE,
+        ID_PREFIX_NOTEBOOK_ANCHOR
     )
 
     /**
@@ -115,6 +131,9 @@ object Configuration {
         "ID_PREFIX_APP_BUILD='$ID_PREFIX_APP_BUILD'",
         "ID_PREFIX_APP_INSTALL='$ID_PREFIX_APP_INSTALL'",
         "ID_PREFIX_APP_PROCESS='$ID_PREFIX_APP_PROCESS'",
-        "ID_PREFIX_NOTEBOOK_TYPE='$ID_PREFIX_NOTEBOOK_TYPE'"
+        "ID_PREFIX_NOTEBOOK_PROPERTY_TYPE='$ID_PREFIX_NOTEBOOK_PROPERTY_TYPE'",
+        "ID_PREFIX_NOTEBOOK_PROPERTY='$ID_PREFIX_NOTEBOOK_PROPERTY'",
+        "ID_PREFIX_NOTEBOOK_ANCHOR_TYPE='$ID_PREFIX_NOTEBOOK_ANCHOR_TYPE'",
+        "ID_PREFIX_NOTEBOOK_ANCHOR='$ID_PREFIX_NOTEBOOK_ANCHOR'",
     ).joinToString(", ", "Configuration(", ")")
 }

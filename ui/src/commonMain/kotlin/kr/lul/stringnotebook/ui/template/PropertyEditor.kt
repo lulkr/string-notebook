@@ -24,7 +24,7 @@ fun PropertyEditor() {
     Box(
         Modifier.background(MaterialTheme.colorScheme.surfaceContainer)
             .padding(32.dp)
-            .width(400.dp)
+            .width(300.dp)
             .fillMaxHeight()
     ) {
         Column(

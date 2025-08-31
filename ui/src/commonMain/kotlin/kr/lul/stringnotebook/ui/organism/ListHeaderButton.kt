@@ -1,4 +1,4 @@
-package kr.lul.stringnotebook.ui.organism.notebook
+package kr.lul.stringnotebook.ui.organism
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -10,7 +10,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import kr.lul.stringnotebook.state.molecule.ButtonHandler
-import kr.lul.stringnotebook.state.organism.notebook.HeaderButtonState
+import kr.lul.stringnotebook.state.organism.HeaderButtonState
 import kr.lul.stringnotebook.ui.atom.logger
 import kr.lul.stringnotebook.ui.molecule.Icon
 import kr.lul.stringnotebook.ui.molecule.Text

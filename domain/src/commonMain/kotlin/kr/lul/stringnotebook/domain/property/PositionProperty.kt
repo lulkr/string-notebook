@@ -1,9 +1,10 @@
 package kr.lul.stringnotebook.domain.property
 
 import kr.lul.stringnotebook.domain.foundation.CompositeProperty
-import kr.lul.stringnotebook.domain.type.PositionType
-import kr.lul.stringnotebook.domain.type.PositionType.X
-import kr.lul.stringnotebook.domain.type.PositionType.Y
+import kr.lul.stringnotebook.domain.foundation.Property.Companion.id
+import kr.lul.stringnotebook.domain.type.PositionPropertyType
+import kr.lul.stringnotebook.domain.type.PositionPropertyType.PROP_X
+import kr.lul.stringnotebook.domain.type.PositionPropertyType.PROP_Y
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
@@ -13,23 +14,33 @@ import kotlin.uuid.Uuid
 @ExperimentalStdlibApi
 @ExperimentalUuidApi
 class PositionProperty(
-    id: Uuid,
-    name: String,
+    id: Uuid = id(),
+    name: String? = null,
     /**
      * X 좌표.
      */
-    val x: LengthProperty,
+    val x: LengthProperty = LengthProperty(name = PROP_X),
     /**
      * Y 좌표.
      */
-    val y: LengthProperty
-) : CompositeProperty(id, PositionType, name, mapOf(X to x, Y to y)) {
-    constructor(name: String, x: Float, y: Float) : this(
-        id = Uuid.random(),
+    val y: LengthProperty = LengthProperty(name = PROP_Y)
+) : CompositeProperty(id, PositionPropertyType, name, mapOf(PROP_X to x, PROP_Y to y)) {
+    constructor(
+        id: Uuid = id(),
+        name: String? = null,
+        x: Float = 0F,
+        y: Float = 0F
+    ) : this(
+        id = id,
         name = name,
-        x = LengthProperty(X, x),
-        y = LengthProperty(Y, y)
+        x = LengthProperty(name = PROP_X, value = x),
+        y = LengthProperty(name = PROP_Y, value = y)
     )
+
+    init {
+        require(x.name == PROP_X)
+        require(y.name == PROP_Y)
+    }
 
     override fun toString() = listOf(
         "id=$id",
