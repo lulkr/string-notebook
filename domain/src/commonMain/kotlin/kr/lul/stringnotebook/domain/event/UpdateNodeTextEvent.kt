@@ -17,20 +17,6 @@ data class UpdateNodeTextEvent(
 ) : Event {
     override val id: Uuid = Uuid.random()
 
-    override fun equals(other: Any?) = this === other || (
-            other is UpdateNodeTextEvent &&
-                    id == other.id &&
-                    target == other.target &&
-                    text == other.text
-            )
-
-    override fun hashCode(): Int {
-        var result = target.hashCode()
-        result = 31 * result + text.hashCode()
-        result = 31 * result + id.hashCode()
-        return result
-    }
-
     override fun toString() = listOf(
         "id=$id",
         "target=$target",

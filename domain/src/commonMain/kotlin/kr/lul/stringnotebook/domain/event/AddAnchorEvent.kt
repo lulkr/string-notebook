@@ -21,5 +21,5 @@ data class AddAnchorEvent(
 ) : Event {
     override val id: Uuid = Uuid.random()
 
-    override fun toString() = "AddAnchorEvent(id=$id, type=$type, x=$x, y=$y)"
+    override fun toString() = "AddAnchorEvent(id=$id, x=$x, y=$y)"
 }
