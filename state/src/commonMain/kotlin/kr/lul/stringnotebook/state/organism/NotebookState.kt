@@ -4,6 +4,7 @@ import androidx.compose.runtime.Stable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.geometry.Size
 import kotlinx.datetime.Instant
 import kr.lul.stringnotebook.domain.foundation.Notebook
 import kr.lul.stringnotebook.state.molecule.State
@@ -21,24 +22,52 @@ class NotebookState(
      * @see Notebook.id
      */
     val id: Uuid,
+    /**
+     * @see Notebook.name
+     * @see NotebookState.name
+     */
     name: String,
+    /**
+     * @see Notebook.memo
+     * @see NotebookState.memo
+     */
     memo: String?,
+    /**
+     * @see Notebook.anchors
+     * @see NotebookState.anchors
+     */
     anchors: List<AnchorState>,
-    menu: MenuState?,
+    /**
+     * @see Notebook.createdAt
+     * @see NotebookState.createdAt
+     */
     createdAt: Instant,
-    updatedAt: Instant,
+    /**
+     * @see Notebook.updatedAt
+     * @see NotebookState.updatedAt
+     */
+    updatedAt: Instant = createdAt,
+    /**
+     * @see NotebookState.menu
+     */
+    menu: MenuState? = null,
+    /**
+     * 화면상 표시 크기. DP 단위.
+     *
+     * @see NotebookState.size
+     */
+    size: Size = Size.Unspecified,
     override val key: Any = Uuid.random(),
     override val testTag: String = key.toString()
 ) : State, EditContext {
     companion object {
         val Placeholder = NotebookState(
-            Uuid.parse("00000000-0000-0000-0000-000000000000"),
-            "플레이스홀더 노트북",
-            null,
-            emptyList(),
-            null,
-            Instant.fromEpochSeconds(0, 0),
-            Instant.fromEpochSeconds(0, 0)
+            id = Uuid.parse("00000000-0000-0000-0000-000000000000"),
+            name = "플레이스홀더",
+            memo = null,
+            anchors = emptyList(),
+            createdAt = Instant.fromEpochSeconds(0, 0),
+            size = Size.Zero
         )
     }
 
@@ -49,11 +78,17 @@ class NotebookState(
     override val notes: List<NoteState>
         get() = anchors
 
-    override var menu: MenuState? by mutableStateOf(menu)
     val createdAt: Instant by mutableStateOf(createdAt)
     var updatedAt: Instant by mutableStateOf(updatedAt)
 
-    override val summary = "NotebookState($name, anchors=${this.anchors.size})"
+    override var menu: MenuState? by mutableStateOf(menu)
+
+    /**
+     * 화면상 표시 크기. DP 단위.
+     */
+    var size: Size by mutableStateOf(size)
+
+    override val summary = "NotebookState('$name', anchors=${anchors.map { it.summary }})"
 
     override fun equals(other: Any?) = this === other || (
             other is NotebookState &&
@@ -61,9 +96,10 @@ class NotebookState(
                     name == other.name &&
                     memo == other.memo &&
                     anchors == other.anchors &&
-                    menu == other.menu &&
                     createdAt == other.createdAt &&
                     updatedAt == other.updatedAt &&
+                    menu == other.menu &&
+                    size == other.size &&
                     key == other.key &&
                     testTag == other.testTag
             )
@@ -73,9 +109,10 @@ class NotebookState(
         result = 31 * result + name.hashCode()
         result = 31 * result + (memo?.hashCode() ?: 0)
         result = 31 * result + anchors.hashCode()
-        result = 31 * result + (menu?.hashCode() ?: 0)
         result = 31 * result + createdAt.hashCode()
         result = 31 * result + updatedAt.hashCode()
+        result = 31 * result + (menu?.hashCode() ?: 0)
+        result = 31 * result + size.hashCode()
         result = 31 * result + key.hashCode()
         result = 31 * result + testTag.hashCode()
         return result
@@ -86,9 +123,10 @@ class NotebookState(
         "name='$name'",
         "memo=$memo",
         "anchors=${anchors.map { it.summary }}",
-        "menu=$menu",
         "createdAt=$createdAt",
         "updatedAt=$updatedAt",
+        "menu=$menu",
+        "size=$size",
         "key=$key",
         "testTag='$testTag'"
     ).joinToString(", ", "NotebookState(", ")")

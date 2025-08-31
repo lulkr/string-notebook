@@ -14,9 +14,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
+import kr.lul.stringnotebook.state.atom.minus
 import kr.lul.stringnotebook.state.atom.toDp
 import kr.lul.stringnotebook.state.organism.NotebookHandler
 import kr.lul.stringnotebook.state.organism.NotebookState
@@ -43,15 +45,18 @@ fun Notebook(
             .pointerInput(state) {
                 detectTapGestures(
                     onDoubleTap = { offset ->
-                        handler.onDoubleClick(offset.toDp(density))
+                        handler.onDoubleClick(offset.toDp(density) - state.size / 2F)
                     },
                     onLongPress = { offset ->
-                        handler.onLongClick(offset.toDp(density))
+                        handler.onLongClick(offset.toDp(density) - state.size / 2F)
                     },
                     onTap = { offset ->
-                        handler.onClick(offset.toDp(density))
+                        handler.onClick(offset.toDp(density) - state.size / 2F)
                     }
                 )
+            }
+            .onSizeChanged { size ->
+                handler.onChangeSize(size.toDp(density))
             },
         contentAlignment = Alignment.Center
     ) {
@@ -59,7 +64,7 @@ fun Notebook(
             Box(
                 Modifier.offset(anchor.position.x.dp, anchor.position.y.dp)
                     .zIndex(Z_INDEX_ANCHOR_BASE + idx)
-                    .background(MaterialTheme.colorScheme.secondaryContainer, CircleShape)
+                    .background(MaterialTheme.colorScheme.tertiary, CircleShape)
                     .size(8.dp)
             )
         }
@@ -68,7 +73,6 @@ fun Notebook(
             Box(
                 modifier = Modifier
                     .zIndex(Z_INDEX_MENU)
-                    .align(Alignment.TopStart)
                     .offset(menu.position.x.dp, menu.position.y.dp)
             ) {
                 ContextMenu(

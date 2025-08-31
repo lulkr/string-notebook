@@ -32,7 +32,7 @@ class AnchorState(
     override var memo: String? by mutableStateOf(memo)
     val position: PositionState by mutableStateOf(position)
     override val updatedAt: Instant by mutableStateOf(updatedAt)
-    override val summary = "AnchorState(${position.summary})"
+    override val summary = "AnchorState($type, ${position.summary})"
 
     override fun equals(other: Any?) = this === other || (
             other is AnchorState &&

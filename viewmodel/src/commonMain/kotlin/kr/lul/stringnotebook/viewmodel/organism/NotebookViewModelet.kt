@@ -1,6 +1,7 @@
 package kr.lul.stringnotebook.viewmodel.organism
 
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Size
 import androidx.lifecycle.LifecycleOwner
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -10,6 +11,7 @@ import kr.lul.stringnotebook.domain.notebook.ObservableNotebook
 import kr.lul.stringnotebook.model.NotebookEventProcessor
 import kr.lul.stringnotebook.model.NotebookModel
 import kr.lul.stringnotebook.state.atom.TextResource
+import kr.lul.stringnotebook.state.atom.summary
 import kr.lul.stringnotebook.state.molecule.PositionState
 import kr.lul.stringnotebook.state.molecule.TextState
 import kr.lul.stringnotebook.state.organism.AnchorState
@@ -40,8 +42,14 @@ class NotebookViewModelet(
     private val _state = MutableStateFlow<NotebookState?>(null)
     val state: StateFlow<NotebookState?> = _state
 
+    override fun onChangeSize(size: Size) {
+        logger.d("#onChangeSize args : size=${size.summary}")
+
+        checkNotNull(state.value).size = size
+    }
+
     override fun onClick(offset: Offset) {
-        logger.d("#onClick args : offset=$offset")
+        logger.d("#onClick args : offset=${offset.summary}")
 
         // TODO FSM 상태에 따른 동작 정의.
 
@@ -58,7 +66,7 @@ class NotebookViewModelet(
     override fun onDoubleClick(offset: Offset) = onLongClick(offset)
 
     override fun onLongClick(offset: Offset) {
-        logger.d("#onLongClick args : offset=$offset")
+        logger.d("#onLongClick args : offset=${offset.summary}")
 
         val state = _state.value
         if (state == null)
