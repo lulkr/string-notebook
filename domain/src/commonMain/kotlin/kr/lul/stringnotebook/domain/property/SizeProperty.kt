@@ -3,8 +3,8 @@ package kr.lul.stringnotebook.domain.property
 import kr.lul.stringnotebook.domain.foundation.CompositeProperty
 import kr.lul.stringnotebook.domain.foundation.Property.Companion.id
 import kr.lul.stringnotebook.domain.type.SizePropertyType
-import kr.lul.stringnotebook.domain.type.SizePropertyType.HEIGHT
-import kr.lul.stringnotebook.domain.type.SizePropertyType.WIDTH
+import kr.lul.stringnotebook.domain.type.SizePropertyType.PROP_HEIGHT
+import kr.lul.stringnotebook.domain.type.SizePropertyType.PROP_WIDTH
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
@@ -19,12 +19,12 @@ class SizeProperty(
     /**
      * 폭
      */
-    val width: LengthProperty = LengthProperty(name = WIDTH),
+    val width: LengthProperty = LengthProperty(name = PROP_WIDTH),
     /**
      * 높이
      */
-    val height: LengthProperty = LengthProperty(name = HEIGHT)
-) : CompositeProperty(id, SizePropertyType, name, mapOf(WIDTH to width, HEIGHT to height)) {
+    val height: LengthProperty = LengthProperty(name = PROP_HEIGHT)
+) : CompositeProperty(id, SizePropertyType, name, mapOf(PROP_WIDTH to width, PROP_HEIGHT to height)) {
     constructor(
         id: Uuid = id(),
         name: String? = null,
@@ -33,13 +33,13 @@ class SizeProperty(
     ) : this(
         id = id,
         name = name,
-        width = LengthProperty(name = WIDTH, value = width),
-        height = LengthProperty(name = WIDTH, value = height)
+        width = LengthProperty(name = PROP_WIDTH, value = width),
+        height = LengthProperty(name = PROP_WIDTH, value = height)
     )
 
     init {
-        require(width.name == WIDTH)
-        require(height.name == HEIGHT)
+        require(width.name == PROP_WIDTH)
+        require(height.name == PROP_HEIGHT)
     }
 
     override fun toString() = listOf(

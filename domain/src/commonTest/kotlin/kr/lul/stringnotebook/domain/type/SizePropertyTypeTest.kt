@@ -24,7 +24,7 @@ class SizePropertyTypeTest {
         assertEquals(type, StandardPropertyTypes[type].type)
         assertEquals(type, StandardPropertyTypes[type.id].type)
         assertEquals(type, StandardPropertyTypes[type.name].type)
-        assertTrue(type.properties.keys.contains(type.WIDTH))
-        assertTrue(type.properties.keys.contains(type.HEIGHT))
+        assertTrue(type.properties.keys.contains(type.PROP_WIDTH))
+        assertTrue(type.properties.keys.contains(type.PROP_HEIGHT))
     }
 }

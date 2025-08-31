@@ -2,8 +2,8 @@ package kr.lul.stringnotebook.domain.type
 
 import kr.lul.stringnotebook.domain.foundation.CompositePropertyType
 import kr.lul.stringnotebook.domain.type.PositionPropertyType.ID_SUFFIX
-import kr.lul.stringnotebook.domain.type.PositionPropertyType.X
-import kr.lul.stringnotebook.domain.type.PositionPropertyType.Y
+import kr.lul.stringnotebook.domain.type.PositionPropertyType.PROP_X
+import kr.lul.stringnotebook.domain.type.PositionPropertyType.PROP_Y
 import kotlin.uuid.ExperimentalUuidApi
 
 /**
@@ -17,13 +17,13 @@ object PositionPropertyType : CompositePropertyType(
     name = "Position",
     description = "오브젝트를 배치할 때 사용하는 좌표.",
     properties = mapOf(
-        X to LengthPropertyType,
-        Y to LengthPropertyType
+        PROP_X to LengthPropertyType,
+        PROP_Y to LengthPropertyType
     )
 ) {
     const val ID_SUFFIX = 2L
-    const val X = "x"
-    const val Y = "y"
+    const val PROP_X = "x"
+    const val PROP_Y = "y"
 
     /**
      * x 좌표

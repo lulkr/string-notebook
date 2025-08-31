@@ -24,7 +24,7 @@ class PositionPropertyTypeTest {
         assertEquals(type, StandardPropertyTypes[type].type)
         assertEquals(type, StandardPropertyTypes[type.id].type)
         assertEquals(type, StandardPropertyTypes[type.name].type)
-        assertTrue(type.properties.keys.contains(type.X))
-        assertTrue(type.properties.keys.contains(type.Y))
+        assertTrue(type.properties.keys.contains(type.PROP_X))
+        assertTrue(type.properties.keys.contains(type.PROP_Y))
     }
 }

@@ -38,7 +38,6 @@ class MenuState(
         result = 31 * result + items.hashCode()
         result = 31 * result + key.hashCode()
         result = 31 * result + testTag.hashCode()
-        result = 31 * result + summary.hashCode()
         return result
     }
 
