@@ -1,4 +1,4 @@
-package kr.lul.stringnotebook.state.atom
+package kr.lul.stringnotebook.ui.atom
 
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.InspectableValue

@@ -5,8 +5,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
-import kr.lul.stringnotebook.state.atom.hasTestTag
 import kr.lul.stringnotebook.state.molecule.IconState
+import kr.lul.stringnotebook.ui.atom.hasTestTag
 import org.jetbrains.compose.resources.painterResource
 import kotlin.uuid.ExperimentalUuidApi
 
