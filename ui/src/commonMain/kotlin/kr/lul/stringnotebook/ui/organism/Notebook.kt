@@ -5,8 +5,6 @@ import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.offset
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -61,11 +59,10 @@ fun Notebook(
         contentAlignment = Alignment.Center
     ) {
         state.anchors.forEachIndexed { idx, anchor ->
-            Box(
-                Modifier.offset(anchor.position.x.dp, anchor.position.y.dp)
-                    .zIndex(Z_INDEX_ANCHOR_BASE + idx)
-                    .background(MaterialTheme.colorScheme.tertiary, CircleShape)
-                    .size(8.dp)
+            AnchorContainer(
+                state = AnchorContainerDefaults.default(),
+                anchor = anchor,
+                zIndex = Z_INDEX_ANCHOR_BASE + idx
             )
         }
 

@@ -1,8 +1,12 @@
 package kr.lul.stringnotebook.ui.atom
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.InspectableValue
 import androidx.compose.ui.platform.testTag
+import kr.lul.stringnotebook.state.atom.BackgroundState
+import kr.lul.stringnotebook.state.atom.BorderState
 
 /**
  * [Modifier]가 속성을 가지고 있는지 확인하는 확장 함수.
@@ -19,3 +23,15 @@ fun Modifier.hasElement(name: String): Boolean = foldIn(false) { found, element 
  * @see testTag
  */
 fun Modifier.hasTestTag(): Boolean = hasElement("testTag")
+
+fun Modifier.border(border: BorderState): Modifier = border(
+    border.width,
+    border.brush,
+    border.shape
+)
+
+fun Modifier.background(background: BackgroundState): Modifier = background(
+    background.brush,
+    background.shape,
+    background.alpha
+)

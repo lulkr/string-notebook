@@ -11,8 +11,8 @@ import kr.lul.stringnotebook.state.atom.BorderState
 @Immutable
 data class AnchorContainerState(
     val border: BorderState,
-    val padding: PaddingValues,
-    val background: BackgroundState
+    val background: BackgroundState,
+    val padding: PaddingValues
 ) {
     companion object Companion {
         /**

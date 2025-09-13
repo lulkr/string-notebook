@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import kr.lul.stringnotebook.state.atom.BackgroundState
 import kr.lul.stringnotebook.state.atom.BorderState
@@ -21,10 +22,10 @@ object AnchorContainerDefaults {
      */
     @Composable
     fun default(
-        border: BorderState = BorderState(1.dp, MaterialTheme.colorScheme.tertiary, CircleShape),
-        padding: PaddingValues = PaddingValues(PADDING.dp),
-        background: BackgroundState = BackgroundState()
-    ) = AnchorContainerState(border, padding, background)
+        border: BorderState = BorderState(1.dp, Color.Transparent, CircleShape),
+        background: BackgroundState = BackgroundState(),
+        padding: PaddingValues = PaddingValues(PADDING.dp)
+    ) = AnchorContainerState(border, background, padding)
 
     /**
      * 호버 앵커 컨테이너.
@@ -34,9 +35,9 @@ object AnchorContainerDefaults {
     @Composable
     fun hovered(
         border: BorderState = BorderState(1.dp, MaterialTheme.colorScheme.secondary, CircleShape),
-        padding: PaddingValues = PaddingValues(PADDING.dp),
-        background: BackgroundState = BackgroundState()
-    ) = AnchorContainerState(border, padding, background)
+        background: BackgroundState = BackgroundState(),
+        padding: PaddingValues = PaddingValues(PADDING.dp)
+    ) = AnchorContainerState(border, background, padding)
 
     /**
      * 선택된 앵커 컨테이너.
@@ -46,7 +47,7 @@ object AnchorContainerDefaults {
     @Composable
     fun selected(
         border: BorderState = BorderState(1.dp, MaterialTheme.colorScheme.primary, CircleShape),
-        padding: PaddingValues = PaddingValues(PADDING.dp),
-        background: BackgroundState = BackgroundState()
-    ) = AnchorContainerState(border, padding, background)
+        background: BackgroundState = BackgroundState(),
+        padding: PaddingValues = PaddingValues(PADDING.dp)
+    ) = AnchorContainerState(border, background, padding)
 }
