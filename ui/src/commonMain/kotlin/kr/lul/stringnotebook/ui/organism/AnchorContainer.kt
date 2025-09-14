@@ -36,6 +36,9 @@ fun BoxScope.AnchorContainer(
     val hovered by interactionSource.collectIsHoveredAsState()
     logger.v("#AnchorContainer : hovered=$hovered")
 
+    val editContext = LocalEditContext.current
+    logger.v("#AnchorContainer : editContext=$editContext")
+
     val border: BorderState
     val padding: PaddingValues
     val background: BackgroundState
