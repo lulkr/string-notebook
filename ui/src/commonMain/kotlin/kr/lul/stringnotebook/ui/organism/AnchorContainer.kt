@@ -55,9 +55,9 @@ fun BoxScope.AnchorContainer(
     logger.v("#AnchorContainer : border=$border, padding=$padding, background=$background")
 
     Box(
-        Modifier.hoverable(interactionSource)
-            .offset(anchor.position.x.dp, anchor.position.y.dp)
+        Modifier.offset(anchor.position.x.dp, anchor.position.y.dp)
             .zIndex(zIndex)
+            .hoverable(interactionSource)
             .border(border)
             .background(background)
             .padding(padding)
