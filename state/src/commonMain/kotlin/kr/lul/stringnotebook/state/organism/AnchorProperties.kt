@@ -1,9 +1,11 @@
 package kr.lul.stringnotebook.state.organism
 
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
 import kr.lul.stringnotebook.state.atom.BackgroundState
 import kr.lul.stringnotebook.state.atom.BorderState
 
@@ -45,4 +47,15 @@ class AnchorProperties(
      * 앵커의 색상.
      */
     val color: Color
-)
+) {
+    companion object {
+        val Default = AnchorProperties(
+            containerBorder = BorderState(1.dp, Color.Transparent, CircleShape),
+            containerBackground = BackgroundState(),
+            containerPadding = PaddingValues(4.dp),
+            background = BackgroundState(),
+            radius = 4.dp,
+            color = Color.Transparent
+        )
+    }
+}

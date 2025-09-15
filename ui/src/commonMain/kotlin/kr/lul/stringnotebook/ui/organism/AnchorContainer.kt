@@ -31,7 +31,7 @@ fun BoxScope.AnchorContainer(
     val editContext = LocalEditContext.current
     logger.v("#AnchorContainer : editContext=$editContext")
 
-    val interactionSource = remember { MutableInteractionSource() }
+    val interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
     val hovered by interactionSource.collectIsHoveredAsState()
     logger.v("#AnchorContainer : interactionSource=$interactionSource, hovered=$hovered")
 
@@ -44,6 +44,19 @@ fun BoxScope.AnchorContainer(
     }
     logger.v("#AnchorContainer : properties=$properties")
 
+
+    AnchorContainer(anchor, zIndex, interactionSource, properties)
+}
+
+@Composable
+@ExperimentalStdlibApi
+@ExperimentalUuidApi
+internal fun BoxScope.AnchorContainer(
+    anchor: AnchorState,
+    zIndex: Float = Z_INDEX_ANCHOR_BASE,
+    interactionSource: MutableInteractionSource = MutableInteractionSource(),
+    properties: AnchorProperties = AnchorProperties.Default
+) {
     Box(
         Modifier.offset(anchor.position.x.dp, anchor.position.y.dp)
             .zIndex(zIndex)
@@ -52,6 +65,6 @@ fun BoxScope.AnchorContainer(
             .background(properties.containerBackground)
             .padding(properties.containerPadding)
     ) {
-        Anchor(anchor, hovered)
+        Anchor(anchor, properties.radius, properties.color)
     }
 }

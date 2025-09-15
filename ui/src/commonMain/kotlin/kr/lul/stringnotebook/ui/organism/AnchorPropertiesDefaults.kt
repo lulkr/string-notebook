@@ -1,47 +1,32 @@
 package kr.lul.stringnotebook.ui.organism
 
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.dp
 import kr.lul.stringnotebook.state.atom.BackgroundState
 import kr.lul.stringnotebook.state.atom.BorderState
 import kr.lul.stringnotebook.state.organism.AnchorProperties
+import kr.lul.stringnotebook.state.organism.AnchorProperties.Companion.Default
 
 object AnchorPropertiesDefaults {
-    /**
-     * 앵커 컨테이너의 기본 패딩.
-     *
-     * @see AnchorProperties.containerPadding
-     */
-    val CONTAINER_PADDING_DEFAULT = 4.dp
-
-    /**
-     * 앵커의 기본 반지름.
-     *
-     * @see AnchorProperties.radius
-     */
-    val RADIUS_DEFAULT: Dp = 4.dp
-
     @Composable
     fun default(
         /**
          * 앵커 컨테이너의 테두리 상태.
          */
-        containerBorder: BorderState = BorderState(1.dp, Color.Transparent, CircleShape),
+        containerBorder: BorderState = Default.containerBorder,
         /**
          * 앵커 컨테이너의 배경 상태.
          */
-        containerBackground: BackgroundState = BackgroundState(),
+        containerBackground: BackgroundState = Default.containerBackground,
         /**
          * 앵커 컨테이너의 패딩.
          *
          * 전체 컨테이너의 크기는 [radius]와 [containerPadding]의 합으로 결정된다.
          */
-        containerPadding: PaddingValues = PaddingValues(CONTAINER_PADDING_DEFAULT),
+        containerPadding: PaddingValues = Default.containerPadding,
         /**
          * 앵커의 배경 상태.
          */
@@ -51,7 +36,7 @@ object AnchorPropertiesDefaults {
          *
          * 전체 컨테이너의 크기는 [radius]와 [containerPadding]의 합으로 결정된다.
          */
-        radius: Dp = RADIUS_DEFAULT,
+        radius: Dp = Default.radius,
         /**
          * 앵커의 색상.
          */
@@ -63,27 +48,27 @@ object AnchorPropertiesDefaults {
         /**
          * 앵커 컨테이너의 테두리 상태.
          */
-        containerBorder: BorderState = BorderState(1.dp, MaterialTheme.colorScheme.secondary, CircleShape),
+        containerBorder: BorderState = Default.containerBorder.copy(color = MaterialTheme.colorScheme.secondary),
         /**
          * 앵커 컨테이너의 배경 상태.
          */
-        containerBackground: BackgroundState = BackgroundState(),
+        containerBackground: BackgroundState = Default.containerBackground,
         /**
          * 앵커 컨테이너의 패딩.
          *
          * 전체 컨테이너의 크기는 [radius]와 [containerPadding]의 합으로 결정된다.
          */
-        containerPadding: PaddingValues = PaddingValues(CONTAINER_PADDING_DEFAULT),
+        containerPadding: PaddingValues = Default.containerPadding,
         /**
          * 앵커의 배경 상태.
          */
-        background: BackgroundState = BackgroundState(),
+        background: BackgroundState = Default.background,
         /**
          * 앵커의 반지름.
          *
          * 전체 컨테이너의 크기는 [radius]와 [containerPadding]의 합으로 결정된다.
          */
-        radius: Dp = RADIUS_DEFAULT,
+        radius: Dp = Default.radius,
         /**
          * 앵커의 색상.
          */
