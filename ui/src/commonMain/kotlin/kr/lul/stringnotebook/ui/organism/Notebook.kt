@@ -62,7 +62,6 @@ fun Notebook(
         ) {
             state.anchors.forEachIndexed { idx, anchor ->
                 AnchorContainer(
-                    state = AnchorContainerDefaults.default(),
                     anchor = anchor,
                     zIndex = Z_INDEX_ANCHOR_BASE + idx
                 )

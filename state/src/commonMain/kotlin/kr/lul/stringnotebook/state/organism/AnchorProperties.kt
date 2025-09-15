@@ -2,6 +2,7 @@ package kr.lul.stringnotebook.state.organism
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Immutable
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import kr.lul.stringnotebook.state.atom.BackgroundState
 import kr.lul.stringnotebook.state.atom.BorderState
@@ -39,5 +40,9 @@ class AnchorProperties(
      *
      * @see containerPadding
      */
-    val radius: Dp
+    val radius: Dp,
+    /**
+     * 앵커의 색상.
+     */
+    val color: Color
 )
