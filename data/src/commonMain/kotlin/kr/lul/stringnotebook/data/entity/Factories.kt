@@ -4,6 +4,7 @@ import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 import kr.lul.stringnotebook.domain.foundation.Anchor
 import kr.lul.stringnotebook.domain.foundation.AnchorType
+import kr.lul.stringnotebook.domain.notebook.Border
 import kr.lul.stringnotebook.domain.notebook.Notebook
 import kr.lul.stringnotebook.domain.property.PositionProperty
 import kr.lul.stringnotebook.domain.type.PlainAnchorType
@@ -15,8 +16,9 @@ import kotlin.uuid.Uuid
 fun Notebook(
     id: Uuid = Uuid.random(),
     name: String = NotebookEntity.DEFAULT_NAME,
-    description: String? = null
-): Notebook = NotebookEntity(id, name, description)
+    description: String? = null,
+    anchorContainerBorder: Border = BorderEntity(red = 0, green = 0, blue = 0, alpha = 0)
+): Notebook = NotebookEntity(id, name, description, anchorContainerBorder)
 
 @ExperimentalStdlibApi
 @ExperimentalUuidApi

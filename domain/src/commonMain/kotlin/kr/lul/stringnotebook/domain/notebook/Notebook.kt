@@ -42,6 +42,11 @@ interface Notebook {
     val anchors: List<Anchor>
 
     /**
+     * 앵커 컨테이너의 테두리.
+     */
+    val anchorContainerBorder: Border
+
+    /**
      * 생성 시각.
      */
     val createdAt: Instant

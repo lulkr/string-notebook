@@ -35,13 +35,15 @@ abstract class ObservableNotebook(
     override val notes: List<Note>
         get() = super.notes
     override val anchors: List<Anchor>
-        get() = notebook.anchors.mapNotNull {
-            observableAnchors[it.id].also {
-                if (null == it) {
-                    logger.w("#anchors there is no observable anchor : anchor=$it")
+        get() = notebook.anchors.mapNotNull { anchor ->
+            observableAnchors[anchor.id].also { observable ->
+                if (null == observable) {
+                    logger.w("#anchors there is no observable anchor : anchor.id=${anchor.id}")
                 }
             }
         }
+    override val anchorContainerBorder: Border
+        get() = notebook.anchorContainerBorder
     override val createdAt: Instant
         get() = notebook.createdAt
     override val updatedAt: Instant
