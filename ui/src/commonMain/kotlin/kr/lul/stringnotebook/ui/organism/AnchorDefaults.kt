@@ -4,6 +4,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.unit.dp
 
+@Deprecated("use kr.lul.stringnotebook.state.organism.AnchorProperties")
 object AnchorDefaults {
     val RADIUS = 8.dp
 

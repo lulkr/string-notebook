@@ -14,6 +14,7 @@ import kr.lul.stringnotebook.state.organism.AnchorContainerState.Companion.PADDI
 /**
  * 앵커 컨테이너의 기본 상태값과 유틸리티 메서드.
  */
+@Deprecated("use kr.lul.stringnotebook.state.organism.AnchorProperties")
 object AnchorContainerDefaults {
     /**
      * 기본 앵커 컨테이너.
