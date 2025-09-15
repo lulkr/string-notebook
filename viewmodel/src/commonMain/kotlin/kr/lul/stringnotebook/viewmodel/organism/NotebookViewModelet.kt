@@ -1,19 +1,25 @@
 package kr.lul.stringnotebook.viewmodel.organism
 
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.LifecycleOwner
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kr.lul.stringnotebook.domain.event.AddAnchorEvent
 import kr.lul.stringnotebook.domain.foundation.EventProcessor
+import kr.lul.stringnotebook.domain.notebook.Border
 import kr.lul.stringnotebook.domain.notebook.ObservableNotebook
 import kr.lul.stringnotebook.model.NotebookEventProcessor
 import kr.lul.stringnotebook.model.NotebookModel
+import kr.lul.stringnotebook.state.atom.BorderState
 import kr.lul.stringnotebook.state.atom.TextResource
 import kr.lul.stringnotebook.state.atom.summary
 import kr.lul.stringnotebook.state.molecule.PositionState
 import kr.lul.stringnotebook.state.molecule.TextState
+import kr.lul.stringnotebook.state.organism.AnchorProperties
 import kr.lul.stringnotebook.state.organism.AnchorState
 import kr.lul.stringnotebook.state.organism.MenuItemState
 import kr.lul.stringnotebook.state.organism.MenuState
@@ -115,6 +121,17 @@ class NotebookViewModelet(
                     )
                 },
                 menu = null,
+                anchorPropertiesDefault = AnchorProperties.Default.copy(
+                    containerBorder = if (notebook.anchorContainerBorder == Border.Unspecified) {
+                        AnchorProperties.Default.containerBorder
+                    } else {
+                        BorderState(
+                            width = notebook.anchorContainerBorder.width.value.dp,
+                            color = notebook.anchorContainerBorder.color.run { Color(red, green, blue, alpha) },
+                            shape = CircleShape
+                        )
+                    }
+                ),
                 createdAt = notebook.createdAt,
                 updatedAt = notebook.updatedAt
             )

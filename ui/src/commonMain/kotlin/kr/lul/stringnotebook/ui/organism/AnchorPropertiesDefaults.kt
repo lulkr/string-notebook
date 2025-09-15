@@ -4,13 +4,18 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
 import kr.lul.stringnotebook.state.atom.BackgroundState
 import kr.lul.stringnotebook.state.atom.BorderState
 import kr.lul.stringnotebook.state.organism.AnchorProperties
 import kr.lul.stringnotebook.state.organism.AnchorProperties.Companion.Default
 
 object AnchorPropertiesDefaults {
+    /**
+     * 기본 앵커 속성.
+     */
     @Composable
     fun default(
         /**
@@ -43,6 +48,28 @@ object AnchorPropertiesDefaults {
         color: Color = MaterialTheme.colorScheme.tertiaryContainer
     ) = AnchorProperties(containerBorder, containerBackground, containerPadding, background, radius, color)
 
+    /**
+     * 기본 앵커 속성.
+     *
+     * 전달된 [properties]를 기본으로 필요한 속성을 덮어쓴다.
+     */
+    @Composable
+    fun default(properties: AnchorProperties?): AnchorProperties {
+        if (properties == null)
+            return default()
+
+        val color = if (properties.color == Color.Transparent) {
+            MaterialTheme.colorScheme.tertiaryContainer
+        } else {
+            properties.color
+        }
+
+        return properties.copy(color = color)
+    }
+
+    /**
+     * 호버된 앵커 속성.
+     */
     @Composable
     fun hovered(
         /**
@@ -74,4 +101,32 @@ object AnchorPropertiesDefaults {
          */
         color: Color = MaterialTheme.colorScheme.secondary
     ) = AnchorProperties(containerBorder, containerBackground, containerPadding, background, radius, color)
+
+    /**
+     * 호버된 앵커 속성.
+     *
+     * 전달된 [properties]를 기본으로 필요한 속성을 덮어쓴다.
+     */
+    @Composable
+    fun hovered(properties: AnchorProperties?): AnchorProperties {
+        if (properties == null)
+            return hovered()
+
+        val containerBorder = if (
+            properties.containerBorder.width == 1.dp &&
+            (properties.containerBorder.brush as? SolidColor)?.value == Color.Transparent
+        ) {
+            properties.containerBorder.copy(color = MaterialTheme.colorScheme.secondary)
+        } else {
+            properties.containerBorder
+        }
+
+        val color = if (properties.color == Color.Transparent) {
+            MaterialTheme.colorScheme.secondary
+        } else {
+            properties.color
+        }
+
+        return properties.copy(containerBorder = containerBorder, color = color)
+    }
 }

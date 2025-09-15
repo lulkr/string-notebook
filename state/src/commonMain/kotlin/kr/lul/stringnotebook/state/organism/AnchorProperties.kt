@@ -14,7 +14,7 @@ import kr.lul.stringnotebook.state.atom.BorderState
  *
  */
 @Immutable
-class AnchorProperties(
+data class AnchorProperties(
     /**
      * 앵커 컨테이너의 테두리 상태.
      */

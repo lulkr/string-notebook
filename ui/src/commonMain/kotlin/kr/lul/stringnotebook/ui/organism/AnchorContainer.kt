@@ -36,11 +36,9 @@ fun BoxScope.AnchorContainer(
     logger.v("#AnchorContainer : interactionSource=$interactionSource, hovered=$hovered")
 
     val properties: AnchorProperties = when {
-        hovered -> editContext.anchorPropertiesHovered
-            ?: AnchorPropertiesDefaults.hovered()
+        hovered -> AnchorPropertiesDefaults.hovered(editContext.anchorPropertiesHovered)
 
-        else -> editContext.anchorPropertiesDefault
-            ?: AnchorPropertiesDefaults.default()
+        else -> AnchorPropertiesDefaults.default(editContext.anchorPropertiesDefault)
     }
     logger.v("#AnchorContainer : properties=$properties")
 
