@@ -17,6 +17,9 @@ interface EditContext {
         override val anchors: List<AnchorState> = emptyList()
         override val notes: List<NoteState> = emptyList()
         override val menu: MenuState? = null
+        override val anchorPropertiesDefault: AnchorProperties? = null
+        override val anchorPropertiesHovered: AnchorProperties? = null
+        override val anchorPropertiesSelected: AnchorProperties? = null
     }
 
     /**
@@ -33,4 +36,19 @@ interface EditContext {
      * 우클릭해서 표시할 메뉴.
      */
     val menu: MenuState?
+
+    /**
+     * 노트북의 앵커 기본 UI 속성.
+     */
+    val anchorPropertiesDefault: AnchorProperties?
+
+    /**
+     * 노트북의 앵커가 호버링 되었을 때의 UI 속성.
+     */
+    val anchorPropertiesHovered: AnchorProperties?
+
+    /**
+     * 노트북의 앵커가 선택되었을 때의 UI 속성.
+     */
+    val anchorPropertiesSelected: AnchorProperties?
 }
