@@ -98,6 +98,7 @@ class NotebookViewModelet(
 
         launch {
             val notebook = model.read(id) ?: throw IllegalArgumentException("Notebook not found : id=$id")
+            // TODO 노트북에서 UI 속성 읽기.
             val state = NotebookState(
                 id = notebook.id,
                 name = notebook.name,
