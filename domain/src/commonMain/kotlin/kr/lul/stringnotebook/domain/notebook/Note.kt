@@ -1,4 +1,4 @@
-package kr.lul.stringnotebook.domain.foundation
+package kr.lul.stringnotebook.domain.notebook
 
 import kotlinx.datetime.Instant
 import kotlin.uuid.ExperimentalUuidApi

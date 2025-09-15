@@ -2,10 +2,7 @@ package kr.lul.stringnotebook.domain.notebook
 
 import kotlinx.datetime.Instant
 import kr.lul.logger.Logger
-import kr.lul.stringnotebook.domain.anchor.ObservableAnchor
 import kr.lul.stringnotebook.domain.foundation.Anchor
-import kr.lul.stringnotebook.domain.foundation.Note
-import kr.lul.stringnotebook.domain.foundation.Notebook
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 

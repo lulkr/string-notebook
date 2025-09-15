@@ -1,4 +1,4 @@
-package kr.lul.stringnotebook.domain.anchor
+package kr.lul.stringnotebook.domain.notebook
 
 import kotlinx.datetime.Instant
 import kr.lul.logger.Logger

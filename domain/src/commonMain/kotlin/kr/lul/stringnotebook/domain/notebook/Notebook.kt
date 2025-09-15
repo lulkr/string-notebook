@@ -1,6 +1,7 @@
-package kr.lul.stringnotebook.domain.foundation
+package kr.lul.stringnotebook.domain.notebook
 
 import kotlinx.datetime.Instant
+import kr.lul.stringnotebook.domain.foundation.Anchor
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 

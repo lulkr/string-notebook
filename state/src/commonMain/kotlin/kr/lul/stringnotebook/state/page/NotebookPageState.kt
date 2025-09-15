@@ -17,7 +17,7 @@ import kotlin.uuid.Uuid
 sealed interface NotebookPageState : State {
     companion object {
         /**
-         * @see kr.lul.stringnotebook.domain.foundation.Notebook.id
+         * @see kr.lul.stringnotebook.domain.notebook.Notebook.id
          */
         const val ARG_NOTEBOOK_ID = "notebookId"
     }
