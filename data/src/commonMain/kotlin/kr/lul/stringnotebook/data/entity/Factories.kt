@@ -17,7 +17,7 @@ fun Notebook(
     id: Uuid = Uuid.random(),
     name: String = NotebookEntity.DEFAULT_NAME,
     description: String? = null,
-    anchorContainerBorder: Border = BorderEntity(red = 0, green = 0, blue = 0, alpha = 0)
+    anchorContainerBorder: Border? = null
 ): Notebook = NotebookEntity(id, name, description, anchorContainerBorder)
 
 @ExperimentalStdlibApi

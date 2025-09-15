@@ -44,7 +44,7 @@ interface Notebook {
     /**
      * 앵커 컨테이너의 테두리.
      */
-    val anchorContainerBorder: Border
+    val anchorContainerBorder: Border?
 
     /**
      * 생성 시각.

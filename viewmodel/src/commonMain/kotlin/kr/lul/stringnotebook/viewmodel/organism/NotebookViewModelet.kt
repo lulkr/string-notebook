@@ -10,7 +10,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kr.lul.stringnotebook.domain.event.AddAnchorEvent
 import kr.lul.stringnotebook.domain.foundation.EventProcessor
-import kr.lul.stringnotebook.domain.notebook.Border
 import kr.lul.stringnotebook.domain.notebook.ObservableNotebook
 import kr.lul.stringnotebook.model.NotebookEventProcessor
 import kr.lul.stringnotebook.model.NotebookModel
@@ -122,15 +121,13 @@ class NotebookViewModelet(
                 },
                 menu = null,
                 anchorPropertiesDefault = AnchorProperties.Default.copy(
-                    containerBorder = if (notebook.anchorContainerBorder == Border.Unspecified) {
-                        AnchorProperties.Default.containerBorder
-                    } else {
+                    containerBorder = notebook.anchorContainerBorder?.let { border ->
                         BorderState(
-                            width = notebook.anchorContainerBorder.width.value.dp,
-                            color = notebook.anchorContainerBorder.color.run { Color(red, green, blue, alpha) },
+                            width = border.width.value.dp,
+                            color = border.color.run { Color(red, green, blue, alpha) },
                             shape = CircleShape
                         )
-                    }
+                    } ?: AnchorProperties.Default.containerBorder
                 ),
                 createdAt = notebook.createdAt,
                 updatedAt = notebook.updatedAt

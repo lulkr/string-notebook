@@ -10,15 +10,6 @@ import kotlin.uuid.ExperimentalUuidApi
 @ExperimentalStdlibApi
 @ExperimentalUuidApi
 interface Border {
-    companion object {
-        val Unspecified = object : Border {
-            override var width = LengthProperty.Unspecified
-                set(value) = error("unspecified border is immutable.")
-            override var color: ColorProperty = ColorProperty.Unspecified
-                set(value) = error("unspecified border is immutable.")
-        }
-    }
-
     /**
      * 두께.
      */

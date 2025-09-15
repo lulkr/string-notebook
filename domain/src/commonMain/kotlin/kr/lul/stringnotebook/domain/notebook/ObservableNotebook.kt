@@ -42,7 +42,7 @@ abstract class ObservableNotebook(
                 }
             }
         }
-    override val anchorContainerBorder: Border
+    override val anchorContainerBorder: Border?
         get() = notebook.anchorContainerBorder
     override val createdAt: Instant
         get() = notebook.createdAt
