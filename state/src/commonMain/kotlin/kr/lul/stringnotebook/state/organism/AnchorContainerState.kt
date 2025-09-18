@@ -13,11 +13,4 @@ data class AnchorContainerState(
     val border: BorderState,
     val background: BackgroundState,
     val padding: PaddingValues
-) {
-    companion object Companion {
-        /**
-         * 기본 패딩 값. DP 단위.
-         */
-        const val PADDING = 8
-    }
-}
+)
