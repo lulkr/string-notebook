@@ -28,8 +28,7 @@ object AnchorPropertiesDefaults {
         /**
          * 앵커 컨테이너의 배경 상태.
          */
-        //containerBackground: BackgroundState = Default.containerBackground,
-        containerBackground: BackgroundState = BackgroundState(Color.Red),
+        containerBackground: BackgroundState = Default.containerBackground,
         /**
          * 앵커 컨테이너의 패딩.
          *
