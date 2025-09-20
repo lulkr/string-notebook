@@ -11,7 +11,6 @@ import kr.lul.stringnotebook.state.atom.BorderState
 
 /**
  * [kr.lul.stringnotebook.domain.foundation.Anchor]를 화면에 표시하기 위한 속성.
- *
  */
 @Immutable
 data class AnchorProperties(
@@ -49,6 +48,7 @@ data class AnchorProperties(
     val color: Color
 ) {
     companion object {
+        @Deprecated("없애는 게 나을 듯?")
         val Default = AnchorProperties(
             containerBorder = BorderState(1.dp, Color.Transparent, CircleShape),
             containerBackground = BackgroundState(),

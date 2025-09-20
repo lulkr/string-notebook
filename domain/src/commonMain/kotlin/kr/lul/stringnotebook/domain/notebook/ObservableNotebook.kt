@@ -3,6 +3,7 @@ package kr.lul.stringnotebook.domain.notebook
 import kotlinx.datetime.Instant
 import kr.lul.logger.Logger
 import kr.lul.stringnotebook.domain.foundation.Anchor
+import kr.lul.stringnotebook.domain.property.ColorProperty
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
@@ -44,6 +45,8 @@ abstract class ObservableNotebook(
         }
     override val anchorContainerBorder: Border?
         get() = notebook.anchorContainerBorder
+    override val anchorContainerBackground: ColorProperty?
+        get() = notebook.anchorContainerBackground
     override val createdAt: Instant
         get() = notebook.createdAt
     override val updatedAt: Instant

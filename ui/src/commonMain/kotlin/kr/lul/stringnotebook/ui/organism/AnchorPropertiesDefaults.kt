@@ -6,12 +6,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.dp
+import kr.lul.stringnotebook.domain.foundation.Anchor
 import kr.lul.stringnotebook.state.atom.BackgroundState
 import kr.lul.stringnotebook.state.atom.BorderState
 import kr.lul.stringnotebook.state.organism.AnchorProperties
 import kr.lul.stringnotebook.state.organism.AnchorProperties.Companion.Default
 
+/**
+ * [Anchor]를 화면에 표시하기 위한 속성의 기본값 모음.
+ */
 object AnchorPropertiesDefaults {
     /**
      * 기본 앵커 속성.
@@ -25,7 +28,8 @@ object AnchorPropertiesDefaults {
         /**
          * 앵커 컨테이너의 배경 상태.
          */
-        containerBackground: BackgroundState = Default.containerBackground,
+        //containerBackground: BackgroundState = Default.containerBackground,
+        containerBackground: BackgroundState = BackgroundState(Color.Red),
         /**
          * 앵커 컨테이너의 패딩.
          *
@@ -58,13 +62,33 @@ object AnchorPropertiesDefaults {
         if (properties == null)
             return default()
 
+        val containerBorder = if (
+            (properties.containerBorder.brush as? SolidColor)?.value == Color.Transparent
+        ) {
+            properties.containerBorder.copy(color = Color.Transparent)
+        } else {
+            properties.containerBorder
+        }
+
+        val containerBackground = if (
+            (properties.containerBackground.brush as? SolidColor)?.value == Color.Unspecified
+        ) {
+            properties.containerBackground.copy(brush = SolidColor(Color.Transparent))
+        } else {
+            properties.containerBackground
+        }
+
         val color = if (properties.color == Color.Transparent) {
             MaterialTheme.colorScheme.tertiaryContainer
         } else {
             properties.color
         }
 
-        return properties.copy(color = color)
+        return properties.copy(
+            containerBorder = containerBorder,
+            containerBackground = containerBackground,
+            color = color
+        )
     }
 
     /**
@@ -113,12 +137,19 @@ object AnchorPropertiesDefaults {
             return hovered()
 
         val containerBorder = if (
-            properties.containerBorder.width == 1.dp &&
             (properties.containerBorder.brush as? SolidColor)?.value == Color.Transparent
         ) {
             properties.containerBorder.copy(color = MaterialTheme.colorScheme.secondary)
         } else {
             properties.containerBorder
+        }
+
+        val containerBackground = if (
+            (properties.containerBackground.brush as? SolidColor)?.value == Color.Unspecified
+        ) {
+            properties.containerBackground.copy(brush = SolidColor(Color.Transparent))
+        } else {
+            properties.containerBackground
         }
 
         val color = if (properties.color == Color.Transparent) {
@@ -127,6 +158,10 @@ object AnchorPropertiesDefaults {
             properties.color
         }
 
-        return properties.copy(containerBorder = containerBorder, color = color)
+        return properties.copy(
+            containerBorder = containerBorder,
+            containerBackground = containerBackground,
+            color = color
+        )
     }
 }

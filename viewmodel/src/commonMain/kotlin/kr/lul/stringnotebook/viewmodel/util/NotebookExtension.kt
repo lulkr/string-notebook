@@ -4,6 +4,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import kr.lul.stringnotebook.domain.notebook.Notebook
+import kr.lul.stringnotebook.state.atom.BackgroundState
 import kr.lul.stringnotebook.state.atom.BorderState
 import kr.lul.stringnotebook.state.molecule.PositionState
 import kr.lul.stringnotebook.state.organism.AnchorProperties
@@ -39,7 +40,10 @@ fun Notebook.toState() = NotebookState(
                 color = border.color.run { Color(red, green, blue, alpha) },
                 shape = CircleShape
             )
-        } ?: AnchorProperties.Default.containerBorder
+        } ?: AnchorProperties.Default.containerBorder,
+        containerBackground = anchorContainerBackground?.let { background ->
+            BackgroundState(Color(background.red, background.green, background.blue, background.alpha))
+        } ?: AnchorProperties.Default.containerBackground
     ),
     createdAt = createdAt,
     updatedAt = updatedAt

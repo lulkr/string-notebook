@@ -2,6 +2,7 @@ package kr.lul.stringnotebook.domain.notebook
 
 import kotlinx.datetime.Instant
 import kr.lul.stringnotebook.domain.foundation.Anchor
+import kr.lul.stringnotebook.domain.property.ColorProperty
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
@@ -42,9 +43,14 @@ interface Notebook {
     val anchors: List<Anchor>
 
     /**
-     * 앵커 컨테이너의 테두리.
+     * 기본 앵커 컨테이너의 테두리.
      */
     val anchorContainerBorder: Border?
+
+    /**
+     * 기본 앵커 컨테이너의 배경색.
+     */
+    val anchorContainerBackground: ColorProperty?
 
     /**
      * 생성 시각.
