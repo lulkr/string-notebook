@@ -58,6 +58,11 @@ interface Notebook {
     val anchorContainerPadding: Float?
 
     /**
+     * 기본 앵커 색상.
+     */
+    val anchorColor: ColorProperty?
+
+    /**
      * 생성 시각.
      */
     val createdAt: Instant

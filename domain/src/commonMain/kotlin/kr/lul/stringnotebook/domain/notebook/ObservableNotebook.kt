@@ -49,6 +49,9 @@ abstract class ObservableNotebook(
         get() = notebook.anchorContainerBackground
     override val anchorContainerPadding: Float?
         get() = notebook.anchorContainerPadding
+    override val anchorColor: ColorProperty?
+        get() = notebook.anchorColor
+
     override val createdAt: Instant
         get() = notebook.createdAt
     override val updatedAt: Instant

@@ -47,6 +47,8 @@ fun Notebook.toState() = NotebookState(
         } ?: AnchorProperties.Default.containerBackground,
         containerPadding = anchorContainerPadding?.let { padding -> PaddingValues(padding.dp) }
             ?: AnchorProperties.Default.containerPadding,
+        color = anchorColor?.let { color -> Color(color.red, color.green, color.blue, color.alpha) }
+            ?: AnchorProperties.Default.color
     ),
     createdAt = createdAt,
     updatedAt = updatedAt
