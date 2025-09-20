@@ -51,9 +51,9 @@ data class AnchorProperties(
         @Deprecated("없애는 게 나을 듯?")
         val Default = AnchorProperties(
             containerBorder = BorderState(1.dp, Color.Transparent, CircleShape),
-            containerBackground = BackgroundState(),
+            containerBackground = BackgroundState(shape = CircleShape),
             containerPadding = PaddingValues(4.dp),
-            background = BackgroundState(),
+            background = BackgroundState(shape = CircleShape),
             radius = 4.dp,
             color = Color.Transparent
         )

@@ -1,5 +1,6 @@
 package kr.lul.stringnotebook.viewmodel.util
 
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
@@ -43,7 +44,9 @@ fun Notebook.toState() = NotebookState(
         } ?: AnchorProperties.Default.containerBorder,
         containerBackground = anchorContainerBackground?.let { background ->
             BackgroundState(Color(background.red, background.green, background.blue, background.alpha))
-        } ?: AnchorProperties.Default.containerBackground
+        } ?: AnchorProperties.Default.containerBackground,
+        containerPadding = anchorContainerPadding?.let { padding -> PaddingValues(padding.dp) }
+            ?: AnchorProperties.Default.containerPadding,
     ),
     createdAt = createdAt,
     updatedAt = updatedAt

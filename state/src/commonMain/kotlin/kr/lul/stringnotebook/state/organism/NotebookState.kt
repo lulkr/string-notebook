@@ -95,7 +95,8 @@ class NotebookState(
     override val anchorPropertiesHovered: AnchorProperties? by mutableStateOf(anchorPropertiesHovered)
     override val anchorPropertiesSelected: AnchorProperties? by mutableStateOf(anchorPropertiesSelected)
 
-    override val summary = "NotebookState('$name', anchors=${anchors.map { it.summary }})"
+    override val summary: String
+        get() = "NotebookState('$name', anchors=${anchors.map { it.summary }})"
 
     override fun equals(other: Any?) = this === other || (
             other is NotebookState &&

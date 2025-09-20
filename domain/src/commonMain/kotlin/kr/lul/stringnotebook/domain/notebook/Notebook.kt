@@ -53,6 +53,11 @@ interface Notebook {
     val anchorContainerBackground: ColorProperty?
 
     /**
+     * 기본 앵커 컨테이너의 패딩(내부 여백). DP 단위.
+     */
+    val anchorContainerPadding: Float?
+
+    /**
      * 생성 시각.
      */
     val createdAt: Instant
