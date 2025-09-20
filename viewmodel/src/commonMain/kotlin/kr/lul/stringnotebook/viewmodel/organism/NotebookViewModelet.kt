@@ -1,10 +1,7 @@
 package kr.lul.stringnotebook.viewmodel.organism
 
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.dp
 import androidx.lifecycle.LifecycleOwner
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -13,12 +10,10 @@ import kr.lul.stringnotebook.domain.foundation.EventProcessor
 import kr.lul.stringnotebook.domain.notebook.ObservableNotebook
 import kr.lul.stringnotebook.model.NotebookEventProcessor
 import kr.lul.stringnotebook.model.NotebookModel
-import kr.lul.stringnotebook.state.atom.BorderState
 import kr.lul.stringnotebook.state.atom.TextResource
 import kr.lul.stringnotebook.state.atom.summary
 import kr.lul.stringnotebook.state.molecule.PositionState
 import kr.lul.stringnotebook.state.molecule.TextState
-import kr.lul.stringnotebook.state.organism.AnchorProperties
 import kr.lul.stringnotebook.state.organism.AnchorState
 import kr.lul.stringnotebook.state.organism.MenuItemState
 import kr.lul.stringnotebook.state.organism.MenuState
@@ -29,6 +24,7 @@ import kr.lul.stringnotebook.state.resources.molecule_context_menu_add_anchor
 import kr.lul.stringnotebook.state.template.LayoutHandler
 import kr.lul.stringnotebook.viewmodel.foundation.BaseViewModelet
 import kr.lul.stringnotebook.viewmodel.foundation.ViewModeletOwner
+import kr.lul.stringnotebook.viewmodel.util.toState
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
@@ -102,36 +98,9 @@ class NotebookViewModelet(
         super.onStart(owner)
 
         launch {
-            val notebook = model.read(id) ?: throw IllegalArgumentException("Notebook not found : id=$id")
-            // TODO 노트북에서 UI 속성 읽기.
-            val state = NotebookState(
-                id = notebook.id,
-                name = notebook.name,
-                memo = notebook.memo,
-                anchors = notebook.anchors.map { anchor ->
-                    AnchorState(
-                        id = anchor.id,
-                        type = anchor.type,
-                        name = anchor.name,
-                        memo = anchor.memo,
-                        position = PositionState(anchor.position.x.value, anchor.position.y.value),
-                        createdAt = anchor.createdAt,
-                        updatedAt = anchor.updatedAt
-                    )
-                },
-                menu = null,
-                anchorPropertiesDefault = AnchorProperties.Default.copy(
-                    containerBorder = notebook.anchorContainerBorder?.let { border ->
-                        BorderState(
-                            width = border.width.value.dp,
-                            color = border.color.run { Color(red, green, blue, alpha) },
-                            shape = CircleShape
-                        )
-                    } ?: AnchorProperties.Default.containerBorder
-                ),
-                createdAt = notebook.createdAt,
-                updatedAt = notebook.updatedAt
-            )
+            val notebook = model.read(id)
+                ?: throw IllegalArgumentException("Notebook not found : id=$id")
+            val state = notebook.toState()
 
             this@NotebookViewModelet.notebook = object : ObservableNotebook(notebook) {
                 override fun afterChange() {
