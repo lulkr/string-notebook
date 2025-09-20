@@ -58,6 +58,11 @@ interface Notebook {
     val anchorContainerPadding: Float?
 
     /**
+     * 기본 앵커 반경. DP 단위.
+     */
+    val anchorRadius: Float?
+
+    /**
      * 기본 앵커 색상.
      */
     val anchorColor: ColorProperty?

@@ -19,6 +19,7 @@ internal class NotebookEntity(
     override val anchorContainerBorder: Border? = null,
     override val anchorContainerBackground: ColorProperty? = null,
     override val anchorContainerPadding: Float? = null,
+    override val anchorRadius: Float? = null,
     override val anchorColor: ColorProperty? = null,
     override val createdAt: Instant = Clock.System.now()
 ) : Notebook {
@@ -58,6 +59,7 @@ internal class NotebookEntity(
         "anchorContainerBackground=$anchorContainerBackground",
         "anchorContainerPadding=$anchorContainerPadding",
         "anchorColor=$anchorColor",
+        "anchorRadius=$anchorRadius",
         "createdAt=$createdAt",
         "updatedAt=$updatedAt"
     ).joinToString(", ", "NotebookEntity(", ")")
