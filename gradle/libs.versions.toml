@@ -3,9 +3,9 @@
 # https://developer.android.com/build/releases/gradle-plugin
 # https://developer.android.com/build/kotlin-support
 agp = "8.11.1"
-android-compile = "35"
+android-compile = "36"
 android-min = "29"
-android-target = "35"
+android-target = "36"
 
 # https://kotlinlang.org/docs/whatsnew2120.html
 kotlin = "2.2.20"
