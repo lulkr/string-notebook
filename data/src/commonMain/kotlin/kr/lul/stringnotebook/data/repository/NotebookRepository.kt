@@ -1,6 +1,7 @@
 package kr.lul.stringnotebook.data.repository
 
 import kr.lul.stringnotebook.domain.notebook.Notebook
+import kotlin.time.ExperimentalTime
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
@@ -8,6 +9,7 @@ import kotlin.uuid.Uuid
  * 노트북 저장소 인터페이스.
  */
 @ExperimentalStdlibApi
+@ExperimentalTime
 @ExperimentalUuidApi
 interface NotebookRepository {
     /**

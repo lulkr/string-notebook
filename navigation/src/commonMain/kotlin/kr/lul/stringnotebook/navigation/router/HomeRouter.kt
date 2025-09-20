@@ -11,6 +11,7 @@ import kr.lul.stringnotebook.state.page.HomePageHandler
 import kr.lul.stringnotebook.state.template.NotebookListHandler
 import kr.lul.stringnotebook.ui.page.HomePage
 import kr.lul.stringnotebook.viewmodel.page.HomePageViewModel
+import kotlin.time.ExperimentalTime
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
@@ -19,6 +20,7 @@ import kotlin.uuid.Uuid
  */
 @Composable
 @ExperimentalStdlibApi
+@ExperimentalTime
 @ExperimentalUuidApi
 fun HomeRouter(
     navigator: HomeNavigator,

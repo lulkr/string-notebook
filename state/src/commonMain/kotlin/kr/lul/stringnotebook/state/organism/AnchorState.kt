@@ -4,9 +4,10 @@ import androidx.compose.runtime.Stable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import kotlinx.datetime.Instant
 import kr.lul.stringnotebook.domain.foundation.AnchorType
 import kr.lul.stringnotebook.state.molecule.PositionState
+import kotlin.time.ExperimentalTime
+import kotlin.time.Instant
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
@@ -14,6 +15,7 @@ import kotlin.uuid.Uuid
  * [kr.lul.stringnotebook.domain.foundation.Anchor]의 UI 상태 홀더.
  */
 @ExperimentalStdlibApi
+@ExperimentalTime
 @ExperimentalUuidApi
 @Stable
 class AnchorState(

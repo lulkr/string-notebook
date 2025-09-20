@@ -1,9 +1,10 @@
 package kr.lul.stringnotebook.domain.notebook
 
-import kotlinx.datetime.Instant
 import kr.lul.logger.Logger
 import kr.lul.stringnotebook.domain.foundation.Anchor
 import kr.lul.stringnotebook.domain.property.ColorProperty
+import kotlin.time.ExperimentalTime
+import kotlin.time.Instant
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
@@ -11,6 +12,7 @@ import kotlin.uuid.Uuid
  * 변경 사항을 감지하는 노트북 래퍼.
  */
 @ExperimentalStdlibApi
+@ExperimentalTime
 @ExperimentalUuidApi
 abstract class ObservableNotebook(
     /**

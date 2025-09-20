@@ -17,10 +17,12 @@ import kr.lul.stringnotebook.navigation.router.HomeRouter
 import kr.lul.stringnotebook.navigation.router.NotebookRouter
 import kr.lul.stringnotebook.navigation.router.SplashRouter
 import kr.lul.stringnotebook.ui.atom.StringNotebookTheme
+import kotlin.time.ExperimentalTime
 import kotlin.uuid.ExperimentalUuidApi
 
 @Composable
 @ExperimentalStdlibApi
+@ExperimentalTime
 @ExperimentalUuidApi
 fun Root(
     baseNavigator: BaseNavigator

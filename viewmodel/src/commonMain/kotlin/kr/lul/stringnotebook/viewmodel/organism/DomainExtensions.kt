@@ -4,9 +4,11 @@ import kr.lul.stringnotebook.domain.foundation.Anchor
 import kr.lul.stringnotebook.domain.property.PositionProperty
 import kr.lul.stringnotebook.state.molecule.PositionState
 import kr.lul.stringnotebook.state.organism.AnchorState
+import kotlin.time.ExperimentalTime
 import kotlin.uuid.ExperimentalUuidApi
 
 @ExperimentalStdlibApi
+@ExperimentalTime
 @ExperimentalUuidApi
 val Anchor.state: AnchorState
     get() = AnchorState(id, type, name, memo, position.state, createdAt, updatedAt)

@@ -7,9 +7,11 @@ import kr.lul.stringnotebook.navigation.compose.baseViewModel
 import kr.lul.stringnotebook.navigation.navigator.NotebookNavigator
 import kr.lul.stringnotebook.ui.page.NotebookPage
 import kr.lul.stringnotebook.viewmodel.page.NotebookPageViewModel
+import kotlin.time.ExperimentalTime
 import kotlin.uuid.ExperimentalUuidApi
 
 @ExperimentalStdlibApi
+@ExperimentalTime
 @ExperimentalUuidApi
 @Composable
 fun NotebookRouter(

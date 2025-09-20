@@ -11,12 +11,14 @@ import kr.lul.stringnotebook.state.molecule.PositionState
 import kr.lul.stringnotebook.state.organism.AnchorProperties
 import kr.lul.stringnotebook.state.organism.AnchorState
 import kr.lul.stringnotebook.state.organism.NotebookState
+import kotlin.time.ExperimentalTime
 import kotlin.uuid.ExperimentalUuidApi
 
 /**
  * [Notebook] 인스턴스를 UI 상태 홀더로 변환한다.
  */
 @ExperimentalStdlibApi
+@ExperimentalTime
 @ExperimentalUuidApi
 fun Notebook.toState() = NotebookState(
     id = id,

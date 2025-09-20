@@ -5,10 +5,12 @@ import androidx.navigation.NamedNavArgument
 import androidx.navigation.NavDeepLink
 import kr.lul.logger.Logger
 import kr.lul.stringnotebook.state.organism.NotebookState
+import kotlin.time.ExperimentalTime
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
 @ExperimentalStdlibApi
+@ExperimentalTime
 @ExperimentalUuidApi
 @Immutable
 class HomeNavigator(

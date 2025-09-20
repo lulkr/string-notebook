@@ -4,10 +4,12 @@ import kr.lul.logger.Logger
 import kr.lul.stringnotebook.data.entity.Notebook
 import kr.lul.stringnotebook.data.repository.NotebookRepository
 import kr.lul.stringnotebook.domain.notebook.Notebook
+import kotlin.time.ExperimentalTime
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
 @ExperimentalStdlibApi
+@ExperimentalTime
 @ExperimentalUuidApi
 class NotebookModelImpl(
     private val repository: NotebookRepository

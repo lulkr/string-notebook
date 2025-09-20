@@ -2,8 +2,6 @@ package kr.lul.stringnotebook.app
 
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
-import kotlinx.datetime.Clock
-import kotlinx.datetime.Instant
 import kr.lul.logger.Logger
 import kr.lul.logger.d
 import kr.lul.stringnotebook.domain.foundation.Configuration.ID_PREFIX_APP_PROCESS
@@ -15,11 +13,15 @@ import kr.lul.stringnotebook.navigation.navigationModule
 import kr.lul.stringnotebook.navigation.navigator.SplashNavigator
 import org.koin.core.context.startKoin
 import org.koin.dsl.module
+import kotlin.time.Clock
+import kotlin.time.ExperimentalTime
+import kotlin.time.Instant
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
+@ExperimentalStdlibApi
+@ExperimentalTime
 @ExperimentalUuidApi
-@OptIn(ExperimentalStdlibApi::class)
 fun main() {
     val logger = Logger("main")
     val process: Process = object : Process {

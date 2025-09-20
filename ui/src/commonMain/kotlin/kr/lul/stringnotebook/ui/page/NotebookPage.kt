@@ -27,6 +27,7 @@ import kr.lul.stringnotebook.ui.template.PropertyEditor
 import kr.lul.stringnotebook.ui.template.Summary
 import kr.lul.stringnotebook.ui.template.ToolBar
 import org.jetbrains.compose.resources.stringResource
+import kotlin.time.ExperimentalTime
 import kotlin.uuid.ExperimentalUuidApi
 
 /**
@@ -37,6 +38,7 @@ import kotlin.uuid.ExperimentalUuidApi
  */
 @Composable
 @ExperimentalStdlibApi
+@ExperimentalTime
 @ExperimentalUuidApi
 fun NotebookPage(
     state: NotebookPageState,
@@ -55,6 +57,7 @@ fun NotebookPage(
 
 @Composable
 @ExperimentalStdlibApi
+@ExperimentalTime
 @ExperimentalUuidApi
 fun NotebookPageLoading(state: NotebookPageState.Loading, handler: NotebookPageHandler = NotebookPageHandler.NoOp) {
     Column(Modifier.fillMaxSize()) {
@@ -70,6 +73,7 @@ fun NotebookPageLoading(state: NotebookPageState.Loading, handler: NotebookPageH
 
 @Composable
 @ExperimentalStdlibApi
+@ExperimentalTime
 @ExperimentalUuidApi
 fun NotebookPageEditing(state: NotebookPageState.Editing, handler: NotebookPageHandler = NotebookPageHandler.NoOp) {
     Row(

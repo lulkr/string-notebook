@@ -5,6 +5,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kr.lul.stringnotebook.model.NotebookModel
 import kr.lul.stringnotebook.state.page.HomePageState
 import kr.lul.stringnotebook.viewmodel.foundation.BaseViewModel
+import kotlin.time.ExperimentalTime
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
@@ -14,6 +15,7 @@ import kotlin.uuid.Uuid
  * @param initState 초기 상태.
  */
 @ExperimentalStdlibApi
+@ExperimentalTime
 @ExperimentalUuidApi
 class HomePageViewModel(
     private val model: NotebookModel,

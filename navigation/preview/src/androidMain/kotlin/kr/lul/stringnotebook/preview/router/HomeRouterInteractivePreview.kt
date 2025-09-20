@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import kr.lul.stringnotebook.navigation.navigator.HomeNavigator
 import kr.lul.stringnotebook.navigation.router.HomeRouter
 import org.jetbrains.compose.ui.tooling.preview.Preview
+import kotlin.time.ExperimentalTime
 import kotlin.uuid.ExperimentalUuidApi
 
 /**
@@ -14,6 +15,7 @@ import kotlin.uuid.ExperimentalUuidApi
  */
 @Composable
 @ExperimentalStdlibApi
+@ExperimentalTime
 @ExperimentalUuidApi
 @Preview
 fun HomeRouterInteractivePreview() {

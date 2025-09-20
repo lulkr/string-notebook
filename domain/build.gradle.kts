@@ -26,7 +26,6 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            api(libs.kotlinx.datetime)
             api(libs.util.semver)
 
             implementation(libs.util.logger)

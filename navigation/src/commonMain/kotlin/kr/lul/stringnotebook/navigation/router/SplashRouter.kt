@@ -14,6 +14,7 @@ import kr.lul.stringnotebook.state.page.SplashPageHandler
 import kr.lul.stringnotebook.state.page.SplashPageState.Success
 import kr.lul.stringnotebook.ui.page.SplashPage
 import kr.lul.stringnotebook.viewmodel.page.SplashPageViewModel
+import kotlin.time.ExperimentalTime
 import kotlin.uuid.ExperimentalUuidApi
 
 /**
@@ -21,6 +22,7 @@ import kotlin.uuid.ExperimentalUuidApi
  */
 @Composable
 @ExperimentalStdlibApi
+@ExperimentalTime
 @ExperimentalUuidApi
 fun SplashRouter(
     navigator: SplashNavigator,
