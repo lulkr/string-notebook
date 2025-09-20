@@ -3,6 +3,7 @@ package kr.lul.stringnotebook.ui.organism
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.compositionLocalOf
 import kr.lul.stringnotebook.state.organism.EditContext
+import kotlin.time.ExperimentalTime
 import kotlin.uuid.ExperimentalUuidApi
 
 /**
@@ -11,5 +12,6 @@ import kotlin.uuid.ExperimentalUuidApi
  * @see EditContext.Default
  */
 @ExperimentalStdlibApi
+@ExperimentalTime
 @ExperimentalUuidApi
 val LocalEditContext = compositionLocalOf<EditContext> { EditContext.Default }

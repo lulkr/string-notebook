@@ -1,16 +1,18 @@
 package kr.lul.stringnotebook.data.entity
 
-import kotlinx.datetime.Clock
-import kotlinx.datetime.Instant
 import kr.lul.logger.Logger
 import kr.lul.stringnotebook.domain.foundation.Anchor
 import kr.lul.stringnotebook.domain.notebook.Border
 import kr.lul.stringnotebook.domain.notebook.Notebook
 import kr.lul.stringnotebook.domain.property.ColorProperty
+import kotlin.time.Clock
+import kotlin.time.ExperimentalTime
+import kotlin.time.Instant
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
 @ExperimentalStdlibApi
+@ExperimentalTime
 @ExperimentalUuidApi
 internal class NotebookEntity(
     override val id: Uuid = Uuid.random(),

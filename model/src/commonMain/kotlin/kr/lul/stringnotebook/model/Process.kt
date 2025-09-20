@@ -1,12 +1,14 @@
 package kr.lul.stringnotebook.model
 
-import kotlinx.datetime.Instant
+import kotlin.time.ExperimentalTime
+import kotlin.time.Instant
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
 /**
  * 앱 실행 정보.
  */
+@ExperimentalTime
 @ExperimentalUuidApi
 interface Process {
     /**

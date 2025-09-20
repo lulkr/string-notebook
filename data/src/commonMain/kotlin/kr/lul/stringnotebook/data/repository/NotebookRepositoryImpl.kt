@@ -4,10 +4,12 @@ import kotlinx.coroutines.delay
 import kr.lul.logger.Logger
 import kr.lul.stringnotebook.data.entity.NotebookEntity
 import kr.lul.stringnotebook.domain.notebook.Notebook
+import kotlin.time.ExperimentalTime
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
 @ExperimentalStdlibApi
+@ExperimentalTime
 @ExperimentalUuidApi
 internal class NotebookRepositoryImpl : NotebookRepository {
     private val logger = Logger("NotebookRepositoryImpl")

@@ -9,10 +9,12 @@ import kr.lul.stringnotebook.viewmodel.page.NotebookPageViewModel
 import kr.lul.stringnotebook.viewmodel.page.SplashPageViewModel
 import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
+import kotlin.time.ExperimentalTime
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
 @ExperimentalStdlibApi
+@ExperimentalTime
 @ExperimentalUuidApi
 val viewmodelModule = module {
     includes(modelModule)

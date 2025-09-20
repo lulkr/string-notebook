@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.dp
 import kr.lul.stringnotebook.state.organism.NotebookState
+import kotlin.time.ExperimentalTime
 import kotlin.uuid.ExperimentalUuidApi
 
 /**
@@ -24,6 +25,7 @@ import kotlin.uuid.ExperimentalUuidApi
  */
 @Composable
 @ExperimentalStdlibApi
+@ExperimentalTime
 @ExperimentalUuidApi
 fun ToolBar(state: NotebookState, modifier: Modifier = Modifier) {
     Row(

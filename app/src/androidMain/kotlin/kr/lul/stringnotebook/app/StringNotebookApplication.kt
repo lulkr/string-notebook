@@ -1,8 +1,6 @@
 package kr.lul.stringnotebook.app
 
 import android.app.Application
-import kotlinx.datetime.Clock
-import kotlinx.datetime.Instant
 import kr.lul.logger.Logger
 import kr.lul.stringnotebook.domain.foundation.Configuration
 import kr.lul.stringnotebook.domain.foundation.Configuration.ID_PREFIX_APP_PROCESS
@@ -13,10 +11,14 @@ import kr.lul.stringnotebook.navigation.navigationModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 import org.koin.dsl.module
+import kotlin.time.Clock
+import kotlin.time.ExperimentalTime
+import kotlin.time.Instant
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
 @ExperimentalStdlibApi
+@ExperimentalTime
 @ExperimentalUuidApi
 class StringNotebookApplication : Application() {
     private val logger = Logger("StringNotebookApplication")

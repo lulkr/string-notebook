@@ -5,9 +5,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.geometry.Size
-import kotlinx.datetime.Instant
 import kr.lul.stringnotebook.domain.notebook.Notebook
 import kr.lul.stringnotebook.state.molecule.State
+import kotlin.time.ExperimentalTime
+import kotlin.time.Instant
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
@@ -15,6 +16,7 @@ import kotlin.uuid.Uuid
  * [Notebook]를 나타내는 상태 홀더.
  */
 @ExperimentalStdlibApi
+@ExperimentalTime
 @ExperimentalUuidApi
 @Stable
 class NotebookState(

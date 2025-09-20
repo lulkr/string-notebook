@@ -1,15 +1,17 @@
 package kr.lul.stringnotebook.data.entity
 
-import kotlinx.datetime.Clock
-import kotlinx.datetime.Instant
 import kr.lul.stringnotebook.domain.foundation.Anchor
 import kr.lul.stringnotebook.domain.foundation.AnchorType
 import kr.lul.stringnotebook.domain.property.PositionProperty
 import kr.lul.stringnotebook.domain.type.PlainAnchorType
+import kotlin.time.Clock
+import kotlin.time.ExperimentalTime
+import kotlin.time.Instant
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
 @ExperimentalStdlibApi
+@ExperimentalTime
 @ExperimentalUuidApi
 class AnchorEntity(
     override val id: Uuid = Uuid.random(),

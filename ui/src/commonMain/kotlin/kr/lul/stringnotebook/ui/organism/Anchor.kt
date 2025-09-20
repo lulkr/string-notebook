@@ -9,10 +9,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import kr.lul.stringnotebook.state.organism.AnchorState
+import kotlin.time.ExperimentalTime
 import kotlin.uuid.ExperimentalUuidApi
 
 @Composable
 @ExperimentalStdlibApi
+@ExperimentalTime
 @ExperimentalUuidApi
 fun Anchor(anchor: AnchorState, radius: Dp, color: Color) {
     logger.v("#Anchor args : anchor=$anchor, radius=$radius, color=$color")

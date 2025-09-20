@@ -1,5 +1,6 @@
 package kr.lul.stringnotebook.state.organism
 
+import kotlin.time.ExperimentalTime
 import kotlin.uuid.ExperimentalUuidApi
 
 /**
@@ -8,6 +9,7 @@ import kotlin.uuid.ExperimentalUuidApi
  * 노트북의 하위 UI 컴포넌트가 노트북 편집에 필요한 상태를 제공한다.
  */
 @ExperimentalStdlibApi
+@ExperimentalTime
 @ExperimentalUuidApi
 interface EditContext {
     /**

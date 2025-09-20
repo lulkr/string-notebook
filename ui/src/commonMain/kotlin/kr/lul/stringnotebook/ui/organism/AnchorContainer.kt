@@ -17,10 +17,12 @@ import kr.lul.stringnotebook.state.organism.AnchorProperties
 import kr.lul.stringnotebook.state.organism.AnchorState
 import kr.lul.stringnotebook.ui.atom.background
 import kr.lul.stringnotebook.ui.atom.border
+import kotlin.time.ExperimentalTime
 import kotlin.uuid.ExperimentalUuidApi
 
 @Composable
 @ExperimentalStdlibApi
+@ExperimentalTime
 @ExperimentalUuidApi
 fun BoxScope.AnchorContainer(
     anchor: AnchorState,
@@ -47,6 +49,7 @@ fun BoxScope.AnchorContainer(
 
 @Composable
 @ExperimentalStdlibApi
+@ExperimentalTime
 @ExperimentalUuidApi
 internal fun BoxScope.AnchorContainer(
     anchor: AnchorState,

@@ -25,10 +25,12 @@ import kr.lul.stringnotebook.state.template.LayoutHandler
 import kr.lul.stringnotebook.viewmodel.foundation.BaseViewModelet
 import kr.lul.stringnotebook.viewmodel.foundation.ViewModeletOwner
 import kr.lul.stringnotebook.viewmodel.util.toState
+import kotlin.time.ExperimentalTime
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
 @ExperimentalStdlibApi
+@ExperimentalTime
 @ExperimentalUuidApi
 class NotebookViewModelet(
     parent: ViewModeletOwner,

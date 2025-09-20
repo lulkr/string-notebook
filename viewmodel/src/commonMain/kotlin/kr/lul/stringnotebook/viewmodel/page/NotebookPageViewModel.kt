@@ -17,9 +17,11 @@ import kr.lul.stringnotebook.state.template.LayoutHandler
 import kr.lul.stringnotebook.state.template.LayoutState
 import kr.lul.stringnotebook.viewmodel.foundation.BaseViewModel
 import kr.lul.stringnotebook.viewmodel.organism.NotebookViewModelet
+import kotlin.time.ExperimentalTime
 import kotlin.uuid.ExperimentalUuidApi
 
 @ExperimentalStdlibApi
+@ExperimentalTime
 @ExperimentalUuidApi
 class NotebookPageViewModel(
     model: NotebookModel,

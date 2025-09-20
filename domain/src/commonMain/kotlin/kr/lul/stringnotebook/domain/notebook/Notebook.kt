@@ -1,8 +1,9 @@
 package kr.lul.stringnotebook.domain.notebook
 
-import kotlinx.datetime.Instant
 import kr.lul.stringnotebook.domain.foundation.Anchor
 import kr.lul.stringnotebook.domain.property.ColorProperty
+import kotlin.time.ExperimentalTime
+import kotlin.time.Instant
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
@@ -12,6 +13,7 @@ import kotlin.uuid.Uuid
  * TODO UI 속성 추가.
  */
 @ExperimentalStdlibApi
+@ExperimentalTime
 @ExperimentalUuidApi
 interface Notebook {
     /**

@@ -1,10 +1,12 @@
 package kr.lul.stringnotebook.state.organism
 
-import kotlinx.datetime.Instant
 import kr.lul.stringnotebook.state.molecule.State
+import kotlin.time.ExperimentalTime
+import kotlin.time.Instant
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
+@ExperimentalTime
 @ExperimentalUuidApi
 interface NoteState : State {
     /**

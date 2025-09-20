@@ -1,13 +1,13 @@
 package kr.lul.stringnotebook.preview.router
 
 import androidx.compose.runtime.Composable
-import kr.lul.stringnotebook.navigation.RootLayout
-import kr.lul.stringnotebook.navigation.compose.composable
+import kr.lul.stringnotebook.navigation.Root
 import kr.lul.stringnotebook.navigation.compose.rememberBaseNavigator
 import kr.lul.stringnotebook.navigation.navigationModule
 import kr.lul.stringnotebook.navigation.navigator.Destination
 import kr.lul.stringnotebook.navigation.navigator.Navigator
 import org.koin.core.context.startKoin
+import kotlin.time.ExperimentalTime
 import kotlin.uuid.ExperimentalUuidApi
 
 /**
@@ -18,7 +18,9 @@ import kotlin.uuid.ExperimentalUuidApi
  * @param router 라우터 컴포넌트
  */
 @Composable
-@OptIn(ExperimentalUuidApi::class)
+@ExperimentalStdlibApi
+@ExperimentalTime
+@ExperimentalUuidApi
 fun <N : Navigator> InteractivePreviewContainer(
     destination: Destination<N>,
     router: @Composable (N) -> Unit
@@ -28,9 +30,7 @@ fun <N : Navigator> InteractivePreviewContainer(
     }
 
     val baseNavigator = rememberBaseNavigator(destination)
-    RootLayout(baseNavigator) {
-        composable(destination.navigator(baseNavigator)) { navigator, _ ->
-            router(navigator)
-        }
-    }
+    Root(baseNavigator)
+
+    // TODO `router` 실행해서 프리뷰 실행.
 }

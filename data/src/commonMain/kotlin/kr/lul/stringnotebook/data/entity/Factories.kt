@@ -1,7 +1,5 @@
 package kr.lul.stringnotebook.data.entity
 
-import kotlinx.datetime.Clock
-import kotlinx.datetime.Instant
 import kr.lul.stringnotebook.data.entity.NotebookEntity.Companion.DEFAULT_NAME
 import kr.lul.stringnotebook.domain.foundation.Anchor
 import kr.lul.stringnotebook.domain.foundation.AnchorType
@@ -10,9 +8,13 @@ import kr.lul.stringnotebook.domain.notebook.Notebook
 import kr.lul.stringnotebook.domain.property.ColorProperty
 import kr.lul.stringnotebook.domain.property.PositionProperty
 import kr.lul.stringnotebook.domain.type.PlainAnchorType
+import kotlin.time.Clock
+import kotlin.time.ExperimentalTime
+import kotlin.time.Instant
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
+@ExperimentalTime
 @ExperimentalStdlibApi
 @ExperimentalUuidApi
 fun Notebook(
@@ -38,6 +40,7 @@ fun Notebook(
 )
 
 @ExperimentalStdlibApi
+@ExperimentalTime
 @ExperimentalUuidApi
 fun Anchor(
     id: Uuid = Uuid.random(),
@@ -49,6 +52,7 @@ fun Anchor(
 ) = AnchorEntity(id, type, name, memo, position, createdAt)
 
 @ExperimentalStdlibApi
+@ExperimentalTime
 @ExperimentalUuidApi
 fun Anchor(
     id: Uuid = Uuid.random(),

@@ -5,12 +5,14 @@ import kr.lul.stringnotebook.domain.foundation.Configuration.generateId
 import kr.lul.stringnotebook.domain.notebook.Note
 import kr.lul.stringnotebook.domain.property.PositionProperty
 import kotlin.random.Random
+import kotlin.time.ExperimentalTime
 import kotlin.uuid.ExperimentalUuidApi
 
 /**
  * 어떤 [kr.lul.stringnotebook.domain.notebook.Note]의 위치.
  */
 @ExperimentalStdlibApi
+@ExperimentalTime
 @ExperimentalUuidApi
 interface Anchor : Note {
     companion object {

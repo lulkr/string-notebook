@@ -22,6 +22,7 @@ import kr.lul.stringnotebook.state.atom.toDp
 import kr.lul.stringnotebook.state.organism.NotebookHandler
 import kr.lul.stringnotebook.state.organism.NotebookState
 import kr.lul.stringnotebook.ui.template.ContextMenu
+import kotlin.time.ExperimentalTime
 import kotlin.uuid.ExperimentalUuidApi
 
 /**
@@ -29,6 +30,7 @@ import kotlin.uuid.ExperimentalUuidApi
  */
 @Composable
 @ExperimentalStdlibApi
+@ExperimentalTime
 @ExperimentalUuidApi
 fun Notebook(
     state: NotebookState,

@@ -1,10 +1,12 @@
 package kr.lul.stringnotebook.model
 
 import kr.lul.stringnotebook.domain.notebook.Notebook
+import kotlin.time.ExperimentalTime
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
 @ExperimentalStdlibApi
+@ExperimentalTime
 @ExperimentalUuidApi
 interface NotebookModel {
     /**
