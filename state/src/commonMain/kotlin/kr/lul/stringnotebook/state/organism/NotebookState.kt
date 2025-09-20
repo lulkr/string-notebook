@@ -6,7 +6,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.geometry.Size
 import kotlinx.datetime.Instant
-import kr.lul.stringnotebook.domain.foundation.Notebook
+import kr.lul.stringnotebook.domain.notebook.Notebook
 import kr.lul.stringnotebook.state.molecule.State
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
@@ -95,7 +95,8 @@ class NotebookState(
     override val anchorPropertiesHovered: AnchorProperties? by mutableStateOf(anchorPropertiesHovered)
     override val anchorPropertiesSelected: AnchorProperties? by mutableStateOf(anchorPropertiesSelected)
 
-    override val summary = "NotebookState('$name', anchors=${anchors.map { it.summary }})"
+    override val summary: String
+        get() = "NotebookState('$name', anchors=${anchors.map { it.summary }})"
 
     override fun equals(other: Any?) = this === other || (
             other is NotebookState &&

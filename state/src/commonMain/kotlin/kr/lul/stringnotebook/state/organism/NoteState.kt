@@ -8,27 +8,27 @@ import kotlin.uuid.Uuid
 @ExperimentalUuidApi
 interface NoteState : State {
     /**
-     * @see kr.lul.stringnotebook.domain.foundation.Note.id
+     * @see kr.lul.stringnotebook.domain.notebook.Note.id
      */
     val id: Uuid
 
     /**
-     * @see kr.lul.stringnotebook.domain.foundation.Note.name
+     * @see kr.lul.stringnotebook.domain.notebook.Note.name
      */
     var name: String?
 
     /**
-     * @see kr.lul.stringnotebook.domain.foundation.Note.memo
+     * @see kr.lul.stringnotebook.domain.notebook.Note.memo
      */
     var memo: String?
 
     /**
-     * @see kr.lul.stringnotebook.domain.foundation.Note.createdAt
+     * @see kr.lul.stringnotebook.domain.notebook.Note.createdAt
      */
     val createdAt: Instant
 
     /**
-     * @see kr.lul.stringnotebook.domain.foundation.Note.updatedAt
+     * @see kr.lul.stringnotebook.domain.notebook.Note.updatedAt
      */
     val updatedAt: Instant
 }

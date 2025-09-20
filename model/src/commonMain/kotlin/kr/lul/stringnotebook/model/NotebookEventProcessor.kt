@@ -5,7 +5,7 @@ import kr.lul.stringnotebook.data.entity.Anchor
 import kr.lul.stringnotebook.domain.event.AddAnchorEvent
 import kr.lul.stringnotebook.domain.foundation.Event
 import kr.lul.stringnotebook.domain.foundation.EventProcessor
-import kr.lul.stringnotebook.domain.foundation.Notebook
+import kr.lul.stringnotebook.domain.notebook.Notebook
 import kotlin.uuid.ExperimentalUuidApi
 
 @ExperimentalStdlibApi

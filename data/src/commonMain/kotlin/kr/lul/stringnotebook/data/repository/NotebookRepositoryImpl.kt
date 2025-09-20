@@ -3,7 +3,7 @@ package kr.lul.stringnotebook.data.repository
 import kotlinx.coroutines.delay
 import kr.lul.logger.Logger
 import kr.lul.stringnotebook.data.entity.NotebookEntity
-import kr.lul.stringnotebook.domain.foundation.Notebook
+import kr.lul.stringnotebook.domain.notebook.Notebook
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 

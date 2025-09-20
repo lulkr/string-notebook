@@ -1,6 +1,8 @@
-package kr.lul.stringnotebook.domain.foundation
+package kr.lul.stringnotebook.domain.notebook
 
 import kotlinx.datetime.Instant
+import kr.lul.stringnotebook.domain.foundation.Anchor
+import kr.lul.stringnotebook.domain.property.ColorProperty
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
@@ -39,6 +41,31 @@ interface Notebook {
      * 앵커 목록.
      */
     val anchors: List<Anchor>
+
+    /**
+     * 기본 앵커 컨테이너의 테두리.
+     */
+    val anchorContainerBorder: Border?
+
+    /**
+     * 기본 앵커 컨테이너의 배경색.
+     */
+    val anchorContainerBackground: ColorProperty?
+
+    /**
+     * 기본 앵커 컨테이너의 패딩(내부 여백). DP 단위.
+     */
+    val anchorContainerPadding: Float?
+
+    /**
+     * 기본 앵커 반경. DP 단위.
+     */
+    val anchorRadius: Float?
+
+    /**
+     * 기본 앵커 색상.
+     */
+    val anchorColor: ColorProperty?
 
     /**
      * 생성 시각.

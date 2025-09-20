@@ -2,9 +2,12 @@ package kr.lul.stringnotebook.data.entity
 
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
+import kr.lul.stringnotebook.data.entity.NotebookEntity.Companion.DEFAULT_NAME
 import kr.lul.stringnotebook.domain.foundation.Anchor
 import kr.lul.stringnotebook.domain.foundation.AnchorType
-import kr.lul.stringnotebook.domain.foundation.Notebook
+import kr.lul.stringnotebook.domain.notebook.Border
+import kr.lul.stringnotebook.domain.notebook.Notebook
+import kr.lul.stringnotebook.domain.property.ColorProperty
 import kr.lul.stringnotebook.domain.property.PositionProperty
 import kr.lul.stringnotebook.domain.type.PlainAnchorType
 import kotlin.uuid.ExperimentalUuidApi
@@ -14,9 +17,25 @@ import kotlin.uuid.Uuid
 @ExperimentalUuidApi
 fun Notebook(
     id: Uuid = Uuid.random(),
-    name: String = NotebookEntity.DEFAULT_NAME,
-    description: String? = null
-): Notebook = NotebookEntity(id, name, description)
+    name: String = DEFAULT_NAME,
+    memo: String? = null,
+    anchorContainerBorder: Border? = null,
+    anchorContainerBackground: ColorProperty? = null,
+    anchorContainerPadding: Float? = null,
+    anchorRadius: Float? = null,
+    anchorColor: ColorProperty? = null,
+    createdAt: Instant = Clock.System.now()
+): Notebook = NotebookEntity(
+    id,
+    name,
+    memo,
+    anchorContainerBorder,
+    anchorContainerBackground,
+    anchorContainerPadding,
+    anchorRadius,
+    anchorColor,
+    createdAt
+)
 
 @ExperimentalStdlibApi
 @ExperimentalUuidApi

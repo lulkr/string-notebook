@@ -4,7 +4,9 @@ import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 import kr.lul.logger.Logger
 import kr.lul.stringnotebook.domain.foundation.Anchor
-import kr.lul.stringnotebook.domain.foundation.Notebook
+import kr.lul.stringnotebook.domain.notebook.Border
+import kr.lul.stringnotebook.domain.notebook.Notebook
+import kr.lul.stringnotebook.domain.property.ColorProperty
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
@@ -14,6 +16,11 @@ internal class NotebookEntity(
     override val id: Uuid = Uuid.random(),
     override var name: String = DEFAULT_NAME,
     override var memo: String? = null,
+    override val anchorContainerBorder: Border? = null,
+    override val anchorContainerBackground: ColorProperty? = null,
+    override val anchorContainerPadding: Float? = null,
+    override val anchorRadius: Float? = null,
+    override val anchorColor: ColorProperty? = null,
     override val createdAt: Instant = Clock.System.now()
 ) : Notebook {
     companion object {
@@ -48,6 +55,11 @@ internal class NotebookEntity(
         "name='$name'",
         "memo=$memo",
         "anchors=$anchors",
+        "anchorContainerBorder=${anchorContainerBorder?.summary}",
+        "anchorContainerBackground=$anchorContainerBackground",
+        "anchorContainerPadding=$anchorContainerPadding",
+        "anchorColor=$anchorColor",
+        "anchorRadius=$anchorRadius",
         "createdAt=$createdAt",
         "updatedAt=$updatedAt"
     ).joinToString(", ", "NotebookEntity(", ")")

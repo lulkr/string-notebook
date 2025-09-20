@@ -24,6 +24,7 @@ import kr.lul.stringnotebook.state.resources.molecule_context_menu_add_anchor
 import kr.lul.stringnotebook.state.template.LayoutHandler
 import kr.lul.stringnotebook.viewmodel.foundation.BaseViewModelet
 import kr.lul.stringnotebook.viewmodel.foundation.ViewModeletOwner
+import kr.lul.stringnotebook.viewmodel.util.toState
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
@@ -97,27 +98,9 @@ class NotebookViewModelet(
         super.onStart(owner)
 
         launch {
-            val notebook = model.read(id) ?: throw IllegalArgumentException("Notebook not found : id=$id")
-            // TODO 노트북에서 UI 속성 읽기.
-            val state = NotebookState(
-                id = notebook.id,
-                name = notebook.name,
-                memo = notebook.memo,
-                anchors = notebook.anchors.map { anchor ->
-                    AnchorState(
-                        id = anchor.id,
-                        type = anchor.type,
-                        name = anchor.name,
-                        memo = anchor.memo ?: "",
-                        position = PositionState(anchor.position.x.value, anchor.position.y.value),
-                        createdAt = anchor.createdAt,
-                        updatedAt = anchor.updatedAt
-                    )
-                },
-                menu = null,
-                createdAt = notebook.createdAt,
-                updatedAt = notebook.updatedAt
-            )
+            val notebook = model.read(id)
+                ?: throw IllegalArgumentException("Notebook not found : id=$id")
+            val state = notebook.toState()
 
             this@NotebookViewModelet.notebook = object : ObservableNotebook(notebook) {
                 override fun afterChange() {

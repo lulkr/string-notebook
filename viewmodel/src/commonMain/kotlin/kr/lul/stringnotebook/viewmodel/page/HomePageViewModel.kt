@@ -1,6 +1,5 @@
 package kr.lul.stringnotebook.viewmodel.page
 
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kr.lul.stringnotebook.model.NotebookModel
@@ -30,7 +29,6 @@ class HomePageViewModel(
             val notebook = model.create()
             logger.d("#newNotebook : notebook=$notebook")
 
-            delay(1000L)
             callback(notebook.id)
         }
     }
