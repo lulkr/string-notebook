@@ -113,7 +113,7 @@ class NotebookViewModelet(
                         id = anchor.id,
                         type = anchor.type,
                         name = anchor.name,
-                        memo = anchor.memo ?: "",
+                        memo = anchor.memo,
                         position = PositionState(anchor.position.x.value, anchor.position.y.value),
                         createdAt = anchor.createdAt,
                         updatedAt = anchor.updatedAt

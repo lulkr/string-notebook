@@ -15,7 +15,7 @@ internal class NotebookEntity(
     override val id: Uuid = Uuid.random(),
     override var name: String = DEFAULT_NAME,
     override var memo: String? = null,
-    anchorContainerBorder: Border? = null,
+    override val anchorContainerBorder: Border? = null,
     override val createdAt: Instant = Clock.System.now()
 ) : Notebook {
     companion object {
@@ -26,7 +26,6 @@ internal class NotebookEntity(
 
     private val _anchors: MutableList<Anchor> = mutableListOf()
     override val anchors: List<Anchor> = _anchors
-    override val anchorContainerBorder: Border? = anchorContainerBorder
 
     override var updatedAt: Instant = createdAt
         private set

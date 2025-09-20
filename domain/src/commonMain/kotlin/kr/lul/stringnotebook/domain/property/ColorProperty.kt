@@ -1,6 +1,5 @@
 package kr.lul.stringnotebook.domain.property
 
-import kr.lul.stringnotebook.domain.foundation.Configuration.ID_PREFIX_NOTEBOOK_PROPERTY
 import kr.lul.stringnotebook.domain.foundation.Property.Companion.id
 import kr.lul.stringnotebook.domain.foundation.ScalarProperty
 import kr.lul.stringnotebook.domain.type.ColorPropertyType
@@ -18,8 +17,6 @@ class ColorProperty(
     override var value: Long = 0L
 ) : ScalarProperty<Long>(id, ColorPropertyType, name) {
     companion object {
-        val Unspecified = ColorProperty(id = Uuid.parse("$ID_PREFIX_NOTEBOOK_PROPERTY-000000000000"))
-
         val HEX_FORMAT: HexFormat = HexFormat {
             number.removeLeadingZeros = true
         }

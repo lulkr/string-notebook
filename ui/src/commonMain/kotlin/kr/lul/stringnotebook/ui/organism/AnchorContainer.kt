@@ -52,7 +52,7 @@ internal fun BoxScope.AnchorContainer(
     anchor: AnchorState,
     zIndex: Float = Z_INDEX_ANCHOR_BASE,
     interactionSource: MutableInteractionSource = MutableInteractionSource(),
-    properties: AnchorProperties = AnchorProperties.Default
+    properties: AnchorProperties = AnchorPropertiesDefaults.default(LocalEditContext.current.anchorPropertiesDefault)
 ) {
     Box(
         Modifier.offset(anchor.position.x.dp, anchor.position.y.dp)
