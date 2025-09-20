@@ -5,11 +5,10 @@ import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.offset
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
@@ -39,51 +38,51 @@ fun Notebook(
 
     val density = LocalDensity.current
 
-    Box(
-        modifier = Modifier.fillMaxSize()
-            .background(MaterialTheme.colorScheme.background)
-            .pointerInput(state) {
-                detectTapGestures(
-                    onDoubleTap = { offset ->
-                        handler.onDoubleClick(offset.toDp(density) - state.size / 2F)
-                    },
-                    onLongPress = { offset ->
-                        handler.onLongClick(offset.toDp(density) - state.size / 2F)
-                    },
-                    onTap = { offset ->
-                        handler.onClick(offset.toDp(density) - state.size / 2F)
-                    }
+    CompositionLocalProvider(LocalEditContext provides state) {
+        Box(
+            modifier = Modifier.fillMaxSize()
+                .background(MaterialTheme.colorScheme.background)
+                .pointerInput(state) {
+                    detectTapGestures(
+                        onDoubleTap = { offset ->
+                            handler.onDoubleClick(offset.toDp(density) - state.size / 2F)
+                        },
+                        onLongPress = { offset ->
+                            handler.onLongClick(offset.toDp(density) - state.size / 2F)
+                        },
+                        onTap = { offset ->
+                            handler.onClick(offset.toDp(density) - state.size / 2F)
+                        }
+                    )
+                }
+                .onSizeChanged { size ->
+                    handler.onChangeSize(size.toDp(density))
+                },
+            contentAlignment = Alignment.Center
+        ) {
+            state.anchors.forEachIndexed { idx, anchor ->
+                AnchorContainer(
+                    anchor = anchor,
+                    zIndex = Z_INDEX_ANCHOR_BASE + idx
                 )
             }
-            .onSizeChanged { size ->
-                handler.onChangeSize(size.toDp(density))
-            },
-        contentAlignment = Alignment.Center
-    ) {
-        state.anchors.forEachIndexed { idx, anchor ->
-            Box(
-                Modifier.offset(anchor.position.x.dp, anchor.position.y.dp)
-                    .zIndex(Z_INDEX_ANCHOR_BASE + idx)
-                    .background(MaterialTheme.colorScheme.tertiary, CircleShape)
-                    .size(8.dp)
-            )
-        }
 
-        state.menu?.let { menu ->
-            Box(
-                modifier = Modifier
-                    .zIndex(Z_INDEX_MENU)
-                    .offset(menu.position.x.dp, menu.position.y.dp)
-            ) {
-                ContextMenu(
-                    state = menu,
-                    onDismissRequest = { handler.onClick(Offset.Unspecified) }
-                )
+            state.menu?.let { menu ->
+                Box(
+                    modifier = Modifier
+                        .zIndex(Z_INDEX_MENU)
+                        .offset(menu.position.x.dp, menu.position.y.dp)
+                ) {
+                    ContextMenu(
+                        state = menu,
+                        onDismissRequest = { handler.onClick(Offset.Unspecified) }
+                    )
+                }
             }
-        }
 
-        if (state.notes.isEmpty()) {
-            Text(state.summary)
+            if (state.notes.isEmpty()) {
+                Text(state.summary)
+            }
         }
     }
 }

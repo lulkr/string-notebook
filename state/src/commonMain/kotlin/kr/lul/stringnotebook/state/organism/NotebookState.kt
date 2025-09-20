@@ -57,6 +57,9 @@ class NotebookState(
      * @see NotebookState.size
      */
     size: Size = Size.Unspecified,
+    anchorPropertiesDefault: AnchorProperties? = null,
+    anchorPropertiesHovered: AnchorProperties? = null,
+    anchorPropertiesSelected: AnchorProperties? = null,
     override val key: Any = Uuid.random(),
     override val testTag: String = key.toString()
 ) : State, EditContext {
@@ -84,9 +87,13 @@ class NotebookState(
     override var menu: MenuState? by mutableStateOf(menu)
 
     /**
-     * 화면상 표시 크기. DP 단위.
+     * 노트북의 화면상 표시 크기. DP 단위.
      */
     var size: Size by mutableStateOf(size)
+
+    override val anchorPropertiesDefault: AnchorProperties? by mutableStateOf(anchorPropertiesDefault)
+    override val anchorPropertiesHovered: AnchorProperties? by mutableStateOf(anchorPropertiesHovered)
+    override val anchorPropertiesSelected: AnchorProperties? by mutableStateOf(anchorPropertiesSelected)
 
     override val summary = "NotebookState('$name', anchors=${anchors.map { it.summary }})"
 
@@ -100,6 +107,9 @@ class NotebookState(
                     updatedAt == other.updatedAt &&
                     menu == other.menu &&
                     size == other.size &&
+                    anchorPropertiesDefault == other.anchorPropertiesDefault &&
+                    anchorPropertiesHovered == other.anchorPropertiesHovered &&
+                    anchorPropertiesSelected == other.anchorPropertiesSelected &&
                     key == other.key &&
                     testTag == other.testTag
             )
@@ -113,6 +123,9 @@ class NotebookState(
         result = 31 * result + updatedAt.hashCode()
         result = 31 * result + (menu?.hashCode() ?: 0)
         result = 31 * result + size.hashCode()
+        result = 31 * result + (anchorPropertiesDefault?.hashCode() ?: 0)
+        result = 31 * result + (anchorPropertiesHovered?.hashCode() ?: 0)
+        result = 31 * result + (anchorPropertiesSelected?.hashCode() ?: 0)
         result = 31 * result + key.hashCode()
         result = 31 * result + testTag.hashCode()
         return result
@@ -127,6 +140,9 @@ class NotebookState(
         "updatedAt=$updatedAt",
         "menu=$menu",
         "size=$size",
+        "anchorPropertiesDefault=$anchorPropertiesDefault",
+        "anchorPropertiesHovered=$anchorPropertiesHovered",
+        "anchorPropertiesSelected=$anchorPropertiesSelected",
         "key=$key",
         "testTag='$testTag'"
     ).joinToString(", ", "NotebookState(", ")")

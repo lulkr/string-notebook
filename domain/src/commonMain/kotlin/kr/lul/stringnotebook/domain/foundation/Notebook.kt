@@ -6,6 +6,8 @@ import kotlin.uuid.Uuid
 
 /**
  * 스트링 노트북.
+ *
+ * TODO UI 속성 추가.
  */
 @ExperimentalStdlibApi
 @ExperimentalUuidApi

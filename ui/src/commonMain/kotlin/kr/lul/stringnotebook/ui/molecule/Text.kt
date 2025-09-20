@@ -5,8 +5,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextLayoutResult
-import kr.lul.stringnotebook.state.atom.hasTestTag
 import kr.lul.stringnotebook.state.molecule.TextState
+import kr.lul.stringnotebook.ui.atom.hasTestTag
 import kr.lul.stringnotebook.ui.atom.string
 import kotlin.uuid.ExperimentalUuidApi
 
