@@ -73,6 +73,7 @@ include(
     ":navigation",
     ":navigation:preview",
     ":state",
+    ":state:preview",
     ":ui",
     ":ui:preview",
     ":viewmodel"

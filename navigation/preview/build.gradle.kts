@@ -30,16 +30,11 @@ kotlin {
             implementation(libs.lifecycle.runtime.compose)
             implementation(libs.util.logger)
         }
-
-        androidMain.dependencies {
-            implementation(compose.preview)
-            implementation(libs.androidx.activity.compose)
-        }
     }
 }
 
 android {
-    namespace = "${rootProject.group}.preview"
+    namespace = "${rootProject.group}.preview.navigation"
     compileSdk = libs.versions.android.compile.get().toInt()
 
     compileOptions {
@@ -48,7 +43,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "${rootProject.group}.preview"
+        applicationId = "${rootProject.group}.preview.navigation"
         minSdk = libs.versions.android.min.get().toInt()
         targetSdk = libs.versions.android.target.get().toInt()
         versionCode = 1

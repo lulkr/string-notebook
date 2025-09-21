@@ -16,28 +16,20 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            implementation(projects.ui)
+            api(projects.state.preview)
+            api(projects.ui)
 
-            implementation(compose.runtime)
-            implementation(compose.foundation)
-            implementation(compose.material3)
-            implementation(compose.ui)
-            implementation(compose.uiTooling)
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
-            implementation(libs.lifecycle.runtime.compose)
-            implementation(libs.util.logger)
-        }
-
-        androidMain.dependencies {
             implementation(compose.preview)
-            implementation(libs.androidx.activity.compose)
+            implementation(compose.uiTooling)
+            implementation(libs.util.logger)
         }
     }
 }
 
 android {
-    namespace = "${rootProject.group}.preview"
+    namespace = "${rootProject.group}.preview.ui"
     compileSdk = libs.versions.android.compile.get().toInt()
 
     compileOptions {
@@ -46,7 +38,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "${rootProject.group}.preview"
+        applicationId = "${rootProject.group}.preview.ui"
         minSdk = libs.versions.android.min.get().toInt()
         targetSdk = libs.versions.android.target.get().toInt()
         versionCode = 1
