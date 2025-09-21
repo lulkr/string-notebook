@@ -31,7 +31,7 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             api(projects.state)
-            api(compose.preview)
+            api(compose.uiTooling)
             api(compose.components.uiToolingPreview)
 
             implementation(libs.util.logger)

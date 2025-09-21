@@ -1,18 +1,32 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
-    alias(libs.plugins.android.application)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.compose.multiplatform)
     alias(libs.plugins.kotlin.multiplatform)
+    alias(libs.plugins.kotlin.multiplatform.android.library)
 }
 
 kotlin {
-    androidTarget {
-        compilerOptions {
-            jvmTarget.set(JvmTarget.JVM_17)
+    androidLibrary {
+        namespace = "${rootProject.group}.preview.ui"
+        compileSdk = libs.versions.android.compile.get().toInt()
+        minSdk = libs.versions.android.min.get().toInt()
+
+        experimentalProperties["android.experimental.kmp.enableAndroidResources"] = true
+
+        compilations.configureEach {
+            compilerOptions.configure {
+                jvmTarget.set(JvmTarget.JVM_17)
+            }
         }
     }
+
+    iosX64()
+    iosArm64()
+    iosSimulatorArm64()
+
+    jvm()
 
     sourceSets {
         commonMain.dependencies {
@@ -21,48 +35,26 @@ kotlin {
 
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
-            implementation(compose.preview)
+            implementation(compose.foundation)
+            implementation(compose.material3)
+            implementation(compose.runtime)
+            implementation(compose.ui)
             implementation(compose.uiTooling)
+            implementation(libs.androidx.lifecycle.viewmodel)
+            implementation(libs.androidx.lifecycle.runtime)
             implementation(libs.util.logger)
+        }
+
+        androidMain.dependencies {
+            implementation(compose.preview)
+            implementation(libs.androidx.activity.compose)
+            implementation(libs.androidx.customview.poolingcontainer)
         }
     }
 }
 
-android {
-    namespace = "${rootProject.group}.preview.ui"
-    compileSdk = libs.versions.android.compile.get().toInt()
-
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
-
-    defaultConfig {
-        applicationId = "${rootProject.group}.preview.ui"
-        minSdk = libs.versions.android.min.get().toInt()
-        targetSdk = libs.versions.android.target.get().toInt()
-        versionCode = 1
-        versionName = "${parent!!.version}"
-    }
-
-    buildTypes {
-        debug {
-            applicationIdSuffix = ".debug"
-
-            isMinifyEnabled = false
-            isShrinkResources = false
-        }
-
-        release {
-            isMinifyEnabled = true
-            isShrinkResources = true
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-        }
-    }
-
-    packaging {
-        resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
-        }
-    }
+compose.resources {
+    publicResClass = true
+    packageOfResClass = "${rootProject.group}.preview.ui"
+    generateResClass = auto
 }

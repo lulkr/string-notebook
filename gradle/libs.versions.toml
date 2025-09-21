@@ -8,6 +8,7 @@ android-min = "29"
 android-target = "36"
 
 # https://kotlinlang.org/docs/whatsnew2120.html
+customview-poolingcontainer = "1.1.0"
 kotlin = "2.2.20"
 
 lifecycle = "2.9.4"
@@ -16,7 +17,10 @@ util = "0.0.3-SNAPSHOT"
 [libraries]
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version = "1.11.0" }
 androidx-core = { module = "androidx.core:core-ktx", version = "1.17.0" }
+androidx-customview-poolingcontainer = { module = "androidx.customview:customview-poolingcontainer", version.ref = "customview-poolingcontainer" }
 androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version = "1.1.7" }
+androidx-lifecycle-viewmodel = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycle" }
+androidx-lifecycle-runtime = { module = "org.jetbrains.androidx.lifecycle:lifecycle-runtime-compose", version.ref = "lifecycle" }
 koin-android = { module = "io.insert-koin:koin-android" }
 koin-core = { module = "io.insert-koin:koin-core" }
 koin-bom = { module = "io.insert-koin:koin-bom", version = "4.1.1" }

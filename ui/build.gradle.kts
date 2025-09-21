@@ -29,6 +29,7 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             api(projects.state)
+            api(compose.components.resources)
             api(compose.material3)
             api(compose.runtime)
             api(compose.ui)
