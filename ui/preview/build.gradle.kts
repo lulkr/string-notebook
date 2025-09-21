@@ -33,28 +33,12 @@ kotlin {
             api(projects.state.preview)
             api(projects.ui)
 
-            implementation(compose.components.resources)
-            implementation(compose.components.uiToolingPreview)
-            implementation(compose.foundation)
-            implementation(compose.material3)
-            implementation(compose.runtime)
-            implementation(compose.ui)
-            implementation(compose.uiTooling)
-            implementation(libs.androidx.lifecycle.viewmodel)
-            implementation(libs.androidx.lifecycle.runtime)
             implementation(libs.util.logger)
         }
 
         androidMain.dependencies {
-            implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
             implementation(libs.androidx.customview.poolingcontainer)
         }
     }
-}
-
-compose.resources {
-    publicResClass = true
-    packageOfResClass = "${rootProject.group}.preview.ui"
-    generateResClass = auto
 }
