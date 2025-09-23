@@ -27,3 +27,6 @@ val Color.alphaHex: String
 @ExperimentalStdlibApi
 val Color.hex: String
     get() = "#${redHex}${greenHex}${blueHex}${alphaHex}"
+
+val Color.inverse: Color
+    get() = Color(1 - red, 1 - green, 1 - blue, alpha)

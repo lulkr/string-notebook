@@ -93,6 +93,10 @@ graph TB
   end
   :shared["shared"]
   :state["state"]
+  subgraph :state
+    :state:preview["preview"]
+    :state:preview["preview"]
+  end
   :ui["ui"]
   subgraph :ui
     :ui:preview["preview"]
@@ -110,7 +114,9 @@ graph TB
   :navigation:preview --> :viewmodel
   :shared --> :navigation
   :state --> :domain
+  :state:preview --> :state
   :ui --> :state
+  :ui:preview --> :state:preview
   :ui:preview --> :ui
   :viewmodel --> :model
   :viewmodel --> :state
@@ -125,6 +131,7 @@ class :navigation kotlin-multiplatform
 class :navigation:preview android-application
 class :shared kotlin-multiplatform
 class :state kotlin-multiplatform
+class :state:preview kotlin-multiplatform
 class :ui kotlin-multiplatform
 class :ui:preview android-application
 class :viewmodel kotlin-multiplatform

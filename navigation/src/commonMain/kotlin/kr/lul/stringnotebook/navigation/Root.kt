@@ -7,6 +7,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.NavHost
 import kr.lul.stringnotebook.navigation.compose.composable
 import kr.lul.stringnotebook.navigation.navigator.BaseNavigator
@@ -27,7 +28,26 @@ import kotlin.uuid.ExperimentalUuidApi
 fun Root(
     baseNavigator: BaseNavigator
 ) {
-    logger.v("#Root args : baseNavigator=$baseNavigator")
+    Root(baseNavigator) {
+        composable(SplashNavigator(baseNavigator)) { navigator, _ ->
+            SplashRouter(navigator)
+        }
+
+        // ------------------------------------------------------------------------------------------------------------
+
+        composable(HomeNavigator(baseNavigator)) { navigator, _ ->
+            HomeRouter(navigator)
+        }
+
+        composable(NotebookNavigator(baseNavigator)) { navigator, entry ->
+            NotebookRouter(navigator)
+        }
+    }
+}
+
+@Composable
+fun Root(baseNavigator: BaseNavigator, builder: NavGraphBuilder.() -> Unit) {
+    logger.v("#Root args : baseNavigator=$baseNavigator, builder=$builder")
 
     StringNotebookTheme {
         Scaffold { padding ->
@@ -36,22 +56,9 @@ fun Root(
                 startDestination = baseNavigator.destination.route,
                 modifier = Modifier.fillMaxSize()
                     .background(MaterialTheme.colorScheme.background)
-                    .padding(padding)
-            ) {
-                composable(SplashNavigator(baseNavigator)) { navigator, _ ->
-                    SplashRouter(navigator)
-                }
-
-                // ------------------------------------------------------------------------------------------------------------
-
-                composable(HomeNavigator(baseNavigator)) { navigator, _ ->
-                    HomeRouter(navigator)
-                }
-
-                composable(NotebookNavigator(baseNavigator)) { navigator, entry ->
-                    NotebookRouter(navigator)
-                }
-            }
+                    .padding(padding),
+                builder = builder
+            )
         }
     }
 }

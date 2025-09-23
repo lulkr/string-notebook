@@ -2,6 +2,7 @@ package kr.lul.stringnotebook.ui.molecule
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextLayoutResult
@@ -25,7 +26,11 @@ fun Text(
     logger.v("#Text args : state=${state.summary}, modifier=$modifier, onTextLayout=$onTextLayout")
 
     val text = state.text
-        ?: AnnotatedString(state.resource!!.string)
+        ?: if (LocalInspectionMode.current) {
+            AnnotatedString(state.resource?.toString() ?: "text resource is null in preview.")
+        } else {
+            AnnotatedString(state.resource!!.string)
+        }
 
     @Suppress("LocalVariableName")
     val _modifier = if (modifier.hasTestTag()) {

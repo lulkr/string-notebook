@@ -1,0 +1,18 @@
+<component name="ProjectRunConfigurationManager">
+    <configuration default="false" name="clean iOS.App" type="AppleRunConfiguration" factoryName="Application"
+        REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false"
+        PASS_PARENT_ENVS_2="true" PROJECT_NAME="String Notebook App" TARGET_NAME="App" CONFIG_NAME="Debug"
+        IS_LOCATION_SIMULATION_SUPPORTED="true" SCHEME_NAME="clean iOS.App" IS_LOCATION_SIMULATION_ALLOWED="true"
+        LOCATION_SCENARIO_ID="com.apple.dt.IDEFoundation.CurrentLocationScenarioIdentifier" LOCATION_SCENARIO_TYPE="1"
+        APPLICATION_LANGUAGE="IDELaunchSchemeLanguageUseSystemLanguage" APPLICATION_REGION=""
+        DEVELOPMENT_TEAM="${TEAM_ID}" RUN_TARGET_PROJECT_NAME="String Notebook App" RUN_TARGET_NAME="App"
+        MAKE_ACTIVE="TRUE" SHOULD_DEBUG_EXTENSIONS="false">
+        <embedded_app_extension_list />
+        <method v="2">
+            <option name="Gradle.BeforeRunTask" enabled="true" tasks="clean" externalProjectPath="$PROJECT_DIR$"
+                vmOptions="" scriptParameters="" />
+            <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask"
+                enabled="true" />
+        </method>
+    </configuration>
+</component>

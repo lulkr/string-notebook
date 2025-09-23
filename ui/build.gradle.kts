@@ -9,9 +9,11 @@ plugins {
 
 kotlin {
     androidLibrary {
-        namespace = "${parent!!.group}.ui"
+        namespace = "${rootProject.group}.ui"
         compileSdk = libs.versions.android.compile.get().toInt()
         minSdk = libs.versions.android.min.get().toInt()
+
+        experimentalProperties["android.experimental.kmp.enableAndroidResources"] = true
 
         compilations.configureEach {
             compilerOptions.configure {
@@ -29,6 +31,7 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             api(projects.state)
+            api(compose.components.resources)
             api(compose.material3)
             api(compose.runtime)
             api(compose.ui)
@@ -51,4 +54,10 @@ kotlin {
         jvmMain.dependencies {
         }
     }
+}
+
+compose.resources {
+    publicResClass = true
+    packageOfResClass = "${rootProject.group}.ui"
+    generateResClass = auto
 }

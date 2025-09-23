@@ -1,0 +1,30 @@
+<component name="ProjectRunConfigurationManager">
+    <configuration default="false" name="🔥clean Desktop.app" type="GradleRunConfiguration" factoryName="Gradle">
+        <ExternalSystemSettings>
+            <option name="executionName" />
+            <option name="externalProjectPath" value="$PROJECT_DIR$/app" />
+            <option name="externalSystemIdString" value="GRADLE" />
+            <option name="scriptParameters" value="--quiet" />
+            <option name="taskDescriptions">
+                <list />
+            </option>
+            <option name="taskNames">
+                <list>
+                    <option value="hotRunJvm" />
+                    <option value="--mainClass" />
+                    <option value="&quot;kr.lul.stringnotebook.app.MainKt&quot;" />
+                </list>
+            </option>
+            <option name="vmOptions"
+                value="-Dcompose.reload.build.warmup=true -Dcompose.reload.orchestration.port=64145" />
+        </ExternalSystemSettings>
+        <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+        <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+        <DebugAllEnabled>false</DebugAllEnabled>
+        <RunAsTest>false</RunAsTest>
+        <method v="2">
+            <option name="Gradle.BeforeRunTask" enabled="true" tasks="clean" externalProjectPath="$PROJECT_DIR$"
+                vmOptions="" scriptParameters="" />
+        </method>
+    </configuration>
+</component>

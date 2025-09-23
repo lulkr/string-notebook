@@ -5,7 +5,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import kr.lul.stringnotebook.domain.foundation.AnchorType
+import kr.lul.stringnotebook.domain.type.PlainAnchorType
 import kr.lul.stringnotebook.state.molecule.PositionState
+import kotlin.time.Clock
 import kotlin.time.ExperimentalTime
 import kotlin.time.Instant
 import kotlin.uuid.ExperimentalUuidApi
@@ -19,15 +21,15 @@ import kotlin.uuid.Uuid
 @ExperimentalUuidApi
 @Stable
 class AnchorState(
-    override val id: Uuid,
-    type: AnchorType,
-    name: String?,
-    memo: String?,
-    position: PositionState,
-    override val createdAt: Instant,
-    updatedAt: Instant,
+    override val id: Uuid = Uuid.random(),
+    type: AnchorType = PlainAnchorType,
+    name: String? = null,
+    memo: String? = null,
+    position: PositionState = PositionState(),
+    override val createdAt: Instant = Clock.System.now(),
+    updatedAt: Instant = createdAt,
     override val key: Any = Uuid.random(),
-    override val testTag: String = key.toString(),
+    override val testTag: String = key.toString()
 ) : NoteState {
     var type: AnchorType by mutableStateOf(type)
     override var name: String? by mutableStateOf(name)

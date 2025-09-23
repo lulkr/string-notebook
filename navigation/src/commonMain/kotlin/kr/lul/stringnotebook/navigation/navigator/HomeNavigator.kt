@@ -14,8 +14,8 @@ import kotlin.uuid.Uuid
 @ExperimentalUuidApi
 @Immutable
 class HomeNavigator(
-    private val base: BaseNavigator
-) : Navigator by base {
+    base: BaseNavigator
+) : AbstractNavigator(base) {
     companion object : Destination<HomeNavigator> {
         override val route = "home"
         override val arguments: List<NamedNavArgument> = emptyList()

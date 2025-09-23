@@ -1,5 +1,6 @@
 package kr.lul.stringnotebook.state.atom
 
+import androidx.compose.runtime.Immutable
 import org.jetbrains.compose.resources.StringResource
 
 /**
@@ -10,6 +11,7 @@ import org.jetbrains.compose.resources.StringResource
  *
  * @see StringResource
  */
+@Immutable
 data class TextResource(
     val resource: StringResource,
     val args: List<Any> = emptyList()
