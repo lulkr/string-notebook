@@ -37,9 +37,15 @@ kotlin {
         }
 
         androidMain.dependencies {
-            api(libs.androidx.activity.compose)
-            api(libs.androidx.customview.poolingcontainer)
-            api(libs.androidx.emoji2)
+            implementation(libs.androidx.activity.compose)
+            implementation(libs.androidx.customview.poolingcontainer)
+            implementation(libs.androidx.emoji2)
         }
     }
+}
+
+compose.resources {
+    publicResClass = true
+    packageOfResClass = "${rootProject.group}.preview.ui"
+    generateResClass = auto
 }

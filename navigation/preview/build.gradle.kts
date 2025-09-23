@@ -44,6 +44,12 @@ kotlin {
             implementation(libs.lifecycle.runtime.compose)
             implementation(libs.util.logger)
         }
+
+        androidMain.dependencies {
+            implementation(libs.androidx.activity.compose)
+            implementation(libs.androidx.customview.poolingcontainer)
+            implementation(libs.androidx.emoji2)
+        }
     }
 }
 

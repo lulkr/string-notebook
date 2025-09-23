@@ -13,6 +13,8 @@ kotlin {
         compileSdk = libs.versions.android.compile.get().toInt()
         minSdk = libs.versions.android.min.get().toInt()
 
+        experimentalProperties["android.experimental.kmp.enableAndroidResources"] = true
+
         compilations.configureEach {
             compilerOptions.configure {
                 jvmTarget.set(JvmTarget.JVM_17)
@@ -40,14 +42,11 @@ kotlin {
         commonTest.dependencies {
             implementation(libs.kotlin.test)
         }
-
-        androidMain.dependencies {
-        }
-
-        iosMain.dependencies {
-        }
-
-        jvmMain.dependencies {
-        }
     }
+}
+
+compose.resources {
+    publicResClass = true
+    packageOfResClass = "${rootProject.group}.navigation"
+    generateResClass = auto
 }
