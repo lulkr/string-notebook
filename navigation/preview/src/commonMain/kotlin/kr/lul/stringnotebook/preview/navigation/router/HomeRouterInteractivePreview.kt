@@ -1,9 +1,10 @@
-package kr.lul.stringnotebook.preview.router
+package kr.lul.stringnotebook.preview.navigation.router
 
 import androidx.compose.runtime.Composable
 import kr.lul.stringnotebook.navigation.compose.rememberBaseNavigator
 import kr.lul.stringnotebook.navigation.navigator.HomeNavigator
 import kr.lul.stringnotebook.navigation.router.HomeRouter
+import kr.lul.stringnotebook.preview.navigation.foundation.InteractivePreviewContainer
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import kotlin.time.ExperimentalTime
 import kotlin.uuid.ExperimentalUuidApi

@@ -1,4 +1,4 @@
-package kr.lul.stringnotebook.preview.router
+package kr.lul.stringnotebook.preview.navigation.foundation
 
 import androidx.compose.runtime.Composable
 import kr.lul.stringnotebook.navigation.Root
