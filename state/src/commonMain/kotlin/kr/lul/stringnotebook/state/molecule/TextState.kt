@@ -182,7 +182,7 @@ open class TextState private constructor(
     )
 
     init {
-        require(text != null || resource != null) { "either text or resId must be provided : text=$text, resId=$resource" }
+        require((text != null) xor (resource != null)) { "either text or resId must be provided : text=$text, resId=$resource" }
     }
 
     fun copy(
