@@ -48,7 +48,7 @@ fun main() {
 
         Window(
             onCloseRequest = ::exitApplication,
-            title = "String Notebook",
+            title = "String Notebook"
         ) {
             Root(rememberBaseNavigator(SplashNavigator))
         }
