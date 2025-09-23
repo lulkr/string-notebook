@@ -37,9 +37,9 @@ kotlin {
         }
 
         androidMain.dependencies {
-            implementation(libs.androidx.activity.compose)
-            implementation(libs.androidx.customview.poolingcontainer)
-            implementation(libs.androidx.emoji2)
+            api(libs.androidx.activity.compose)
+            api(libs.androidx.customview.poolingcontainer)
+            api(libs.androidx.emoji2)
         }
     }
 }

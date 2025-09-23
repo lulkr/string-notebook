@@ -1,6 +1,7 @@
 package kr.lul.stringnotebook.preview.router
 
 import androidx.compose.runtime.Composable
+import kr.lul.stringnotebook.navigation.compose.rememberBaseNavigator
 import kr.lul.stringnotebook.navigation.navigator.HomeNavigator
 import kr.lul.stringnotebook.navigation.router.HomeRouter
 import org.jetbrains.compose.ui.tooling.preview.Preview
@@ -19,7 +20,7 @@ import kotlin.uuid.ExperimentalUuidApi
 @ExperimentalUuidApi
 @Preview
 fun HomeRouterInteractivePreview() {
-    InteractivePreviewContainer(destination = HomeNavigator) {
+    InteractivePreviewContainer(HomeNavigator(rememberBaseNavigator(HomeNavigator))) {
         HomeRouter(it)
     }
 }
