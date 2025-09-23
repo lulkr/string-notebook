@@ -62,7 +62,7 @@ object AnchorPropertiesDefaults {
             return default()
 
         val containerBorder = if (
-            (properties.containerBorder.brush as? SolidColor)?.value == Color.Transparent
+            (properties.containerBorder.brush as? SolidColor)?.value == Color.Unspecified
         ) {
             properties.containerBorder.copy(color = Color.Transparent)
         } else {
@@ -77,7 +77,7 @@ object AnchorPropertiesDefaults {
             properties.containerBackground
         }
 
-        val color = if (properties.color == Color.Transparent) {
+        val color = if (properties.color == Color.Unspecified) {
             MaterialTheme.colorScheme.tertiaryContainer
         } else {
             properties.color
@@ -136,7 +136,7 @@ object AnchorPropertiesDefaults {
             return hovered()
 
         val containerBorder = if (
-            (properties.containerBorder.brush as? SolidColor)?.value == Color.Transparent
+            (properties.containerBorder.brush as? SolidColor)?.value == Color.Unspecified
         ) {
             properties.containerBorder.copy(color = MaterialTheme.colorScheme.secondary)
         } else {
@@ -151,7 +151,7 @@ object AnchorPropertiesDefaults {
             properties.containerBackground
         }
 
-        val color = if (properties.color == Color.Transparent) {
+        val color = if (properties.color == Color.Unspecified) {
             MaterialTheme.colorScheme.secondary
         } else {
             properties.color
