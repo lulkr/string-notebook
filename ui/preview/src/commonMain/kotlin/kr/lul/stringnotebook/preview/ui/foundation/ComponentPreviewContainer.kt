@@ -1,5 +1,6 @@
 package kr.lul.stringnotebook.preview.ui.foundation
 
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -10,9 +11,10 @@ import kr.lul.stringnotebook.ui.atom.StringNotebookTheme
 fun ComponentPreviewContainer(
     modifier: Modifier = Modifier,
     contentAlignment: Alignment = Alignment.Center,
+    darkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit
 ) {
-    StringNotebookTheme {
+    StringNotebookTheme(darkTheme = darkTheme) {
         Box(modifier, contentAlignment) {
             content()
         }
