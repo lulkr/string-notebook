@@ -3,6 +3,7 @@ package kr.lul.stringnotebook.state.atom
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.unit.Dp
@@ -17,16 +18,16 @@ import androidx.compose.ui.unit.Dp
 @Immutable
 data class BorderState(
     val width: Dp,
-    val brush: Brush,
-    val shape: Shape
+    val brush: Brush = SolidColor(Color.Unspecified),
+    val shape: Shape = RectangleShape
 ) {
     @ExperimentalStdlibApi
-    val summary = "(w=$width, b=${brush.summary}, s=${shape.summary})"
+    val summary = "($width, ${brush.summary}, ${shape.summary})"
 
     constructor(
         width: Dp,
-        color: Color,
-        shape: Shape
+        color: Color = Color.Unspecified,
+        shape: Shape = RectangleShape
     ) : this(width, SolidColor(color), shape)
 
     fun copy(
